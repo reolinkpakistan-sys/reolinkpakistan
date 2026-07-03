@@ -1,0 +1,30 @@
+RewriteEngine On
+# RewriteBase / (Removed to support subdirectories)
+
+# Rewrite for static products
+RewriteRule ^products/4g-sim-solar-camera/?$ go-pt-plus.html [L]
+RewriteRule ^products/reolink-go-pt-plus/?$ go-pt-plus.html [L]
+
+# Rewrite for dynamic products
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^products/([^/]+)/?$ product-details.html?id=$1 [QSA,L]
+
+# Rewrite for static blog posts
+RewriteRule ^blog/cattle-farm-security/?$ cattle-farm-security.html [L]
+
+# Rewrite for generic blog posts
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^blog/([^/]+)/?$ $1.html [L]
+
+# Rewrite for static pages
+RewriteRule ^about/?$ about.html [L]
+RewriteRule ^contact/?$ contact.html [L]
+RewriteRule ^warranty/?$ warranty.html [L]
+RewriteRule ^privacy-policy/?$ privacy-policy.html [L]
+
+# Rewrite for category pages
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^category/([^/]+)/?$ category.html?type=$1 [QSA,L]

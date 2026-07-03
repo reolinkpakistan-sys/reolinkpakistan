@@ -1,0 +1,1139 @@
+{
+    "prices": {
+        "solar": 25000,
+        "no_solar": 23000
+    },
+    "contact": {
+        "phone": "0320-6755555",
+        "whatsapp": "0320-6755555",
+        "email": "support@reolink.com.pk",
+        "address": "House # 41\/31361 Opposite green homes colony, Nawabpur Road Multan, Pakistan"
+    },
+    "videos": {
+        "construction": "dha-site-sample.mov",
+        "farm": "go_pt_plus_sample.mp4",
+        "logistics": "Chungi no 9_20260214155305_20260214155335_95270005CWT782UY_0..MP4"
+    },
+    "gadgets": [
+        {
+            "id": "keen-ranger-pt",
+            "name": "KEEN Ranger PT - 4G Trail Camera",
+            "category": "4g-cameras",
+            "homepage": true,
+            "desc": "This wire-free 4G LTE wildlife camera is designed to monitor wild animals. With 2K super HD, pan and tilt, advanced detection, and clear night vision.",
+            "orig_price": 45000,
+            "curr_price": 35000,
+            "tag": "Wildlife Edition",
+            "image_type": "url",
+            "image": "images\/products\/keen-ranger-pt\/hero.png?v=3",
+            "static_url": "\/products\/keen-ranger-pt",
+            "visible": true,
+            "meta_title": "KEEN Ranger PT 4G Trail Camera | S M Enterprises",
+            "meta_desc": "KEEN Ranger PT by Reolink. 4G LTE Pan\/Tilt Wildlife camera with 2K HD, Animal Detection, and No-Glow IR LEDs.",
+            "focus_keywords": "keen ranger pt, 4g trail camera, wildlife camera pakistan",
+            "layout_type": "nature_immersive",
+            "gallery": [
+                "images\/dl\/keen_1_observing.jpg",
+                "images\/dl\/keen_2_protecting.jpg",
+                "images\/dl\/keen_3_forest.jpg"
+            ],
+            "features": [
+                "Intelligent Animal Detection",
+                "No-Glow IR LEDs (940nm)",
+                "0.5s Fast Trigger Speed",
+                "360\u00b0 Pan & 140\u00b0 Tilt Rotation"
+            ],
+            "specs": {
+                "Resolution": "2K 4MP Super HD (2560x1440)",
+                "Night Vision": "No-Glow 940nm IR LEDs (invisible to animals)",
+                "Detection": "Smart Animal\/Person Detection & 0.5s Trigger",
+                "Pan & Tilt": "360\u00b0 Horizontal Pan, 140\u00b0 Vertical Tilt",
+                "Power Supply": "6000mAh Battery + KEEN Solar Panel",
+                "Connectivity": "4G LTE Mobile Network (Wire-free)"
+            },
+            "youtube_url": "",
+            "hero_badges": [],
+            "hero_bullets": [],
+            "hero_show_rain": false,
+            "hero_floating_tags": []
+        },
+        {
+            "id": "reolink-go-pt-ultra",
+            "name": "Reolink Go PT Ultra",
+            "category": "4g-cameras",
+            "homepage": true,
+            "desc": "Official PTA Approved Smart 4K 8MP Wireless 4G LTE PT Battery Camera with Color Night Vision and Continuous Solar Power.",
+            "orig_price": 75000,
+            "curr_price": 55000,
+            "warranty": "1-Month Warranty",
+            "tag": "4K Ultra HD",
+            "image_type": "url",
+            "image": "images\/dl\/go_pt_ultra_hero.png",
+            "visible": true,
+            "meta_title": "Reolink Go PT Ultra 4G 4K Camera Pakistan",
+            "meta_desc": "Smart 4K 8MP Wireless 4G LTE PT Battery Camera with Color Night Vision. Buy officially in Pakistan.",
+            "focus_keywords": "reolink go pt ultra, 4g camera, 4k 4g camera, solar security camera",
+            "layout_type": "hero_immersive",
+            "static_url": "\/products\/reolink-go-pt-ultra",
+            "hero_video": "",
+            "hero_image": "images\/dl\/go_pt_ultra_hero.png",
+            "gallery": [
+                "images\/dl\/go_pt_ultra_gal1.jpg",
+                "images\/dl\/go_pt_ultra_gal1.jpg",
+                "images\/dl\/go_pt_ultra_gal3.webp"
+            ],
+            "features": [
+                "4K 8MP Ultra HD",
+                "PTA Approved 4G Sim Security",
+                "355\u00b0 Pan & 140\u00b0 Tilt Rotation",
+                "Continuous Solar Eco Power",
+                "Color Night Vision with Spotlights"
+            ],
+            "specs": {
+                "Image Sensor": "1\/2.7\" CMOS Sensor",
+                "Video Resolution": "3840 x 2160 (8 Megapixel) @ 15fps",
+                "Field of View": "Fixed Lens, Horizontal: 90\u00b0, Vertical: 47\u00b0, Diagonal: 110\u00b0",
+                "Infrared Night Vision": "Up to 10 Meters (33ft)",
+                "Color Night Vision": "Spotlight: 2pcs\/2.4W\/6500K",
+                "Power Supply": "21.6Wh Rechargeable Battery or Reolink Solar Panel 2",
+                "Storage": "microSD Card (max. 128GB)",
+                "Weather Resistance": "IP64 Weatherproof Casing",
+                "Network Connectivity": "4G LTE Mobile SIM Guard (PTA Approved)"
+            },
+            "youtube_url": "",
+            "hero_badges": [
+                "PTA Approved",
+                "4G LTE",
+                "100% Wire-Free",
+                "Colour Night Vision"
+            ],
+            "hero_bullets": [
+                "Official PTA Approved SIM Security",
+                "4K 8MP Ultra HD Resolution",
+                "355\u00b0 Pan & 140\u00b0 Tilt Rotation",
+                "Smart Person\/Vehicle\/Pet PIR Detection",
+                "Wire-Free Solar Continuous Power"
+            ],
+            "hero_show_rain": true,
+            "hero_floating_tags": [
+                {
+                    "text": "4K 8MP HD",
+                    "icon": "videocam-outline"
+                },
+                {
+                    "text": "PTA Approved",
+                    "icon": "shield-checkmark-outline"
+                },
+                {
+                    "text": "Solar Power",
+                    "icon": "moon-outline"
+                },
+                {
+                    "text": "Colour Night Vision",
+                    "icon": "flash-outline"
+                }
+            ],
+            "rich_features": [
+                {
+                    "title": "4K Meets 4G, Clear Everywhere",
+                    "desc": "Thanks to its independent 4G network, the Go PT Ultra can be installed in various outdoor environments. Combined with 4K UHD resolution, it delivers clear and detailed images anytime, anywhere.",
+                    "type": "collage",
+                    "collage_images": [
+                        "images\/dl\/collage1.webp",
+                        "images\/dl\/collage2.webp",
+                        "images\/dl\/collage3.webp",
+                        "images\/dl\/collage4.webp",
+                        "images\/dl\/collage5.webp"
+                    ]
+                },
+                {
+                    "title": "Flexible Data Plans & Charging Options",
+                    "desc": "Stay completely wire-free and independent. Powered by the sun and connected through local mobile networks, this camera is built for remote locations.",
+                    "type": "subfeatures",
+                    "items": [
+                        {
+                            "title": "Where There's Sunlight, There's Power",
+                            "desc": "The 6W Reolink Solar Panel 2 continuously supplies Go PT Ultra with clean, sustainable energy. Just 10 minutes of charging a day keeps the camera running reliably. Even in cloudy weather, the built-in battery lasts up to two months.",
+                            "image": "images\/dl\/solar_power.webp"
+                        }
+                    ]
+                },
+                {
+                    "title": "Upgraded to 4K. See More in Every Direction",
+                    "desc": "As an enhanced version, the Go PT Ultra delivers stunning 4K visuals, capturing every scene with remarkable clarity and precision.",
+                    "type": "split",
+                    "media_type": "video",
+                    "media_url": "videos\/dl\/dl_f8ae61c630285d.mp4",
+                    "poster_url": "images\/dl\/ultra_4k_poster.jpg",
+                    "layout": "right"
+                },
+                {
+                    "title": "Color or Black & White, 4K Vision Extends into the Night",
+                    "desc": "Choose between full color or sharp black-and-white night vision modes to protect your property after dark.",
+                    "type": "toggle_video",
+                    "options": [
+                        {
+                            "label": "Color Night Vision",
+                            "desc": "With spotlights, the Go PT Ultra captures vivid, true-to-life color images even in low light or shadowed environments.",
+                            "video_url": "videos\/dl\/dl_4e82e126bb8075.mp4",
+                            "poster_url": "images\/dl\/color_night_poster.jpg"
+                        },
+                        {
+                            "label": "Black-and-White Night Vision",
+                            "desc": "In complete darkness, it automatically switches to black-and-white night vision. The PIR (Passive Infrared) sensor detects all motions up to 10 meters away, ensuring nothing escapes from sight.",
+                            "video_url": "videos\/dl\/dl_d1f5fabbadbec5.mp4",
+                            "poster_url": "images\/dl\/bw_night_poster.jpg"
+                        }
+                    ]
+                },
+                {
+                    "title": "360\u00b0 Coverage, Full Protection",
+                    "desc": "Its 355\u00b0 pan and 140\u00b0 tilt allow for all-sided monitoring\u2014no blind spots, just full coverage. Define up to 32 preset positions for instantly monitoring vulnerable spots like gates or windows.",
+                    "type": "split",
+                    "media_type": "video",
+                    "media_url": "videos\/dl\/dl_d42037fbc1d75e.mp4",
+                    "poster_url": "images\/dl\/ptz_cover.jpg",
+                    "layout": "left"
+                },
+                {
+                    "title": "Smart AI Detection. Fewer False Alarms",
+                    "desc": "By accurately distinguishing people, vehicles, and pets from other moving objects, Go PT Ultra reduces false alerts and sends you real-time notifications about what really matters on your property.",
+                    "type": "split",
+                    "media_type": "image",
+                    "media_url": "images\/dl\/ai_detection.webp",
+                    "layout": "right"
+                },
+                {
+                    "title": "Dual Warning. Double Security",
+                    "desc": "When an intruder is detected, the camera's powerful spotlights and custom siren automatically activate to warn off unwanted visitors, preventing potential break-ins before they happen.",
+                    "type": "split",
+                    "media_type": "image",
+                    "media_url": "images\/dl\/dual_warning.webp",
+                    "layout": "left"
+                },
+                {
+                    "title": "Two-Way Audio. Real-Time Talkback",
+                    "desc": "With the built-in microphone and speaker, you can have a live conversation with anyone in front of the camera, whether greeting visitors, talking to the delivery agent, or warning suspicious strangers.",
+                    "type": "split",
+                    "media_type": "image",
+                    "media_url": "images\/dl\/two_way_audio.webp",
+                    "layout": "right"
+                },
+                {
+                    "title": "Utility Features",
+                    "desc": "Enhance your surveillance with time-lapse video generation, weatherproofing, and flexible local storage options.",
+                    "type": "card_grid",
+                    "cards": [
+                        {
+                            "title": "The Magic of Time Lapse",
+                            "desc": "Time-lapse videos show an enchanting world where long-term events like sunrises or constructions take place in minutes or seconds.",
+                            "media_type": "video",
+                            "media_url": "videos\/dl\/dl_ca96a7fe7f5c64.mp4",
+                            "poster_url": "images\/dl\/timelapse_poster.jpg"
+                        },
+                        {
+                            "title": "Secure Storage Options",
+                            "desc": "Save your motion-triggered recordings locally to a microSD card (up to 128GB) with no monthly subscriptions.",
+                            "media_type": "image",
+                            "media_url": "images\/dl\/storage.webp"
+                        },
+                        {
+                            "title": "Built to Endure (IP64)",
+                            "desc": "This weatherproof smart IP camera works perfectly both inside and outside your home, even in harsh weather conditions.",
+                            "media_type": "image",
+                            "media_url": "images\/dl\/weatherproof.webp"
+                        }
+                    ]
+                },
+                {
+                    "title": "Everything Under Control, Anywhere & Anytime",
+                    "desc": "Once suspicious events are detected, the camera will send you instant alerts via push notifications and emails. Watch real-time video feeds from your property and keep an eye on what matters most, anytime, anywhere.",
+                    "type": "accordion",
+                    "items": [
+                        {
+                            "title": "Real-Time Alerts",
+                            "desc": "Once suspicious events are detected, the camera will send you instant alerts via push notifications and emails. You can also set detection sensitivity for more accurate alerts.",
+                            "image": "images\/dl\/realtime_alerts.webp"
+                        },
+                        {
+                            "title": "Live View",
+                            "desc": "Watch real-time video feeds from your property and keep an eye on what matters most, anytime, anywhere.",
+                            "image": "images\/dl\/live_view.webp"
+                        },
+                        {
+                            "title": "Smart Playback",
+                            "desc": "Filter the stored video recordings by event type and timeline to find the clip you need in just a snap.",
+                            "image": "images\/dl\/smart_playback.webp"
+                        },
+                        {
+                            "title": "Customizable Detection Zone",
+                            "desc": "By customizing detection zones, you can define the zones where the camera detects or does not, ignoring busy roads or walkways.",
+                            "image": "images\/dl\/detection_zone.webp"
+                        }
+                    ]
+                },
+                {
+                    "title": "View Your Cameras, Hands-Free",
+                    "type": "toggle_smarthome",
+                    "options": [
+                        {
+                            "label": "Works with Google Assistant",
+                            "desc": "With voice commands, you can quickly access your camera and watch live streaming on Google Nest Hub or Chromecast-enabled TV.",
+                            "image_url": "images\/dl\/go_pt_ultra_gal3.webp",
+                            "icon": "logo-google"
+                        },
+                        {
+                            "label": "Works with Alexa",
+                            "desc": "This Alexa-enabled camera can be controlled through voice commands. You can view the live stream on your Echo Spot, Echo Show, or Fire TV.",
+                            "image_url": "images\/dl\/smarthome.webp",
+                            "icon": "logo-amazon"
+                        }
+                    ]
+                },
+                {
+                    "title": "What's in the Box",
+                    "desc": "Included items in the box package:",
+                    "type": "box_contents",
+                    "items": [
+                        {
+                            "name": "Reolink Go PT Ultra",
+                            "image": "images\/dl\/inbox_camera.png"
+                        },
+                        {
+                            "name": "Wall Bracket",
+                            "image": "images\/dl\/inbox_bracket.png"
+                        },
+                        {
+                            "name": "Ceiling Bracket",
+                            "image": "images\/dl\/inbox_ceiling.png"
+                        },
+                        {
+                            "name": "Mounting Strap",
+                            "image": "images\/dl\/inbox_strap.png"
+                        },
+                        {
+                            "name": "USB-C Cable",
+                            "image": "images\/dl\/inbox_usbc.png"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "reolink-go-ranger-pt",
+            "name": "Reolink Go Ranger PT",
+            "category": "4g-cameras",
+            "homepage": true,
+            "desc": "Official PTA Approved 4K 8MP Smart Wire-Free 4G LTE Cellular Trail Camera with invisible 940nm no-glow IR LEDs, 360\u00b0 pan\/tilt view, animal species recognition, and continuous solar power.",
+            "orig_price": 55000,
+            "curr_price": 40000,
+            "warranty": "1-Month Warranty",
+            "tag": "4K Trail Camera",
+            "image_type": "url",
+            "image": "images\/products\/reolink-go-ranger-pt\/hero.png",
+            "static_url": "\/products\/reolink-go-ranger-pt",
+            "visible": true,
+            "meta_title": "Reolink Go Ranger PT 4K 4G Cellular Trail Camera Pakistan",
+            "meta_desc": "Smart 4K 8MP Wireless 4G LTE cellular trail camera with no-glow night vision, animal recognition, 360\u00b0 pan\/tilt, and solar panel.",
+            "focus_keywords": "reolink go ranger pt, 4g trail camera, wildlife camera pakistan, cellular trail camera",
+            "layout_type": "hero_immersive",
+            "gallery": [
+                "videos\/products\/reolink-go-ranger-pt\/overview.mp4",
+                "images\/products\/reolink-go-ranger-pt\/gallery-1.webp",
+                "images\/products\/reolink-go-ranger-pt\/gallery-2.webp",
+                "images\/products\/reolink-go-ranger-pt\/gallery-3.webp",
+                "images\/products\/reolink-go-ranger-pt\/gallery-4.webp"
+            ],
+            "features": [
+                "True 4K 8MP Ultra HD Resolution",
+                "Invisible 940nm No-Glow Night Vision",
+                "355\u00b0 Pan & 140\u00b0 Tilt Rotation",
+                "Intelligent Animal Detection & Species Recognition",
+                "100% Wire-Free with 6W Solar Panel 2 Included"
+            ],
+            "specs": {
+                "Image Sensor": "1\/3\" CMOS Sensor",
+                "Video Resolution": "3840 x 2160 (8 Megapixels) @ 15fps",
+                "Video Compression": "H.264\/H.265",
+                "Field of View": "Diagonal: 110\u00b0, Horizontal: 90\u00b0, Vertical: 47\u00b0",
+                "Infrared Night Vision": "Up to 10 Meters (33ft); 8pcs 940nm No-Glow IR LEDs",
+                "Pan & Tilt": "Pan: 355\u00b0, Tilt: 140\u00b0",
+                "Smart Detection": "PIR detection, person detection, vehicle detection, animal detection, animal recognition (buck\/antlerless deer\/turkey)",
+                "Power Supply": "6000mAh Rechargeable Battery + Reolink Solar Panel 2 (6W)",
+                "Connectivity": "3G\/4G LTE Network via Nano SIM Card (Wire-free)",
+                "Storage": "microSD Card Slot (Supports Max. 128GB)",
+                "Audio": "Two-Way Audio (Built-in Mic & Speaker)",
+                "Weatherproofing": "IP64 Weatherproof Rating"
+            },
+            "youtube_url": "",
+            "hero_badges": [
+                "PTA Approved",
+                "4G LTE SIM",
+                "100% Wire-Free",
+                "Invisible Night Vision"
+            ],
+            "hero_bullets": [
+                "Official PTA Approved SIM Security",
+                "True 4K 8MP Ultra HD Resolution",
+                "355\u00b0 Pan & 140\u00b0 Tilt Vision",
+                "Smart Animal Detection & Species Recognition",
+                "Continuous Power with 6W Solar Panel 2"
+            ],
+            "hero_show_rain": true,
+            "hero_floating_tags": [
+                {
+                    "text": "4K 8MP UHD",
+                    "icon": "videocam-outline"
+                },
+                {
+                    "text": "PTA Approved",
+                    "icon": "shield-checkmark-outline"
+                },
+                {
+                    "text": "Solar Power",
+                    "icon": "flash-outline"
+                },
+                {
+                    "text": "Animal Recognition",
+                    "icon": "videocam-outline"
+                }
+            ],
+            "rich_features": [
+                {
+                    "title": "4K Cellular Wildlife Monitoring",
+                    "desc": "Thanks to its independent 4G network connection, the Go Ranger PT can operate deep in the wilderness. Combine this with 4K Ultra HD resolution to monitor every wild scene in stunning detail.",
+                    "type": "collage",
+                    "collage_images": [
+                        "images\/products\/reolink-go-ranger-pt\/gallery-1.webp",
+                        "images\/products\/reolink-go-ranger-pt\/gallery-2.webp",
+                        "images\/products\/reolink-go-ranger-pt\/gallery-3.webp",
+                        "images\/products\/reolink-go-ranger-pt\/gallery-4.webp",
+                        "images\/products\/reolink-go-ranger-pt\/feature-1.webp"
+                    ]
+                },
+                {
+                    "title": "Invisible 940nm No-Glow Night Vision",
+                    "desc": "Equipped with invisible 940nm no-glow IR LEDs, this camera captures clear night footage of animals without startling them or giving away its location.",
+                    "type": "split",
+                    "media_type": "image",
+                    "media_url": "images\/products\/reolink-go-ranger-pt\/feature-1.webp",
+                    "layout": "left"
+                },
+                {
+                    "title": "Smart Animal Species Recognition",
+                    "desc": "Built-in smart AI filters recognize bucks, antlerless deer, and turkeys, sending you real-time alerts about key wildlife activities directly to your phone.",
+                    "type": "split",
+                    "media_type": "image",
+                    "media_url": "images\/products\/reolink-go-ranger-pt\/feature-2.jpg",
+                    "layout": "right"
+                },
+                {
+                    "title": "Solar-Powered Continuous Energy",
+                    "desc": "Combined with the 6W Solar Panel 2, the camera stays continuously charged. No need to change batteries or climb trees in remote wildlife zones.",
+                    "type": "subfeatures",
+                    "items": [
+                        {
+                            "title": "Eco-Friendly Power",
+                            "desc": "A few hours of sunlight daily keeps the 6000mAh battery running, maintaining a completely off-grid monitoring station.",
+                            "image": "images\/products\/reolink-go-ranger-pt\/feature-3.webp"
+                        }
+                    ]
+                },
+                {
+                    "title": "Utility Features built for Wilderness",
+                    "desc": "Time-lapse support, robust IP64 weatherproof protection, and reliable local storage options.",
+                    "type": "card_grid",
+                    "cards": [
+                        {
+                            "title": "Time Lapse Wildlife Capture",
+                            "desc": "Capture slow-moving events like sunsets or wildlife nesting, packing hours of footage into seconds of beautiful time-lapse.",
+                            "media_type": "image",
+                            "media_url": "images\/products\/reolink-go-ranger-pt\/feature-4.webp"
+                        },
+                        {
+                            "title": "Secure Local Storage",
+                            "desc": "Record directly onto a microSD card (up to 128GB) for completely local storage with zero monthly fees.",
+                            "media_type": "image",
+                            "media_url": "images\/products\/reolink-go-ranger-pt\/box-contents.webp"
+                        }
+                    ]
+                }
+            ],
+            "hero_video": "",
+            "hero_image": "images\/products\/reolink-go-ranger-pt\/hero.png"
+        },
+        {
+            "id": "reolink-go",
+            "name": "Reolink Go 4G Cellular Camera",
+            "category": "4g-cameras",
+            "homepage": true,
+            "desc": "Official PTA Approved 100% Wire-Free 4G LTE Outdoor Cellular Security Camera. Operates on local SIM cards (Jazz, Zong, Telenor) with 1080p Full HD, starlight night vision, and local storage support.",
+            "orig_price": 29000,
+            "curr_price": 23000,
+            "tag": "Best Seller",
+            "image_type": "url",
+            "image": "images\/products\/reolink-go\/hero.png",
+            "visible": true,
+            "meta_title": "Reolink Go 4G SIM Camera Pakistan | S M Enterprises",
+            "meta_desc": "Buy original Reolink Go 4G LTE wireless cellular camera in Pakistan. 100% Wire-free battery camera, 1080p HD, PIR motion sensor, IP65 weatherproof.",
+            "focus_keywords": "reolink go, 4g security camera, mobile security camera pakistan, solar camera",
+            "layout_type": "hero_immersive",
+            "hero_badges": [
+                "PTA Approved",
+                "4G LTE SIM",
+                "100% Wire-Free"
+            ],
+            "hero_bullets": [
+                "1080p Full HD Video Quality",
+                "Starlight night vision up to 33 feet",
+                "7800mAh rechargeable battery & solar options"
+            ],
+            "hero_show_rain": true,
+            "hero_floating_tags": [
+                {
+                    "text": "100% Wire-Free",
+                    "icon": "cellular-outline"
+                },
+                {
+                    "text": "Starlight Vision",
+                    "icon": "moon-outline"
+                },
+                {
+                    "text": "Weatherproof",
+                    "icon": "water-outline"
+                },
+                {
+                    "text": "Two-Way Audio",
+                    "icon": "flash-outline"
+                }
+            ],
+            "features": [
+                "100% Wire-Free & Cellular Network",
+                "Rechargeable Battery or Solar Panel Power",
+                "1080p Full HD & Starlight Night Vision",
+                "PIR Motion Detection & Smart Alerts"
+            ],
+            "specs": {
+                "Resolution": "1080p Full HD at 15 fps",
+                "Connectivity": "PTA Approved 4G LTE Mobile Network (Nano-SIM)",
+                "Water Resistance": "IP65 Weatherproof rated",
+                "Power Supply": "7800mAh Rechargeable Battery \/ Solar Panel option",
+                "Night Vision": "Starlight CMOS, up to 10m (33ft)",
+                "Audio": "Two-way audio speaker & mic",
+                "Storage": "Supports up to 64GB MicroSD card"
+            },
+            "gallery": [
+                "images\/products\/reolink-go\/gallery-1.png",
+                "images\/products\/reolink-go\/remote_property.jpg",
+                "images\/products\/reolink-go\/construction_site.jpg",
+                "images\/products\/reolink-go\/farm.jpg",
+                "images\/products\/reolink-go\/warehouse.jpg",
+                "images\/products\/reolink-go\/battery.jpg",
+                "images\/products\/reolink-go\/solar.jpg",
+                "images\/products\/reolink-go\/micro_sim_card.png"
+            ],
+            "youtube_url": "",
+            "video": "videos\/products\/reolink-go\/overview.mp4",
+            "model_3d": "images\/products\/reolink-go\/3d\/reolink-go.glb"
+        },
+        {
+            "id": "go-plus",
+            "name": "Reolink Go PT Plus (Without Solar Plate)",
+            "category": "4g-cameras",
+            "homepage": false,
+            "desc": "Official PTA Approved 4G LTE wire-free pan-tilt security camera (Without Solar Plate). Powered by a rechargeable battery or direct power supply, featuring 355\u00b0 pan & 140\u00b0 tilt.",
+            "orig_price": 28000,
+            "curr_price": 23000,
+            "tag": "Popular Choice",
+            "image_type": "url",
+            "image": "images\/camera-no-solar.webp",
+            "visible": true,
+            "meta_title": "Reolink Go PT Plus (Without Solar Plate) Pakistan | S M Enterprises",
+            "meta_desc": "Buy PTA Approved Reolink Go PT Plus (Without Solar Plate) in Pakistan. 2K 4MP resolution, 355 degree pan, rechargeable battery, wire-free.",
+            "focus_keywords": "go pt plus without solar plate, 4g sim camera, solar camera pakistan",
+            "layout_type": "hero_immersive",
+            "hero_badges": [
+                "PTA Approved",
+                "4G LTE Network",
+                "Without Solar Plate"
+            ],
+            "hero_bullets": [
+                "2K 4MP Super HD Clarity",
+                "355\u00b0 Pan & 140\u00b0 Tilt Rotation",
+                "Without Solar Plate (Battery \/ DC Power)"
+            ],
+            "hero_show_rain": true,
+            "hero_floating_tags": [
+                {
+                    "text": "PTA Approved",
+                    "icon": "shield-checkmark-outline"
+                },
+                {
+                    "text": "355\u00b0 Pan & 140\u00b0 Tilt",
+                    "icon": "videocam-outline"
+                },
+                {
+                    "text": "Without Solar Plate",
+                    "icon": "flash-outline"
+                },
+                {
+                    "text": "2K 4MP Clarity",
+                    "icon": "videocam-outline"
+                }
+            ],
+            "features": [
+                "2K 4MP Super HD Clarity",
+                "PTA Approved 4G SIM Guard",
+                "355\u00b0 Pan & 140\u00b0 Tilt Rotation",
+                "Without Solar Plate (Battery\/DC)"
+            ],
+            "specs": {
+                "Resolution": "2K 4MP Super HD (2560x1440)",
+                "Connectivity": "PTA Approved 4G LTE Mobile Network",
+                "Pan & Tilt": "355\u00b0 Horizontal Pan, 140\u00b0 Vertical Tilt",
+                "Power Supply": "6000mAh Rechargeable Battery \/ 5V 2A DC Adapter (Without Solar Plate)",
+                "Smart Alarm": "Person & Vehicle PIR motion sensor detection",
+                "Audio": "Two-Way Talkback intercom system"
+            },
+            "gallery": [],
+            "youtube_url": ""
+        },
+        {
+            "id": "rlc-823a",
+            "name": "Reolink RLC-823A",
+            "category": "wifi-cameras",
+            "homepage": false,
+            "desc": "Smart 4K 8MP PTZ PoE Camera with Auto-Tracking, 5X Optical Zoom, Person\/Vehicle\/Animal Detection, Two-Way Audio, and Color Night Vision.",
+            "orig_price": 55000,
+            "curr_price": 43000,
+            "warranty": "1-Month Warranty",
+            "tag": "PTZ PoE Premium",
+            "image_type": "url",
+            "image": "images\/products\/rlc-823a\/gallery-1-transparent.png",
+            "visible": true,
+            "meta_title": "[Official] Reolink RLC-823A Pakistan | S M Enterprises",
+            "meta_desc": "Buy original Reolink RLC-823A in Pakistan. 4K 8MP resolution, 5x optical zoom, auto-tracking, smart detection and color night vision.",
+            "focus_keywords": "reolink rlc-823a, poe camera, ptz security camera, auto tracking camera pakistan",
+            "layout_type": "hero_immersive",
+            "static_url": "\/products\/rlc-823a",
+            "hero_video": "",
+            "hero_image": "images\/products\/rlc-823a\/gallery-1-transparent.png",
+            "gallery": [
+                "images\/products\/rlc-823a\/gallery-1-transparent.png",
+                "images\/products\/rlc-823a\/gallery-2.jpg",
+                "images\/products\/rlc-823a\/gallery-3.png"
+            ],
+            "features": [
+                "4K 8MP Ultra HD Resolution",
+                "5X Optical Zoom Precision",
+                "360\u00b0 Pan & 90\u00b0 Tilt PTZ",
+                "Person\/Vehicle\/Animal Detection",
+                "Color Night Vision with Spotlights",
+                "Smart Auto Tracking System"
+            ],
+            "specs": {
+                "Image Sensor": "1\/2.8\" CMOS sensor",
+                "Video Resolution": "Default: 3840\u00d72160 (8.0 Megapixels) at 25 fps",
+                "Lens": "f=2.7\u201313.5mm F=1.6\u20133.3, zoom module",
+                "Optical Zoom": "5\u00d7",
+                "Video Format": "H.265",
+                "Field of View": "Horizontal: 105\u00b0 \u2013 31\u00b0; Vertical: 55\u00b0 \u2013 17\u00b0",
+                "Day & Night": "Auto-switching with IR-cut filter",
+                "Infrared Night Vision": "Up to 60 meters (190 ft) (LED: 4pcs\/28mil\/850nm)",
+                "Color Night Vision": "Spotlight: 3pcs\/5700K\/945 lumens",
+                "Audio": "Two-way audio (Built-in microphone & speaker)",
+                "Power over Ethernet (PoE)": "IEEE 802.3at, 48V Active",
+                "DC Power": "DC 12.0V\u250c2A, <24W",
+                "Ethernet Port": "One 10M\/100Mbps; RJ45",
+                "Storage Support": "microSD card slot (Max. 256GB)",
+                "Pan & Tilt Range": "Pan: 360\u00b0, Tilt: 0\u00b0\u201390\u00b0",
+                "Pan & Tilt Speed": "Pan: 2.5\u00b0\u2013150\u00b0\/s; Tilt: 1.5\u00b0\u201360\u00b0\/s",
+                "Preset Points & Patrol": "64 Presets; 1 patrol (up to 16 presets per patrol)",
+                "Auto Tracking": "Supported (Person\/Vehicle\/Animal Tracking)",
+                "Smart Alarm": "Motion detection; person detection; vehicle detection; pet\/animal detection",
+                "Browsers Supported": "Edge, Chrome, Firefox, Safari",
+                "OS Supported": "PC: Windows, Mac OS; Smartphone: iOS, Android",
+                "Record Mode": "Motion-triggered recording (default); 24\/7 recording; scheduled recording",
+                "Protocols & Standards": "HTTPS, SSL, TCP\/IP, UDP, HTTP, IPv4, UPnP, RTSP, RTMP, SMTP, NTP, DHCP, DNS, DDNS, FTP, P2P",
+                "Smart Home Compatibility": "Google Assistant, Amazon Alexa",
+                "Weather Resistance": "IP66 rated outdoor weatherproof casing",
+                "Working Temperature": "-10\u00b0C to +55\u00b0C (14\u00b0F to 131\u00b0F)",
+                "Dimensions & Weight": "\u03a6136*201mm, 1.8kg"
+            },
+            "youtube_url": "",
+            "hero_badges": [
+                "4K 8MP UHD",
+                "5X Optical Zoom",
+                "PoE Wired Guard",
+                "Colour Night Vision"
+            ],
+            "hero_bullets": [
+                "4K 8MP Ultra HD Resolution",
+                "5X Optical Zoom with Auto Focus",
+                "360\u00b0 Pan & 90\u00b0 Tilt PTZ Coverage",
+                "Person\/Vehicle\/Animal Auto Tracking",
+                "Power over Ethernet (PoE) plug-and-play"
+            ],
+            "hero_show_rain": true,
+            "hero_floating_tags": [
+                {
+                    "text": "4K 8MP UHD",
+                    "icon": "videocam-outline"
+                },
+                {
+                    "text": "5X Optical Zoom",
+                    "icon": "search-outline"
+                },
+                {
+                    "text": "Auto Tracking",
+                    "icon": "eye-outline"
+                },
+                {
+                    "text": "IP66 Waterproof",
+                    "icon": "water-outline"
+                }
+            ],
+            "rich_features": [
+                {
+                    "title": "4K Ultra HD Meets 5X Optical Zoom",
+                    "desc": "Experience unmatched visual clarity with 4K 8MP resolution. Zoom in 5X optically to see fine details like license plates or faces without losing any image quality.",
+                    "type": "split",
+                    "media_type": "video",
+                    "media_url": "videos\/products\/rlc-823a\/zoom-5x.mp4",
+                    "poster_url": "images\/products\/rlc-823a\/zoom-poster.jpg",
+                    "layout": "right"
+                },
+                {
+                    "title": "Smart Detection & Real-Time Talk",
+                    "desc": "Keep a close watch on your property. RLC-823A intelligently detects people, vehicles, and animals, sending instant alerts. Talk to visitors or warn off intruders in real-time.",
+                    "type": "subfeatures",
+                    "items": [
+                        {
+                            "title": "Dual Warning Protection",
+                            "desc": "When someone suspicious is spotted, the spotlights and custom siren trigger automatically to ward off threats before they escalate.",
+                            "image": "images\/products\/rlc-823a\/dual-warning.webp"
+                        },
+                        {
+                            "title": "Two-Way Audio Talk",
+                            "desc": "Hear and speak in real-time with anyone in front of the camera using the built-in microphone and speaker.",
+                            "image": "images\/products\/rlc-823a\/two-way-audio.webp"
+                        }
+                    ]
+                },
+                {
+                    "title": "Auto Tracking: Focus on What Matters",
+                    "desc": "RLC-823A automatically follows any moving person, vehicle, or pet in full 360\u00b0 view, keeping the target centered in the frame so you never miss a moment.",
+                    "type": "split",
+                    "media_type": "video",
+                    "media_url": "videos\/products\/rlc-823a\/tracking.mp4",
+                    "poster_url": "images\/products\/rlc-823a\/tracking-poster.jpg",
+                    "layout": "left"
+                },
+                {
+                    "title": "Vivid Color Night Vision, Even in Complete Darkness",
+                    "desc": "Equipped with powerful spotlights, this camera captures full-color night vision up to 60 meters away. Choose the night vision mode that fits your security needs.",
+                    "type": "toggle_video",
+                    "options": [
+                        {
+                            "label": "Color Night Vision",
+                            "desc": "With three powerful spotlights (945 lumens), see the night in vivid, true-to-life colors.",
+                            "video_url": "videos\/products\/rlc-823a\/night-color.mp4",
+                            "poster_url": "images\/products\/rlc-823a\/night-color-poster.jpg"
+                        },
+                        {
+                            "label": "Black & White Night Vision",
+                            "desc": "With 4 built-in infrared LEDs, captures clear monochrome footage up to 60 meters away in pitch-black settings.",
+                            "video_url": "videos\/products\/rlc-823a\/night-blackwhite.mp4",
+                            "poster_url": "images\/products\/rlc-823a\/night-blackwhite-poster.jpg"
+                        }
+                    ]
+                },
+                {
+                    "title": "Fast, Simple & Cost-Effective PoE Installation",
+                    "desc": "Thanks to Power over Ethernet (PoE) technology, transmit both power and data over a single network cable. Spend less time wiring and enjoy a cleaner install.",
+                    "type": "split",
+                    "media_type": "image",
+                    "media_url": "images\/products\/rlc-823a\/poe-install.webp",
+                    "layout": "right"
+                },
+                {
+                    "title": "Rugged IP66 Weatherproof Design",
+                    "desc": "With its robust IP66 waterproof metal casing, the RLC-823A is built to endure harsh weather conditions, including heavy rain, snow, heat, and cold.",
+                    "type": "split",
+                    "media_type": "video",
+                    "media_url": "videos\/products\/rlc-823a\/weatherproof.mp4",
+                    "poster_url": "images\/products\/rlc-823a\/weatherproof-poster.jpg",
+                    "layout": "left"
+                },
+                {
+                    "title": "Flexible Storage & Easy Playback Options",
+                    "desc": "Save motion-triggered, scheduled, or continuous recordings to a microSD card, connect to a Reolink NVR, or configure an FTP server for customized security.",
+                    "type": "card_grid",
+                    "cards": [
+                        {
+                            "title": "microSD Local Storage",
+                            "desc": "Supports up to a 256GB card, storing up to 97 hours of 4K footage locally without subscription fees.",
+                            "media_type": "image",
+                            "media_url": "images\/products\/rlc-823a\/storage-sd.webp"
+                        },
+                        {
+                            "title": "Reolink NVR Management",
+                            "desc": "For 24\/7 continuous recording or multi-camera setups, easily connect to a compatible Reolink NVR.",
+                            "media_type": "image",
+                            "media_url": "images\/products\/rlc-823a\/storage-nvr.webp"
+                        },
+                        {
+                            "title": "Tough Weatherproof Shield",
+                            "desc": "Fully sealed IP66 casing ensures operations continue during severe outdoor downpours.",
+                            "media_type": "image",
+                            "media_url": "images\/products\/rlc-823a\/weatherproof-rugged.webp"
+                        }
+                    ]
+                },
+                {
+                    "title": "Everything Under Control from App or Client",
+                    "desc": "Receive instant push notifications, view live feeds, customize motion zones, and play back recorded videos from anywhere via the free Reolink App.",
+                    "type": "accordion",
+                    "items": [
+                        {
+                            "title": "Instant & Accurate Alerts",
+                            "desc": "Get push notifications or email alerts with a detection snapshot the moment a danger is identified.",
+                            "image": "images\/products\/rlc-823a\/app-alerts.webp"
+                        },
+                        {
+                            "title": "Live View Anytime",
+                            "desc": "Check in on your home, business, or pets from anywhere in real-time with a tap on your smartphone.",
+                            "image": "images\/products\/rlc-823a\/app-liveview.webp"
+                        },
+                        {
+                            "title": "Easy Smart Playback",
+                            "desc": "Quickly filter saved video logs by date, time, and detection type to find specific events instantly.",
+                            "image": "images\/products\/rlc-823a\/app-playback.webp"
+                        },
+                        {
+                            "title": "Custom Motion Zones",
+                            "desc": "Define zones you want the camera to ignore, focusing notifications only on critical entryways.",
+                            "image": "images\/products\/rlc-823a\/app-zones.webp"
+                        }
+                    ]
+                },
+                {
+                    "title": "Hands-Free Voice Integration",
+                    "type": "toggle_smarthome",
+                    "options": [
+                        {
+                            "label": "Works with Google Assistant",
+                            "desc": "Cast your camera's live feed onto your Google Nest Hub or Chromecast-enabled TV using simple voice controls.",
+                            "image_url": "images\/products\/rlc-823a\/smarthome-google.webp",
+                            "icon": "logo-google"
+                        },
+                        {
+                            "label": "Works with Alexa",
+                            "desc": "Quickly access live streams on your Echo Show or Fire TV by asking Alexa.",
+                            "image_url": "images\/products\/rlc-823a\/smarthome-alexa.webp",
+                            "icon": "logo-amazon"
+                        }
+                    ]
+                },
+                {
+                    "title": "What's in the Box",
+                    "desc": "RLC-823A package includes all essential mountings and accessories for setup:",
+                    "type": "box_contents",
+                    "items": [
+                        {
+                            "name": "RLC-823A Camera",
+                            "image": "images\/products\/rlc-823a\/gallery-1.jpg"
+                        },
+                        {
+                            "name": "Power Adapter (12V\/2A)",
+                            "image": "images\/products\/rlc-823a\/gallery-1.jpg"
+                        },
+                        {
+                            "name": "1m Network Cable",
+                            "image": "images\/products\/rlc-823a\/gallery-1.jpg"
+                        },
+                        {
+                            "name": "Waterproof Lid & Screws Pack",
+                            "image": "images\/products\/rlc-823a\/gallery-1.jpg"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "solar-panel",
+            "name": "Reolink Solar Panel (Micro-USB)",
+            "category": "accessories",
+            "homepage": true,
+            "desc": "Get non-stop solar power for your Reolink battery-operated Micro-USB security cameras. Features 4m connection cable, 360-degree adjustable mounting bracket, and IP65 weatherproof design. Compatible with all Reolink wire-free Micro-USB cameras.",
+            "orig_price": 6000,
+            "curr_price": 4500,
+            "tag": "Eco Power",
+            "image_type": "url",
+            "image": "images\/products\/solar-panel\/hero.png?v=3",
+            "visible": true,
+            "meta_title": "Reolink Solar Panel Micro-USB Pakistan | S M Enterprises",
+            "meta_desc": "Order official Reolink Solar Panel (Micro-USB connection) in Pakistan. Continuous solar charging for wire-free battery security cameras.",
+            "focus_keywords": "reolink solar panel, solar panel micro usb, camera solar panel",
+            "features": [
+                "Eco-Friendly Continuous Power Charge",
+                "4-Meter Heavy-Duty USB Connection Cable",
+                "IP65 Weatherproof & Rugged Outdoor Housing",
+                "360\u00b0 Adjustable Rotation Wall Mount Bracket",
+                "Universal Interface (Type-C & Micro-USB Support)"
+            ],
+            "specs": {
+                "Charging Power": "3W (Continuous charging for battery cameras)",
+                "Output Voltage": "6V continuous charging output",
+                "Max Charging Current": "0.5A max charging output",
+                "Cable Length": "4 Meters heavy-duty outdoor cable",
+                "Bracket Adjust": "360\u00b0 Rotation \/ 90\u00b0 Tilt wall mount bracket",
+                "Interface Type": "Micro-USB Connector",
+                "Weatherproofing": "IP65 Waterproof rated outdoor housing",
+                "Dimensions": "185mm x 120mm x 6.5mm (3W version)"
+            },
+            "layout_type": "hero_immersive",
+            "gallery": [
+                "images\/products\/solar-panel\/3w-white-main.jpg",
+                "images\/products\/solar-panel\/3w-black-main.jpg",
+                "images\/products\/solar-panel\/3w-weatherproof.jpg",
+                "images\/products\/solar-panel\/3w-workswith.jpg",
+                "images\/products\/solar-panel\/3w-white-inbox.jpg",
+                "images\/products\/solar-panel\/3w-white-standing.jpg",
+                "images\/products\/solar-panel\/3w-black-standing.jpg",
+                "images\/products\/solar-panel\/3w-black-side.jpg",
+                "images\/products\/solar-panel\/3w-black-inbox.jpg"
+            ],
+            "warranty": "1-Month Warranty",
+            "hero_image": "images\/products\/solar-panel\/hero.png?v=3",
+            "hero_video": "",
+            "hero_badges": [
+                "Non-Stop Power",
+                "IP65 Weatherproof",
+                "Micro-USB Only",
+                "360\u00b0 Adjustable Mount"
+            ],
+            "hero_bullets": [
+                "Continuous Solar Power for Reolink Battery-Powered Cameras",
+                "IP65 Weatherproof Housing Built for Extreme Environments",
+                "4-Meter Heavy-Duty Connection Cable Included",
+                "360\u00b0 Rotation & 90\u00b0 Tilt Adjustable Bracket for Maximum Sunlight",
+                "Standard Micro-USB Connector for Direct Outdoor Power Charging"
+            ],
+            "hero_show_rain": true,
+            "hero_floating_tags": [
+                {
+                    "text": "Non-Stop Power",
+                    "icon": "sunny-outline"
+                },
+                {
+                    "text": "IP65 Weatherproof",
+                    "icon": "water-outline"
+                },
+                {
+                    "text": "360\u00b0 Wall Mount",
+                    "icon": "construct-outline"
+                },
+                {
+                    "text": "Micro-USB Port",
+                    "icon": "flash-outline"
+                }
+            ],
+            "rich_features": [
+                {
+                    "title": "Continuous Solar Charging (Non-Stop Power)",
+                    "desc": "Connect your Reolink solar-powered camera to this solar panel with a 4m connection cable to get continuous charging. Never worry about taking down your camera for charging again. Just 10 minutes of direct sunlight a day is enough to power your camera indefinitely.",
+                    "type": "split",
+                    "media_type": "image",
+                    "media_url": "images\/products\/solar-panel\/3w-workswith.jpg",
+                    "layout": "right"
+                },
+                {
+                    "title": "IP65 Weatherproof & Weather-Resistant Casing",
+                    "desc": "Designed with high-quality IP65 weatherproof housing, the Reolink solar panel is built to withstand extreme elements including rain, snow, heat, and freezing temperatures. It is the perfect, maintenance-free continuous charging accessory for outdoor security.",
+                    "type": "split",
+                    "media_type": "image",
+                    "media_url": "images\/products\/solar-panel\/3w-weatherproof.jpg",
+                    "layout": "left"
+                },
+                {
+                    "title": "Flexible Installation Details",
+                    "desc": "Designed for easy installation. The 360-degree adjustable bracket and 4-meter heavy-duty cable let you maximize sunlight absorption by positioning the panel in the sunniest spot.",
+                    "type": "subfeatures",
+                    "items": [
+                        {
+                            "title": "360\u00b0 Adjustable Wall Bracket",
+                            "desc": "Rotate 360 degrees and tilt 90 degrees to find the perfect angle for maximum sunlight absorption.",
+                            "image": "images\/products\/solar-panel\/6w-white-adjustable.jpg"
+                        },
+                        {
+                            "title": "4-Meter Connection Cable",
+                            "desc": "The 4-meter heavy-duty outdoor cable allows you to mount the solar panel far from the camera in a location with better sun coverage.",
+                            "image": "images\/products\/solar-panel\/6w-cablelength.jpg"
+                        },
+                        {
+                            "title": "Strap Mounting Support",
+                            "desc": "Includes slots for strap installation, allowing you to easily secure the solar panel to trees, posts, or pillars without drilling.",
+                            "image": "images\/products\/solar-panel\/6w-white-strap.jpg"
+                        }
+                    ]
+                },
+                {
+                    "title": "Premium Black & White Finishes",
+                    "desc": "Available in both sleek black and clean white finishes. Choose the color that matches your camera and blends seamlessly with your home's exterior.",
+                    "type": "collage",
+                    "collage_images": [
+                        "images\/products\/solar-panel\/3w-white-main.jpg",
+                        "images\/products\/solar-panel\/3w-black-main.jpg",
+                        "images\/products\/solar-panel\/3w-white-standing.jpg",
+                        "images\/products\/solar-panel\/3w-black-standing.jpg",
+                        "images\/products\/solar-panel\/3w-white-inbox.jpg"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "alvoxcon-mic",
+            "name": "Alvoxcon Rechargeable USB Wireless Microphone",
+            "category": "wireless-mics",
+            "homepage": true,
+            "desc": "Universal rechargeable wireless handheld dynamic microphone system with USB receiver for smartphones, PCs, laptops, and PA speakers.",
+            "orig_price": 10500,
+            "curr_price": 7000,
+            "warranty": "1-Month Warranty",
+            "tag": "Featured",
+            "image_type": "url",
+            "image": "images\/products\/alvoxcon-mic\/hero.png?v=2",
+            "visible": true,
+            "meta_title": "Alvoxcon Rechargeable USB Wireless Microphone in Pakistan | S M Enterprises",
+            "meta_desc": "Buy original Alvoxcon Rechargeable USB Wireless Microphone (UM4\/UM410) in Pakistan. High quality UHF dynamic mic with rechargeable receiver and 7-hour battery.",
+            "focus_keywords": "Alvoxcon, Wireless Microphone, USB Microphone, Rechargeable Mic, S M Enterprises",
+            "layout_type": "hero_immersive",
+            "hero_image": "images\/products\/alvoxcon-mic\/hero.png",
+            "hero_video": "",
+            "gallery": [
+                "images\/products\/alvoxcon-mic\/gallery-1.jpg",
+                "images\/products\/alvoxcon-mic\/gallery-2.jpg",
+                "images\/products\/alvoxcon-mic\/gallery-3.jpg",
+                "images\/products\/alvoxcon-mic\/gallery-4.jpg",
+                "images\/products\/alvoxcon-mic\/gallery-5.jpg",
+                "images\/products\/alvoxcon-mic\/gallery-6.jpg",
+                "images\/products\/alvoxcon-mic\/gallery-7.jpg"
+            ],
+            "features": [
+                "UHF Digital Wireless (60ft Range)",
+                "Rechargeable Battery (7 Hours Life)",
+                "Universal Compatibility (iPhone, PC, Laptops, PA)",
+                "Real-time Zero Latency Monitoring"
+            ],
+            "specs": {
+                "Microphone Type": "UHF Handheld Dynamic Moving-Coil",
+                "Model Number": "UM4 \/ UM410",
+                "Frequency Selection": "20 Selectable Channels (902-928MHz)",
+                "Battery Life": "Up to 7 Hours (Rechargeable Lithium)",
+                "Receiver Output": "USB (Digital) & 3.5mm Aux (Analog Monitor\/Out)",
+                "Compatibility": "iPhone, PC, MacBook, Laptops, PA Speakers"
+            },
+            "youtube_url": "https:\/\/www.youtube.com\/embed\/8zsjmufz3kw",
+            "hero_badges": [
+                "UHF Wireless",
+                "Rechargeable",
+                "USB & 3.5mm",
+                "Zero Latency"
+            ],
+            "hero_bullets": [
+                "UHF Digital Wireless Connection (up to 60ft range)",
+                "7-Hour Rechargeable Battery (Receiver & Microphone)",
+                "Universal Compatibility (iPhone, Laptops, PA Speakers)",
+                "Real-Time Headphone Monitoring (Zero Latency)",
+                "Dual-Channel Receiver with USB & 3.5mm Outputs"
+            ],
+            "hero_show_rain": false,
+            "hero_floating_tags": [
+                {
+                    "text": "UHF Wireless",
+                    "icon": "radio-outline"
+                },
+                {
+                    "text": "Rechargeable",
+                    "icon": "battery-charging-outline"
+                },
+                {
+                    "text": "USB Output",
+                    "icon": "logo-usb"
+                },
+                {
+                    "text": "Zero Latency",
+                    "icon": "pulse-outline"
+                }
+            ],
+            "rich_features": [
+                {
+                    "title": "Extraordinary Experience of Wireless Recording",
+                    "desc": "Supports FCC legal UHF band frequency range (902-928MHz) which is less prone to interference. Perfect for recording, vlogging, online meetings, and presentations.",
+                    "type": "split",
+                    "media_type": "image",
+                    "media_url": "images\/products\/alvoxcon-mic\/desc-2.jpg",
+                    "layout": "left"
+                },
+                {
+                    "title": "Ideal Companion for Your Smartphones",
+                    "desc": "Includes both Type-C and Lightning iPhone adapters. Plug the USB receiver with the appropriate adapter directly into your Android or iPhone and start recording instantly.",
+                    "type": "split",
+                    "media_type": "image",
+                    "media_url": "images\/products\/alvoxcon-mic\/desc-4.jpg",
+                    "layout": "right"
+                },
+                {
+                    "title": "Simultaneous Live Project & Online Recording",
+                    "desc": "Equipped with an AUX monitoring port on the receiver. You can project real-time voice to local PA speakers\/amplifiers using the included AUX cable, while simultaneously recording digital audio to your laptop or phone.",
+                    "type": "split",
+                    "media_type": "image",
+                    "media_url": "images\/products\/alvoxcon-mic\/desc-3.jpg",
+                    "layout": "left"
+                },
+                {
+                    "title": "Complete Package & Premium Accessories",
+                    "desc": "Inside the box, you get the rechargeable wireless microphone, USB receiver, Type-C adapter, Lightning adapter, and heavy-duty AUX cable. Everything you need to get started right away.",
+                    "type": "split",
+                    "media_type": "image",
+                    "media_url": "images\/products\/alvoxcon-mic\/desc-5.jpg",
+                    "layout": "right"
+                }
+            ]
+        },
+        {
+            "id": "premium-bluetooth-speaker",
+            "name": "Premium High-Fidelity Bluetooth Speaker",
+            "category": "speakers",
+            "homepage": false,
+            "desc": "Premium High-Fidelity Wireless Bluetooth Speaker, More than 20 hrs of playtime, IPX2 Water Resistant, Bluetooth v5.0, multi-host functionality, Quick Charge",
+            "orig_price": 55000,
+            "curr_price": 30000,
+            "tag": "Special Offer",
+            "image_type": "url",
+            "image": "images\/prod_af60429d7cb22a2f55aa3e0aaa963244.webp",
+            "visible": true,
+            "features": [
+                "20+ Hours Portable Playtime",
+                "IPX2 Water Resistant Design",
+                "Multi-Host Bluetooth Connection",
+                "Quick Charge Power Battery"
+            ],
+            "specs": {
+                "Playtime": "More than 20 hours of portable battery life",
+                "Water Resistance": "IPX2 Water Resistant design",
+                "Connectivity": "Bluetooth v5.0 with multi-host function",
+                "Sound Output": "Multi-directional stereo sound setup",
+                "Quick Charge": "20 minutes charge gives 3 hours playtime"
+            },
+            "meta_title": "Premium High-Fidelity Bluetooth Speaker | S M Enterprises",
+            "meta_desc": "Buy Premium High-Fidelity Bluetooth Speaker in Pakistan. Premium quality wireless speaker with 20+ hours battery life, quick charge and heavy bass.",
+            "focus_keywords": "bluetooth speaker pakistan, premium bluetooth speaker, portable speakers, wireless speaker price in pakistan",
+            "gallery": [
+                "images\/gal_177b9c2eb0c0f08c5da9a98f511274ae.webp"
+            ],
+            "youtube_url": "https:\/\/www.youtube.com\/shorts\/O3bm58UEMWs"
+        }
+    ]
+}

@@ -1,0 +1,55 @@
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Environment / Config
+.env
+.env.local
+
+# Large media files (should not be in git)
+*.mp4
+*.mov
+*.webm
+*.avi
+*.mkv
+
+# Generated files
+sitemap.xml
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Node modules (if ever added)
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Temporary / Debug files
+copy_image.php
+test_read.php
+scratch/
+
+# Reports (generated on demand)
+Code_Audit_Report_Reolink_Pakistan.pdf
+code_audit_report.html
+
+# Backup files
+*.bak
+*.backup
+
+# XAMPP specific
+xampp/

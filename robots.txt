@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /tmp/
+Disallow: /.gemini/
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://www.reolink.com.pk/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 5

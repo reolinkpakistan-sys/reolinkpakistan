@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en-PK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '2147818929333905');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=2147818929333905&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    <title>Product Details | S M Enterprises Tech Store</title>
+    <meta name="description" content="Explore premium smart gadgets, wireless audio, and security cameras at S M Enterprises. Authorized partner in Pakistan with nationwide delivery.">
+    <meta name="keywords" content="reolink pakistan, security camera, 4g sim camera, solar camera, wireless microphone, premium bluetooth speakers, smart gadgets, s m enterprises">
+    <link rel="icon" type="image/png" href="images/favicon-32.png">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=117">
+    <!-- Google Model Viewer for rotatable 3D products -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    
+    <style>
+        /* Product details custom page styling */
+        .product-detail-section {
+            padding: 50px 0 80px;
+            background: linear-gradient(180deg, rgba(7, 8, 10, 0.5) 0%, rgba(11, 13, 18, 0.8) 100%);
+            position: relative;
+            z-index: 1;
+        }
+        .product-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .breadcrumbs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+        .breadcrumbs a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumbs a:hover {
+            color: #00f3ff;
+        }
+        .breadcrumbs ion-icon {
+            font-size: 12px;
+        }
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        #mediaShowcase { 
+            order: 2; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .product-info-panel { order: 1; }
+        
+        @media (max-width: 992px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            #mediaShowcase { order: 1; }
+            .product-info-panel { order: 2; }
+        }
+        
+        /* Lightbox CSS */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+        }
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+            object-fit: contain;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .lightbox-close:hover,
+        .lightbox-close:focus {
+            color: #00f3ff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+
+        .product-media-showcase video {
+            width: 100%;
+            max-height: 400px;
+            border-radius: 12px;
+            object-fit: contain;
+        }
+        
+        /* Right Column: Info */
+        .product-info-panel {
+            padding: 10px 0;
+        }
+        .badge-premium {
+            background: linear-gradient(135deg, #007aff 0%, #00f3ff 100%);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+            letter-spacing: 1px;
+        }
+        .product-title-main {
+            font-size: 44px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            text-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+        }
+        .product-desc-main {
+            font-size: 18px;
+            color: #cbd5e1;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+        
+        .price-panel-custom {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.05) 0%, rgba(0, 0, 0, 0) 100%);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.02);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+        .price-panel-custom::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: #00f3ff;
+            box-shadow: 0 0 10px #00f3ff;
+        }
+        .price-label {
+            font-size: 13px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .price-orig-detail {
+            text-decoration: line-through;
+            color: #475569;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .price-curr-detail {
+            color: #ff6b00;
+            font-size: 38px;
+            font-weight: 800;
+            text-shadow: 0 0 15px rgba(255, 107, 0, 0.4);
+        }
+        
+        .feature-bullets {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+        .feature-bullet-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 16px;
+            color: #e2e8f0;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        .feature-bullet-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(0, 243, 255, 0.2);
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .feature-bullet-item .icon-wrapper {
+            background: rgba(0, 243, 255, 0.1);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+        .feature-bullet-item ion-icon {
+            font-size: 20px;
+            color: #00f3ff;
+            filter: drop-shadow(0 0 5px rgba(0,243,255,0.4));
+        }
+        
+        .btn-order-whatsapp {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 18px;
+            border-radius: 12px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            width: 100%;
+        }
+        .btn-order-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);
+            color: #fff;
+        }
+        
+        /* Specs grid */
+        .specs-section {
+            padding: 60px 0;
+            border-top: 1px dashed rgba(255, 255, 255, 0.06);
+        }
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+        .specs-table tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .specs-table td {
+            padding: 16px 20px;
+            font-size: 16px;
+        }
+        .specs-label {
+            width: 30%;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+        .specs-value {
+            color: #fff;
+        }
+
+        /* Stitch Design System - Titan Security Grid Theme for Alvoxcon Mic */
+        body.stitch-theme-mic {
+            font-family: 'Inter', sans-serif !important;
+        }
+        body.stitch-theme-mic .product-detail-section {
+            background: radial-gradient(circle at top right, rgba(0, 43, 73, 0.4) 0%, rgba(7, 8, 10, 0.95) 100%);
+        }
+        body.stitch-theme-mic .badge-premium {
+            background: linear-gradient(135deg, #002b49 0%, #00aeef 100%) !important;
+            border: 1px solid rgba(0, 174, 239, 0.3) !important;
+            font-family: 'JetBrains Mono', monospace !important;
+            font-weight: 600 !important;
+            letter-spacing: 0.1em !important;
+            text-shadow: 0 0 10px rgba(0, 174, 239, 0.3);
+        }
+        body.stitch-theme-mic .product-title-main {
+            font-family: 'Inter', sans-serif !important;
+            font-weight: 800 !important;
+            color: #ffffff !important;
+            letter-spacing: -0.02em !important;
+        }
+        body.stitch-theme-mic .price-panel-custom {
+            background: linear-gradient(135deg, rgba(0, 43, 73, 0.3) 0%, rgba(0, 0, 0, 0.4) 100%) !important;
+            border: 1px solid rgba(0, 174, 239, 0.3) !important;
+            border-radius: 8px !important; /* Soft rounding */
+            box-shadow: 0 4px 20px rgba(0, 43, 73, 0.15) !important;
+        }
+        body.stitch-theme-mic .price-panel-custom::before {
+            background: #00aeef !important;
+            box-shadow: 0 0 10px #00aeef !important;
+        }
+        body.stitch-theme-mic .price-curr-detail {
+            color: #00aeef !important; /* Cyan tone for precision */
+            text-shadow: 0 0 15px rgba(0, 174, 239, 0.3);
+        }
+        body.stitch-theme-mic .feature-bullet-item {
+            background: rgba(0, 43, 73, 0.15) !important;
+            border: 1px solid rgba(255, 255, 255, 0.05) !important;
+            border-radius: 8px !important; /* Soft rounding */
+        }
+        body.stitch-theme-mic .feature-bullet-item:hover {
+            border-color: rgba(0, 174, 239, 0.4) !important;
+            background: rgba(0, 43, 73, 0.25) !important;
+        }
+        body.stitch-theme-mic .feature-bullet-item ion-icon {
+            color: #00aeef !important;
+            filter: drop-shadow(0 0 5px rgba(0, 174, 239, 0.5)) !important;
+        }
+        body.stitch-theme-mic .specs-table {
+            font-family: 'JetBrains Mono', monospace !important;
+            border-radius: 8px !important;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        }
+        body.stitch-theme-mic .specs-table tr {
+            background: rgba(0, 43, 73, 0.05) !important;
+        }
+        body.stitch-theme-mic .specs-table tr:nth-child(even) {
+            background: rgba(0, 43, 73, 0.1) !important;
+        }
+        body.stitch-theme-mic .specs-label {
+            color: #7293b6 !important; /* on-primary-container tint */
+            font-weight: 500 !important;
+        }
+        body.stitch-theme-mic .specs-value {
+            color: #e3e2e5 !important;
+        }
+        body.stitch-theme-mic .btn-order-whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128c7e 100%) !important;
+            border-radius: 8px !important; /* rounded-lg */
+            font-family: 'Inter', sans-serif !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.25) !important;
+        }
+        body.stitch-theme-mic .btn-order-whatsapp:hover {
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.4) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        /* Move floating tags outward specifically on the mic page to prevent overlap */
+        body.stitch-theme-mic .ft-1 {
+            right: -95px !important;
+            top: 5% !important;
+        }
+        body.stitch-theme-mic .ft-2 {
+            left: -110px !important;
+            top: 30% !important;
+        }
+        body.stitch-theme-mic .ft-3 {
+            left: -120px !important;
+            bottom: 15% !important;
+        }
+        body.stitch-theme-mic .ft-4 {
+            right: -80px !important;
+            bottom: 5% !important;
+        }
+
+        /* Title version subtitle styling to prevent overlap with camera image */
+        .hero-title-sub {
+            font-size: 32px;
+            display: block;
+            margin-top: 10px;
+            color: #ff6b00;
+            -webkit-text-fill-color: #ff6b00 !important;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 107, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="reo-dark-mode">
+
+    <!-- Galaxy Nebula Background -->
+    <div class="galaxy-bg">
+        <div class="galaxy-core blue"></div>
+        <div class="galaxy-core purple"></div>
+        <div class="galaxy-core orange"></div>
+    </div>
+
+    <!-- Top Bar -->
+    <div class="reo-topbar">
+        <div class="topbar-inner">
+            <span class="flash-text">Official Reolink Partner in Pakistan | Free Shipping & Cash on Delivery Nationwide (4% Surcharge on COD Amount)*</span>
+            <div class="topbar-links">
+                <a href="/warranty">Support</a>
+                <a href="https://wa.me/923206755555" target="_blank" data-cms-key="contact.whatsapp">WhatsApp: 0320-6755555</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <nav class="reo-header">
+        <div class="header-inner">
+            <a href="/" class="sm-brand-logo">
+                <div class="brand-svg-container">
+                    <svg class="main-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 5L8.5 25V75L50 95L91.5 75V25L50 5Z" class="logo-shield" stroke="currentColor" stroke-width="2" />
+                        <path d="M35 35H65L35 50H65L35 65H65" class="logo-letters" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+                        <circle cx="50" cy="50" r="38" class="logo-ring" stroke="currentColor" stroke-width="1" stroke-dasharray="10 5" />
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">S M ENTERPRISES</span>
+                    <span class="brand-subtitle">Reolink Authorized Partner</span>
+                </div>
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-trigger">Security Cameras <ion-icon name="chevron-down-outline" style="font-size:12px; margin-left:4px; vertical-align:middle;"></ion-icon></a>
+                    <div class="dropdown-menu">
+                        <a href="/category/4g-cameras">4G SIM Cameras</a>
+                        <a href="/category/solar-cameras">Solar Cameras</a>
+                        <a href="/category/wifi-cameras">WiFi Cameras</a>
+                        <a href="/category/cctv-systems">Wireless IP Kits</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-trigger">Smart Gadgets <ion-icon name="chevron-down-outline" style="font-size:12px; margin-left:4px; vertical-align:middle;"></ion-icon></a>
+                    <div class="dropdown-menu">
+                        <a href="/category/wireless-mics">Wireless Mics</a>
+                        <a href="/category/speakers">Premium Speakers</a>
+                        <a href="/category/accessories">Smart Accessories</a>
+                    </div>
+                </div>
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact Us</a>
+                <a href="/warranty">Warranty/FAQ</a>
+            </div>
+            <a href="#" class="btn-reo-primary nav-btn btn-selection-trigger">Buy Now</a>
+        </div>
+    </nav>
+
+    <!-- Main dynamic content section -->
+    <main>
+        <!-- Hero Immersive Layout (Hidden by default) -->
+        <!-- NATURE IMMERSIVE LAYOUT -->
+        <section id="layoutNature" style="display: none;"></section>
+
+        <section class="reo-hero" id="layoutHero" style="display: none; padding-top: 50px;">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="badge-group" id="heroBadges"></div>
+                    <h2 class="hero-title-glow" id="heroTitle">Loading...</h2>
+                    <p class="hero-subtitle" id="heroDesc">Loading...</p>
+
+                    <ul class="hero-feature-list" id="heroBullets"></ul>
+
+                    <div class="trust-badges-grid" id="heroTrustBadges" style="margin: 25px 0; display: none;"></div>
+
+                    <div class="promo-price-block" id="heroPriceBlock" style="display: none;">
+                        <div class="price-original" id="heroOrigPrice"></div>
+                        <div class="price-current">
+                            <span class="currency">Rs</span>
+                            <span class="amount" id="heroCurrPrice"></span>
+                        </div>
+                        <div class="price-badge">
+                            <div class="pulse-ring"></div>
+                            <span id="heroDiscount"></span>
+                        </div>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a href="#" id="heroOrderBtn" class="btn-reo-primary btn-order-trigger">Order Now</a>
+                        <a href="#" id="heroCollectBtn" class="btn-reo-primary btn-self-collect-trigger" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%);">Self Collect</a>
+                        <a href="javascript:void(0)" onclick="openLightbox(window.currentHeroVideo)" id="heroVideoBtn" class="btn-reo-secondary" style="display: none;">Watch Video</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="product-glow"></div>
+                    <div class="cam-wrapper">
+                        <div class="main-cam">
+                            <!-- Weatherproof Badge Overlay (if rain is enabled) -->
+                            <div class="weatherproof-badge reveal-up" id="heroRainBadge" style="display:none;">
+                                <ion-icon name="water-outline"></ion-icon>
+                                <span>Weatherproof IP66</span>
+                            </div>
+
+                            <div class="product-rain-mask" id="heroMediaContainer">
+                                <img src="" alt="Product Image" id="heroMainImg" class="variant-img v1">
+                                <canvas id="heroRainCanvas" class="rain-canvas" style="display:none;"></canvas>
+                            </div>
+                        </div>
+                        
+                        <!-- Dynamic Floating Tags Container -->
+                        <div class="mobile-tags-row" id="heroTagsContainer"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Standard Product Detail Layout -->
+        <section class="product-detail-section" id="layoutStandard" style="display: none;">
+            <div class="product-container">
+                <!-- Breadcrumbs -->
+                <div class="breadcrumbs">
+                    <a href="/">Home</a>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <a href="/category/accessories">Smart Gadgets</a>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <span id="breadcrumbCurrent" style="color: #00f3ff;">Loading...</span>
+                </div>
+
+                <!-- Product Detail Grid -->
+                <div class="detail-grid">
+                    <!-- Left: Media Showcase -->
+                    <div class="hero-visual" id="mediaShowcase">
+                        <div style="text-align: center; color: #64748b;">
+                            <ion-icon name="sync-outline" style="font-size: 48px; animation: spin 2s linear infinite;"></ion-icon>
+                            <p style="margin-top: 10px;">Loading product media...</p>
+                        </div>
+                    </div>
+
+                    <!-- Right: Info Panel -->
+                    <div class="product-info-panel">
+                        <span class="badge-premium" id="productTag">New Launch</span>
+                        <h1 class="product-title-main" id="productTitle">Loading Product Name...</h1>
+                        <p class="product-desc-main" id="productDesc">Fetching latest details from S M Enterprises catalog database...</p>
+
+                        <!-- Price display -->
+                        <div class="price-panel-custom">
+                            <span class="price-label">Special Offer Price</span>
+                            <div style="display: flex; align-items: baseline; gap: 15px;">
+                                <span class="price-curr-detail" id="productCurrPrice">Rs --,---</span>
+                                <span class="price-orig-detail" id="productOrigPrice">Rs --,---</span>
+                            </div>
+                        </div>
+
+                        <!-- Highlights checklist -->
+                        <div class="feature-bullets">
+                            <div class="feature-bullet-item">
+                                <div class="icon-wrapper"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
+                                <span>Official 1-Month Replacement Warranty</span>
+                            </div>
+                            <div class="feature-bullet-item">
+                                <div class="icon-wrapper"><ion-icon name="airplane-outline"></ion-icon></div>
+                                <span>Free Insured Nationwide Express Shipping</span>
+                            </div>
+                            <div class="feature-bullet-item">
+                                <div class="icon-wrapper"><ion-icon name="ribbon-outline"></ion-icon></div>
+                                <span>Premium Original Certified Authenticity</span>
+                            </div>
+                            <div class="feature-bullet-item">
+                                 <div class="icon-wrapper"><ion-icon name="wallet-outline"></ion-icon></div>
+                                 <span>Advance Payment & Safe Cash on Delivery (4% Surcharge Applies)</span>
+                             </div>
+                        </div>
+
+                        <a href="#" class="btn-order-whatsapp btn-order-trigger">
+                            Order via WhatsApp <ion-icon name="logo-whatsapp"></ion-icon>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical specifications section -->
+        <section class="specs-section">
+            <div class="product-container">
+                <h2 class="section-title" style="margin-top: 0; font-size: 32px;">Technical Specifications</h2>
+                <table class="specs-table">
+                    <tbody>
+                        <tr>
+                            <td class="specs-label">Product Model</td>
+                            <td class="specs-value" id="specModel">Loading...</td>
+                        </tr>
+                        <tr>
+                            <td class="specs-label">Warranty Status</td>
+                            <td class="specs-value">1 Month S M Enterprises warranty coverage</td>
+                        </tr>
+                        <tr>
+                            <td class="specs-label">Origin</td>
+                            <td class="specs-value">Original Authenticated import</td>
+                        </tr>
+                        <tr>
+                            <td class="specs-label">Shipping Details</td>
+                            <td class="specs-value">Dispatched within 24 hours. Handed over with tracked delivery.</td>
+                        </tr>
+                        <tr>
+                            <td class="specs-label">Package Includes</td>
+                            <td class="specs-value" id="specPackage">Product unit, Charging/connection cables, User setup manual, Warranty card.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Recommendation section showing other dynamic products -->
+        <section class="store-grid-section" id="recommendations" style="border-top: 1px dashed rgba(255,255,255,0.06); padding-top: 80px;">
+            <div class="product-container">
+                <div class="store-title text-center" style="margin-bottom: 40px;">
+                    <span class="eyebrow" style="color: #00f3ff;">Upsell Catalog</span>
+                    <h2 class="section-title" style="margin-top: 0; font-size: 32px;">You May Also Like</h2>
+                </div>
+                <div class="store-grid" id="relatedProductsGrid">
+                    <!-- Loaded dynamically via JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="imageLightbox" class="lightbox-modal">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <video class="lightbox-content" id="lightbox-video" controls autoplay style="display:none;"></video>
+    </div>
+
+    <!-- Checkout Form Modal -->
+    <div id="orderModal" class="reo-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Complete Your Order</h2>
+            <p>Please provide your details below to confirm your order.</p>
+
+            <form id="checkoutForm">
+                <!-- User Details -->
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="custName" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp Number</label>
+                    <input type="tel" id="custPhone" placeholder="03XXXXXXXXX" required>
+                </div>
+
+                <!-- Redesigned Invoice Summary -->
+                 <div class="invoice-summary">
+                     <div class="invoice-row highlight">
+                         <span id="summaryCam">Product</span>
+                         <span id="invoicePrice">Rs --,---</span>
+                     </div>
+                     <div class="invoice-row">
+                         <span>Standard Delivery</span>
+                         <span class="strikethrough">Rs 1,500</span>
+                     </div>
+                     <div class="invoice-row savings">
+                         <span>🤩 Nationwide FREE Shipping</span>
+                         <span>- Rs 1,500</span>
+                     </div>
+                     <div class="invoice-row">
+                         <span>COD Tax (4% Surcharge on COD amount)</span>
+                         <span id="summaryCodTax">Rs --,---</span>
+                     </div>
+                     <div class="invoice-row advance">
+                         <span>Security Deposit (Paid Upfront)</span>
+                         <span style="color: #ff6b00;">- Rs 2,000</span>
+                     </div>
+                     <div class="invoice-row cod-payable">
+                         <span>Payable on Delivery (Cash on Delivery)</span>
+                         <span id="summaryCodPayable" style="color: #00f3ff; font-weight: bold;">Rs --,---</span>
+                     </div>
+                     <div class="invoice-total">
+                         <label>Total Order Cost</label>
+                         <span class="total-amount" id="summaryTotal">Rs --,---</span>
+                     </div>
+                 </div>
+ 
+                 <!-- Advance Payment Section -->
+                 <div class="payment-section">
+                     <div class="payment-alert">
+                         <ion-icon name="warning"></ion-icon>
+                         <p><strong>Rs 2,000 Advance Required</strong> to confirm your order. Note: A 4% extra charge (government tax) applies on the remaining Cash on Delivery (COD) amount.</p>
+                     </div>
+
+                    <div class="account-details">
+                        <div class="account-card">
+                            <span class="acc-title">JazzCash</span>
+                            <span class="acc-number">0322 0675555</span>
+                            <span class="acc-name">Mohsin Munawar</span>
+                        </div>
+                        <div class="account-card">
+                            <span class="acc-title">EasyPaisa / Raast</span>
+                            <span class="acc-number">0320 6755555</span>
+                            <span class="acc-name">Mohsin Munawar</span>
+                        </div>
+                    </div>
+                    <div class="payment-instruction">
+                        After transferring, click below and <strong>attach your payment screenshot</strong> in the WhatsApp chat.
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-reo-primary submit-order-btn">Confirm Order via WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Action Selection Gateway Modal -->
+    <div id="actionSelectionModal" class="reo-modal">
+        <div class="modal-content selection-modal-content">
+            <span class="close-modal close-selection">&times;</span>
+            <div class="modal-header">
+                <h2>How would you like to get it?</h2>
+                <p>Choose your preferred method for order fulfillment.</p>
+            </div>
+
+            <div class="selection-grid">
+                 <div class="selection-card select-delivery">
+                     <div class="selection-icon delivery-icon">
+                         <ion-icon name="home-outline"></ion-icon>
+                     </div>
+                     <h3>Home Delivery</h3>
+                     <p>Get it delivered to your address with Cash on Delivery (4% extra charge applies on the COD amount).</p>
+                     <div class="selection-tag">Fast Shipping</div>
+                </div>
+
+                <div class="selection-card select-self-collect">
+                    <div class="selection-icon collect-icon">
+                        <ion-icon name="storefront-outline"></ion-icon>
+                    </div>
+                    <h3>Self Collect</h3>
+                    <p>Pick up directly from our location in Multan.</p>
+                    <div class="selection-tag">Instant Pickup</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Self Collect Modal -->
+    <div id="selfCollectModal" class="reo-modal">
+        <div class="modal-content self-collect-content">
+            <span class="close-modal close-self-collect">&times;</span>
+            <div class="modal-header">
+                <h2>Self Collection Details</h2>
+                <p>Pick up your order directly from our location.</p>
+            </div>
+
+            <div class="collect-info-card">
+                <div class="info-item">
+                    <ion-icon name="location-outline"></ion-icon>
+                    <div>
+                        <label>Collection Address</label>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Opposite+green+homes+colony,+Nawabpur+Road+Multan,+Pakistan" target="_blank"
+                            style="text-decoration: none; display: block;">
+                            <p id="collectAddress">Nawabpur road Opposite green homes colony, Multan <br> House no
+                                41/31361</p>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Opposite+green+homes+colony,+Nawabpur+Road+Multan,+Pakistan"
+                                target="_blank" class="btn-reo-secondary"
+                                style="margin-top: 10px; width: 100%; justify-content: center;">
+                                <ion-icon name="navigate-outline"></ion-icon> Open Navigation
+                            </a>
+                        </a>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <ion-icon name="person-outline"></ion-icon>
+                    <div>
+                        <label>Contact Person</label>
+                        <p id="collectName">Mohsin Munawar</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <ion-icon name="call-outline"></ion-icon>
+                    <div>
+                        <label>Mobile Number</label>
+                        <p id="collectPhone">0320 6755555</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collect-notice">
+                <ion-icon name="alert-circle-outline"></ion-icon>
+                <p><strong>IMPORTANT:</strong> Please call the number above before visiting to ensure someone is
+                    available to assist you.</p>
+            </div>
+
+            <div class="collect-actions">
+                <a href="https://www.google.com/maps/search/?api=1&query=Opposite+green+homes+colony,+Nawabpur+Road+Multan,+Pakistan" target="_blank"
+                    class="btn-reo-secondary maps-btn">
+                    <ion-icon name="map-outline"></ion-icon>
+                    View on Google Maps
+                </a>
+                <a href="tel:03206755555" class="btn-reo-primary call-btn">
+                    <ion-icon name="call"></ion-icon>
+                    Call Now to Confirm
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="reo-footer">
+        <div class="footer-container">
+            <div class="footer-brand-section">
+                <a href="/" class="sm-brand-logo">
+                    <div class="brand-svg-container">
+                        <svg class="main-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 5L8.5 25V75L50 95L91.5 75V25L50 5Z" class="logo-shield" stroke="currentColor" stroke-width="2" />
+                            <path d="M35 35H65L35 50H65L35 65H65" class="logo-letters" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="50" cy="50" r="38" class="logo-ring" stroke="currentColor" stroke-width="1" stroke-dasharray="10 5" />
+                        </svg>
+                    </div>
+                    <div class="brand-text">
+                        <span class="brand-title">S M ENTERPRISES</span>
+                        <span class="brand-subtitle">Reolink Authorized Partner</span>
+                    </div>
+                </a>
+                <p class="footer-bio">The official destination for Reolink 4G Smart Security in Pakistan. High-fidelity surveillance, solar-powered independence.</p>
+                <div class="footer-contact-strip">
+                    <a href="tel:03206755555" class="contact-pill" data-cms-key="contact.phone"><ion-icon name="call"></ion-icon> 0320-6755555</a>
+                    <a href="https://wa.me/923206755555" target="_blank" class="contact-pill wa" data-cms-key="contact.whatsapp"><ion-icon name="logo-whatsapp"></ion-icon> WhatsApp</a>
+                </div>
+            </div>
+
+            <div class="footer-nav-section">
+                <div class="footer-nav-col">
+                    <h4>Explore</h4>
+                    <a href="/#overview">Product Overview</a>
+                    <a href="/#features">Smart Features</a>
+                    <a href="/#specs">Technical Specs</a>
+                    <a href="/warranty">Support (FAQ)</a>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>Legal & Trust</h4>
+                    <a href="/about">About Us</a>
+                    <a href="/contact">Contact Us</a>
+                    <a href="/warranty">Return & Refund Policy</a>
+                    <a href="/privacy-policy">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2026 S M Enterprises. All Rights Reserved. Authorized Reolink Distributor & Partner.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js?v=32"></script>
+    <script src="js/cms.js?v=114"></script>
+    <script src="js/product-details.js?v=30"></script>
+    <!-- Ionicons loaded last — non-blocking -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

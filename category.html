@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en-PK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '2147818929333905');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=2147818929333905&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    <title id="pageTitle">Category | S M Enterprises - Reolink Pakistan</title>
+    <meta name="description" id="pageDesc" content="Browse premium Reolink security cameras and smart tech gadgets in Pakistan. Authorized partner with nationwide delivery.">
+    <meta name="keywords" id="pageKeywords" content="reolink pakistan, security camera price in pakistan, 4g sim camera, solar camera, wifi cctv, wireless microphone, premium bluetooth speakers, cctv pakistan">
+
+    <link rel="icon" type="image/png" href="images/favicon-32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css?v=117">
+
+    <style>
+        /* ── Category Page Styles ── */
+        .category-hero {
+            padding: 140px 20px 70px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .category-hero .eyebrow {
+            color: #00f3ff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 13px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 16px;
+        }
+        .category-hero h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .category-hero h1 .accent-glow {
+            background: linear-gradient(135deg, #007aff, #00f3ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-underline {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #007aff, #00f3ff);
+            border-radius: 2px;
+            margin: 0 auto 24px;
+            box-shadow: 0 0 12px rgba(0,243,255,0.5);
+        }
+        .category-hero p {
+            font-size: 18px;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        .category-grid-section {
+            padding: 20px 20px 100px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 28px;
+        }
+        @media (max-width: 768px) {
+            .category-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        }
+
+        /* Empty state */
+        .cat-empty {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 80px 20px;
+            color: #475569;
+        }
+        .cat-empty ion-icon { font-size: 64px; margin-bottom: 16px; color: #334155; }
+        .cat-empty p { font-size: 18px; }
+
+        /* Loading state */
+        .cat-loading {
+            grid-column: 1/-1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 80px 20px;
+            color: #64748b;
+        }
+        .cat-loading ion-icon { font-size: 48px; animation: spin 1.5s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Category filter pills */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 48px;
+        }
+        .filter-pill {
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-pill:hover, .filter-pill.active {
+            background: rgba(0,122,255,0.15);
+            border-color: rgba(0,122,255,0.4);
+            color: #007aff;
+        }
+    </style>
+</head>
+<body class="reo-dark-mode">
+    <!-- Galaxy Nebula Background -->
+    <div class="galaxy-bg">
+        <div class="galaxy-core blue"></div>
+        <div class="galaxy-core purple"></div>
+        <div class="galaxy-core orange"></div>
+    </div>
+
+    <!-- Top Bar -->
+    <div class="reo-topbar">
+        <div class="topbar-inner">
+            <span class="flash-text">Official Reolink Partner in Pakistan | Free Shipping & Cash on Delivery Nationwide (4% Surcharge on COD Amount)*</span>
+            <div class="topbar-links">
+                <a href="/warranty">Support</a>
+                <a href="https://wa.me/923206755555" target="_blank" data-cms-key="contact.whatsapp">WhatsApp: 0320-6755555</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <nav class="reo-header">
+        <div class="header-inner">
+            <a href="/" class="sm-brand-logo">
+                <div class="brand-svg-container">
+                    <svg class="main-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 5L8.5 25V75L50 95L91.5 75V25L50 5Z" class="logo-shield" stroke="currentColor" stroke-width="2"/>
+                        <path d="M35 35H65L35 50H65L35 65H65" class="logo-letters" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="50" cy="50" r="38" class="logo-ring" stroke="currentColor" stroke-width="1" stroke-dasharray="10 5"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">S M ENTERPRISES</span>
+                    <span class="brand-subtitle">Reolink Authorized Partner</span>
+                </div>
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-trigger">Security Cameras <ion-icon name="chevron-down-outline" style="font-size:12px; margin-left:4px; vertical-align:middle;"></ion-icon></a>
+                    <div class="dropdown-menu">
+                        <a href="/category/4g-cameras">4G SIM Cameras</a>
+                        <a href="/category/solar-cameras">Solar Cameras</a>
+                        <a href="/category/wifi-cameras">WiFi Cameras</a>
+                        <a href="/category/cctv-systems">Wireless IP Kits</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-trigger">Smart Gadgets <ion-icon name="chevron-down-outline" style="font-size:12px; margin-left:4px; vertical-align:middle;"></ion-icon></a>
+                    <div class="dropdown-menu">
+                        <a href="/category/wireless-mics">Wireless Mics</a>
+                        <a href="/category/speakers">Premium Speakers</a>
+                        <a href="/category/accessories">Smart Accessories</a>
+                    </div>
+                </div>
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact Us</a>
+                <a href="/warranty">Warranty/FAQ</a>
+            </div>
+            <a href="#" class="btn-reo-primary nav-btn btn-selection-trigger">Buy Now</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Banner -->
+        <section class="category-hero" id="cat-hero">
+            <span class="eyebrow" id="catEyebrow">S M Enterprises Store</span>
+            <h1 id="catTitle">Browse Our <span class="accent-glow">Premium Products</span></h1>
+            <div class="hero-underline"></div>
+            <p id="catDesc">Discover Pakistan's best selection of security cameras, smart gadgets, and accessories — all authenticated and backed by official warranty.</p>
+        </section>
+
+        <!-- Product Grid -->
+        <section class="category-grid-section">
+            <div class="category-grid" id="categoryGrid">
+                <div class="cat-loading">
+                    <ion-icon name="sync-outline"></ion-icon>
+                    <p>Loading products...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rich SEO Content Section -->
+        <section class="category-seo-section" style="padding: 40px 20px 80px; max-width: 1280px; margin: 0 auto; line-height: 1.8; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.05);">
+            <div id="categorySeoContent" class="seo-rich-text">
+                <!-- Dynamically populated by category.js -->
+            </div>
+        </section>
+    </main>
+
+    <!-- WhatsApp Order Modal -->
+    <div id="orderModal" class="reo-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Complete Your Order</h2>
+            <p>Please provide your details below to confirm your order.</p>
+
+            <form id="catCheckoutForm">
+                <!-- User Details -->
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="catCustName" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp Number</label>
+                    <input type="tel" id="catCustPhone" placeholder="03XXXXXXXXX" required>
+                </div>
+
+                <!-- Redesigned Invoice Summary -->
+                <div class="invoice-summary">
+                    <div class="invoice-row highlight">
+                        <span id="catSummaryCam">Product</span>
+                        <span id="catInvoicePrice">Rs --,---</span>
+                    </div>
+                    <div class="invoice-row">
+                        <span>Standard Delivery</span>
+                        <span class="strikethrough">Rs 1,500</span>
+                    </div>
+                    <div class="invoice-row savings">
+                        <span>🤩 Nationwide FREE Shipping</span>
+                        <span>- Rs 1,500</span>
+                    </div>
+                    <div class="invoice-row">
+                        <span>COD Tax (4% Surcharge on COD amount)</span>
+                        <span id="catSummaryCodTax">Rs --,---</span>
+                    </div>
+                    <div class="invoice-row advance">
+                        <span>Security Deposit (Paid Upfront)</span>
+                        <span style="color: #ff6b00;">- Rs 2,000</span>
+                    </div>
+                    <div class="invoice-row cod-payable">
+                        <span>Payable on Delivery (Cash on Delivery)</span>
+                        <span id="catSummaryCodPayable" style="color: #00f3ff; font-weight: bold;">Rs --,---</span>
+                    </div>
+                    <div class="invoice-total">
+                        <label>Total Order Cost</label>
+                        <span class="total-amount" id="catSummaryTotal">Rs --,---</span>
+                    </div>
+                </div>
+
+                <!-- Advance Payment Section -->
+                <div class="payment-section">
+                    <div class="payment-alert">
+                        <ion-icon name="warning"></ion-icon>
+                        <p><strong>Rs 2,000 Advance Required</strong> to confirm your order. Note: A 4% extra charge (government tax) applies on the remaining Cash on Delivery (COD) amount.</p>
+                    </div>
+
+                    <div class="account-details">
+                        <div class="account-card">
+                            <span class="acc-title">JazzCash</span>
+                            <span class="acc-number">0322 0675555</span>
+                            <span class="acc-name">Mohsin Munawar</span>
+                        </div>
+                        <div class="account-card">
+                            <span class="acc-title">EasyPaisa / Raast</span>
+                            <span class="acc-number">0320 6755555</span>
+                            <span class="acc-name">Mohsin Munawar</span>
+                        </div>
+                    </div>
+                    <div class="payment-instruction">
+                        After transferring, click below and <strong>attach your payment screenshot</strong> in the WhatsApp chat.
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-reo-primary submit-order-btn">Confirm Order via WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="reo-footer">
+        <div class="footer-container">
+            <div class="footer-brand-section">
+                <a href="/" class="sm-brand-logo">
+                    <div class="brand-svg-container">
+                        <svg class="main-logo-svg" viewBox="0 0 100 100" fill="none">
+                            <path d="M50 5L8.5 25V75L50 95L91.5 75V25L50 5Z" class="logo-shield" stroke="currentColor" stroke-width="2"/>
+                            <path d="M35 35H65L35 50H65L35 65H65" class="logo-letters" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="50" cy="50" r="38" class="logo-ring" stroke="currentColor" stroke-width="1" stroke-dasharray="10 5"/>
+                        </svg>
+                    </div>
+                    <div class="brand-text">
+                        <span class="brand-title">S M ENTERPRISES</span>
+                        <span class="brand-subtitle">Reolink Authorized Partner</span>
+                    </div>
+                </a>
+                <p class="footer-bio">The official destination for Reolink 4G Smart Security in Pakistan. High-fidelity surveillance, solar-powered independence.</p>
+                <div class="footer-contact-strip">
+                    <a href="tel:03206755555" class="contact-pill"><ion-icon name="call"></ion-icon> 0320-6755555</a>
+                    <a href="https://wa.me/923206755555" target="_blank" class="contact-pill wa"><ion-icon name="logo-whatsapp"></ion-icon> WhatsApp</a>
+                </div>
+            </div>
+            <div class="footer-nav-section">
+                <div class="footer-nav-col">
+                    <h4>Security Cameras</h4>
+                    <a href="/category/4g-cameras">4G SIM Cameras</a>
+                    <a href="/category/solar-cameras">Solar Cameras</a>
+                    <a href="/category/wifi-cameras">WiFi Cameras</a>
+                    <a href="/category/cctv-systems">Wireless IP Kits</a>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>Smart Gadgets</h4>
+                    <a href="/category/wireless-mics">Wireless Mics</a>
+                    <a href="/category/speakers">Premium Speakers</a>
+                    <a href="/category/accessories">Accessories</a>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>Company</h4>
+                    <a href="/about">About Us</a>
+                    <a href="/contact">Contact Us</a>
+                    <a href="/warranty">Return & Refund Policy</a>
+                    <a href="/privacy-policy">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2026 S M Enterprises. All Rights Reserved. Authorized Reolink Distributor &amp; Partner.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js?v=32"></script>
+    <script src="js/cms.js?v=114"></script>
+    <script src="js/category.js?v=29"></script>
+    <!-- Ionicons loaded last — non-blocking -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

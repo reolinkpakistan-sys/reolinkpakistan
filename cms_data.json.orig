@@ -1135,51 +1135,5 @@
             ],
             "youtube_url": "https:\/\/www.youtube.com\/shorts\/O3bm58UEMWs"
         }
-    ],
-    "reviews": [
-        {
-            "id": 1,
-            "name": "M. Ahmed",
-            "city": "Multan",
-            "rating": 5,
-            "text": "Reolink Go PT Plus camera farm pe install kiya. 4G SIM se bilkul smooth chal raha hai, raat ko bhi clear video milti hai. COD process bohat asaan tha.",
-            "product": "Reolink Go PT Plus",
-            "date": "2026-06-15",
-            "photo": ""
-        },
-        {
-            "id": 2,
-            "name": "Ali Raza",
-            "city": "Lahore",
-            "rating": 5,
-            "text": "Solar panel ke saath battery life excellent hai. 1 month se daily monitoring kar raha hoon without any issue. Recommended!",
-            "product": "Reolink Go PT Plus + Solar Panel",
-            "date": "2026-05-22",
-            "photo": ""
-        },
-        {
-            "id": 3,
-            "name": "Sara Khan",
-            "city": "Karachi",
-            "rating": 4,
-            "text": "Customer support was very responsive. Camera quality is great, only delivery took 3 days instead of 2.",
-            "product": "KEEN Ranger PT",
-            "date": "2026-06-01",
-            "photo": ""
-        }
-    ],
-    "leads": [],
-    "settings": {
-        "urgency_bar_text": "Limited Stock - Order Today for Same-Day Dispatch in Lahore/Karachi/Islamabad",
-        "trust_badges": [
-            { "icon": "shield-checkmark", "text": "PTA Approved" },
-            { "icon": "cash", "text": "Cash on Delivery" },
-            { "icon": "refresh", "text": "1-Month Local Warranty" },
-            { "icon": "car", "text": "Free Shipping" },
-            { "icon": "people", "text": "1000+ Happy Customers" }
-        ],
-        "whatsapp_number": "0320-6755555",
-        "lead_form_heading": "Get Best Price & Expert Advice",
-        "lead_form_subheading": "Enter your WhatsApp number and our team will send you the best price within 30 minutes."
-    }
+    ]
 }

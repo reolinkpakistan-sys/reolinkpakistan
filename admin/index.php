@@ -250,40 +250,40 @@ function getPageSEO($pageFile) {
 
 function updatePageSEO($pageFile, $newTitle, $newDesc, $newKeywords) {
     $filePath = __DIR__ . '/../' . $pageFile;
-    if (!file_exists($filePath)) {
+    if (!validatePageName($pageFile) || !file_exists($filePath)) {
         return false;
     }
+
     $html = file_get_contents($filePath);
-    
+    if ($html === false) {
+        return false;
+    }
+
+    $title = htmlspecialchars($newTitle, ENT_QUOTES, 'UTF-8');
+    $desc  = htmlspecialchars($newDesc, ENT_QUOTES, 'UTF-8');
+    $keywords = htmlspecialchars($newKeywords, ENT_QUOTES, 'UTF-8');
+
     // 1. Update title tag
-    if (preg_match('/<title>(.*?)<\/title>/si', $html)) {
-        $html = preg_replace('/<title>(.*?)<\/title>/si', '<title>' . htmlspecialchars($newTitle, ENT_QUOTES, 'UTF-8') . '</title>', $html);
+    $html = preg_replace('/<title>.*?<\/title>/si', '<title>' . $title . '</title>', $html, 1);
+
+    // 2. Update or insert description meta
+    if (preg_match('/<meta[^>]*name=["\']description["\'][^>]*>/i', $html)) {
+        $html = preg_replace('/<meta([^>]*)name=["\']description["\']([^>]*)content=["\'][^"\']*["\']([^>]*)>/i', '<meta$1name="description"$2content="' . $desc . '"$3>', $html, 1);
+    } elseif (preg_match('/<meta[^>]*content=["\'][^"\']*["\'][^>]*name=["\']description["\'][^>]*>/i', $html)) {
+        $html = preg_replace('/<meta([^>]*)content=["\'][^"\']*["\']([^>]*)name=["\']description["\']([^>]*)>/i', '<meta$1name="description"$2content="' . $desc . '"$3>', $html, 1);
     } else {
-        $html = preg_replace('/<head>/i', "<head>\n    <title>" . htmlspecialchars($newTitle, ENT_QUOTES, 'UTF-8') . "</title>", $html);
+        $html = preg_replace('/<\/title>/i', "</title>\n    <meta name=\"description\" content=\"" . $desc . "\">", $html, 1);
     }
-    
-    // 2. Update description tag
-    if (preg_match('/<meta\s+name="description"\s+content="[^"]*"([^>]*)>/i', $html)) {
-        $html = preg_replace('/<meta\s+name="description"\s+content="[^"]*"([^>]*)>/i', '<meta name="description" content="' . htmlspecialchars($newDesc, ENT_QUOTES, 'UTF-8') . '"$1>', $html);
-    } elseif (preg_match('/<meta\s+content="[^"]*"\s+name="description"([^>]*)>/i', $html)) {
-        $html = preg_replace('/<meta\s+content="[^"]*"\s+name="description"([^>]*)>/i', '<meta name="description" content="' . htmlspecialchars($newDesc, ENT_QUOTES, 'UTF-8') . '"$1>', $html);
+
+    // 3. Update or insert keywords meta
+    if (preg_match('/<meta[^>]*name=["\']keywords["\'][^>]*>/i', $html)) {
+        $html = preg_replace('/<meta([^>]*)name=["\']keywords["\']([^>]*)content=["\'][^"\']*["\']([^>]*)>/i', '<meta$1name="keywords"$2content="' . $keywords . '"$3>', $html, 1);
+    } elseif (preg_match('/<meta[^>]*content=["\'][^"\']*["\'][^>]*name=["\']keywords["\'][^>]*>/i', $html)) {
+        $html = preg_replace('/<meta([^>]*)content=["\'][^"\']*["\']([^>]*)name=["\']keywords["\']([^>]*)>/i', '<meta$1name="keywords"$2content="' . $keywords . '"$3>', $html, 1);
     } else {
-        $html = preg_replace('/<\/title>/i', "</title>\n    <meta name=\"description\" content=\"" . htmlspecialchars($newDesc, ENT_QUOTES, 'UTF-8') . "\">", $html);
+        $html = preg_replace('/<meta[^>]*name=["\']description["\'][^>]*>/i', "$0\n    <meta name=\"keywords\" content=\"" . $keywords . "\">", $html, 1);
     }
-    
-    // 3. Update keywords tag
-    if (preg_match('/<meta\s+name="keywords"\s+content="[^"]*"([^>]*)>/i', $html)) {
-        $html = preg_replace('/<meta\s+name="keywords"\s+content="[^"]*"([^>]*)>/i', '<meta name="keywords" content="' . htmlspecialchars($newKeywords, ENT_QUOTES, 'UTF-8') . '"$1>', $html);
-    } elseif (preg_match('/<meta\s+content="[^"]*"\s+name="keywords"([^>]*)>/i', $html)) {
-        $html = preg_replace('/<meta\s+content="[^"]*"\s+name="keywords"([^>]*)>/i', '<meta name="keywords" content="' . htmlspecialchars($newKeywords, ENT_QUOTES, 'UTF-8') . '"$1>', $html);
-    } else {
-        if (preg_match('/<meta\s+name="description"[^>]*>/i', $html)) {
-            $html = preg_replace('/(<meta\s+name="description"[^>]*>)/i', "$1\n    <meta name=\"keywords\" content=\"" . htmlspecialchars($newKeywords, ENT_QUOTES, 'UTF-8') . "\">", $html);
-        } else {
-            $html = preg_replace('/<\/title>/i', "</title>\n    <meta name=\"keywords\" content=\"" . htmlspecialchars($newKeywords, ENT_QUOTES, 'UTF-8') . "\">", $html);
-        }
-    }
-    
+
     return file_put_contents($filePath, $html) !== false;
 }
 

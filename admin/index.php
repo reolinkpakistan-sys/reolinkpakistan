@@ -64,6 +64,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     }
 }
 
+// CSRF protection for all non-login POST actions
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['login'])) {
+    requireCsrfToken();
+}
+
 // If not logged in, render Login View
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     ?>
@@ -168,6 +173,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
             <?php endif; ?>
 
             <form method="POST">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>">
                 <div class="form-group">
                     <label>Username</label>
                     <input type="text" name="username" placeholder="Enter username" required autofocus>
@@ -1117,6 +1123,7 @@ if (isset($_GET['status'])) {
                         <h3><ion-icon name="wallet"></ion-icon> Reolink Go PT Plus Prices</h3>
                     </div>
                     <form method="POST">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>">
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Option 1: With Solar Panel Price (PKR)</label>
@@ -1583,6 +1590,7 @@ if (isset($_GET['status'])) {
                         <h3><ion-icon name="globe"></ion-icon> Static Pages SEO Editor</h3>
                     </div>
                     <form method="POST">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>">
                         <div class="form-group">
                             <label>Select Page to Edit</label>
                             <select name="seo_page" id="seoPageSelect" onchange="loadPageSeoData(this.value)" class="form-control" style="width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; margin-bottom: 20px; font-size: 15px;">
@@ -1617,6 +1625,7 @@ if (isset($_GET['status'])) {
                         <h3><ion-icon name="business"></ion-icon> Contact Settings & Info</h3>
                     </div>
                     <form method="POST">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>">
                         <!-- Camera Prices submitted as hidden inputs -->
                         <input type="hidden" name="price_solar" value="<?= htmlspecialchars($cmsData['prices']['solar']) ?>">
                         <input type="hidden" name="price_no_solar" value="<?= htmlspecialchars($cmsData['prices']['no_solar']) ?>">
@@ -1653,6 +1662,7 @@ if (isset($_GET['status'])) {
                         <h3><ion-icon name="videocam"></ion-icon> Banner & Use-case Video Settings</h3>
                     </div>
                     <form method="POST">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>">
                         <!-- Camera Prices and Contact submitted as hidden inputs -->
                         <input type="hidden" name="price_solar" value="<?= htmlspecialchars($cmsData['prices']['solar']) ?>">
                         <input type="hidden" name="price_no_solar" value="<?= htmlspecialchars($cmsData['prices']['no_solar']) ?>">
@@ -1684,6 +1694,7 @@ if (isset($_GET['status'])) {
                         <h3><ion-icon name="lock-closed"></ion-icon> Change Administrative Password</h3>
                     </div>
                     <form method="POST">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>">
                         <div class="form-group">
                             <label>Current Password</label>
                             <input type="password" name="curr_pass" placeholder="Enter current password" required>

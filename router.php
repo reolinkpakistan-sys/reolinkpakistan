@@ -57,13 +57,14 @@ if (preg_match('#^/products/([^/]+)/?$#', $uri, $matches)) {
 }
 
 // Clean URL: Blog
+$allowedBlogSlugs = ['cattle-farm-security'];
 if ($uri === '/blog/cattle-farm-security' || $uri === '/blog/cattle-farm-security/') {
     include __DIR__ . '/cattle-farm-security.html';
     exit;
 }
 if (preg_match('#^/blog/([^/]+)/?$#', $uri, $matches)) {
     $slug = $matches[1];
-    if (file_exists(__DIR__ . '/' . $slug . '.html')) {
+    if (in_array($slug, $allowedBlogSlugs, true) && file_exists(__DIR__ . '/' . $slug . '.html')) {
         include __DIR__ . '/' . $slug . '.html';
     } else {
         include __DIR__ . '/index.html';
@@ -90,9 +91,15 @@ if ($uri === '/privacy-policy' || $uri === '/privacy-policy/') {
 }
 
 // Clean URL: Category pages
+$allowedCategories = ['4g-cameras', 'solar-cameras', 'wifi-cameras', 'cctv-systems', 'wireless-mics', 'speakers', 'accessories'];
 if (preg_match('#^/category/([a-zA-Z0-9_-]+)/?$#', $uri, $matches)) {
-    $_GET['type'] = $matches[1];
-    include __DIR__ . '/category.html';
+    $category = $matches[1];
+    if (in_array($category, $allowedCategories, true)) {
+        $_GET['type'] = $category;
+        include __DIR__ . '/category.html';
+    } else {
+        include __DIR__ . '/index.html';
+    }
     exit;
 }
 

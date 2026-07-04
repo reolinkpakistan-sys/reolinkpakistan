@@ -188,7 +188,7 @@ function injectProductSchema(product) {
             "@type": "Offer",
             "url": productUrl,
             "priceCurrency": "PKR",
-            "price": product.curr_price,
+            "price": String(product.curr_price || 0),
             "priceValidUntil": "2027-12-31",
             "itemCondition": "https://schema.org/NewCondition",
             "availability": "https://schema.org/InStock",
@@ -235,11 +235,12 @@ function renderProductDetails(product, contactInfo) {
     const displayDesc = product.meta_desc || `Buy ${product.name} in Pakistan from S M Enterprises. High quality products with 1 month official warranty and express delivery.`;
 
     setLinkHref('pdCanonical', productUrl);
+    setMetaContent('pdOgType', 'product');
     setMetaContent('pdOgTitle', displayTitle);
     setMetaContent('pdOgDesc', displayDesc);
     setMetaContent('pdOgImage', imageUrl);
     setMetaContent('pdOgUrl', productUrl);
-    setMetaContent('pdOgPriceAmount', String(product.curr_price));
+    setMetaContent('pdOgPriceAmount', String(product.curr_price || 0));
     setMetaContent('pdTwitterTitle', displayTitle);
     setMetaContent('pdTwitterDesc', displayDesc);
     setMetaContent('pdTwitterImage', imageUrl);

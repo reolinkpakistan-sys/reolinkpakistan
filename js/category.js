@@ -156,7 +156,6 @@ const SITE_ORIGIN = 'https://www.reolink.com.pk';
 const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/images/camera.webp`;
 
 function setMetaContent(id, content) {
-
     const el = document.getElementById(id);
     if (el) el.setAttribute('content', content);
 }

@@ -438,22 +438,41 @@ function handleProductImageUpload($fileField, $base64Field, $textField, $current
         $origName = basename($_FILES[$fileField]['name']);
         $ext = strtolower(pathinfo($origName, PATHINFO_EXTENSION));
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'mp4', 'webm', 'mov'];
-        if (in_array($ext, $allowedExtensions)) {
-            $isVideo = in_array($ext, ['mp4', 'webm', 'mov']);
-            $finalExt = ($isVideo || $ext === 'gif') ? $ext : 'webp'; // Convert images to webp
-            $newFileName = 'prod_' . md5(uniqid(rand(), true)) . '.' . $finalExt;
-            $destination = $uploadDir . $newFileName;
-            
-            if ($isVideo || $ext === 'gif') {
-                if (move_uploaded_file($tmpName, $destination)) {
-                    return 'images/' . $newFileName;
-                }
-            } else {
-                if (compressAndResizeImage($tmpName, $destination, 1200, 80)) {
-                    return 'images/' . $newFileName;
-                }
+
+        if (!in_array($ext, $allowedExtensions, true)) {
+            logSecurityEvent('upload_rejected', ['reason' => 'extension', 'file' => $origName]);
+            return $currentValue;
+        }
+
+        $isVideo = in_array($ext, ['mp4', 'webm', 'mov'], true);
+        $finalExt = ($isVideo || $ext === 'gif') ? $ext : 'webp';
+        $newFileName = 'prod_' . md5(uniqid((string)rand(), true)) . '.' . $finalExt;
+        $destination = $uploadDir . $newFileName;
+
+        if ($isVideo || $ext === 'gif') {
+            $validation = validateUploadFile($tmpName, ['video/mp4', 'video/webm', 'video/quicktime', 'image/gif'], 50 * 1024 * 1024);
+            if (!$validation['ok']) {
+                logSecurityEvent('upload_rejected', ['reason' => $validation['error'], 'file' => $origName]);
+                return $currentValue;
+            }
+            if (move_uploaded_file($tmpName, $destination)) {
+                logSecurityEvent('upload_success', ['file' => $newFileName, 'type' => $validation['mime']]);
+                return 'images/' . $newFileName;
+            }
+        } else {
+            $validation = validateUploadFile($tmpName, ['image/jpeg', 'image/png', 'image/webp'], 10 * 1024 * 1024);
+            if (!$validation['ok']) {
+                logSecurityEvent('upload_rejected', ['reason' => $validation['error'], 'file' => $origName]);
+                return $currentValue;
+            }
+            if (compressAndResizeImage($tmpName, $destination, 1200, 80)) {
+                logSecurityEvent('upload_success', ['file' => $newFileName, 'type' => $validation['mime']]);
+                return 'images/' . $newFileName;
             }
         }
+
+        logSecurityEvent('upload_rejected', ['reason' => 'move_failed', 'file' => $origName]);
+        return $currentValue;
     }
     
     // 2. Direct Camera Access (Base64)
@@ -498,21 +517,29 @@ function handleMultipleGalleryUploads($fileField) {
                 $ext = strtolower(pathinfo($origName, PATHINFO_EXTENSION));
                 $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'mp4', 'webm', 'mov'];
                 
-                if (in_array($ext, $allowedExtensions)) {
-                    $isVideo = in_array($ext, ['mp4', 'webm', 'mov']);
-                    $finalExt = ($isVideo || $ext === 'gif') ? $ext : 'webp'; // Convert images to webp
-                    $newFileName = 'gal_' . md5(uniqid(rand(), true)) . '.' . $finalExt;
+                if (in_array($ext, $allowedExtensions, true)) {
+                    $isVideo = in_array($ext, ['mp4', 'webm', 'mov'], true);
+                    $finalExt = ($isVideo || $ext === 'gif') ? $ext : 'webp';
+                    $newFileName = 'gal_' . md5(uniqid((string)rand(), true)) . '.' . $finalExt;
                     $destination = $uploadDir . $newFileName;
-                    
+
                     if ($isVideo || $ext === 'gif') {
-                        if (move_uploaded_file($tmpName, $destination)) {
+                        $validation = validateUploadFile($tmpName, ['video/mp4', 'video/webm', 'video/quicktime', 'image/gif'], 50 * 1024 * 1024);
+                        if ($validation['ok'] && move_uploaded_file($tmpName, $destination)) {
                             $uploadedPaths[] = 'images/' . $newFileName;
+                        } else {
+                            logSecurityEvent('upload_rejected', ['reason' => $validation['error'] ?? 'move_failed', 'file' => $origName]);
                         }
                     } else {
-                        if (compressAndResizeImage($tmpName, $destination, 1200, 80)) {
+                        $validation = validateUploadFile($tmpName, ['image/jpeg', 'image/png', 'image/webp'], 10 * 1024 * 1024);
+                        if ($validation['ok'] && compressAndResizeImage($tmpName, $destination, 1200, 80)) {
                             $uploadedPaths[] = 'images/' . $newFileName;
+                        } else {
+                            logSecurityEvent('upload_rejected', ['reason' => $validation['error'] ?? 'compress_failed', 'file' => $origName]);
                         }
                     }
+                } else {
+                    logSecurityEvent('upload_rejected', ['reason' => 'extension', 'file' => $origName]);
                 }
             }
         }

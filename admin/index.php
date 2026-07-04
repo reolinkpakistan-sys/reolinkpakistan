@@ -52,15 +52,28 @@ if (isset($_GET['logout'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-    $username = trim($_POST['username'] ?? '');
-    $password = trim($_POST['password'] ?? '');
+    $clientIp = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
 
-    if ($username === ADMIN_USER && password_verify($password, ADMIN_PASS_HASH)) {
-        $_SESSION['admin_logged_in'] = true;
-        header('Location: ' . $_SERVER['SCRIPT_NAME']);
-        exit;
+    if (!isLoginAllowed($clientIp)) {
+        logSecurityEvent('login_rate_limited', ['ip' => $clientIp]);
+        $error = 'Bohot saari failed attempts. Baraye meharbani 15 minutes baad dobara koshish karein.';
     } else {
-        $error = 'Ghalat username ya password. Dobara koshish karein.';
+        $username = trim($_POST['username'] ?? '');
+        $password = trim($_POST['password'] ?? '');
+
+        if ($username === ADMIN_USER && password_verify($password, ADMIN_PASS_HASH)) {
+            session_regenerate_id(true);
+            $_SESSION['admin_logged_in'] = true;
+            $_SESSION['created'] = time();
+            recordLoginAttempt($clientIp);
+            logSecurityEvent('admin_login_success', ['ip' => $clientIp]);
+            header('Location: ' . $_SERVER['SCRIPT_NAME']);
+            exit;
+        } else {
+            recordLoginAttempt($clientIp);
+            logSecurityEvent('admin_login_failure', ['ip' => $clientIp, 'username' => $username]);
+            $error = 'Ghalat username ya password. Dobara koshish karein.';
+        }
     }
 }
 

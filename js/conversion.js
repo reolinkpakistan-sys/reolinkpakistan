@@ -134,6 +134,7 @@
                 });
 
                 document.querySelectorAll('[data-scarcity]').forEach(el => {
+                    if (el.dataset.scarcity === 'true') return; // handled by product-details.js
                     renderScarcity(el, el.dataset.scarcity);
                 });
             });

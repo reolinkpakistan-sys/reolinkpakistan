@@ -291,6 +291,12 @@ function renderProductDetails(product, contactInfo) {
         renderStandardLayout(product, contactInfo);
     }
 
+    // Scarcity badge
+    const scarcityEl = document.getElementById('productScarcity');
+    if (scarcityEl && product.stock !== undefined && product.stock <= 10) {
+        scarcityEl.innerHTML = `<span class="scarcity-badge"><ion-icon name="flame"></ion-icon> Only ${product.stock} left in stock — ${product.viewing || 5} people viewing</span>`;
+    }
+
     // Shared UI logic for BOTH layouts (Specs, Checkout Modal)
 
     // Model in specs

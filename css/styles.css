@@ -4200,3 +4200,35 @@ body {
             border: 1px solid rgba(255,255,255,0.08);
             margin-bottom: 30px;
         }
+
+/* Hero trust badges */
+.hero-trust-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 22px 0 18px;
+}
+.hero-trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    color: #93c5fd;
+    padding: 7px 13px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+.hero-trust-item ion-icon {
+    font-size: 15px;
+    color: #60a5fa;
+}
+@media (max-width: 480px) {
+    .hero-trust-item {
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+}

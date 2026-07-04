@@ -97,6 +97,15 @@
             const name = fd.get('name');
             const phone = fd.get('phone');
             const product = fd.get('product_interest') || 'General inquiry';
+            const lead = { name, phone, product_interest: product, source: 'lead_form' };
+
+            // Persist lead to cms_data.json via backend endpoint
+            fetch(getBasePath() + 'api/capture-lead.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(lead)
+            }).catch(err => console.error('Failed to save lead:', err));
+
             const msg = encodeURIComponent(`Assalam-o-Alaikum S M Enterprises,\n\nMujhe best price chahiye:\n- Name: ${name}\n- Phone/WhatsApp: ${phone}\n- Product Interest: ${product}\n\nPlease send me your best price. Thank you.`);
             window.open(`https://wa.me/${waNum}?text=${msg}`, '_blank');
             form.reset();
@@ -112,6 +121,19 @@
     function renderScarcity(container, text) {
         if (!container || !text) return;
         container.innerHTML = `<span class="scarcity-badge"><ion-icon name="flame"></ion-icon> ${text}</span>`;
+    }
+
+    function renderTrustBadges(container, badges, layout) {
+        if (!container || !badges || !badges.length) return;
+        const items = badges.map(b =>
+            `<span class="hero-trust-item"><ion-icon name="${b.icon}-outline"></ion-icon> ${b.text}</span>`
+        ).join('');
+
+        if (layout === 'compact') {
+            container.innerHTML = `<div class="hero-trust-badges" style="justify-content:flex-start; margin:14px 0;">${items}</div>`;
+        } else {
+            container.innerHTML = `<div class="hero-trust-badges" style="margin:22px 0 18px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">${items}</div>`;
+        }
     }
 
     // Public API
@@ -137,13 +159,18 @@
                     if (el.dataset.scarcity === 'true') return; // handled by product-details.js
                     renderScarcity(el, el.dataset.scarcity);
                 });
+
+                document.querySelectorAll('[data-trust-badges]').forEach(el => {
+                    renderTrustBadges(el, settings.trust_badges, el.dataset.trustBadges);
+                });
             });
         },
         renderReviews,
         renderStickyWhatsApp,
         renderLeadForm,
         updateUrgencyBar,
-        renderScarcity
+        renderScarcity,
+        renderTrustBadges
     };
 
     if (document.readyState === 'loading') {

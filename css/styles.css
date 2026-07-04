@@ -4313,6 +4313,10 @@ body {
     body {
         padding-bottom: 56px;
     }
+    /* Hide the legacy homepage sticky buy bar to avoid overlap with the new WhatsApp CTA */
+    #sticky-bar {
+        display: none !important;
+    }
 }
 
 /* Lead capture form */

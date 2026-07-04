@@ -99,8 +99,13 @@ def main():
         ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/category.html", "/public_html/category.html"),
         ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/js/product-details.js", "/public_html/js/product-details.js"),
         ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/js/category.js", "/public_html/js/category.js"),
+        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/js/conversion.js", "/public_html/js/conversion.js"),
         ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/privacy-policy.html", "/public_html/privacy-policy.html"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/.htaccess", "/public_html/.htaccess")
+        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/.htaccess", "/public_html/.htaccess"),
+        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/admin/security.php", "/public_html/admin/security.php"),
+        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/admin/config.php", "/public_html/admin/config.php"),
+        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/api/capture-lead.php", "/public_html/api/capture-lead.php"),
+        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/save_image.php", "/public_html/save_image.php")
     ]
     
     print("--- Starting SEO Deployment ---")

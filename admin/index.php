@@ -35,6 +35,16 @@ if (!file_exists($dataPath)) {
 
 $cmsData = json_decode(file_get_contents($dataPath), true);
 
+// Helper functions for reviews/leads management
+function verify_csrf_token(): bool {
+    return validateCsrfToken($_POST['csrf_token'] ?? '');
+}
+
+function save_cms_data(array $data): bool {
+    global $dataPath;
+    return file_put_contents($dataPath, json_encode($data, JSON_PRETTY_PRINT)) !== false;
+}
+
 // 3. Authentication logic
 $error = '';
 $success = '';
@@ -772,6 +782,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['login'])) {
             $error = 'Maujooda (Current) password ghalat hai.';
         }
     }
+
+    // Add review
+    if (isset($_POST['add_review'])) {
+        if (!verify_csrf_token()) {
+            die('Invalid CSRF token');
+        }
+        $newReview = [
+            'id' => time(),
+            'name' => trim($_POST['review_name'] ?? ''),
+            'city' => trim($_POST['review_city'] ?? ''),
+            'rating' => intval($_POST['review_rating'] ?? 5),
+            'text' => trim($_POST['review_text'] ?? ''),
+            'product' => trim($_POST['review_product'] ?? ''),
+            'date' => date('Y-m-d'),
+            'photo' => ''
+        ];
+        $cmsData['reviews'][] = $newReview;
+        save_cms_data($cmsData);
+        header('Location: ' . $_SERVER['PHP_SELF'] . '?tab=reviews');
+        exit;
+    }
+
+    // Delete review
+    if (isset($_POST['delete_review'])) {
+        if (!verify_csrf_token()) {
+            die('Invalid CSRF token');
+        }
+        $idx = intval($_POST['review_index'] ?? -1);
+        if ($idx >= 0 && isset($cmsData['reviews'][$idx])) {
+            array_splice($cmsData['reviews'], $idx, 1);
+            save_cms_data($cmsData);
+        }
+        header('Location: ' . $_SERVER['PHP_SELF'] . '?tab=reviews');
+        exit;
+    }
 }
 
 // 5. Handle GET operations for Gadgets
@@ -1100,6 +1145,24 @@ if (isset($_GET['status'])) {
             gap: 10px;
             margin-top: 5px;
         }
+
+        /* Data tables used in reviews/leads panels */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .data-table th, .data-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            font-size: 14px;
+        }
+        .data-table th { color: #94a3b8; font-weight: 600; }
+        .data-table td { color: #cbd5e1; }
+
+        .admin-form { margin-bottom: 30px; }
     </style>
 </head>
 <body>
@@ -1129,6 +1192,12 @@ if (isset($_GET['status'])) {
                 </button>
                 <button class="menu-btn" onclick="switchTab('security', this)">
                     <ion-icon name="lock-closed-outline"></ion-icon> Security Settings
+                </button>
+                <button class="menu-btn" onclick="switchTab('reviews', this)">
+                    <ion-icon name="star-outline"></ion-icon> Reviews
+                </button>
+                <button class="menu-btn" onclick="switchTab('leads', this)">
+                    <ion-icon name="people-outline"></ion-icon> Leads
                 </button>
                 
                 <a href="<?= $_SERVER['SCRIPT_NAME'] ?>?logout=true" class="menu-btn logout-btn" onclick="localStorage.removeItem('adminActiveTab');">
@@ -1757,6 +1826,93 @@ if (isset($_GET['status'])) {
                     </form>
                 </div>
 
+                <!-- Tab: Reviews -->
+                <div class="panel" id="tab-reviews">
+                    <div class="panel-title">
+                        <h3><ion-icon name="star"></ion-icon> Customer Reviews</h3>
+                    </div>
+                    <form method="post" class="admin-form">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
+                        <h4 style="margin-bottom: 15px; color: #94a3b8;">Add New Review</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" name="review_name" placeholder="Customer Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="review_city" placeholder="City">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="number" name="review_rating" min="1" max="5" value="5" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="review_product" placeholder="Product Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="review_text" placeholder="Review text" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" name="add_review" class="btn-submit">Add Review</button>
+                    </form>
+
+                    <h4 style="margin: 30px 0 15px; color: #94a3b8;">Existing Reviews</h4>
+                    <?php if (!empty($cmsData['reviews'])): ?>
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Name</th><th>Rating</th><th>Product</th><th>Text</th><th>Action</th></tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($cmsData['reviews'] as $i => $r): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($r['name'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($r['rating'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($r['product'] ?? '') ?></td>
+                                <td><?= htmlspecialchars(mb_strimwidth($r['text'] ?? '', 0, 60, '…')) ?></td>
+                                <td>
+                                    <form method="post" style="display:inline">
+                                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
+                                        <input type="hidden" name="review_index" value="<?= $i ?>">
+                                        <button type="submit" name="delete_review" class="action-icon-btn delete" onclick="return confirm('Delete this review?')">
+                                            <ion-icon name="trash-outline"></ion-icon>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <?php else: ?>
+                    <p>No reviews yet.</p>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Tab: Leads -->
+                <div class="panel" id="tab-leads">
+                    <div class="panel-title">
+                        <h3><ion-icon name="people"></ion-icon> Lead Captures</h3>
+                    </div>
+                    <?php if (!empty($cmsData['leads'])): ?>
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Date</th><th>Name</th><th>Phone</th><th>Product Interest</th></tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach (array_reverse($cmsData['leads']) as $lead): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($lead['date'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($lead['name'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($lead['phone'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($lead['product_interest'] ?? '') ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <?php else: ?>
+                    <p>No leads captured yet.</p>
+                    <?php endif; ?>
+                </div>
+
             </div>
         </div>
     </div>
@@ -1797,9 +1953,11 @@ if (isset($_GET['status'])) {
             stopCamera();
         }
 
-        // Restore tab state on page load
+        // Restore tab state on page load (URL ?tab= wins over localStorage)
         document.addEventListener('DOMContentLoaded', () => {
-            const activeTab = localStorage.getItem('adminActiveTab');
+            const urlParams = new URLSearchParams(window.location.search);
+            const tabFromUrl = urlParams.get('tab');
+            const activeTab = tabFromUrl || localStorage.getItem('adminActiveTab');
             if (activeTab) {
                 const btn = Array.from(document.querySelectorAll('.menu-btn')).find(el => {
                     const onclick = el.getAttribute('onclick');

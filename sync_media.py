@@ -4,8 +4,11 @@ import time
 
 FTP_HOST = os.environ.get("FTP_HOST", "147.93.78.148")
 FTP_USER = os.environ.get("FTP_USER", "u233785535.reolink.com.pk")
-FTP_PASS = os.environ.get("FTP_PASS", "Letmein.9900")
+FTP_PASS = os.environ.get("FTP_PASS", "")
 FTP_PORT = int(os.environ.get("FTP_PORT", "21"))
+
+if not FTP_PASS:
+    raise ValueError("FTP_PASS environment variable is required. Do not hardcode credentials.")
 
 def connect_ftp():
     for attempt in range(1, 6):

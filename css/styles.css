@@ -4381,3 +4381,8 @@ body {
 .scarcity-badge ion-icon {
     color: #ef4444;
 }
+
+.product-scarcity-wrapper {
+    text-align: center;
+    padding: 0 20px;
+}

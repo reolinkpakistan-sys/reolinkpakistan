@@ -45,6 +45,11 @@ function formatPrice(num) {
     return Number(num).toLocaleString('en-PK');
 }
 
+function getScarcityHtml(product) {
+    if (product.stock === undefined || product.stock > 10) return '';
+    return `<span class="scarcity-badge"><ion-icon name="flame"></ion-icon> Only ${product.stock} left in stock — ${product.viewing || 5} people viewing</span>`;
+}
+
 function setElementTagName(id, newTagName) {
     const el = document.getElementById(id);
     if (!el || el.tagName.toLowerCase() === newTagName.toLowerCase()) return el;
@@ -291,10 +296,17 @@ function renderProductDetails(product, contactInfo) {
         renderStandardLayout(product, contactInfo);
     }
 
-    // Scarcity badge
+    // Scarcity badge (global container moved outside individual layouts)
     const scarcityEl = document.getElementById('productScarcity');
-    if (scarcityEl && product.stock !== undefined && product.stock <= 10) {
-        scarcityEl.innerHTML = `<span class="scarcity-badge"><ion-icon name="flame"></ion-icon> Only ${product.stock} left in stock — ${product.viewing || 5} people viewing</span>`;
+    if (scarcityEl) {
+        const scarcityHtml = getScarcityHtml(product);
+        if (scarcityHtml) {
+            scarcityEl.innerHTML = scarcityHtml;
+            scarcityEl.style.display = 'block';
+        } else {
+            scarcityEl.innerHTML = '';
+            scarcityEl.style.display = 'none';
+        }
     }
 
     // Shared UI logic for BOTH layouts (Specs, Checkout Modal)
@@ -538,6 +550,12 @@ function renderHeroLayout(product, contactInfo) {
             discountEl.innerHTML = `<span class="badge-text">Save Rs ${formatPrice(saveAmount)}</span>`;
         } else if (discountEl) {
             discountEl.style.display = 'none';
+        }
+
+        // Scarcity badge inside hero layout
+        const heroScarcityHtml = getScarcityHtml(product);
+        if (heroScarcityHtml) {
+            priceBlock.insertAdjacentHTML('afterend', `<div class="hero-scarcity-wrapper">${heroScarcityHtml}</div>`);
         }
     }
 
@@ -1404,6 +1422,7 @@ function renderNatureLayout(product, contactInfo) {
                 <div class="nature-action-wrapper">
                     <div class="nature-hero-price">Rs. ${product.curr_price.toLocaleString()}</div>
                     <button class="nature-btn" onclick="openSelectionModal()">Order Now via WhatsApp</button>
+                    ${getScarcityHtml(product) ? `<div class="nature-scarcity" style="width: 100%; text-align: center; margin-top: 10px;">${getScarcityHtml(product)}</div>` : ''}
                 </div>
             </div>
         </div>

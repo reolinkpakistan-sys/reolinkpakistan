@@ -1,19 +1,13 @@
 <?php
-session_start();
+require_once __DIR__ . '/security.php';
+initSecureSession();
 
-// 1. Auto-generate config.php if missing
+// 1. Load configuration safely — do NOT auto-regenerate
 $configPath = __DIR__ . '/config.php';
 if (!file_exists($configPath)) {
-    $defaultPass = 'smenterprises2026';
-    $hash = password_hash($defaultPass, PASSWORD_DEFAULT);
-    $configCode = "<?php\n"
-                . "// Auto-generated Admin Configuration\n"
-                . "define('ADMIN_USER', 'admin');\n"
-                . "define('ADMIN_PASS_HASH', '" . $hash . "');\n";
-    file_put_contents($configPath, $configCode);
+    http_response_code(500);
+    die('Configuration file is missing. Please restore admin/config.php manually.');
 }
-
-// Load configurations
 require_once $configPath;
 
 // 2. Data store paths
@@ -52,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && $_SERVER['CONTENT_
 }
 
 if (isset($_GET['logout'])) {
-    session_destroy();
+    destroySession();
     header('Location: ' . $_SERVER['SCRIPT_NAME']);
     exit;
 }

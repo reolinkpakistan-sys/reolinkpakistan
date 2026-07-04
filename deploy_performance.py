@@ -7,6 +7,9 @@ FTP_USER = os.environ.get("FTP_USER", "u233785535.reolink.com.pk")
 FTP_PASS = os.environ.get("FTP_PASS", "")
 FTP_PORT = int(os.environ.get("FTP_PORT", "21"))
 
+if not FTP_PASS:
+    raise ValueError("FTP_PASS environment variable is required. Do not hardcode credentials.")
+
 def upload_file(ftp, local_path, remote_path):
     print(f"Uploading {local_path} to {remote_path}...")
     with open(local_path, 'rb') as f:

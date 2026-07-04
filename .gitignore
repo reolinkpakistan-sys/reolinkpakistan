@@ -46,10 +46,15 @@ scratch/
 # Reports (generated on demand)
 Code_Audit_Report_Reolink_Pakistan.pdf
 code_audit_report.html
+Security_Hardening_Presentation.pdf
+security_hardening_presentation.html
 
 # Security logs
 admin/logs/
 *.log
+
+# Deployment scripts (may contain credentials)
+live_deploy*.py
 
 # Backup files
 *.bak

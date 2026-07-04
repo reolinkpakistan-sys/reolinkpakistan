@@ -4314,3 +4314,52 @@ body {
         padding-bottom: 56px;
     }
 }
+
+/* Lead capture form */
+.lead-form-section {
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: 20px;
+    padding: 35px;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+.lead-form-section h3 {
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 8px;
+}
+.lead-form-section p {
+    color: #94a3b8;
+    margin-bottom: 22px;
+}
+.lead-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.lead-form input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(0, 0, 0, 0.25);
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+.lead-form input::placeholder {
+    color: #64748b;
+}
+.lead-form button {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+}
+@media (max-width: 480px) {
+    .lead-form .form-row {
+        grid-template-columns: 1fr;
+    }
+}

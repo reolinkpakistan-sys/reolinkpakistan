@@ -152,6 +152,67 @@ const CATEGORY_META = {
     }
 };
 
+const SITE_ORIGIN = 'https://www.reolink.com.pk';
+const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/images/camera.webp`;
+
+function setMetaContent(id, content) {
+
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('content', content);
+}
+
+function setLinkHref(id, href) {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('href', href);
+}
+
+function setMetaProperty(id, property, content) {
+    const el = document.getElementById(id);
+    if (el) {
+        el.setAttribute('property', property);
+        el.setAttribute('content', content);
+    }
+}
+
+function injectCategorySchema(type, meta) {
+    const oldSchema = document.getElementById('dynamicCategorySchema');
+    if (oldSchema) oldSchema.remove();
+
+    const categoryName = meta.eyebrow || 'Products';
+    const pageUrl = `${SITE_ORIGIN}/category/${type}`;
+
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": `${categoryName} | S M Enterprises - Reolink Pakistan`,
+        "description": meta.desc,
+        "url": pageUrl,
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": SITE_ORIGIN
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": categoryName,
+                    "item": pageUrl
+                }
+            ]
+        }
+    };
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = 'dynamicCategorySchema';
+    script.text = JSON.stringify(schema, null, 2);
+    document.head.appendChild(script);
+}
+
 // SVG fallbacks matching existing theme
 function getFallbackSVG(id) {
     const svgs = {
@@ -206,9 +267,25 @@ function updatePageMeta(type) {
     const descEl = document.getElementById('pageDesc');
     const kwEl = document.getElementById('pageKeywords');
 
-    titleEl.textContent = `${meta.eyebrow} | S M Enterprises - Reolink Pakistan`;
+    const pageTitle = `${meta.eyebrow} | S M Enterprises - Reolink Pakistan`;
+    titleEl.textContent = pageTitle;
     descEl.setAttribute('content', meta.desc);
     kwEl.setAttribute('content', meta.keywords);
+
+    // Open Graph & Twitter dynamic injection
+    const pageUrl = `${SITE_ORIGIN}/category/${type}`;
+    setLinkHref('catCanonical', pageUrl);
+    setMetaProperty('catOgType', 'og:type', 'website');
+    setMetaContent('catOgTitle', pageTitle);
+    setMetaContent('catOgDesc', meta.desc);
+    setMetaContent('catOgImage', DEFAULT_OG_IMAGE);
+    setMetaContent('catOgUrl', pageUrl);
+    setMetaContent('catTwitterTitle', pageTitle);
+    setMetaContent('catTwitterDesc', meta.desc);
+    setMetaContent('catTwitterImage', DEFAULT_OG_IMAGE);
+
+    // JSON-LD schema
+    injectCategorySchema(type, meta);
 
     // Dynamic SEO Content Section
     const seoContentEl = document.getElementById('categorySeoContent');

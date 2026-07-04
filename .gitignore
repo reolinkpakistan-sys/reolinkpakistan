@@ -47,6 +47,10 @@ scratch/
 Code_Audit_Report_Reolink_Pakistan.pdf
 code_audit_report.html
 
+# Security logs
+admin/logs/
+*.log
+
 # Backup files
 *.bak
 *.backup

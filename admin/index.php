@@ -205,6 +205,9 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     exit;
 }
 
+// Ensure only authenticated admins can proceed beyond login view
+requireAdmin();
+
 // 4. Global definitions and helper functions for SEO & Media Uploads
 $allowedSeoPages = [
     'index.html' => 'Home Page (index.html)',

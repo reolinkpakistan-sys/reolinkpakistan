@@ -4280,3 +4280,37 @@ body {
 .store-grid-section .review-product {
     color: #60a5fa;
 }
+
+/* Sticky WhatsApp CTA */
+.sticky-whatsapp {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: #075e54;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
+    display: none;
+}
+.sticky-whatsapp a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
+    padding: 14px 20px;
+    font-weight: 700;
+    font-size: 15px;
+}
+.sticky-whatsapp ion-icon {
+    font-size: 22px;
+}
+@media (max-width: 768px) {
+    .sticky-whatsapp {
+        display: block;
+    }
+    body {
+        padding-bottom: 56px;
+    }
+}

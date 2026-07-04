@@ -34,6 +34,31 @@ Options -Indexes
 
 # Security headers
 <IfModule mod_headers.c>
+    # Browser caching for static assets
+    <IfModule mod_expires.c>
+        ExpiresActive On
+        ExpiresByType image/webp "access plus 6 months"
+        ExpiresByType image/png "access plus 6 months"
+        ExpiresByType image/jpeg "access plus 6 months"
+        ExpiresByType image/jpg "access plus 6 months"
+        ExpiresByType image/gif "access plus 6 months"
+        ExpiresByType image/svg+xml "access plus 6 months"
+        ExpiresByType image/x-icon "access plus 6 months"
+        ExpiresByType video/mp4 "access plus 1 month"
+        ExpiresByType video/webm "access plus 1 month"
+        ExpiresByType video/quicktime "access plus 1 month"
+        ExpiresByType text/css "access plus 1 month"
+        ExpiresByType application/javascript "access plus 1 month"
+        ExpiresByType application/json "access plus 1 hour"
+        ExpiresByType text/html "access plus 1 hour"
+        ExpiresDefault "access plus 1 week"
+    </IfModule>
+
+    # Cache-Control fallbacks for environments without mod_expires
+    Header always set Cache-Control "max-age=604800, public" "expr=%{CONTENT_TYPE} =~ m#^image/#"
+    Header always set Cache-Control "max-age=2592000, public" "expr=%{CONTENT_TYPE} =~ m#^text/css$|application/javascript$#"
+    Header always set Cache-Control "max-age=86400, public" "expr=%{CONTENT_TYPE} =~ m#^video/#"
+
     Header always set X-Frame-Options "SAMEORIGIN"
     Header always set X-Content-Type-Options "nosniff"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"

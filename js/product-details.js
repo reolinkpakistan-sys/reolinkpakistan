@@ -212,6 +212,9 @@ function injectProductSchema(product) {
 }
 
 function renderProductDetails(product, contactInfo) {
+    // Reset immersive-layout scarcity flag so standard layout still renders globally
+    window._scarcityRenderedInLayout = false;
+
     // Page Title & Meta Tags (SEO)
     document.title = product.meta_title || `${product.name} | S M Enterprises Tech Store`;
     
@@ -297,10 +300,11 @@ function renderProductDetails(product, contactInfo) {
     }
 
     // Scarcity badge (global container moved outside individual layouts)
+    // Skip global rendering when an immersive layout already rendered its own badge
     const scarcityEl = document.getElementById('productScarcity');
     if (scarcityEl) {
         const scarcityHtml = getScarcityHtml(product);
-        if (scarcityHtml) {
+        if (scarcityHtml && !window._scarcityRenderedInLayout) {
             scarcityEl.innerHTML = scarcityHtml;
             scarcityEl.style.display = 'block';
         } else {
@@ -556,6 +560,7 @@ function renderHeroLayout(product, contactInfo) {
         const heroScarcityHtml = getScarcityHtml(product);
         if (heroScarcityHtml) {
             priceBlock.insertAdjacentHTML('afterend', `<div class="hero-scarcity-wrapper">${heroScarcityHtml}</div>`);
+            window._scarcityRenderedInLayout = true;
         }
     }
 
@@ -1464,6 +1469,11 @@ function renderNatureLayout(product, contactInfo) {
             </div>
         </div>
     `;
+
+    // Mark scarcity as rendered by nature layout so the global container is suppressed
+    if (getScarcityHtml(product)) {
+        window._scarcityRenderedInLayout = true;
+    }
 
     document.getElementById('specModel').textContent = product.name;
     const specTable = document.getElementById('specTable');

@@ -1,0 +1,6 @@
+<FilesMatch "^(config\.php|cms_data\.json)$">
+    Require all denied
+</FilesMatch>
+
+RewriteEngine On
+RewriteRule ^logs/ - [F,L]

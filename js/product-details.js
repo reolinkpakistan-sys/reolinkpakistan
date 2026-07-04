@@ -96,25 +96,97 @@ function getFallbackSVG(id) {
     }
 }
 
+const SITE_ORIGIN = 'https://www.reolink.com.pk';
+const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/images/camera.webp`;
+
+function setMetaContent(id, content) {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('content', content);
+}
+
+function setLinkHref(id, href) {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('href', href);
+}
+
+function absoluteImageUrl(imagePath) {
+    if (!imagePath) return DEFAULT_OG_IMAGE;
+    if (imagePath.startsWith('http')) return imagePath;
+    if (imagePath.startsWith('/')) return `${SITE_ORIGIN}${imagePath}`;
+    return `${SITE_ORIGIN}/${imagePath}`;
+}
+
+function injectBreadcrumbSchema(product) {
+    const oldSchema = document.getElementById('dynamicBreadcrumbSchema');
+    if (oldSchema) oldSchema.remove();
+
+    const categoryMap = {
+        '4g-cameras': '4G SIM Cameras',
+        'solar-cameras': 'Solar Cameras',
+        'wifi-cameras': 'WiFi Cameras',
+        'cctv-systems': 'CCTV Systems',
+        'wireless-mics': 'Wireless Microphones',
+        'speakers': 'Bluetooth Speakers',
+        'accessories': 'Accessories'
+    };
+
+    const categoryName = categoryMap[product.category] || 'Products';
+    const categoryUrl = `${SITE_ORIGIN}/category/${product.category}`;
+    const productUrl = `${SITE_ORIGIN}${product.static_url || `/products/${product.id}`}`;
+
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": SITE_ORIGIN
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": categoryName,
+                "item": categoryUrl
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": product.name,
+                "item": productUrl
+            }
+        ]
+    };
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = 'dynamicBreadcrumbSchema';
+    script.text = JSON.stringify(schema, null, 2);
+    document.head.appendChild(script);
+}
+
 function injectProductSchema(product) {
     const oldSchema = document.getElementById('dynamicProductSchema');
     if (oldSchema) oldSchema.remove();
-    
+
+    const productUrl = SITE_ORIGIN + (product.static_url || `/products/${product.id}`);
+    const imageUrl = absoluteImageUrl(product.image);
+
     const schema = {
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": product.name,
-        "image": [
-            window.location.origin + '/' + (product.image || 'images/logo-ltp.png')
-        ],
+        "image": [imageUrl],
         "description": product.desc,
         "brand": {
             "@type": "Brand",
-            "name": "S M Enterprises"
+            "name": product.brand || "Reolink"
         },
+        "sku": product.sku || product.id.toUpperCase(),
         "offers": {
             "@type": "Offer",
-            "url": window.location.href,
+            "url": productUrl,
             "priceCurrency": "PKR",
             "price": product.curr_price,
             "priceValidUntil": "2027-12-31",
@@ -126,7 +198,7 @@ function injectProductSchema(product) {
             }
         }
     };
-    
+
     const script = document.createElement('script');
     script.type = 'application/ld+json';
     script.id = 'dynamicProductSchema';
@@ -156,8 +228,25 @@ function renderProductDetails(product, contactInfo) {
         metaKeywords.setAttribute('content', product.focus_keywords);
     }
 
+    // Canonical, Open Graph & Twitter dynamic injection
+    const productUrl = SITE_ORIGIN + (product.static_url || `/products/${product.id}`);
+    const imageUrl = absoluteImageUrl(product.image);
+    const displayTitle = product.meta_title || `${product.name} | S M Enterprises Tech Store`;
+    const displayDesc = product.meta_desc || `Buy ${product.name} in Pakistan from S M Enterprises. High quality products with 1 month official warranty and express delivery.`;
+
+    setLinkHref('pdCanonical', productUrl);
+    setMetaContent('pdOgTitle', displayTitle);
+    setMetaContent('pdOgDesc', displayDesc);
+    setMetaContent('pdOgImage', imageUrl);
+    setMetaContent('pdOgUrl', productUrl);
+    setMetaContent('pdOgPriceAmount', String(product.curr_price));
+    setMetaContent('pdTwitterTitle', displayTitle);
+    setMetaContent('pdTwitterDesc', displayDesc);
+    setMetaContent('pdTwitterImage', imageUrl);
+
     // Inject Product Schema JSON-LD dynamically
     injectProductSchema(product);
+    injectBreadcrumbSchema(product);
 
     // Toggle Stitch design theme class for Alvoxcon Microphone
     if (product.id === 'alvoxcon-mic') {

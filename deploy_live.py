@@ -1,0 +1,157 @@
+#!/usr/bin/env python3
+"""
+One-click deploy for reolink.com.pk
+Downloads latest files from GitHub main branch and uploads via FTP.
+Usage:
+    python3 deploy_live.py
+Or one-liner:
+    curl -fsSL -o deploy_live.py https://raw.githubusercontent.com/reolinkpakistan-sys/reolinkpakistan/main/deploy_live.py && python3 deploy_live.py
+"""
+import ftplib
+import os
+import sys
+import tempfile
+import time
+import urllib.request
+from pathlib import Path
+
+FTP_HOST = "147.93.78.148"
+FTP_USER = "u233785535.reolink.com.pk"
+FTP_PASS = "Letmein.9900"
+FTP_PORT = 21
+REPO_RAW = "https://raw.githubusercontent.com/reolinkpakistan-sys/reolinkpakistan/main"
+
+FILES = [
+    ("index.html", "/public_html/index.html"),
+    ("product-details.html", "/public_html/product-details.html"),
+    ("go-pt-plus.html", "/public_html/go-pt-plus.html"),
+    ("about.html", "/public_html/about.html"),
+    ("contact.html", "/public_html/contact.html"),
+    ("warranty.html", "/public_html/warranty.html"),
+    ("cattle-farm-security.html", "/public_html/cattle-farm-security.html"),
+    ("privacy-policy.html", "/public_html/privacy-policy.html"),
+    ("category.html", "/public_html/category.html"),
+    ("css/styles.css", "/public_html/css/styles.css"),
+    ("js/script.js", "/public_html/js/script.js"),
+    ("js/cms.js", "/public_html/js/cms.js"),
+    ("js/conversion.js", "/public_html/js/conversion.js"),
+    ("js/product-details.js", "/public_html/js/product-details.js"),
+    ("js/category.js", "/public_html/js/category.js"),
+    ("admin/index.php", "/public_html/admin/index.php"),
+    ("admin/security.php", "/public_html/admin/security.php"),
+    ("admin/config.php", "/public_html/admin/config.php"),
+    ("api/capture-lead.php", "/public_html/api/capture-lead.php"),
+    ("save_image.php", "/public_html/save_image.php"),
+    ("cms_data.json", "/public_html/cms_data.json"),
+    (".htaccess", "/public_html/.htaccess"),
+    ("robots.txt", "/public_html/robots.txt"),
+    ("sitemap.xml", "/public_html/sitemap.xml"),
+]
+
+
+def download_file(remote_path, local_path):
+    url = f"{REPO_RAW}/{remote_path}"
+    os.makedirs(os.path.dirname(local_path), exist_ok=True)
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        with open(local_path, "wb") as f:
+            f.write(resp.read())
+
+
+def upload_file(ftp, local_path, remote_path):
+    remote_dir = os.path.dirname(remote_path)
+    filename = os.path.basename(remote_path)
+
+    ftp.cwd("/")
+    if remote_dir != "/":
+        for part in remote_dir.strip("/").split("/"):
+            try:
+                ftp.cwd(part)
+            except Exception:
+                ftp.mkd(part)
+                ftp.cwd(part)
+
+    # Remove temp hidden file if left over
+    temp_name = f".in.{filename}."
+    try:
+        ftp.delete(temp_name)
+    except Exception:
+        pass
+
+    with open(local_path, "rb") as f:
+        ftp.storbinary(f"STOR {filename}", f)
+
+
+def deploy():
+    print("Downloading latest files from GitHub...")
+    tmpdir = tempfile.mkdtemp(prefix="reolink_deploy_")
+    local_files = []
+
+    for repo_path, _ in FILES:
+        local_path = os.path.join(tmpdir, repo_path)
+        try:
+            download_file(repo_path, local_path)
+            local_files.append((local_path, repo_path))
+            print(f"  OK: {repo_path}")
+        except Exception as e:
+            print(f"  FAIL download {repo_path}: {e}")
+            sys.exit(1)
+
+    print("\nConnecting to FTP...")
+    ftp = ftplib.FTP()
+    ftp.connect(FTP_HOST, FTP_PORT, timeout=30)
+    ftp.login(FTP_USER, FTP_PASS)
+    ftp.set_pasv(True)
+    print(f"Logged in. Current dir: {ftp.pwd()}\n")
+
+    success = 0
+    failed = []
+
+    for local_path, repo_path in local_files:
+        remote_path = dict(FILES)[repo_path]
+        for attempt in range(1, 4):
+            try:
+                upload_file(ftp, local_path, remote_path)
+                print(f"UPLOADED: {repo_path} -> {remote_path}")
+                success += 1
+                break
+            except Exception as e:
+                print(f"  FAIL {repo_path} (attempt {attempt}): {e}")
+                try:
+                    ftp.quit()
+                except Exception:
+                    pass
+                if attempt == 3:
+                    failed.append(repo_path)
+                    break
+                # Reconnect
+                try:
+                    ftp = ftplib.FTP()
+                    ftp.connect(FTP_HOST, FTP_PORT, timeout=30)
+                    ftp.login(FTP_USER, FTP_PASS)
+                    ftp.set_pasv(True)
+                except Exception as ce:
+                    print(f"  Reconnect failed: {ce}")
+                    failed.append(repo_path)
+                    break
+                time.sleep(2)
+
+    try:
+        ftp.quit()
+    except Exception:
+        pass
+
+    print(f"\nDone. {success}/{len(FILES)} files uploaded successfully.")
+    if failed:
+        print(f"Failed files: {', '.join(failed)}")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    print("=" * 60)
+    print("Reolink Pakistan - One-Click Live Deploy")
+    print("=" * 60)
+    print("WARNING: FTP password is hardcoded and known to be leaked.")
+    print("Rotate the password via Hostinger as soon as possible.")
+    print("=" * 60 + "\n")
+    deploy()

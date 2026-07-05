@@ -301,9 +301,17 @@ function updatePageMeta(type) {
     });
 }
 
-function renderGrid(gadgets, type, contact) {
+let _categoryGadgets = [];
+let _categoryType = '';
+let _categoryContact = null;
+
+function applyCategoryFilters(searchTerm = '') {
     const grid = document.getElementById('categoryGrid');
     if (!grid) return;
+
+    const type = _categoryType;
+    const gadgets = _categoryGadgets;
+    const contact = _categoryContact;
 
     // Handle Coming Soon categories
     const INACTIVE_CATEGORIES = ['wifi-cameras', 'cctv-systems', 'wireless-mics', 'speakers', 'accessories'];
@@ -331,6 +339,14 @@ function renderGrid(gadgets, type, contact) {
     }
 
     filtered = filtered.filter(g => g.visible !== false);
+
+    if (searchTerm) {
+        const term = searchTerm.toLowerCase();
+        filtered = filtered.filter(g => {
+            const text = `${g.name} ${g.desc || ''} ${g.category || ''} ${g.tag || ''}`.toLowerCase();
+            return text.includes(term);
+        });
+    }
 
     if (filtered.length === 0) {
         grid.innerHTML = `
@@ -445,6 +461,21 @@ function openCategoryOrderModal(product) {
     document.getElementById('catSummaryTotal').textContent = `Rs ${formatPrice(totalCost)}`;
     
     if (modal) modal.classList.add('show');
+}
+
+function renderGrid(gadgets, type, contact) {
+    _categoryGadgets = gadgets;
+    _categoryType = type;
+    _categoryContact = contact;
+    applyCategoryFilters();
+
+    const searchInput = document.getElementById('categorySearch');
+    if (searchInput && !searchInput._hasSearchListener) {
+        searchInput._hasSearchListener = true;
+        searchInput.addEventListener('input', (e) => {
+            applyCategoryFilters(e.target.value.trim());
+        });
+    }
 }
 
 function getBasePath() {

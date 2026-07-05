@@ -89,6 +89,7 @@ function applyCMS(data) {
     if (gadgetsGrid && data.gadgets) {
         // Show all products on the homepage grid
         renderGadgets(gadgetsGrid, data.gadgets, data.contact ? data.contact.whatsapp : null);
+        attachCatalogSearch(gadgetsGrid, data.gadgets, data.contact ? data.contact.whatsapp : null);
     }
 
     // 4. Override Video Modal Player
@@ -234,6 +235,24 @@ function renderGadgets(container, gadgets, whatsappNum) {
                 }
             }
         });
+    });
+}
+
+function attachCatalogSearch(container, gadgets, whatsappNum) {
+    const input = document.getElementById('catalogSearch');
+    if (!input) return;
+
+    input.addEventListener('input', (e) => {
+        const term = e.target.value.trim().toLowerCase();
+        if (!term) {
+            renderGadgets(container, gadgets, whatsappNum);
+            return;
+        }
+        const filtered = gadgets.filter(g => {
+            const text = `${g.name} ${g.desc || ''} ${g.category || ''} ${g.tag || ''}`.toLowerCase();
+            return text.includes(term);
+        });
+        renderGadgets(container, filtered, whatsappNum);
     });
 }
 

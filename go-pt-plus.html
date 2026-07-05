@@ -50,7 +50,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.min.css?v=119">
+    <link rel="stylesheet" href="css/styles.min.css?v=120">
 <!-- Structured Data: Product Schema -->
     <script type="application/ld+json">
     {
@@ -219,7 +219,10 @@
             <!-- Left: Gallery -->
             <div class="gallery-container">
                 <div class="main-gallery-img">
-                    <img id="mainProductImg" src="images/camera.webp" alt="Reolink Go PT Plus 4G Solar Camera">
+                    <picture>
+                        <source id="mainProductSource" srcset="images/camera.webp" type="image/webp">
+                        <img id="mainProductImg" src="images/camera.png" width="600" height="600" alt="Reolink Go PT Plus 4G Solar Camera">
+                    </picture>
                 </div>
                 <div class="gallery-thumbs">
                     <img class="thumb-img active" src="images/camera.webp" alt="With Solar Panel" loading="lazy" onclick="changeImage('images/camera.webp', this)">
@@ -613,10 +616,12 @@
         </div>
     </footer>
 
-     <script src="js/script.js?v=32"></script>
-     <script src="js/cms.js?v=114"></script>
+     <script src="js/script.js?v=120"></script>
+     <script src="js/cms.js?v=120"></script>
      <script>
         function changeImage(src, element) {
+            const webpSrc = src.replace(/\.png$/, '.webp');
+            document.getElementById('mainProductSource').srcset = webpSrc;
             document.getElementById('mainProductImg').src = src;
             document.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
             element.classList.add('active');
@@ -728,6 +733,6 @@
     <!-- Ionicons loaded last — non-blocking -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="js/conversion.js?v=1"></script>
+    <script src="js/conversion.js?v=120"></script>
 </body>
 </html>

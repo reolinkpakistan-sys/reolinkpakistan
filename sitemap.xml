@@ -37,6 +37,24 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://www.reolink.com.pk/terms</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.reolink.com.pk/shipping</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.reolink.com.pk/returns</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
     <loc>https://www.reolink.com.pk/category/4g-cameras</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>weekly</changefreq>

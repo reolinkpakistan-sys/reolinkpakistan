@@ -4390,3 +4390,28 @@ body {
     text-align: center;
     padding: 0 20px;
 }
+
+/* Product card trust badges */
+.rl-card-trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0 12px;
+    justify-content: center;
+}
+.rl-card-trust span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    color: #94a3b8;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 3px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+.rl-card-trust span ion-icon {
+    font-size: 11px;
+    color: #00f3ff;
+}

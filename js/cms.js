@@ -184,6 +184,11 @@ function renderGadgets(container, gadgets, whatsappNum) {
             <div class="rl-card-content">
                 <h3 class="rl-card-title" onclick="window.location.href='${detailsLink}'">${g.name}</h3>
                 ${featuresHTML}
+                <div class="rl-card-trust">
+                    <span><ion-icon name="shield-checkmark-outline"></ion-icon> PTA</span>
+                    <span><ion-icon name="cash-outline"></ion-icon> COD</span>
+                    <span><ion-icon name="car-outline"></ion-icon> Free Ship</span>
+                </div>
                 <div class="rl-card-footer">
                     <div class="rl-card-price-box">
                         ${g.orig_price ? `<span class="rl-price-orig">Rs ${formatPrice(g.orig_price)}</span>` : ''}

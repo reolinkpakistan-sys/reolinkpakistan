@@ -24,6 +24,9 @@ RewriteRule ^about/?$ about.html [L]
 RewriteRule ^contact/?$ contact.html [L]
 RewriteRule ^warranty/?$ warranty.html [L]
 RewriteRule ^privacy-policy/?$ privacy-policy.html [L]
+RewriteRule ^terms/?$ terms.html [L]
+RewriteRule ^shipping/?$ shipping.html [L]
+RewriteRule ^returns/?$ returns.html [L]
 
 # Rewrite for category pages
 RewriteCond %{REQUEST_FILENAME} !-f
@@ -32,6 +35,9 @@ RewriteRule ^category/([^/]+)/?$ category.html?type=$1 [QSA,L]
 
 # Disable directory listing
 Options -Indexes
+
+# Custom 404 page
+ErrorDocument 404 /404.html
 
 # Security headers
 <IfModule mod_headers.c>

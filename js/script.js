@@ -688,3 +688,15 @@ document.addEventListener('click', function(e) {
     }
 });
 
+// ============================================
+// BROKEN IMAGE FALLBACK
+// Failed images automatically swap to placeholder
+// ============================================
+document.addEventListener('error', function(e) {
+  const target = e.target;
+  if (target.tagName === 'IMG' && !target.dataset.replaced) {
+    target.dataset.replaced = 'true';
+    target.src = 'images/placeholder.webp';
+  }
+}, true);
+

@@ -4245,9 +4245,12 @@ body {
     font-weight: 600;
     letter-spacing: 0.3px;
 }
-.hero-trust-item ion-icon {
-    font-size: 15px;
+.hero-trust-item ion-icon,
+.hero-trust-item svg {
+    width: 15px;
+    height: 15px;
     color: #60a5fa;
+    flex-shrink: 0;
 }
 @media (max-width: 480px) {
     .hero-trust-item {
@@ -4434,7 +4437,10 @@ body {
     border-radius: 20px;
     white-space: nowrap;
 }
-.rl-card-trust span ion-icon {
-    font-size: 11px;
+.rl-card-trust span ion-icon,
+.rl-card-trust span svg {
+    width: 11px;
+    height: 11px;
     color: #00f3ff;
+    flex-shrink: 0;
 }

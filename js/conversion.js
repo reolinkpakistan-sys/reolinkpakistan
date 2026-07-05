@@ -4,6 +4,20 @@
 (function () {
     const SITE_ORIGIN = window.location.origin || 'https://www.reolink.com.pk';
 
+    // Inline SVG icon map for trust badges (replaces Ionicons)
+    const TRUST_ICON_SVG = {
+        'shield-checkmark': `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 12 15 16 10"/></svg>`,
+        'cash': `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M7 12h.01M17 12h.01"/></svg>`,
+        'refresh': `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>`,
+        'car': `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>`,
+        'people': `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`
+    };
+
+    function getTrustIcon(iconName) {
+        const key = String(iconName || '').replace(/-outline$/, '').trim();
+        return TRUST_ICON_SVG[key] || '';
+    }
+
     function getBasePath() {
         const base = document.querySelector('base');
         return base ? base.getAttribute('href') : '/';
@@ -125,9 +139,10 @@
 
     function renderTrustBadges(container, badges, layout) {
         if (!container || !badges || !badges.length) return;
-        const items = badges.map(b =>
-            `<span class="hero-trust-item"><ion-icon name="${b.icon}-outline"></ion-icon> ${b.text}</span>`
-        ).join('');
+        const items = badges.map(b => {
+            const iconSvg = getTrustIcon(b.icon);
+            return `<span class="hero-trust-item">${iconSvg}<span>${b.text}</span></span>`;
+        }).join('');
 
         if (layout === 'compact') {
             container.innerHTML = `<div class="hero-trust-badges" style="justify-content:flex-start; margin:14px 0;">${items}</div>`;

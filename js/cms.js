@@ -104,6 +104,18 @@ function formatPrice(num) {
     return Number(num).toLocaleString('en-PK');
 }
 
+function getTrustBadgeIcon(iconName, size = 11) {
+    const icons = {
+        'shield-checkmark': `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 12 15 16 10"/></svg>`,
+        'cash': `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M7 12h.01M17 12h.01"/></svg>`,
+        'car': `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>`,
+        'truck': `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`,
+        'checkmark-circle': `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`
+    };
+    const key = String(iconName || '').replace(/-outline$/, '').trim();
+    return icons[key] || '';
+}
+
 function getFallbackSVG(id) {
     if (id === 'mic') {
         return `<svg viewBox="0 0 100 100" width="80" height="80" style="color: #00f3ff; filter: drop-shadow(0 0 8px rgba(0,243,255,0.4));">
@@ -186,9 +198,9 @@ function renderGadgets(container, gadgets, whatsappNum) {
                 <h3 class="rl-card-title" onclick="window.location.href='${detailsLink}'">${g.name}</h3>
                 ${featuresHTML}
                 <div class="rl-card-trust">
-                    <span><ion-icon name="shield-checkmark-outline"></ion-icon> PTA</span>
-                    <span><ion-icon name="cash-outline"></ion-icon> COD</span>
-                    <span><ion-icon name="car-outline"></ion-icon> Free Ship</span>
+                    <span>${getTrustBadgeIcon('shield-checkmark')} PTA</span>
+                    <span>${getTrustBadgeIcon('cash')} COD</span>
+                    <span>${getTrustBadgeIcon('car')} Free Ship</span>
                 </div>
                 <div class="rl-card-footer">
                     <div class="rl-card-price-box">

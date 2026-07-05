@@ -5,7 +5,7 @@ Downloads latest files from GitHub main branch and uploads via FTP.
 Usage:
     python3 deploy_live.py
 Or one-liner:
-    curl -fsSL -o deploy_live.py https://raw.githubusercontent.com/reolinkpakistan-sys/reolinkpakistan/main/deploy_live.py && python3 deploy_live.py
+    curl -fsSL -o deploy_live.py https://raw.githubusercontent.com/reolinkpakistan-sys/reolinkpakistan/main/deploy_live.py && FTP_PASS='your_password' python3 deploy_live.py
 """
 import ftplib
 import os
@@ -13,7 +13,6 @@ import sys
 import tempfile
 import time
 import urllib.request
-from pathlib import Path
 
 FTP_HOST = "147.93.78.148"
 FTP_USER = "u233785535.reolink.com.pk"
@@ -63,92 +62,81 @@ def download_file(remote_path, local_path):
             f.write(resp.read())
 
 
-def upload_file(ftp, local_path, remote_path):
+def upload_with_fresh_connection(local_path, remote_path):
     remote_dir = os.path.dirname(remote_path)
     filename = os.path.basename(remote_path)
 
-    ftp.cwd("/")
-    if remote_dir != "/":
-        for part in remote_dir.strip("/").split("/"):
-            try:
-                ftp.cwd(part)
-            except Exception:
-                ftp.mkd(part)
-                ftp.cwd(part)
+    ftp = ftplib.FTP()
+    ftp.connect(FTP_HOST, FTP_PORT, timeout=30)
+    ftp.login(FTP_USER, FTP_PASS)
+    ftp.set_pasv(True)
 
-    # Remove temp hidden file if left over
-    temp_name = f".in.{filename}."
     try:
-        ftp.delete(temp_name)
-    except Exception:
-        pass
+        ftp.cwd("/")
+        if remote_dir != "/":
+            for part in remote_dir.strip("/").split("/"):
+                try:
+                    ftp.cwd(part)
+                except Exception:
+                    ftp.mkd(part)
+                    ftp.cwd(part)
 
-    with open(local_path, "rb") as f:
-        ftp.storbinary(f"STOR {filename}", f)
+        # Clean leftover temp file
+        temp_name = f".in.{filename}."
+        try:
+            ftp.delete(temp_name)
+        except Exception:
+            pass
+
+        with open(local_path, "rb") as f:
+            ftp.storbinary(f"STOR {filename}", f)
+    finally:
+        try:
+            ftp.quit()
+        except Exception:
+            pass
 
 
 def deploy():
     print("Downloading latest files from GitHub...")
     tmpdir = tempfile.mkdtemp(prefix="reolink_deploy_")
-    local_files = []
+    local_map = {}
 
     for repo_path, _ in FILES:
         local_path = os.path.join(tmpdir, repo_path)
         try:
             download_file(repo_path, local_path)
-            local_files.append((local_path, repo_path))
+            local_map[repo_path] = local_path
             print(f"  OK: {repo_path}")
         except Exception as e:
             print(f"  FAIL download {repo_path}: {e}")
             sys.exit(1)
 
-    print("\nConnecting to FTP...")
-    ftp = ftplib.FTP()
-    ftp.connect(FTP_HOST, FTP_PORT, timeout=30)
-    ftp.login(FTP_USER, FTP_PASS)
-    ftp.set_pasv(True)
-    print(f"Logged in. Current dir: {ftp.pwd()}\n")
+    print(f"\nUploading {len(FILES)} files to live server...")
+    print("(This may take a few minutes. Each file uses a fresh FTP connection.)\n")
 
     success = 0
     failed = []
 
-    for local_path, repo_path in local_files:
-        remote_path = dict(FILES)[repo_path]
+    for repo_path, remote_path in FILES:
+        local_path = local_map[repo_path]
         for attempt in range(1, 4):
             try:
-                upload_file(ftp, local_path, remote_path)
-                print(f"UPLOADED: {repo_path} -> {remote_path}")
+                upload_with_fresh_connection(local_path, remote_path)
+                print(f"UPLOADED: {repo_path}")
                 success += 1
                 break
             except Exception as e:
                 print(f"  FAIL {repo_path} (attempt {attempt}): {e}")
-                try:
-                    ftp.quit()
-                except Exception:
-                    pass
                 if attempt == 3:
                     failed.append(repo_path)
-                    break
-                # Reconnect
-                try:
-                    ftp = ftplib.FTP()
-                    ftp.connect(FTP_HOST, FTP_PORT, timeout=30)
-                    ftp.login(FTP_USER, FTP_PASS)
-                    ftp.set_pasv(True)
-                except Exception as ce:
-                    print(f"  Reconnect failed: {ce}")
-                    failed.append(repo_path)
-                    break
-                time.sleep(2)
-
-    try:
-        ftp.quit()
-    except Exception:
-        pass
+                else:
+                    time.sleep(3)
 
     print(f"\nDone. {success}/{len(FILES)} files uploaded successfully.")
     if failed:
         print(f"Failed files: {', '.join(failed)}")
+        print("You can re-run the command to retry failed files.")
         sys.exit(1)
 
 
@@ -156,7 +144,7 @@ if __name__ == "__main__":
     print("=" * 60)
     print("Reolink Pakistan - One-Click Live Deploy")
     print("=" * 60)
-    print("WARNING: Current FTP password is known to be leaked in git history.")
-    print("Rotate the password via Hostinger as soon as possible.")
+    print("WARNING: Current FTP password is known to be leaked.")
+    print("Rotate it via Hostinger as soon as possible.")
     print("=" * 60 + "\n")
     deploy()

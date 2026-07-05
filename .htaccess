@@ -2,6 +2,7 @@ RewriteEngine On
 # RewriteBase / (Removed to support subdirectories)
 
 # Rewrite for static products
+RewriteRule ^go-pt-plus/?$ go-pt-plus.html [L]
 RewriteRule ^products/4g-sim-solar-camera/?$ go-pt-plus.html [L]
 RewriteRule ^products/reolink-go-pt-plus/?$ go-pt-plus.html [L]
 

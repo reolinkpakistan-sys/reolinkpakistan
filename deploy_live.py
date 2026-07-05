@@ -17,9 +17,14 @@ from pathlib import Path
 
 FTP_HOST = "147.93.78.148"
 FTP_USER = "u233785535.reolink.com.pk"
-FTP_PASS = "Letmein.9900"
+FTP_PASS = os.environ.get("FTP_PASS", "")
 FTP_PORT = 21
 REPO_RAW = "https://raw.githubusercontent.com/reolinkpakistan-sys/reolinkpakistan/main"
+
+if not FTP_PASS:
+    print("Error: FTP_PASS environment variable is required.")
+    print("Example: FTP_PASS='your_password' python3 deploy_live.py")
+    sys.exit(1)
 
 FILES = [
     ("index.html", "/public_html/index.html"),
@@ -151,7 +156,7 @@ if __name__ == "__main__":
     print("=" * 60)
     print("Reolink Pakistan - One-Click Live Deploy")
     print("=" * 60)
-    print("WARNING: FTP password is hardcoded and known to be leaked.")
+    print("WARNING: Current FTP password is known to be leaked in git history.")
     print("Rotate the password via Hostinger as soon as possible.")
     print("=" * 60 + "\n")
     deploy()

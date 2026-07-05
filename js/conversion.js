@@ -144,7 +144,8 @@
                 const settings = data.settings || {};
                 const reviews = data.reviews || [];
 
-                updateUrgencyBar(settings.urgency_bar_text);
+                // Urgency bar text is now hardcoded in HTML per business preference
+                // updateUrgencyBar(settings.urgency_bar_text);
                 renderStickyWhatsApp(settings.whatsapp_number || data.contact?.whatsapp);
 
                 document.querySelectorAll('[data-reviews]').forEach(el => {

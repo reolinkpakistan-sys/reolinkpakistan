@@ -312,7 +312,7 @@ p { font-size: 19px; color: var(--text-secondary); font-weight: 400; margin-bott
     50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); } 
 }
 
-.cam-wrapper { position: relative; width: 100%; max-width: 550px; display: flex; justify-content: center; align-items: center; transform-style: preserve-3d; perspective: 1200px; transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 1; }
+.cam-wrapper { position: relative; width: 100%; max-width: 620px; display: flex; justify-content: center; align-items: center; transform-style: preserve-3d; perspective: 1200px; transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94); z-index: 1; }
 .main-cam { width: 100%; height: auto; object-fit: contain; filter: drop-shadow(40px 40px 60px rgba(0,0,0,0.8)); transform: translateZ(20px); }
 
 /* Camera Variant Crossfade Animation — Base Selectors */
@@ -348,13 +348,13 @@ p { font-size: 19px; color: var(--text-secondary); font-weight: 400; margin-bott
     position: absolute;
     display: inline-flex; 
     align-items: center; 
-    gap: 6px; 
-    padding: 6px 12px; 
+    gap: 4px; 
+    padding: 4px 8px; 
     background: rgba(11, 15, 25, 0.85); 
     border: 1px solid rgba(0, 243, 255, 0.3); 
     border-radius: 999px; 
     color: #e2e8f0; 
-    font-size: 12px; 
+    font-size: 10px; 
     font-weight: 600; 
     backdrop-filter: blur(6px); 
     -webkit-backdrop-filter: blur(6px);
@@ -364,22 +364,22 @@ p { font-size: 19px; color: var(--text-secondary); font-weight: 400; margin-bott
     transform-style: preserve-3d; 
 }
 /* Float tags are converted to inline pills on mobile via responsive section */
-.float-tag ion-icon { font-size: 16px; color: var(--brand-blue); filter: drop-shadow(0 0 8px rgba(47, 101, 246, 0.6)); }
-.float-tag svg { width: 14px; height: 14px; fill: #00f3ff; }
+.float-tag ion-icon { font-size: 14px; color: var(--brand-blue); filter: drop-shadow(0 0 8px rgba(47, 101, 246, 0.6)); }
+.float-tag svg { width: 12px; height: 12px; fill: #00f3ff; }
 
-.ft-1 { top: 3%; right: -50px; animation: floatBadge 4s ease-in-out infinite alternate; border-color: rgba(47, 101, 246, 0.3); }
-.ft-2 { top: 35%; left: -60px; animation: floatBadge 5s ease-in-out infinite alternate-reverse; color: #25d366; border-color: rgba(37, 211, 102, 0.3); transform: rotate(-5deg) translateZ(60px); }
-.ft-2 ion-icon { color: #25d366; filter: drop-shadow(0 0 8px rgba(37, 211, 102, 0.6)); }
+.ft-1 { top: 5%; right: -90px; animation: floatBadge 4s ease-in-out infinite alternate; border-color: rgba(47, 101, 246, 0.3); }
+.ft-2 { top: 30%; left: -100px; animation: floatBadge 5s ease-in-out infinite alternate-reverse; color: #25d366; border-color: rgba(37, 211, 102, 0.3); transform: rotate(-5deg) translateZ(60px); }
+.ft-2 ion-icon, .ft-2 svg { color: #25d366; fill: #25d366; filter: drop-shadow(0 0 8px rgba(37, 211, 102, 0.6)); }
 .ft-2 span { color: #fff; }
-.ft-3 { bottom: 12%; left: -75px; animation: floatBadge 6s ease-in-out infinite alternate; }
-.ft-3 ion-icon { color: var(--brand-orange); filter: drop-shadow(0 0 8px rgba(255, 107, 0, 0.6)); }
-.ft-4 { bottom: -2%; right: -30px; animation: floatBadge 4.5s ease-in-out infinite alternate-reverse; }
+.ft-3 { bottom: 18%; left: -110px; animation: floatBadge 6s ease-in-out infinite alternate; }
+.ft-3 ion-icon, .ft-3 svg { color: var(--brand-orange); fill: var(--brand-orange); filter: drop-shadow(0 0 8px rgba(255, 107, 0, 0.6)); }
+.ft-4 { bottom: 3%; right: -70px; animation: floatBadge 4.5s ease-in-out infinite alternate-reverse; }
 
-.ft-5 { top: 5%; left: -70px; animation: floatBadge 5.5s ease-in-out infinite alternate; }
-.ft-5 ion-icon { color: #a855f7; filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6)); }
+.ft-5 { top: 8%; left: -105px; animation: floatBadge 5.5s ease-in-out infinite alternate; }
+.ft-5 ion-icon, .ft-5 svg { color: #a855f7; fill: #a855f7; filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6)); }
 
-.ft-6 { top: 52%; right: -65px; animation: floatBadge 3.5s ease-in-out infinite alternate-reverse; }
-.ft-6 ion-icon { color: #00f3ff; filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.6)); }
+.ft-6 { top: 48%; right: -105px; animation: floatBadge 3.5s ease-in-out infinite alternate-reverse; }
+.ft-6 ion-icon, .ft-6 svg { color: #00f3ff; fill: #00f3ff; filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.6)); }
 
 @keyframes floatBadge {
     0% { transform: translateY(0px) translateZ(120px); }

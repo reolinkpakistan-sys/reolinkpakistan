@@ -3095,9 +3095,13 @@ body {
     transform: translateY(-2px);
 }
 
-.trust-badge-card ion-icon {
+.trust-badge-card ion-icon,
+.trust-badge-card svg {
     font-size: 24px;
+    width: 24px;
+    height: 24px;
     color: var(--brand-blue);
+    fill: none;
     filter: drop-shadow(0 0 5px rgba(47, 101, 246, 0.4));
 }
 
@@ -3106,7 +3110,8 @@ body {
     box-shadow: 0 0 10px rgba(37, 211, 102, 0.1);
 }
 
-.trust-badge-card.pta-glow ion-icon {
+.trust-badge-card.pta-glow ion-icon,
+.trust-badge-card.pta-glow svg {
     color: #25d366;
     filter: drop-shadow(0 0 5px rgba(37, 211, 102, 0.5));
 }
@@ -3757,9 +3762,13 @@ body {
             text-align: center;
             font-size: 13px;
         }
-        .trust-badge-card ion-icon {
+        .trust-badge-card ion-icon,
+        .trust-badge-card svg {
             font-size: 24px;
+            width: 24px;
+            height: 24px;
             color: #ff6b00;
+            fill: none;
             margin-bottom: 5px;
         }
         .spec-table {

@@ -1,3 +1,14 @@
+// Inline SVG icons for trust badges (replaces Ionicons)
+const TRUST_ICON_SVG_PD = {
+    'shield-checkmark': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 12 15 17 10"></polyline></svg>`,
+    'sunny': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`,
+    'hardware-chip': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>`,
+    'cube': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>`,
+    'water': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>`,
+    'construct': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>`,
+    'ribbon': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>`
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Get product ID from URL query string
     const urlParams = new URLSearchParams(window.location.search);
@@ -484,39 +495,40 @@ function renderHeroLayout(product, contactInfo) {
                      (product.hero_badges && product.hero_badges.some(b => b.toLowerCase().includes('4g') || b.toLowerCase().includes('sim')));
         const isAccessory = product.category === 'accessories';
         
+        const icon = (key) => TRUST_ICON_SVG_PD[key] || '';
         let firstCardHtml = '';
         if (is4G) {
             firstCardHtml = `
                 <div class="trust-badge-card pta-glow">
-                    <ion-icon name="shield-checkmark-outline"></ion-icon>
+                    ${icon('shield-checkmark')}
                     <div>PTA Approved</div>
                 </div>
             `;
         } else if (isAccessory) {
             firstCardHtml = `
                 <div class="trust-badge-card">
-                    <ion-icon name="sunny-outline"></ion-icon>
+                    ${icon('sunny')}
                     <div>Continuous Charging</div>
                 </div>
             `;
         } else {
             firstCardHtml = `
                 <div class="trust-badge-card">
-                    <ion-icon name="hardware-chip-outline"></ion-icon>
+                    ${icon('hardware-chip')}
                     <div>Smart Detection</div>
                 </div>
             `;
         }
-        
+
         const isReolink = (product.name.toLowerCase().includes('reolink') || product.name.toLowerCase().includes('keen')) && !isAccessory;
         const packagingHtml = isReolink ? `
             <div class="trust-badge-card">
-                <ion-icon name="cube-outline"></ion-icon>
+                ${icon('cube')}
                 <div>Without Box</div>
             </div>
         ` : (isAccessory ? `
             <div class="trust-badge-card">
-                <ion-icon name="water-outline"></ion-icon>
+                ${icon('water')}
                 <div>IP65 Weatherproof</div>
             </div>
         ` : '');
@@ -524,12 +536,12 @@ function renderHeroLayout(product, contactInfo) {
         trustBadgesEl.innerHTML = `
             ${firstCardHtml}
             <div class="trust-badge-card">
-                <ion-icon name="construct-outline"></ion-icon>
+                ${icon('construct')}
                 <div>${product.warranty || "1-Month Warranty"}</div>
             </div>
             ${packagingHtml}
             <div class="trust-badge-card">
-                <ion-icon name="ribbon-outline"></ion-icon>
+                ${icon('ribbon')}
                 <div>100% Original</div>
             </div>
         `;

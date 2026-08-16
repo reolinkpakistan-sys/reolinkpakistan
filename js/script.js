@@ -558,11 +558,11 @@ function initSmoothScroll() {
 }
 
 // ============================================
-// LAZY VIDEO LOADER
-// Videos sirf tab load honge jab screen mein aayenge
+// INSTANT & LAZY VIDEO LOADER
+// Zero-lag video streaming with pre-buffered metadata & posters
 // ============================================
 function initLazyVideos() {
-    const lazyVideos = document.querySelectorAll('video.lazy-video');
+    const lazyVideos = document.querySelectorAll('video.lazy-video, video.rounded-video');
     if (!lazyVideos.length) return;
 
     const videoObserver = new IntersectionObserver((entries) => {
@@ -570,7 +570,7 @@ function initLazyVideos() {
             const video = entry.target;
 
             if (entry.isIntersecting) {
-                // Ensure sources are loaded
+                // Ensure sources are loaded if using data-src fallback
                 if (!video.dataset.loaded) {
                     video.querySelectorAll('source[data-src]').forEach(source => {
                         source.src = source.getAttribute('data-src');
@@ -580,28 +580,39 @@ function initLazyVideos() {
                     if (video.dataset.src) {
                         video.src = video.dataset.src;
                         delete video.dataset.src;
+                        video.load();
                     }
-
-                    video.setAttribute('preload', 'auto');
-                    video.load();
                     video.dataset.loaded = 'true';
                 }
 
-                // Play when in viewport
-                video.play().catch(() => {});
+                // Play smoothly when approaching or inside viewport
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        // Retry with muted on user interaction if browser policy requires it
+                        video.muted = true;
+                        video.play().catch(() => {});
+                    });
+                }
             } else {
                 // Pause when scrolled out of view to save mobile CPU/GPU & battery
-                if (video.dataset.loaded && !video.paused) {
+                if (!video.paused) {
                     video.pause();
                 }
             }
         });
     }, {
-        threshold: 0.1,
-        rootMargin: '600px 0px 600px 0px'
+        threshold: 0.05,
+        rootMargin: '1000px 0px 1000px 0px'
     });
 
-    lazyVideos.forEach(v => videoObserver.observe(v));
+    lazyVideos.forEach(v => {
+        // Pre-configure inline playback flags
+        v.setAttribute('playsinline', '');
+        v.setAttribute('webkit-playsinline', '');
+        v.muted = true;
+        videoObserver.observe(v);
+    });
 }
 
 // ============================================

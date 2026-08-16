@@ -141,21 +141,33 @@ def collect_files_to_deploy():
                 rem = f"{REMOTE_ROOT}/assets/jzones/{f}"
                 deploy_list.append((loc, rem))
                 
-    # Include images/products/jzones-v630/
-    jzones_images = os.path.join(LOCAL_ROOT, "images", "products", "jzones-v630")
-    if os.path.isdir(jzones_images):
-        for f in os.listdir(jzones_images):
-            if not f.startswith("."):
-                loc = os.path.join(jzones_images, f)
-                rem = f"{REMOTE_ROOT}/images/products/jzones-v630/{f}"
+    # Include all product folders in images/products/
+    images_products_dir = os.path.join(LOCAL_ROOT, "images", "products")
+    if os.path.isdir(images_products_dir):
+        for root, dirs, files_in_dir in os.walk(images_products_dir):
+            for file_name in files_in_dir:
+                if file_name.startswith(".") or file_name.endswith(".glb"):
+                    continue
+                loc = os.path.join(root, file_name)
+                rel = os.path.relpath(loc, LOCAL_ROOT).replace("\\", "/")
+                rem = f"{REMOTE_ROOT}/{rel}"
                 deploy_list.append((loc, rem))
 
-    # Include guide images
+    # Include guide images and posters
     for g_img in ["images/guide-pta-approved.webp", "images/guide-solar-vs-wired.webp"]:
         loc = os.path.join(LOCAL_ROOT, g_img)
         if os.path.exists(loc):
             rem = f"{REMOTE_ROOT}/{g_img}"
             deploy_list.append((loc, rem))
+
+    # Include images/posters/
+    posters_dir = os.path.join(LOCAL_ROOT, "images", "posters")
+    if os.path.isdir(posters_dir):
+        for f in os.listdir(posters_dir):
+            if not f.startswith("."):
+                loc = os.path.join(posters_dir, f)
+                rem = f"{REMOTE_ROOT}/images/posters/{f}"
+                deploy_list.append((loc, rem))
 
     return deploy_list
 

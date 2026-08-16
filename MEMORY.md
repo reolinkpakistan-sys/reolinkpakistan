@@ -190,11 +190,22 @@
     - `index.html`: `FAQPage` Schema me 3-Channel 4K Dashcam FAQ shamil kiya aur `LocalBusiness` Schema me `knowsAbout` aur `description` ko JZONES 4K Dashcam ke sath enrich kiya.
   - **High-Authority Buyer's Guide Blog Post:** Naya comprehensive blog guide `best-car-dashcam-pakistan-guide.html` create kiya gaya (Clean URL: `/blog/best-car-dashcam-pakistan-guide`) jo Sony STARVIS 2 HDR night vision, supercapacitor high-heat tolerance (-20°C to 70°C for Pakistani summers), legal admissibility under Qanun-e-Shahadat, 360-degree protection, aur WhatsApp direct order flow ko cover karta hai.
   - **Sitemap & AI Crawler Optimizations:** `sitemap.xml`, `robots.txt`, aur `llms.txt` ko updated priorities (0.9 for dashcams, JZONES specs & pricing) ke sath enrich kiya gaya taake Google, Bing, ChatGPT, Perplexity, aur Gemini S M Enterprises ko Pakistan me Dashcams ke liye #1 source index karein.
-  - **Reolink Go Live Server Image Synchronization Fix (August 16, 2026):**
-    - User ne point out kiya ke live site par Reolink Go ki purani image load ho rahi thi jabke local par solar-mounted white bullet image active thi.
-    - Wajah ye thi ke deployment script mein `images/products/reolink-go/` directory include nahi thi aur Hostinger CDN par purana asset cached tha.
-    - `deploy_all.py` ko enhance kar ke tamam 7 product folders (`images/products/*`) ko recursively live FTP server par upload kiya gaya (`hero.webp`, `hero.png`, `hero.jpg`, specs, aur galleries).
-    - `cms_data.json` mein image URL ko `hero.webp?v=solar2026` se update kar ke CDN aur browser cache bypass kiya gaya. Live server verified (`200 OK`, `26048 bytes`, `Sun, 16 Aug 2026`).
+  - **Homepage Section Sequence Reordering (August 16, 2026):**
+    - User ki requirement ke mutabiq homepage ka layout sequence update kiya gaya:
+      1. Main Hero Section & Quick Specs/Stats
+      2. Camera Feature Highlight Videos (Farm 2K Daytime, Night Vision, DHA Construction Solar/4G)
+      3. Complete Products & Tech Catalog Grid (`#smart-gadgets`)
+      4. "What Our Customers Say" (Customer Reviews Section)
+      5. 4G SEO Guide, App Feature Showcase, Why Choose Us, FAQs, Footer.
+    - Local XAMPP aur Live Server (`index.html`) par deploy kar ke live verify kiya gaya.
+  - **Video Streaming & Instant Playback Optimization (August 16, 2026):**
+    - User ne point out kiya ke videos play hone mein delay le rahi theen.
+    - Wajah ye thi ke `preload="none"` aur `data-src` ki wajah se browser cold state mein rehta tha aur user ke scroll karne par 2-3 seconds downloading delay hota tha bina kisi poster ke.
+    - Solution:
+      1. OpenCV se har video ka crystal clear 1st/active keyframe extract kiya gaya as high-performance WebP posters (`images/posters/*.webp`).
+      2. Videos ko `preload="metadata"` aur instant native `src` provide kiya gaya.
+      3. `js/script.js` ke `IntersectionObserver` ko `1000px` rootMargin ke sath proactively buffer aur auto-resume smoothly execute karne ke liye update kiya gaya.
+      4. Live server par sab posters aur updated files deploy kar ke verify kiya gaya.
   - **Single WhatsApp Official Floating Icon Maintained:** Overlapping template widget ko remove kar ke official seller profile button ko direct WhatsApp inquiry link ke sath attach kiya gaya.
 - **Reolink Go 4G Cellular Camera & Interactive 3D Model Integration (June 20, 2026 Upgrade):**
   - Reolink Go ko dynamic product details system me product ID `reolink-go` ke tor par `cms_data.json` database main successfully register kiya.

@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
+    <script>
+        if (window.location.protocol === 'file:') {
+            var b = document.querySelector('base');
+            if (b) b.setAttribute('href', window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1));
+        }
+    </script>
+    
     <title>404 - Page Not Found | Reolink Pakistan</title>
     <meta name="description" content="The page you are looking for could not be found. Browse Reolink Pakistan's official 4G SIM cameras, solar security systems, and smart gadgets.">
     <meta name="robots" content="noindex, follow">

@@ -1,6 +1,5 @@
 function initApp() {
     initFAQ();
-    initSalesNotifications();
     initStickyBar();
     initSmoothScroll();
     initLazyVideos();  // ← NEW: Lazy load videos
@@ -460,7 +459,7 @@ window.openVideoModal = function(type) {
     const modal = document.getElementById('videoModal');
     const container = document.getElementById('videoContainer');
     container.innerHTML = '';
-    if (type === 'construction') container.innerHTML = `<video autoplay loop controls playsinline preload="metadata" class="modal-video"><source src="dha-site-sample.mov" type="video/mp4"></video>`;
+    if (type === 'construction') container.innerHTML = `<video autoplay loop controls playsinline preload="metadata" class="modal-video"><source src="dha-site-sample.mp4" type="video/mp4"></video>`;
     else if (type === 'farm') container.innerHTML = `<video autoplay loop controls playsinline preload="metadata" class="modal-video farm-video"><source src="go_pt_plus_sample.mp4" type="video/mp4"></video><video autoplay loop controls playsinline preload="metadata" class="modal-video farm-video"><source src="go_pt_plus_night_vision.mp4" type="video/mp4"></video>`;
     else if (type === 'logistics') container.innerHTML = `<video autoplay loop controls playsinline preload="metadata" class="modal-video farm-video"><source src="Chungi no 9_20260214155305_20260214155335_95270005CWT782UY_0..MP4" type="video/mp4"></video><video autoplay loop controls playsinline preload="metadata" class="modal-video farm-video"><source src="Lutfabad Parking yard_20260319140007_20260319140019_95270005CVZW1D85_0..MP4" type="video/mp4"></video>`;
     else if (type === 'warehouse') container.innerHTML = `<iframe width="100%" height="450" class="modal-video" src="https://www.youtube.com/embed/AfPik5OukxE?autoplay=1&mute=1&loop=1&playlist=AfPik5OukxE" frameborder="0" allowfullscreen loading="lazy"></iframe>`;
@@ -489,52 +488,9 @@ function initFAQ() {
     });
 }
 
-// Dynamic Sales Notifications (High-Capacity Engine)
+// Dynamic Sales Notifications disabled per user request
 function initSalesNotifications() {
-    const notif = document.getElementById('sales-notification');
-    const notifText = document.getElementById('notif-text');
-    const notifTime = document.getElementById('notif-time');
-    if (!notif) return;
-
-    const firstNames = ["Muhammad", "Ahmed", "Ali", "Usman", "Zaid", "Faisal", "Bilal", "Shahzad", "Kamran", "Raza", "Umar", "Hamza", "Hassan", "Ibrahim", "Abdullah", "Zain", "Faraz", "Danish", "Adil", "Shoaib", "Salman", "Kashif", "Naveed", "Waqas", "Junaid", "Asad", "Fahad", "Arsalan", "Haris", "Talha"];
-    const lastNames = ["Khan", "Ahmed", "Ali", "Sheikh", "Qureshi", "Malik", "Shah", "Butt", "Siddiqui", "Farooqi", "Gondal", "Gujjar", "Bajwa", "Abbasi", "Mughal", "Jatoi", "Wattoo", "Dogar", "Lodhi", "Hashmi"];
-    const cities = ["Karachi", "Lahore", "Islamabad", "Multan", "Faisalabad", "Peshawar", "Quetta", "Sialkot", "Hyderabad", "Bahawalpur", "Sargodha", "Gujranwala", "Sukkur", "Mardan", "Rawalpindi", "Jhang", "Sahiwal", "Gujrat", "Okara", "Kasur"];
-
-    let lastUsedNames = [];
-
-    function showRandomNotif() {
-        let firstName, lastName, city, fullName;
-        
-        // Ensure no immediate repeats (last 50 names)
-        let attempts = 0;
-        do {
-            firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-            lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-            city = cities[Math.floor(Math.random() * cities.length)];
-            fullName = firstName + " " + lastName;
-            attempts++;
-        } while (lastUsedNames.includes(fullName) && attempts < 10);
-
-        lastUsedNames.push(fullName);
-        if (lastUsedNames.length > 50) lastUsedNames.shift();
-
-        notifText.innerText = `${fullName} from ${city} just purchased a Reolink Go PT Plus!`;
-        notifTime.innerText = `${Math.floor(Math.random() * 15) + 1} minutes ago`;
-        
-        notif.classList.add('active');
-        
-        // Hide after 6 seconds
-        setTimeout(() => {
-            notif.classList.remove('active');
-            
-            // Randomly shift next notification time (45 seconds to 3 minutes)
-            const nextDelay = Math.floor(Math.random() * (180000 - 45000 + 1)) + 45000;
-            setTimeout(showRandomNotif, nextDelay);
-        }, 6000);
-    }
-
-    // Initial appearance after 8 seconds of page load
-    setTimeout(showRandomNotif, 8000);
+    // Disabled
 }
 
 // Sticky Bar Logic
@@ -609,33 +565,40 @@ function initLazyVideos() {
     const lazyVideos = document.querySelectorAll('video.lazy-video');
     if (!lazyVideos.length) return;
 
-    const videoObserver = new IntersectionObserver((entries, obs) => {
+    const videoObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-
             const video = entry.target;
 
-            // Set src on each <source> child
-            video.querySelectorAll('source[data-src]').forEach(source => {
-                source.src = source.getAttribute('data-src');
-                source.removeAttribute('data-src');
-            });
+            if (entry.isIntersecting) {
+                // Ensure sources are loaded
+                if (!video.dataset.loaded) {
+                    video.querySelectorAll('source[data-src]').forEach(source => {
+                        source.src = source.getAttribute('data-src');
+                        source.removeAttribute('data-src');
+                    });
 
-            // Also set src directly on video if data-src present
-            if (video.dataset.src) {
-                video.src = video.dataset.src;
-                delete video.dataset.src;
+                    if (video.dataset.src) {
+                        video.src = video.dataset.src;
+                        delete video.dataset.src;
+                    }
+
+                    video.setAttribute('preload', 'auto');
+                    video.load();
+                    video.dataset.loaded = 'true';
+                }
+
+                // Play when in viewport
+                video.play().catch(() => {});
+            } else {
+                // Pause when scrolled out of view to save mobile CPU/GPU & battery
+                if (video.dataset.loaded && !video.paused) {
+                    video.pause();
+                }
             }
-
-            video.setAttribute('preload', 'auto'); // Force browser to buffer the video aggressively
-            video.load();
-            video.play().catch(() => {}); // ignore autoplay policy errors
-
-            obs.unobserve(video);
         });
     }, {
-        threshold: 0.0,     // Margins enter hote hi load shuru ho jaye
-        rootMargin: '1500px' // Video screen par aane se 1500px pehle pre-buffer hona shuru ho jaye
+        threshold: 0.1,
+        rootMargin: '600px 0px 600px 0px'
     });
 
     lazyVideos.forEach(v => videoObserver.observe(v));

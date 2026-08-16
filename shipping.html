@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
+    <script>
+        if (window.location.protocol === 'file:') {
+            var b = document.querySelector('base');
+            if (b) b.setAttribute('href', window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1));
+        }
+    </script>
+    
     <title>Shipping Policy | Reolink Pakistan - Official Partner</title>
     <meta name="description" content="Shipping policy for Reolink Pakistan by S M Enterprises. Free shipping nationwide with Cash on Delivery. Delivery times for Lahore, Karachi, Islamabad, Multan, and remote areas.">
     <meta name="keywords" content="reolink pakistan shipping, free delivery security camera pakistan, cod delivery reolink, shipping time multan lahore karachi">

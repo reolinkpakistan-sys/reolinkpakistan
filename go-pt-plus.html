@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
+    <script>
+        if (window.location.protocol === 'file:') {
+            var b = document.querySelector('base');
+            if (b) b.setAttribute('href', window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1));
+        }
+    </script>
+    
     <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
@@ -18,7 +25,7 @@
     fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=2147818929333905&ev=PageView&noscript=1"
+    src="https://www.facebook.com/tr?id=2147818929333905&ev=PageView&noscript=1" alt="Facebook Pixel"
     /></noscript>
     <!-- End Meta Pixel Code -->
     <title>Reolink Go PT Plus 4G Solar Camera | Official Reolink Pakistan</title>
@@ -135,7 +142,7 @@
             "closes": "22:00"
         },
         "priceRange": "$$",
-        "sameAs": ["https://www.facebook.com/reolinkpakistan", "https://www.instagram.com/reolinkpakistan", "https://wa.me/923206755555"]
+        "sameAs": ["https://www.facebook.com/reolink.com.pk", "https://www.instagram.com/reolink.com.pk", "https://wa.me/923206755555"]
     }
     </script>
 
@@ -196,6 +203,7 @@
                         <a href="/category/solar-cameras">Solar Cameras</a>
                         <a href="/category/wifi-cameras">WiFi Cameras</a>
                         <a href="/category/cctv-systems">Wireless IP Kits</a>
+                        <a href="/category/dashcams">Car Dashcams</a>
                     </div>
                 </div>
                 <div class="dropdown">

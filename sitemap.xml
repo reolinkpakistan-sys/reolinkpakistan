@@ -1,159 +1,242 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
   <url>
     <loc>https://www.reolink.com.pk/</loc>
-    <lastmod>2026-07-04</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- Authority Blog & Security Guides -->
   <url>
     <loc>https://www.reolink.com.pk/blog/cattle-farm-security</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.reolink.com.pk/about</loc>
-    <lastmod>2026-07-04</lastmod>
+    <loc>https://www.reolink.com.pk/blog/pta-approval-guide</loc>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.reolink.com.pk/blog/solar-vs-wired-cctv</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.reolink.com.pk/blog/farm-tube-well-security</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.reolink.com.pk/blog/best-car-dashcam-pakistan-guide</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Programmatic City Landing Pages -->
+  <url>
+    <loc>https://www.reolink.com.pk/cities/lahore</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.reolink.com.pk/cities/karachi</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.reolink.com.pk/cities/islamabad-rawalpindi</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.reolink.com.pk/cities/multan</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.reolink.com.pk/cities/faisalabad</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.reolink.com.pk/cities/peshawar</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Core Pages -->
+  <url>
+    <loc>https://www.reolink.com.pk/about</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/contact</loc>
-    <lastmod>2026-07-04</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/warranty</loc>
-    <lastmod>2026-07-04</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/privacy-policy</loc>
-    <lastmod>2026-07-04</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/terms</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/shipping</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/returns</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
+
+  <!-- Category Hubs -->
   <url>
     <loc>https://www.reolink.com.pk/category/4g-cameras</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/category/solar-cameras</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/category/wifi-cameras</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/category/cctv-systems</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.reolink.com.pk/category/dashcams</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/category/wireless-mics</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/category/speakers</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/category/accessories</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- Products -->
+  <url>
+    <loc>https://www.reolink.com.pk/products/reolink-go-pt-plus</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/products/keen-ranger-pt</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/products/reolink-go-pt-ultra</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/products/reolink-go-ranger-pt</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/products/reolink-go</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/products/go-plus</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/products/rlc-823a</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/products/solar-panel</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/products/alvoxcon-mic</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/products/premium-bluetooth-speaker</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.reolink.com.pk/products/reolink-go-pt-plus</loc>
-    <lastmod>2026-07-04</lastmod>
+    <loc>https://www.reolink.com.pk/products/jzones-v630</loc>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
 </urlset>

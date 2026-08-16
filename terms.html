@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
+    <script>
+        if (window.location.protocol === 'file:') {
+            var b = document.querySelector('base');
+            if (b) b.setAttribute('href', window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1));
+        }
+    </script>
+    
     <title>Terms & Conditions | Reolink Pakistan - Official Partner</title>
     <meta name="description" content="Terms and Conditions for purchasing Reolink security cameras and smart gadgets from S M Enterprises (Reolink Pakistan). Read our policies before ordering.">
     <meta name="keywords" content="reolink pakistan terms, s m enterprises terms and conditions, security camera purchase terms pakistan">

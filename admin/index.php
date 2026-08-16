@@ -24,7 +24,7 @@ if (!file_exists($dataPath)) {
             "address" => "Nawabpur road Opposite green homes colony, Multan, Pakistan"
         ],
         "videos" => [
-            "construction" => "dha-site-sample.mov",
+            "construction" => "dha-site-sample.mp4",
             "farm" => "go_pt_plus_sample.mp4",
             "logistics" => "Chungi no 9_20260214155305_20260214155335_95270005CWT782UY_0..MP4"
         ],

@@ -5,6 +5,8 @@ RewriteEngine On
 RewriteRule ^go-pt-plus/?$ go-pt-plus.html [L]
 RewriteRule ^products/4g-sim-solar-camera/?$ go-pt-plus.html [L]
 RewriteRule ^products/reolink-go-pt-plus/?$ go-pt-plus.html [L]
+RewriteRule ^jzones-v630/?$ jzones-v630.html [L]
+RewriteRule ^products/jzones-v630/?$ jzones-v630.html [L]
 
 # Rewrite for dynamic products
 RewriteCond %{REQUEST_FILENAME} !-f
@@ -32,6 +34,12 @@ RewriteRule ^returns/?$ returns.html [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^category/([^/]+)/?$ category.html?type=$1 [QSA,L]
+
+# Rewrite for city landing pages
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^cities/([^/]+)/?$ cities/$1.html [L]
+
 
 # Disable directory listing
 Options -Indexes

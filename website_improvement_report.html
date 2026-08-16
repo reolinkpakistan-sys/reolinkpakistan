@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <base href="/">
+    <script>
+        if (window.location.protocol === 'file:') {
+            var b = document.querySelector('base');
+            if (b) b.setAttribute('href', window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1));
+        }
+    </script>
     <meta charset="UTF-8">
     <title>Website Improvement Report - Reolink Pakistan</title>
     <style>

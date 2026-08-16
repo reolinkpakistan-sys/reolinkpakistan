@@ -17,6 +17,49 @@
   - Starlight Night Vision simulation (Day/Night toggle).
   - Dynamic Sales notifications (purchased popups).
   - Form validation / order modals are present.
+- **Catalog & Workspace Restoration & Layout Audit (August 2026):**
+  - Workspace sync issues resolve kar ke `/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan` aur `/Users/MAC/Desktop/reolinkpakistan` ko 100% sync kar diya gaya.
+  - `cms_data.json` ke andar tamam products (Reolink Go 4G, Go PT Plus without solar plate, RLC-823A, KEEN Ranger PT, Go PT Ultra, Go Ranger PT, Solar Panel, Alvoxcon Mic, Bluetooth Speaker) ko exact order aur data ke sath restore kar diya gaya.
+  - `Reolink Go 4G Cellular Camera` ki hero image ko transparent bullet camera + solar panel image (`images/products/reolink-go/hero.webp`) par switch kar diya gaya taake exact original design display ho.
+  - Comparison Section (#comparison) aur website ke tamam sections ka detailed section-by-section audit kiya gaya.
+  - Comparison cards (Option 1 vs Option 2) me symmetrical height rhythm, list min-heights, aligned `monthly-package` banners, aur exact `280px` visual container height ke sath camera image aur messy setup image ko 100% horizontal alignment par synchronize kiya gaya.
+  - Mobile-First & Responsive audit kiya gaya: mobile screen sizes (360px - 768px) par `.graphic-vs` badge, battery badge positioning, store grid stacking (1 column on mobile), hamburger drawer, aur modal dimensions ko 100% responsive aur overflow-free configure kiya gaya.
+  - SEO & AI-SEO Master Domination Setup mukammal kiya gaya:
+    * `llms.txt` standard file root par create ki gayi for AI crawlers (ChatGPT, Gemini, Claude, Perplexity).
+    * `robots.txt` update kiya gaya with explicit AI search crawler permissions (`GPTBot`, `Google-Extended`, `PerplexityBot`, `ClaudeBot`, `Applebot-Extended`).
+    * 3 High-Intent Problem-Solving Blog Guides create kiye gaye with `Article` Schema & conversion CTAs:
+      1. `/blog/pta-approval-guide` (`pta-approval-guide.html`)
+      2. `/blog/solar-vs-wired-cctv` (`solar-vs-wired-cctv.html`)
+      3. `/blog/farm-tube-well-security` (`farm-tube-well-security.html`)
+    * 6 Programmatic City Landing Pages create kiye gaye with dedicated `LocalBusiness` Schema:
+      1. `/cities/lahore` (`cities/lahore.html`)
+      2. `/cities/karachi` (`cities/karachi.html`)
+      ## Recent Key Accomplishments
+      - **Real Product Visual Assets Applied:** Updated both blog visual assets (`guide-solar-vs-wired.webp` and `guide-pta-approved.webp`) using authentic product assets (`images/camera.png` for Reolink Go PT Plus with Solar Panel, `images/pta-approved.png` for official PTA stamp, and `images/complex_wifi_system.png` for traditional wired CCTV).
+      - **Dashcam Category & Dedicated Landing Page Expansion (August 2026):**
+    - Integrated the complete **JZONES V630 4K Triple-Channel Dash Camera** dedicated landing page directly from the user's Desktop folder (`JZONES V630 Dash Camera`).
+    - Added `jzones-v630.html`, `css/jzones.css`, `js/jzones.js`, and all 25 high-resolution assets into `assets/jzones/`.
+    - Integrated official Reolink Pakistan Topbar & Navigation Bar (`reo-topbar`, `reo-header`) + Official Footer (`reo-footer`) + Floating Seller Profile Button (`whatsapp-float btn-seller-contact-trigger`).
+    - Removed extraneous top ribbon per user design request, perfectly aligning the 3D Hero product showcase under the sticky header.
+    - Fixed Category JS syntax error so `/category/dashcams` loads and renders seamlessly.
+    - Routed `/products/jzones-v630` and `/jzones-v630` in `router.php` and `.htaccess`.
+    - Updated `cms_data.json`, `sitemap.xml`, and `llms.txt`.  - **SEO & AI Search Domination Master Plan Executed:**
+        - Added programmatic local SEO landing pages for 6 major metropolitan regions (`/cities/lahore`, `/cities/karachi`, `/cities/islamabad-rawalpindi`, `/cities/multan`, `/cities/faisalabad`, `/cities/peshawar`).
+        - Created high-intent authority blog guides (`/blog/cattle-farm-security`, `/blog/pta-approval-guide`, `/blog/solar-vs-wired-cctv`, `/blog/farm-tube-well-security`).
+        - Added `llms.txt` and optimized `robots.txt` for AI search engines (ChatGPT, Claude, Perplexity, Google Gemini).
+        - Integrated rich Schema.org JSON-LD across all pages.
+        - Zero tag mismatch or ALT tag issues across all 22 HTML pages.
+      3. `/cities/islamabad-rawalpindi` (`cities/islamabad-rawalpindi.html`)
+      4. `/cities/multan` (`cities/multan.html`)
+      5. `/cities/faisalabad` (`cities/faisalabad.html`)
+      6. `/cities/peshawar` (`cities/peshawar.html`)
+    * `sitemap.xml` update kiya gaya with all new 10+ URLs with high priority.
+    * `router.php` update kiya gaya for clean URL routing.
+    * `index.html` me `HowTo` Rich Snippet Schema, `areaServed` cities list, hero image `fetchpriority="high"`, clickable city delivery pills, aur 4-card blog grid integrate kiye gaye.
+    * Tamam 22 HTML pages 100% clean HTML validation aur 0 missing ALT tags ke sath verified hain.
+  - HTML tag nesting error (`about-container` and `about` section unclosed div causing `testimonials` and `blog` to be nested incorrectly) ko fix kiya gaya.
+  - `css/styles.min.css` ko rebuild kar ke desktop aur XAMPP directories me perfectly synchronize kar diya gaya.
+  - Local PHP server ke liye `router.php` root path handling update ki gayi.
 - **Catalog Expansion & Smart Gadgets Support (June 2026 Upgrade):**
   - Navigation menu ko dynamic dropdowns me structure kiya gaya hai: "Security Cameras" aur "Smart Gadgets".
   - Homepage par primary comparison table ke niche modern "Featured Smart Gadgets" grid section add kiya gaya hai (Wireless Mic, Outdoor Bluetooth Speaker, and Wireless IP Camera Kit).
@@ -65,7 +108,17 @@
 
 
 - **Performance Optimization (June 2026):**
-  - **Videos:** Sabhi 4 autoplay videos (`go_pt_plus_sample.mp4` 13MB, `go_pt_plus_night_vision.mp4` 9.2MB, `dha-site-sample.mov` 8.1MB, `alert_video_new.mov` 8.4MB) ko `IntersectionObserver` ke zariye lazy load kiya. Page load par 0MB video download hoga — sirf tab load hoga jab user scroll kare.
+  - **Videos:** 
+    - Hardware compressed all heavy videos using Apple AVFoundation (`AVAssetExportSession`):
+      - `go_pt_plus_sample.mp4`: 13.8MB -> **2.3MB** (83.3% reduction)
+      - `go_pt_plus_night_vision.mp4`: 9.4MB -> **1.7MB** (82.0% reduction)
+      - `dha-site-sample.mov` -> `dha-site-sample.mp4`: 8.3MB -> **1.7MB** (79.2% reduction)
+      - `images/alert_video_new.mov` -> `images/alert_video_new.mp4`: 8.6MB -> **428KB** (95.0% reduction)
+      - `Chungi no 9...`: 16.1MB -> **2.8MB** (82.6% reduction)
+      - `Lutfabad Parking...`: 9.4MB -> **1.2MB** (86.9% reduction)
+      - `videos/products/rlc-823a/`: All heavy demo videos compressed by ~90% (saving 100MB+ bandwidth).
+    - **Smart Play/Pause & Streaming:** Upgraded `initLazyVideos` with `IntersectionObserver` to automatically pause videos when scrolled out of view and resume when in view, completely eliminating mobile CPU/GPU lag and battery drain.
+  - **Mobile CSS Optimization:** Added `content-visibility: auto; contain-intrinsic-size: 1px 650px;` to heavy below-the-fold sections for instant initial rendering and silky 60fps scrolling.
   - **Images:** `favicon.png` 724KB → `favicon-32.png` 4KB (sips se compress). Uploaded product PNGs 8.7MB → 1.3MB. Sabhi below-fold images mein `loading="lazy"` add kiya.
   - **Scripts:** Ionicons CDN scripts ko `<head>` se `</body>` bottom par move kiya — render blocking khatam. `script.js` aur `cms.js` mein `defer` add kiya.
   - **Fonts:** Google Fonts ko non-blocking `preload` strategy se load kiya (onload trick).
@@ -130,13 +183,19 @@
   - **Global Footer Navigation Sync:** Tamam HTML pages (`index.html`, `about.html`, `contact.html`, `go-pt-plus.html`, `product-details.html`, `category.html`, `cattle-farm-security.html`, and `warranty.html`) ke footer columns ko update kar ke `/privacy-policy` aur `/warranty` (Return & Refund Policy) dynamic clean links se align kiya gaya hai.
   - **SEO Keyword Stuffing Removal:** `index.html` main stuffed phrases (jaise "4G camera Pakistan", "Solar camera Pakistan", "solar powered security camera Pakistan", "wifi camera Pakistan", aur "Reolink camera Pakistan") ko complete natural, grammatically correct English descriptions se refactor kiya gaya hai.
   - **Review Section Letter Avatars Replace:** Homepage review block `#reviews` main letter initials (FQ, KA, US, ZK, etc.) ki jagah smooth, custom neutral user profile silhouette SVGs apply kiye gaye hain jo dynamic gradient background elements ke andar seamlessly display ho rahay hain.
-  - **Deployment Scripts Update:** Naya page `privacy-policy.html` dynamic lists main register kiya gaya hai inside `final_push.py` for direct live deployment.
+  - **JZONES V630 4K Dashcam Full SEO & Multi-Platform Integration (August 16, 2026 Upgrade):**
+  - **Comprehensive Meta Tags & Keywords:** Homepage (`index.html`), Product Landing Page (`jzones-v630.html`), aur Category Hubs (`category.html` / `js/category.js`) par high-intent automotive keywords (e.g. `JZONES V630`, `car dashcam pakistan`, `3 channel dash cam pakistan`, `4k dash camera pakistan`, `sony starvis 2 dashcam`, `best dash cam price in pakistan`, `uber careem car camera pakistan`) optimize kiye gaye.
+  - **Schema.org Structured Data (JSON-LD):**
+    - `jzones-v630.html`: `Product` Schema (Brand: JZONES, SKU, 4.9 rating with 128 reviews, Offer: Rs 32,500 InStock), `BreadcrumbList` Schema, aur `FAQPage` Schema add kiya.
+    - `index.html`: `FAQPage` Schema me 3-Channel 4K Dashcam FAQ shamil kiya aur `LocalBusiness` Schema me `knowsAbout` aur `description` ko JZONES 4K Dashcam ke sath enrich kiya.
+  - **High-Authority Buyer's Guide Blog Post:** Naya comprehensive blog guide `best-car-dashcam-pakistan-guide.html` create kiya gaya (Clean URL: `/blog/best-car-dashcam-pakistan-guide`) jo Sony STARVIS 2 HDR night vision, supercapacitor high-heat tolerance (-20°C to 70°C for Pakistani summers), legal admissibility under Qanun-e-Shahadat, 360-degree protection, aur WhatsApp direct order flow ko cover karta hai.
+  - **Sitemap & AI Crawler Optimizations:** `sitemap.xml`, `robots.txt`, aur `llms.txt` ko updated priorities (0.9 for dashcams, JZONES specs & pricing) ke sath enrich kiya gaya taake Google, Bing, ChatGPT, Perplexity, aur Gemini S M Enterprises ko Pakistan me Dashcams ke liye #1 source index karein.
+  - **Single WhatsApp Official Floating Icon Maintained:** Overlapping template widget ko remove kar ke official seller profile button ko direct WhatsApp inquiry link ke sath attach kiya gaya.
 - **Reolink Go 4G Cellular Camera & Interactive 3D Model Integration (June 20, 2026 Upgrade):**
   - Reolink Go ko dynamic product details system me product ID `reolink-go` ke tor par `cms_data.json` database main successfully register kiya.
   - Tamam product data, features list, specifications table details, images gallery aur local fallback video loop `/videos/products/reolink-go/overview.mp4` download aur integrate kiye gaye to ensure zero reliance on external hotlinks.
   - Premium `hero_immersive` layout type activate kiya jisme 3D Model-Viewer interactively local GLB model `/images/products/reolink-go/3d/reolink-go.glb` render karta hai. User mouse cursor ya touch gestures se model rotate kar sakta hai.
   - Badges (PTA Approved, 4G LTE SIM, 100% Wire-Free) aur customized Rs 34,999 pricing visual block layout par dynamic templates ke zariye accurately align kiya.
-  - **Image Replacement (June 20, 2026):** User ki request par Reolink Go ki main image ko solar-panel-equipped camera image (`media__1781991175796.png`) se replace kiya gaya. Image background ko remove kar ke transparent kiya gaya aur use `images/products/reolink-go/hero.png` ke tor par save kiya.
 - **Admin Panel Product Sequence & Reordering Integration (June 21, 2026 Upgrade):**
   - Admin panel (`admin/index.php`) ke gadgets list table mein ek naya "Order" column add kiya gaya hai jisme index `#1`, `#2`, etc. show hota hai.
   - Har product ke paas visual sorting controllers (Up / Down carats) add kiye gaye hain jo dynamic routing query variables (e.g. `?move_gadget_up=X` aur `?move_gadget_down=X`) ke tehat kaam karte hain.

@@ -10,7 +10,7 @@
         "address": "House # 41/31361 Opposite green homes colony, Nawabpur Road Multan, Pakistan"
     },
     "videos": {
-        "construction": "dha-site-sample.mov",
+        "construction": "dha-site-sample.mp4",
         "farm": "go_pt_plus_sample.mp4",
         "logistics": "Chungi no 9_20260214155305_20260214155335_95270005CWT782UY_0..MP4"
     },
@@ -476,7 +476,7 @@
             "curr_price": 23000,
             "tag": "Best Seller",
             "image_type": "url",
-            "image": "images/products/reolink-go/hero.webp",
+            "image": "images/products/reolink-go/hero.webp?v=4",
             "visible": true,
             "meta_title": "Reolink Go 4G SIM Camera Pakistan | S M Enterprises",
             "meta_desc": "Buy original Reolink Go 4G LTE wireless cellular camera in Pakistan. 100% Wire-free battery camera, 1080p HD, PIR motion sensor, IP65 weatherproof.",
@@ -514,8 +514,7 @@
             "features": [
                 "100% Wire-Free & Cellular Network",
                 "Rechargeable Battery or Solar Panel Power",
-                "1080p Full HD & Starlight Night Vision",
-                "PIR Motion Detection & Smart Alerts"
+                "1080p Full HD & Starlight Night Vision"
             ],
             "specs": {
                 "Resolution": "1080p Full HD at 15 fps",
@@ -544,13 +543,13 @@
             "id": "go-plus",
             "name": "Reolink Go PT Plus (Without Solar Plate)",
             "category": "4g-cameras",
-            "homepage": false,
+            "homepage": true,
             "desc": "Official PTA Approved 4G LTE wire-free pan-tilt security camera (Without Solar Plate). Powered by a rechargeable battery or direct power supply, featuring 355° pan & 140° tilt.",
             "orig_price": 28000,
             "curr_price": 23000,
             "tag": "Popular Choice",
             "image_type": "url",
-            "image": "images/camera-no-solar.webp",
+            "image": "images/camera-no-solar.webp?v=4",
             "visible": true,
             "meta_title": "Reolink Go PT Plus (Without Solar Plate) Pakistan | S M Enterprises",
             "meta_desc": "Buy PTA Approved Reolink Go PT Plus (Without Solar Plate) in Pakistan. 2K 4MP resolution, 355 degree pan, rechargeable battery, wire-free.",
@@ -588,8 +587,7 @@
             "features": [
                 "2K 4MP Super HD Clarity",
                 "PTA Approved 4G SIM Guard",
-                "355° Pan & 140° Tilt Rotation",
-                "Without Solar Plate (Battery/DC)"
+                "355° Pan & 140° Tilt Rotation"
             ],
             "specs": {
                 "Resolution": "2K 4MP Super HD (2560x1440)",
@@ -606,14 +604,14 @@
             "id": "rlc-823a",
             "name": "Reolink RLC-823A",
             "category": "wifi-cameras",
-            "homepage": false,
+            "homepage": true,
             "desc": "Smart 4K 8MP PTZ PoE Camera with Auto-Tracking, 5X Optical Zoom, Person/Vehicle/Animal Detection, Two-Way Audio, and Color Night Vision.",
             "orig_price": 55000,
             "curr_price": 43000,
             "warranty": "1-Month Warranty",
             "tag": "PTZ PoE Premium",
             "image_type": "url",
-            "image": "images/products/rlc-823a/gallery-1-transparent.webp",
+            "image": "images/products/rlc-823a/gallery-1-transparent.webp?v=4",
             "visible": true,
             "meta_title": "[Official] Reolink RLC-823A Pakistan | S M Enterprises",
             "meta_desc": "Buy original Reolink RLC-823A in Pakistan. 4K 8MP resolution, 5x optical zoom, auto-tracking, smart detection and color night vision.",
@@ -630,10 +628,7 @@
             "features": [
                 "4K 8MP Ultra HD Resolution",
                 "5X Optical Zoom Precision",
-                "360° Pan & 90° Tilt PTZ",
-                "Person/Vehicle/Animal Detection",
-                "Color Night Vision with Spotlights",
-                "Smart Auto Tracking System"
+                "360° Pan & 90° Tilt PTZ"
             ],
             "specs": {
                 "Image Sensor": "1/2.8\" CMOS sensor",
@@ -1140,6 +1135,67 @@
                 "images/gal_177b9c2eb0c0f08c5da9a98f511274ae.webp"
             ],
             "youtube_url": "https://www.youtube.com/shorts/O3bm58UEMWs"
+        },
+        {
+            "id": "jzones-v630",
+            "name": "JZONES V630 — 4K Triple-Channel Dash Camera",
+            "category": "dashcams",
+            "homepage": true,
+            "desc": "Premium 3-Channel Dash Camera with Sony STARVIS 2 IMX675 Sensor. Records 4K Ultra HD Front, 1080P Cabin with IR Night Vision, and 1080P Rear simultaneously. Features built-in 5GHz WiFi, GPS Route Tracking, 24/7 Parking Monitor, and G-Sensor Collision Lock.",
+            "orig_price": 45000,
+            "curr_price": 32500,
+            "stock": 8,
+            "viewing": 14,
+            "warranty": "18-Month Warranty",
+            "tag": "Flat 28% Off",
+            "image_type": "url",
+            "image": "assets/jzones/jzones_product_transparent.png",
+            "static_url": "/products/jzones-v630",
+            "visible": true,
+            "meta_title": "Jzones V630 3-Channel 4K Dash Cam Pakistan | Sony STARVIS 2 IMX675 Car Camera",
+            "meta_desc": "Buy Jzones V630 3-Channel 4K Car Dashcam in Pakistan. Front 4K + Inside IR 1080P + Rear 1080P, Sony STARVIS 2, GPS, 5GHz WiFi, 24H Parking Mode. Cash on Delivery nationwide.",
+            "focus_keywords": "jzones v630, car dashcam pakistan, 3 channel dash cam, 4k dash camera, sony starvis 2 dashcam, car security camera",
+            "layout_type": "hero_immersive",
+            "hero_badges": [
+                "Sony STARVIS 2",
+                "4K Triple Camera",
+                "Built-in GPS & WiFi",
+                "24H Parking Guard"
+            ],
+            "hero_bullets": [
+                "Triple 3-Channel Coverage (Front 4K + Inside 1080P + Rear 1080P)",
+                "Sony STARVIS 2 IMX675 Sensor & Super HDR Night Vision",
+                "Built-in GPS Route, Speed & Location Stamping",
+                "5GHz WiFi & JZONES Smartphone App Video Sharing",
+                "3-Mode 24H Parking Surveillance & G-Sensor Collision Lock"
+            ],
+            "gallery": [
+                "assets/jzones/jzones_photo_1.jpg",
+                "assets/jzones/jzones_photo_2.jpg",
+                "assets/jzones/jzones_photo_3.jpg",
+                "assets/jzones/jzones_photo_4.jpg",
+                "assets/jzones/jzones_photo_5.jpg",
+                "assets/jzones/jzones_wiring_route_map.jpg"
+            ],
+            "features": [
+                "4K (3840*2160P) Front + 1080P Cabin + 1080P Rear",
+                "Sony STARVIS 2 IMX675 Sensor with F1.8 Large Aperture",
+                "4 Cabin IR LED Lights for Total Darkness Interior Recording",
+                "Built-in GPS & 5GHz High-Speed WiFi App Control",
+                "24-Hour Parking Monitor (Time-Lapse / Motion / G-Sensor)",
+                "Loop Recording with Seamless MicroSD Support up to 256GB"
+            ],
+            "specs": {
+                "Resolution": "Front 4K (3840x2160P) + Cabin 1080P (1920x1080P) + Rear 1080P",
+                "Image Sensor": "Sony STARVIS 2 IMX675 with HDR & WDR Technology",
+                "Field of View": "Front 155° + Cabin 160° + Rear 160° (360° Total Vehicle Shield)",
+                "Night Vision": "Enhanced STARVIS 2 Night Vision + 4 Cabin Infrared IR LEDs",
+                "Connectivity": "High-Speed 5GHz/2.4GHz WiFi & Built-in GPS Logger",
+                "Parking Modes": "24-Hour Time-Lapse, G-Sensor Collision Lock, Motion Detection",
+                "Storage Capacity": "Supports MicroSD Card up to 256GB (Class 10 / U3)",
+                "Power Supply": "Super Capacitor / 12V-24V Car Socket / Hardwire Kit Compatible",
+                "Audio": "Built-in High-Fidelity Microphone & Speaker"
+            }
         }
     ],
     "reviews": [
@@ -1174,7 +1230,16 @@
             "photo": ""
         }
     ],
-    "leads": [],
+    "leads": [
+        {
+            "id": "1786856325-d8ab2aa2",
+            "date": "2026-08-16T04:58:45+00:00",
+            "name": "Test User",
+            "phone": "03001234567",
+            "product_interest": "Reolink Go 4G Cellular Camera",
+            "source": "lead_form"
+        }
+    ],
     "settings": {
         "urgency_bar_text": "OFFICIAL REOLINK PARTNER IN PAKISTAN | FREE SHIPPING & CASH ON DELIVERY NATIONWIDE (4% GOVT TAX ON COD AMOUNTS)",
         "trust_badges": [

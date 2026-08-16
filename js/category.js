@@ -88,6 +88,28 @@ const CATEGORY_META = {
 </div>
 `
     },
+    'dashcams': {
+        eyebrow: 'Vehicle Security & Smart Surveillance',
+        title: 'Best <span class="accent-glow">Car Dashcams</span> in Pakistan | JZONES 4K',
+        desc: 'Official JZONES 3-Channel 4K Ultra HD Triple Car Dash Cams with Sony STARVIS 2 IMX675, Super Night Vision, Built-in GPS & 5GHz WiFi, 24/7 Parking Mode, and Supercapacitor Heat Resistance.',
+        keywords: 'jzones v630, jzones dash camera, car dashcam pakistan, 3 channel dash cam, 4k dash camera pakistan, sony starvis 2 dashcam, best dash cam price in pakistan, rideshare uber careem car camera pakistan',
+        richDesc: `
+<div class="seo-content-block">
+    <h3 style="color:#fff; font-size:22px; margin-bottom:15px;">3-Channel 4K Dash Cams with Sony STARVIS 2 in Pakistan</h3>
+    <p>Protect your car on Pakistan’s roads with advanced 3-channel 4K dash camera systems from S M Enterprises. Driving in major Pakistani cities like Lahore, Karachi, Islamabad, and Multan requires reliable proof against road accidents, reckless drivers, traffic disputes, and vehicle vandalism. Our 3-channel triple car dash cams monitor the road ahead in crystal-clear 4K Ultra HD, record the interior cabin in 1080P FHD with infrared IR night vision (perfect for family trips, Uber, Careem, and Bykea rideshare drivers), and capture the rear view in 1080P simultaneously.</p>
+    <p>Equipped with industry-leading **Sony STARVIS 2 IMX675 image sensors** and large F1.8 apertures, our dash cams deliver unmatched HDR low-light clarity, making license plates and street signs sharp even on pitch-dark roads. Built-in high-speed 5GHz WiFi lets you instantly stream and download crash footage to your iOS/Android phone via dedicated apps, while integrated GPS logs your exact driving speed, route, and time stamps directly on video evidence.</p>
+    <h4 style="color:#fff; font-size:18px; margin-top:20px; margin-bottom:10px;">Why Install a 3-Channel 4K Dashcam in Pakistan?</h4>
+    <ul style="padding-left:20px; margin-bottom:20px; list-style-type:disc; color: #94a3b8;">
+        <li style="margin-bottom: 8px;"><strong>360° Triple Shield:</strong> Simultaneous recording of Front 4K (155° FOV), Cabin 1080P (160° FOV with IR night vision), and Rear 1080P (160° FOV).</li>
+        <li style="margin-bottom: 8px;"><strong>Sony STARVIS 2 Night Vision:</strong> Superior exposure balancing in dark conditions to read vehicle number plates accurately.</li>
+        <li style="margin-bottom: 8px;"><strong>Built-in GPS & 5GHz WiFi:</strong> Real-time speed and route logging + instant mobile wireless footage downloads.</li>
+        <li style="margin-bottom: 8px;"><strong>24/7 Parking Surveillance:</strong> Time-lapse, motion detection, and G-sensor collision detection protect your parked car from hit-and-runs.</li>
+        <li style="margin-bottom: 8px;"><strong>Extreme Heat & Weather Resistance:</strong> Super capacitor design engineered to withstand Pakistan’s harsh 50°C summer heat without battery swelling.</li>
+        <li style="margin-bottom: 8px;"><strong>Seamless Loop Recording:</strong> Overwrites oldest files automatically with MicroSD card support up to 256GB.</li>
+    </ul>
+</div>
+`
+    },
     'wireless-mics': {
         eyebrow: 'Professional Audio Gear',
         title: 'Premium <span class="accent-glow">Wireless Microphones</span>',
@@ -365,7 +387,7 @@ function applyCategoryFilters(searchTerm = '') {
 
     filtered.forEach((g, i) => {
         const card = document.createElement('div');
-        card.className = 'rl-store-card reveal-up';
+        card.className = 'rl-store-card reveal-up active';
         if (i % 3 !== 0) card.classList.add(`delay-${i % 3}`);
 
         const badgeClass = g.tag && g.tag.toLowerCase().includes('outdoor') ? 'orange' : (g.tag && g.tag.toLowerCase().includes('kit') ? 'green' : '');

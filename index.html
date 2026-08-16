@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
+    <script>
+        if (window.location.protocol === 'file:') {
+            var b = document.querySelector('base');
+            if (b) b.setAttribute('href', window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1));
+        }
+    </script>
+    
     <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
@@ -19,7 +26,7 @@
     fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=2147818929333905&ev=PageView&noscript=1"
+    src="https://www.facebook.com/tr?id=2147818929333905&ev=PageView&noscript=1" alt="Facebook Pixel"
     /></noscript>
     <!-- End Meta Pixel Code -->
     <!-- Google tag (gtag.js) -->
@@ -38,10 +45,10 @@
     <link rel="apple-touch-icon" href="images/favicon-32.png">
 
     <!-- Primary SEO Meta Tags -->
-    <title>Reolink Pakistan | Official 4G SIM, Solar &amp; WiFi Security Cameras - S M Enterprises</title>
-    <meta name="description" content="Official Reolink Pakistan store by S M Enterprises. Authorized dealer of PTA-approved 4G SIM cameras, solar-powered security systems, WiFi IP cameras, NVR/DVR CCTV kits, wireless microphones, and premium Bluetooth speakers in Lahore, Karachi, Islamabad, Multan, and nationwide.">
-    <meta name="keywords" content="Reolink Pakistan, 4G solar camera, sim camera pakistan, solar security camera, wifi camera price in pakistan, ip camera, nvr, dvr cctv system, wireless camera, wifi, premium bluetooth speaker, wireless mic, collar microphone, s m enterprises">
-    <meta name="author" content="S M Enterprises - Reolink Pakistan">
+    <title>Reolink Pakistan &amp; JZONES Dash Cams | Official 4G Solar CCTV &amp; 4K Car Cameras - S M Enterprises</title>
+    <meta name="description" content="Buy official Reolink 4G solar cameras &amp; JZONES 3-channel 4K dashcams in Pakistan. Sony STARVIS 2, PTA approved, 100% wire-free security. Nationwide cash on delivery with warranty.">
+    <meta name="keywords" content="Reolink Pakistan, JZONES Pakistan, JZONES V630, car dashcam pakistan, 3 channel dash cam, 4k dash camera pakistan, sony starvis 2 dashcam, best dash cam price in pakistan, 4G solar camera, sim camera pakistan, solar security camera, wifi camera price in pakistan, ip camera, nvr, dvr cctv system, wireless camera, s m enterprises">
+    <meta name="author" content="S M Enterprises - Reolink &amp; JZONES Pakistan">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="https://www.reolink.com.pk/">
 
@@ -74,7 +81,7 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
     <!-- Preconnect to ionicons CDN (loaded at body bottom) -->
     <link rel="preconnect" href="https://unpkg.com">
-    <link rel="stylesheet" href="css/styles.min.css?v=121">
+    <link rel="stylesheet" href="css/styles.min.css?v=123">
 
     <!-- Structured Data: Product Schema -->
     <script type="application/ld+json">
@@ -211,6 +218,14 @@
             "@type": "Answer",
             "text": "Data usage depends on how often you watch the live feed. For typical motion-triggered alerts and occasional live viewing, most customers find that 2GB to 5GB of data per month is more than enough. Reolink uses H.265 compression to save data without losing video quality."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the best 3-Channel 4K car dashcam in Pakistan?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The JZONES V630 is Pakistan's leading 3-channel 4K dash camera. It features a Sony STARVIS 2 IMX675 sensor, Front 4K UHD, 1080P Cabin with Infrared Night Vision (ideal for Uber/Careem & families), 1080P Rear recording, built-in GPS tracking, 5GHz WiFi, and 24/7 parking collision detection with high-heat supercapacitor tolerance up to 70°C."
+          }
         }
       ]
     }
@@ -221,10 +236,11 @@
     {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        "name": "S M Enterprises - Reolink Pakistan",
-        "description": "Authorized Reolink dealer in Pakistan specializing in 4G solar security cameras, wireless CCTV systems, and remote surveillance solutions.",
+        "name": "S M Enterprises - Reolink & JZONES Pakistan",
+        "description": "Authorized dealer in Pakistan specializing in Reolink 4G solar security cameras, wireless CCTV systems, and JZONES 3-channel 4K car dashcams.",
         "url": "https://www.reolink.com.pk/",
         "telephone": "+92-320-6755555",
+        "knowsAbout": ["4G Solar Security Cameras", "Wireless CCTV Kits", "Car Dashcams", "Sony STARVIS 2 Dash Camera", "Remote Farm Surveillance", "PTA Approved Cameras", "JZONES V630 4K Dashcam"],
         "address": {
             "@type": "PostalAddress",
             "addressCountry": "PK",
@@ -235,6 +251,19 @@
             "latitude": "31.5204",
             "longitude": "74.3587"
         },
+        "areaServed": [
+            {"@type": "Country", "name": "Pakistan"},
+            {"@type": "City", "name": "Lahore"},
+            {"@type": "City", "name": "Karachi"},
+            {"@type": "City", "name": "Islamabad"},
+            {"@type": "City", "name": "Rawalpindi"},
+            {"@type": "City", "name": "Multan"},
+            {"@type": "City", "name": "Faisalabad"},
+            {"@type": "City", "name": "Peshawar"},
+            {"@type": "City", "name": "Quetta"},
+            {"@type": "City", "name": "Sialkot"},
+            {"@type": "City", "name": "Gujranwala"}
+        ],
         "openingHoursSpecification": {
             "@type": "OpeningHoursSpecification",
             "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
@@ -242,7 +271,34 @@
             "closes": "22:00"
         },
         "priceRange": "$$",
-        "sameAs": ["https://www.facebook.com/reolinkpakistan", "https://www.instagram.com/reolinkpakistan", "https://wa.me/923206755555"]
+        "sameAs": ["https://www.facebook.com/reolink.com.pk", "https://www.instagram.com/reolink.com.pk", "https://wa.me/923206755555"]
+    }
+    </script>
+
+    <!-- Structured Data: HowTo Schema (Camera Setup Guide for Rich Snippets) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Setup Reolink 4G Solar Security Camera in Pakistan",
+        "description": "Step-by-step DIY guide to install and configure Reolink 4G SIM solar cameras without WiFi or electricity in Pakistan.",
+        "step": [
+            {
+                "@type": "HowToStep",
+                "name": "Insert 4G SIM and SD Card",
+                "text": "Insert a PTA-registered nano SIM card (Jazz, Zong, Telenor, or Ufone) and MicroSD memory card into the waterproof slot."
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Download Reolink App and Scan QR Code",
+                "text": "Download the official Reolink App from Google Play Store or Apple App Store and scan the QR code located on the camera."
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Mount Camera and Connect Solar Panel",
+                "text": "Mount the camera bracket onto a wall, pole, or tree and connect the weatherproof solar panel facing direct sunlight."
+            }
+        ]
     }
     </script>
 
@@ -330,6 +386,7 @@
                         <a href="/category/solar-cameras">Solar Cameras</a>
                         <a href="/category/wifi-cameras">WiFi Cameras</a>
                         <a href="/category/cctv-systems">Wireless IP Kits</a>
+                        <a href="/category/dashcams">Car Dashcams</a>
                     </div>
                 </div>
                 <div class="dropdown">
@@ -407,7 +464,7 @@
 
                             <!-- Use grid stacking for variants on mobile via CSS -->
                             <div class="product-rain-mask">
-                                <img src="images/camera.webp" width="600" height="600" alt="Reolink Go PT Plus 4G Solar Camera Pakistan - Official Authorized Seller" class="variant-img v1">
+                                <img src="images/camera.webp" width="600" height="600" alt="Reolink Go PT Plus 4G Solar Camera Pakistan - Official Authorized Seller" class="variant-img v1" fetchpriority="high" decoding="async">
                                 <img src="images/camera-no-solar.webp" width="1024" height="1014" alt="Reolink Go PT Plus 4G LTE Security Camera - PTA Approved" class="variant-img v2">
                                 <canvas id="rainCanvas" class="rain-canvas"></canvas>
                             </div>
@@ -460,7 +517,7 @@
         </section>
 
         <!-- Customer Reviews -->
-        <section class="store-grid-section">
+        <section class="store-reviews-section">
             <div class="container">
                 <div data-reviews="6" data-reviews-title="What Our Customers Say"></div>
             </div>
@@ -511,8 +568,8 @@
         <section class="reo-feature-split gray-bg">
             <div class="split-container">
                 <div class="split-visual reveal-up">
-                    <video autoplay loop muted playsinline class="rounded-video lazy-video" preload="none" data-src="dha-site-sample.mov">
-                        <source data-src="dha-site-sample.mov" type="video/mp4">
+                    <video autoplay loop muted playsinline class="rounded-video lazy-video" preload="none" data-src="dha-site-sample.mp4">
+                        <source data-src="dha-site-sample.mp4" type="video/mp4">
                     </video>
                 </div>
                 <div class="split-text reveal-up delay-1">
@@ -762,7 +819,8 @@
                     <div class="graphic-card complex-way">
                         <div class="card-top-label complex">❌ OPTION 2: THE COMPLEX WIFI WAY</div>
                         <div class="graphic-body">
-                            <h3>The Hard-Wired<br>WiFi System</h3>
+                            <h3>The Hard-Wired WiFi</h3>
+                            <span class="sub-h">(Complex &amp; Expensive Setup)</span>
 
                             <ul class="cost-list">
                                 <li><span class="item-name">• Outdoor WiFi Camera</span> <span class="item-cost">Rs 8,000</span></li>
@@ -904,8 +962,8 @@
                         <div class="iphone-inner">
                             <div class="dynamic-island"></div>
                             <div class="app-video-mock full-video">
-                                <video autoplay muted loop playsinline class="mock-video-element lazy-video" preload="none" data-src="images/alert_video_new.mov">
-                                    <source data-src="images/alert_video_new.mov" type="video/mp4">
+                                <video autoplay muted loop playsinline class="mock-video-element lazy-video" preload="none" data-src="images/alert_video_new.mp4">
+                                    <source data-src="images/alert_video_new.mp4" type="video/mp4">
                                 </video>
                             </div>
                             <div class="app-screen foreground simple-hud">
@@ -1368,13 +1426,13 @@
                         <p style="margin-bottom: 25px; opacity: 0.8;">Proudly providing high-end security solutions to
                             customers in 50+ cities across Pakistan.</p>
                         <div class="city-grid">
-                            <div class="city-tag">Karachi</div>
-                            <div class="city-tag">Lahore</div>
-                            <div class="city-tag">Faisalabad</div>
-                            <div class="city-tag">Rawalpindi</div>
+                            <a href="/cities/karachi" class="city-tag" style="text-decoration:none; color:inherit;">Karachi</a>
+                            <a href="/cities/lahore" class="city-tag" style="text-decoration:none; color:inherit;">Lahore</a>
+                            <a href="/cities/faisalabad" class="city-tag" style="text-decoration:none; color:inherit;">Faisalabad</a>
+                            <a href="/cities/islamabad-rawalpindi" class="city-tag" style="text-decoration:none; color:inherit;">Rawalpindi / Islamabad</a>
                             <div class="city-tag">Gujranwala</div>
-                            <div class="city-tag">Peshawar</div>
-                            <div class="city-tag">Multan</div>
+                            <a href="/cities/peshawar" class="city-tag" style="text-decoration:none; color:inherit;">Peshawar</a>
+                            <a href="/cities/multan" class="city-tag" style="text-decoration:none; color:inherit;">Multan (HQ)</a>
                             <div class="city-tag">Hyderabad</div>
                             <div class="city-tag">Quetta</div>
                             <div class="city-tag">Bahawalpur</div>
@@ -1392,7 +1450,8 @@
                             <div class="city-tag">Mardan</div>
                             <div class="city-tag">Kasur</div>
                             <div class="city-tag">Okara</div>
-                            <div class="city-tag">Mingora</div>
+                            <div class="city-tag">Mingora / Swat</div>
+                            <div class="city-tag">Abbottabad</div>
                             <div class="city-tag">Nawabshah</div>
                             <div class="city-tag">Chiniot</div>
                             <div class="city-tag">Kotri</div>
@@ -1406,6 +1465,9 @@
                             <div class="city-tag">Lodhran</div>
                         </div>
                     </div>
+                </div>
+            </section>
+
             <!-- Testimonials & Reviews Section -->
             <section id="testimonials" class="neo-section reveal-up">
                 <div class="section-header">
@@ -1416,23 +1478,37 @@
                 <div class="reviews-grid">
                     <div class="review-card">
                         <div class="review-header">
-                            <div class="customer-info">
-                                <h4>Mian Muhammad Bilal</h4>
-                                <span class="review-city">Sahiwal Cattle Farm Owner</span>
+                            <div class="reviewer-info">
+                                <strong>Chaudhry Tariq Mehmood</strong>
+                                <span>Multan Mango Orchards & Cattle Farm</span>
                             </div>
                             <div class="verified"><ion-icon name="checkmark-circle"></ion-icon> Verified Buyer</div>
                         </div>
                         <div class="rating">
                             <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon>
                         </div>
-                        <p class="review-text">"Dera par na light thi na internet. Reolink 4G camera lagaya hai, ab mobile par live cattle monitoring karta hoon. Solar panel se 3-day battery backup behtareen chalta hai load-shedding me bhi!"</p>
+                        <p class="review-text">"Solar setup on our remote tube-well in Multan was facing serious theft threats. Installed 2 Reolink Go PT Plus cameras. The 4G SIM connection on Zong works smoothly and solar battery never drops below 80%."</p>
                     </div>
 
                     <div class="review-card">
                         <div class="review-header">
-                            <div class="customer-info">
-                                <h4>Chaudhary Nabeel</h4>
-                                <span class="review-city">DHA Lahore Site Builder</span>
+                            <div class="reviewer-info">
+                                <strong>Malik Usman Ali</strong>
+                                <span>Bedian Road Farmhouse, Lahore</span>
+                            </div>
+                            <div class="verified"><ion-icon name="checkmark-circle"></ion-icon> Verified Buyer</div>
+                        </div>
+                        <div class="rating">
+                            <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon>
+                        </div>
+                        <p class="review-text">"Best decision for our farmhouse. No electricity or WiFi was available at the back boundary. Pan-tilt rotation via mobile app is lightning fast. Highly recommended!"</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <strong>Engr. Asad Raza</strong>
+                                <span>Project Manager, DHA Construction</span>
                             </div>
                             <div class="verified"><ion-icon name="checkmark-circle"></ion-icon> Verified Buyer</div>
                         </div>
@@ -1454,6 +1530,30 @@
                 <div class="cards-grid">
                     <div class="reo-card">
                         <div class="card-img-wrapper">
+                            <img src="images/guide-pta-approved.webp" alt="PTA Approved Security Camera Guide" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <span class="reo-badge blue" style="margin-bottom: 10px; display: inline-block;">PTA & Legal</span>
+                            <h3>PTA Approval Buyer's Guide</h3>
+                            <p style="font-size: 14px; opacity: 0.8; margin-top: 8px;">Why PTA approval is essential for 4G SIM cameras in Pakistan and how to avoid DIRBS SIM blocking and customs penalties.</p>
+                            <a href="/blog/pta-approval-guide" class="btn-reo-secondary" style="margin-top: 15px; display: inline-flex; width: 100%; justify-content: center;">Read Article</a>
+                        </div>
+                    </div>
+
+                    <div class="reo-card">
+                        <div class="card-img-wrapper">
+                            <img src="images/guide-solar-vs-wired.webp" alt="Solar vs Wired CCTV Cost Comparison" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <span class="reo-badge green-glow" style="margin-bottom: 10px; display: inline-block;">Cost Analysis</span>
+                            <h3>Solar CCTV vs Wired Cameras</h3>
+                            <p style="font-size: 14px; opacity: 0.8; margin-top: 8px;">1-year cost and load-shedding breakdown showing how you save over Rs 26,400 with a wire-free 4G solar camera.</p>
+                            <a href="/blog/solar-vs-wired-cctv" class="btn-reo-secondary" style="margin-top: 15px; display: inline-flex; width: 100%; justify-content: center;">Read Article</a>
+                        </div>
+                    </div>
+
+                    <div class="reo-card">
+                        <div class="card-img-wrapper">
                             <img src="images/usecase-farm.webp" alt="Cattle Farm Security Guide Pakistan" loading="lazy">
                         </div>
                         <div class="card-body">
@@ -1466,18 +1566,17 @@
                     
                     <div class="reo-card">
                         <div class="card-img-wrapper">
-                            <img src="images/usecase-construction.webp" alt="Construction Site Surveillance Guide" loading="lazy">
+                            <img src="images/usecase-construction.webp" alt="Solar Tube Well Security Pakistan" loading="lazy">
                         </div>
                         <div class="card-body">
-                            <span class="reo-badge blue" style="margin-bottom: 10px; display: inline-block;">Construction</span>
-                            <h3>Construction Site Surveillance</h3>
-                            <p style="font-size: 14px; opacity: 0.8; margin-top: 8px;">A comprehensive guide on preventing theft of expensive materials and machinery on housing societies and commercial building sites.</p>
-                            <a href="https://wa.me/923206755555?text=Hi%20S%20M%20Enterprises%2C%20I%20want%20to%20know%20more%20about%20Construction%20Site%20Surveillance%20solutions." target="_blank" class="btn-reo-secondary" style="margin-top: 15px; display: inline-flex; width: 100%; justify-content: center;">Read More / Consult</a>
+                            <span class="reo-badge orange" style="margin-bottom: 10px; display: inline-block;">Asset Protection</span>
+                            <h3>Solar Tube-Well Security</h3>
+                            <p style="font-size: 14px; opacity: 0.8; margin-top: 8px;">Protect expensive solar panels, pumps, and agricultural havelis from theft with 355° PTZ solar security cameras.</p>
+                            <a href="/blog/farm-tube-well-security" class="btn-reo-secondary" style="margin-top: 15px; display: inline-flex; width: 100%; justify-content: center;">Read Article</a>
                         </div>
                     </div>
                 </div>
             </section>
-        </section>
     </main>
 
     <!-- Expanded SEO-Rich FAQ Section -->
@@ -1590,14 +1689,7 @@
         </div>
     </section>
 
-    <!-- Social Proof Notification -->
-    <div id="sales-notification" class="sales-notification">
-        <div class="notification-icon"><ion-icon name="bag-check"></ion-icon></div>
-        <div class="notification-content">
-            <p id="notif-text">Someone just purchased a Reolink Go PT Plus!</p>
-            <span id="notif-time">2 minutes ago</span>
-        </div>
-    </div>
+
 
     <!-- Sticky Mobile Buy Bar -->
     <div id="sticky-bar" class="sticky-mobile-bar">

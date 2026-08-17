@@ -584,6 +584,227 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['login'])) {
         }
     }
 
+    // Save Hero Slider Global Settings
+    if (isset($_POST['save_hero_slider_settings'])) {
+        if (!isset($cmsData['hero_slider'])) {
+            $cmsData['hero_slider'] = ['enabled' => true, 'interval_seconds' => 4.5, 'pause_on_hover' => true, 'slides' => []];
+        }
+        $cmsData['hero_slider']['enabled'] = isset($_POST['hero_enabled']) && $_POST['hero_enabled'] === '1';
+        $interval = floatval($_POST['hero_interval'] ?? 4.5);
+        if ($interval < 1.5) $interval = 1.5;
+        if ($interval > 20) $interval = 20;
+        $cmsData['hero_slider']['interval_seconds'] = $interval;
+        $cmsData['hero_slider']['pause_on_hover'] = isset($_POST['hero_pause_on_hover']) && $_POST['hero_pause_on_hover'] === '1';
+
+        if (file_put_contents($dataPath, json_encode($cmsData, JSON_PRETTY_PRINT))) {
+            header('Location: ' . $_SERVER['SCRIPT_NAME'] . '?status=hero_saved#tab-hero-slider');
+            exit;
+        } else {
+            $error = 'Hero Slider settings save karne me error aaya.';
+        }
+    }
+
+    // Add New Hero Slide
+    if (isset($_POST['add_hero_slide'])) {
+        if (!isset($cmsData['hero_slider'])) {
+            $cmsData['hero_slider'] = ['enabled' => true, 'interval_seconds' => 4.5, 'pause_on_hover' => true, 'slides' => []];
+        }
+        
+        $title = trim($_POST['slide_title'] ?? '');
+        $subtitle = trim($_POST['slide_subtitle'] ?? '');
+        $pill_title = trim($_POST['slide_pill_title'] ?? '');
+        $pill_subtitle = trim($_POST['slide_pill_subtitle'] ?? '');
+        $pill_icon = trim($_POST['slide_pill_icon'] ?? 'sunny-outline');
+        $theme = trim($_POST['slide_theme'] ?? 'reolink');
+        $orig_price = intval($_POST['slide_orig_price'] ?? 0);
+        $curr_price = intval($_POST['slide_curr_price'] ?? 0);
+        $save_text = trim($_POST['slide_save_text'] ?? '');
+        
+        $primary_btn_text = trim($_POST['slide_primary_btn_text'] ?? 'Order Now');
+        $primary_btn_link = trim($_POST['slide_primary_btn_link'] ?? '#');
+        $primary_btn_class = trim($_POST['slide_primary_btn_class'] ?? 'btn-reo-primary btn-order-trigger');
+        
+        $secondary_btn_text = trim($_POST['slide_secondary_btn_text'] ?? '');
+        $secondary_btn_link = trim($_POST['slide_secondary_btn_link'] ?? '');
+        $secondary_btn_class = trim($_POST['slide_secondary_btn_class'] ?? 'btn-reo-secondary');
+        
+        $tertiary_btn_text = trim($_POST['slide_tertiary_btn_text'] ?? '');
+        $tertiary_btn_link = trim($_POST['slide_tertiary_btn_link'] ?? 'javascript:void(0)');
+        $tertiary_btn_onclick = trim($_POST['slide_tertiary_btn_onclick'] ?? '');
+
+        $image = handleProductImageUpload('slide_image_file', 'slide_image_base64', 'slide_image');
+        $image_alt = trim($_POST['slide_image_alt'] ?? $title);
+        $show_rain = isset($_POST['slide_show_rain']) && $_POST['slide_show_rain'] === '1';
+
+        // Badges array
+        $raw_badges = isset($_POST['slide_badges']) ? array_filter(array_map('trim', explode(',', $_POST['slide_badges']))) : [];
+        $badges = [];
+        foreach ($raw_badges as $b_idx => $b_text) {
+            $badge_class = ($b_idx === 0) ? ($theme === 'jzones' ? 'cyan-glow' : 'orange') : (($b_idx === 1) ? ($theme === 'jzones' ? 'purple-glow' : 'blue-outline') : 'green-glow');
+            $badges[] = [
+                'text' => $b_text,
+                'class' => $badge_class,
+                'icon' => ($theme === 'jzones' && $b_idx === 0) ? 'hardware-chip-outline' : ''
+            ];
+        }
+
+        // Features list
+        $features = isset($_POST['slide_features']) ? array_values(array_filter(array_map('trim', explode("\n", $_POST['slide_features'])))) : [];
+
+        // Floating tags
+        $floating_tags = [];
+        if (isset($_POST['slide_tag_text']) && is_array($_POST['slide_tag_text'])) {
+            foreach ($_POST['slide_tag_text'] as $ti => $t_text) {
+                $t_text = trim($t_text);
+                if (!empty($t_text)) {
+                    $floating_tags[] = [
+                        'text' => $t_text,
+                        'icon' => $_POST['slide_tag_icon'][$ti] ?? 'star-outline',
+                        'type' => 'ion'
+                    ];
+                }
+            }
+        }
+
+        $slug = strtolower(trim(preg_replace('/[^a-zA-Z0-9]+/', '-', $title), '-'));
+        $slide_id = $slug ?: ('slide-' . uniqid());
+
+        $newSlide = [
+            'id' => $slide_id,
+            'enabled' => true,
+            'theme' => $theme,
+            'pill_title' => $pill_title ?: $title,
+            'pill_subtitle' => $pill_subtitle ?: ("Rs " . number_format($curr_price)),
+            'pill_icon' => $pill_icon,
+            'badges' => $badges,
+            'title' => $title,
+            'subtitle' => $subtitle,
+            'features' => $features,
+            'stat_chips' => [],
+            'orig_price' => $orig_price,
+            'curr_price' => $curr_price,
+            'save_text' => $save_text ?: ($orig_price > $curr_price ? ("Save " . round((($orig_price - $curr_price) / $orig_price) * 100) . "%") : ""),
+            'primary_btn_text' => $primary_btn_text,
+            'primary_btn_link' => $primary_btn_link,
+            'primary_btn_class' => $primary_btn_class,
+            'secondary_btn_text' => $secondary_btn_text,
+            'secondary_btn_link' => $secondary_btn_link,
+            'secondary_btn_class' => $secondary_btn_class,
+            'tertiary_btn_text' => $tertiary_btn_text,
+            'tertiary_btn_link' => $tertiary_btn_link,
+            'tertiary_btn_onclick' => $tertiary_btn_onclick,
+            'image' => $image ?: 'images/placeholder.webp',
+            'image_alt' => $image_alt,
+            'show_rain' => $show_rain,
+            'floating_tags' => $floating_tags
+        ];
+
+        $cmsData['hero_slider']['slides'][] = $newSlide;
+        if (file_put_contents($dataPath, json_encode($cmsData, JSON_PRETTY_PRINT))) {
+            header('Location: ' . $_SERVER['SCRIPT_NAME'] . '?status=hero_added#tab-hero-slider');
+            exit;
+        } else {
+            $error = 'Slide add karne me masla hua. Permissions check karein.';
+        }
+    }
+
+    // Edit Hero Slide
+    if (isset($_POST['edit_hero_slide'])) {
+        $s_idx = intval($_POST['slide_index'] ?? -1);
+        if (isset($cmsData['hero_slider']['slides'][$s_idx])) {
+            $title = trim($_POST['edit_slide_title'] ?? '');
+            $subtitle = trim($_POST['edit_slide_subtitle'] ?? '');
+            $pill_title = trim($_POST['edit_slide_pill_title'] ?? '');
+            $pill_subtitle = trim($_POST['edit_slide_pill_subtitle'] ?? '');
+            $pill_icon = trim($_POST['edit_slide_pill_icon'] ?? 'sunny-outline');
+            $theme = trim($_POST['edit_slide_theme'] ?? 'reolink');
+            $orig_price = intval($_POST['edit_slide_orig_price'] ?? 0);
+            $curr_price = intval($_POST['edit_slide_curr_price'] ?? 0);
+            $save_text = trim($_POST['edit_slide_save_text'] ?? '');
+            
+            $primary_btn_text = trim($_POST['edit_slide_primary_btn_text'] ?? 'Order Now');
+            $primary_btn_link = trim($_POST['edit_slide_primary_btn_link'] ?? '#');
+            $primary_btn_class = trim($_POST['edit_slide_primary_btn_class'] ?? 'btn-reo-primary btn-order-trigger');
+            
+            $secondary_btn_text = trim($_POST['edit_slide_secondary_btn_text'] ?? '');
+            $secondary_btn_link = trim($_POST['edit_slide_secondary_btn_link'] ?? '');
+            $secondary_btn_class = trim($_POST['edit_slide_secondary_btn_class'] ?? 'btn-reo-secondary');
+            
+            $tertiary_btn_text = trim($_POST['edit_slide_tertiary_btn_text'] ?? '');
+            $tertiary_btn_link = trim($_POST['edit_slide_tertiary_btn_link'] ?? 'javascript:void(0)');
+            $tertiary_btn_onclick = trim($_POST['edit_slide_tertiary_btn_onclick'] ?? '');
+
+            $currentImg = $cmsData['hero_slider']['slides'][$s_idx]['image'] ?? '';
+            $image = handleProductImageUpload('edit_slide_image_file', 'edit_slide_image_base64', 'edit_slide_image', $currentImg);
+            $image_alt = trim($_POST['edit_slide_image_alt'] ?? $title);
+            $show_rain = isset($_POST['edit_slide_show_rain']) && $_POST['edit_slide_show_rain'] === '1';
+
+            // Badges array
+            $raw_badges = isset($_POST['edit_slide_badges']) ? array_filter(array_map('trim', explode(',', $_POST['edit_slide_badges']))) : [];
+            $badges = [];
+            foreach ($raw_badges as $b_idx => $b_text) {
+                $badge_class = ($b_idx === 0) ? ($theme === 'jzones' ? 'cyan-glow' : 'orange') : (($b_idx === 1) ? ($theme === 'jzones' ? 'purple-glow' : 'blue-outline') : 'green-glow');
+                $badges[] = [
+                    'text' => $b_text,
+                    'class' => $badge_class,
+                    'icon' => ($theme === 'jzones' && $b_idx === 0) ? 'hardware-chip-outline' : ''
+                ];
+            }
+
+            // Features list
+            $features = isset($_POST['edit_slide_features']) ? array_values(array_filter(array_map('trim', explode("\n", $_POST['edit_slide_features'])))) : [];
+
+            // Floating tags
+            $floating_tags = [];
+            if (isset($_POST['edit_slide_tag_text']) && is_array($_POST['edit_slide_tag_text'])) {
+                foreach ($_POST['edit_slide_tag_text'] as $ti => $t_text) {
+                    $t_text = trim($t_text);
+                    if (!empty($t_text)) {
+                        $floating_tags[] = [
+                            'text' => $t_text,
+                            'icon' => $_POST['edit_slide_tag_icon'][$ti] ?? 'star-outline',
+                            'type' => 'ion'
+                        ];
+                    }
+                }
+            }
+
+            $cmsData['hero_slider']['slides'][$s_idx]['title'] = $title;
+            $cmsData['hero_slider']['slides'][$s_idx]['subtitle'] = $subtitle;
+            $cmsData['hero_slider']['slides'][$s_idx]['pill_title'] = $pill_title ?: $title;
+            $cmsData['hero_slider']['slides'][$s_idx]['pill_subtitle'] = $pill_subtitle ?: ("Rs " . number_format($curr_price));
+            $cmsData['hero_slider']['slides'][$s_idx]['pill_icon'] = $pill_icon;
+            $cmsData['hero_slider']['slides'][$s_idx]['theme'] = $theme;
+            $cmsData['hero_slider']['slides'][$s_idx]['orig_price'] = $orig_price;
+            $cmsData['hero_slider']['slides'][$s_idx]['curr_price'] = $curr_price;
+            $cmsData['hero_slider']['slides'][$s_idx]['save_text'] = $save_text ?: ($orig_price > $curr_price ? ("Save " . round((($orig_price - $curr_price) / $orig_price) * 100) . "%") : "");
+            $cmsData['hero_slider']['slides'][$s_idx]['primary_btn_text'] = $primary_btn_text;
+            $cmsData['hero_slider']['slides'][$s_idx]['primary_btn_link'] = $primary_btn_link;
+            $cmsData['hero_slider']['slides'][$s_idx]['primary_btn_class'] = $primary_btn_class;
+            $cmsData['hero_slider']['slides'][$s_idx]['secondary_btn_text'] = $secondary_btn_text;
+            $cmsData['hero_slider']['slides'][$s_idx]['secondary_btn_link'] = $secondary_btn_link;
+            $cmsData['hero_slider']['slides'][$s_idx]['secondary_btn_class'] = $secondary_btn_class;
+            $cmsData['hero_slider']['slides'][$s_idx]['tertiary_btn_text'] = $tertiary_btn_text;
+            $cmsData['hero_slider']['slides'][$s_idx]['tertiary_btn_link'] = $tertiary_btn_link;
+            $cmsData['hero_slider']['slides'][$s_idx]['tertiary_btn_onclick'] = $tertiary_btn_onclick;
+            $cmsData['hero_slider']['slides'][$s_idx]['image'] = $image;
+            $cmsData['hero_slider']['slides'][$s_idx]['image_alt'] = $image_alt;
+            $cmsData['hero_slider']['slides'][$s_idx]['show_rain'] = $show_rain;
+            $cmsData['hero_slider']['slides'][$s_idx]['badges'] = $badges;
+            $cmsData['hero_slider']['slides'][$s_idx]['features'] = $features;
+            if (!empty($floating_tags)) {
+                $cmsData['hero_slider']['slides'][$s_idx]['floating_tags'] = $floating_tags;
+            }
+
+            if (file_put_contents($dataPath, json_encode($cmsData, JSON_PRETTY_PRINT))) {
+                header('Location: ' . $_SERVER['SCRIPT_NAME'] . '?status=hero_edited#tab-hero-slider');
+                exit;
+            } else {
+                $error = 'Slide update karne me masla hua.';
+            }
+        }
+    }
+
     // Save Page SEO
     if (isset($_POST['save_page_seo'])) {
         $seo_page = trim($_POST['seo_page'] ?? '');
@@ -870,11 +1091,66 @@ if (isset($_GET['move_gadget_down'])) {
     }
 }
 
+if (isset($_GET['move_hero_slide_up'])) {
+    $idx = intval($_GET['move_hero_slide_up']);
+    if (isset($cmsData['hero_slider']['slides'][$idx]) && $idx > 0) {
+        $temp = $cmsData['hero_slider']['slides'][$idx];
+        $cmsData['hero_slider']['slides'][$idx] = $cmsData['hero_slider']['slides'][$idx - 1];
+        $cmsData['hero_slider']['slides'][$idx - 1] = $temp;
+        if (file_put_contents($dataPath, json_encode($cmsData, JSON_PRETTY_PRINT))) {
+            header('Location: ' . $_SERVER['SCRIPT_NAME'] . '?status=hero_reordered#tab-hero-slider');
+            exit;
+        }
+    }
+}
+
+if (isset($_GET['move_hero_slide_down'])) {
+    $idx = intval($_GET['move_hero_slide_down']);
+    if (isset($cmsData['hero_slider']['slides'][$idx]) && $idx < count($cmsData['hero_slider']['slides']) - 1) {
+        $temp = $cmsData['hero_slider']['slides'][$idx];
+        $cmsData['hero_slider']['slides'][$idx] = $cmsData['hero_slider']['slides'][$idx + 1];
+        $cmsData['hero_slider']['slides'][$idx + 1] = $temp;
+        if (file_put_contents($dataPath, json_encode($cmsData, JSON_PRETTY_PRINT))) {
+            header('Location: ' . $_SERVER['SCRIPT_NAME'] . '?status=hero_reordered#tab-hero-slider');
+            exit;
+        }
+    }
+}
+
+if (isset($_GET['toggle_hero_slide'])) {
+    $idx = intval($_GET['toggle_hero_slide']);
+    if (isset($cmsData['hero_slider']['slides'][$idx])) {
+        $current = $cmsData['hero_slider']['slides'][$idx]['enabled'] ?? true;
+        $cmsData['hero_slider']['slides'][$idx]['enabled'] = !$current;
+        if (file_put_contents($dataPath, json_encode($cmsData, JSON_PRETTY_PRINT))) {
+            header('Location: ' . $_SERVER['SCRIPT_NAME'] . '?status=hero_toggled#tab-hero-slider');
+            exit;
+        }
+    }
+}
+
+if (isset($_GET['delete_hero_slide'])) {
+    $idx = intval($_GET['delete_hero_slide']);
+    if (isset($cmsData['hero_slider']['slides'][$idx])) {
+        array_splice($cmsData['hero_slider']['slides'], $idx, 1);
+        if (file_put_contents($dataPath, json_encode($cmsData, JSON_PRETTY_PRINT))) {
+            header('Location: ' . $_SERVER['SCRIPT_NAME'] . '?status=hero_deleted#tab-hero-slider');
+            exit;
+        }
+    }
+}
+
 if (isset($_GET['status'])) {
     if ($_GET['status'] === 'deleted') $success = 'Gadget list se delete kar diya gaya!';
     if ($_GET['status'] === 'toggled') $success = 'Gadget ki visibility toggle ho gayi!';
     if ($_GET['status'] === 'reordered') $success = 'Gadgets ki tarteeb (sequence) kamyabi se tabdeel ho gayi!';
     if ($_GET['status'] === 'saved') $success = 'Settings aur prices kamyabi se save ho gayi hain!';
+    if ($_GET['status'] === 'hero_saved') $success = 'Hero Slider global settings kamyabi se save ho gayi hain!';
+    if ($_GET['status'] === 'hero_reordered') $success = 'Hero Slider ki sequence (Product Order) kamyabi se tabdeel ho gayi!';
+    if ($_GET['status'] === 'hero_toggled') $success = 'Hero Slide ki visibility status toggle ho gaya!';
+    if ($_GET['status'] === 'hero_deleted') $success = 'Hero Slide ko slider list se delete kar diya gaya!';
+    if ($_GET['status'] === 'hero_added') $success = 'Nayi Hero Slide kamyabi se slider mein shamil kar di gayi!';
+    if ($_GET['status'] === 'hero_edited') $success = 'Hero Slide details kamyabi se update ho gayi hain!';
     if ($_GET['status'] === 'seo_saved') $success = 'Page SEO details kamyabi se update ho gayi hain aur sitemap regenerate ho gaya hai!';
     if ($_GET['status'] === 'added') $success = 'Naya gadget kamyabi se add kar diya gaya hai aur sitemap update ho gaya hai!';
     if ($_GET['status'] === 'edited') $success = 'Gadget details update ho gayi hain aur sitemap update ho gaya hai!';
@@ -891,35 +1167,131 @@ if (isset($_GET['status'])) {
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Quicksand', sans-serif; }
-        body { background: #07080a; color: #fff; min-height: 100vh; display: flex; flex-direction: column; }
+        body { background: #07080a; color: #fff; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
         /* Layout Grid */
-        .wrapper { display: flex; flex: 1; height: 100vh; overflow: hidden; }
+        .wrapper { display: flex; flex: 1; min-height: 100vh; position: relative; }
         
-        /* Sidebar */
+        /* Mobile Top Header (Visible on screens <= 992px) */
+        .mobile-admin-header {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(11, 15, 25, 0.95);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            padding: 10px 16px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            z-index: 990;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
+        }
+        .mobile-admin-hamburger {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            color: #00f3ff;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .mobile-admin-hamburger:active { transform: scale(0.92); background: rgba(0, 243, 255, 0.25); }
+        .mobile-admin-brand { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .mobile-admin-brand h2 { font-size: 15px; font-weight: 700; color: #fff; margin: 0; line-height: 1.2; }
+        .mobile-admin-brand span { font-size: 10px; color: #00f3ff; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+        .mobile-logout-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .mobile-logout-icon:active { transform: scale(0.92); }
+
+        /* Sidebar Backdrop Overlay */
+        .admin-sidebar-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 995;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .admin-sidebar-backdrop.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Sidebar Drawer */
         .sidebar {
-            width: 260px;
-            background: rgba(255,255,255,0.01);
-            border-right: 1px solid rgba(0, 243, 255, 0.1);
+            width: 270px;
+            background: #090d16;
+            border-right: 1px solid rgba(0, 243, 255, 0.15);
             display: flex;
             flex-direction: column;
-            padding: 30px 20px;
+            padding: 30px 18px;
+            z-index: 998;
+            overflow-y: auto;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .sidebar-brand h2 { font-size: 20px; font-weight: 700; color: #fff; }
+        .sidebar-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .sidebar-brand h2 { font-size: 20px; font-weight: 700; color: #fff; margin: 0; }
         .sidebar-brand span { font-size: 11px; color: #00f3ff; text-transform: uppercase; font-weight: 600; }
-        .menu-items { margin-top: 40px; display: flex; flex-direction: column; gap: 10px; }
+        .sidebar-close-btn {
+            display: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #cbd5e1;
+            font-size: 20px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .sidebar-close-btn:active { transform: scale(0.9); }
+
+        .menu-items { margin-top: 30px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
         .menu-btn {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 18px;
-            border-radius: 8px;
+            padding: 12px 16px;
+            border-radius: 10px;
             color: #cbd5e1;
             text-decoration: none;
             font-size: 14px;
             font-weight: 600;
             background: transparent;
-            border: none;
+            border: 1px solid transparent;
             cursor: pointer;
             width: 100%;
             text-align: left;
@@ -927,15 +1299,23 @@ if (isset($_GET['status'])) {
         }
         .menu-btn.active, .menu-btn:hover {
             color: #fff;
-            background: rgba(0, 243, 255, 0.1);
-            box-shadow: inset 0 0 10px rgba(0,243,255,0.05);
+            background: rgba(0, 243, 255, 0.12);
+            border-color: rgba(0, 243, 255, 0.25);
+            box-shadow: 0 4px 15px rgba(0, 243, 255, 0.08);
         }
-        .menu-btn ion-icon { font-size: 18px; color: #00f3ff; }
-        .logout-btn { margin-top: auto; color: #ef4444; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; }
+        .menu-btn ion-icon { font-size: 19px; color: #00f3ff; }
+        .logout-btn { margin-top: auto; color: #ef4444; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 18px; }
         .logout-btn ion-icon { color: #ef4444; }
 
         /* Main Content Container */
-        .main-content { flex: 1; padding: 40px; overflow-y: auto; position: relative; }
+        .main-content {
+            flex: 1;
+            padding: 35px 40px;
+            overflow-y: auto;
+            position: relative;
+            background: #07080a;
+            -webkit-overflow-scrolling: touch;
+        }
         .glow-bg {
             position: absolute;
             width: 500px;
@@ -946,9 +1326,9 @@ if (isset($_GET['status'])) {
             z-index: 0;
             pointer-events: none;
         }
-        .content-container { position: relative; z-index: 1; max-width: 1000px; }
-        .header-title { margin-bottom: 30px; }
-        .header-title h1 { font-size: 28px; font-weight: 700; color: #fff; }
+        .content-container { position: relative; z-index: 1; max-width: 1050px; margin: 0 auto; }
+        .header-title { margin-bottom: 25px; }
+        .header-title h1 { font-size: 26px; font-weight: 700; color: #fff; }
         .header-title p { font-size: 14px; color: #94a3b8; margin-top: 5px; }
 
         /* Card panels */
@@ -956,25 +1336,24 @@ if (isset($_GET['status'])) {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 16px;
-            padding: 30px;
+            padding: 28px;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             display: none;
         }
         .panel.active { display: block; }
-        .panel-title { margin-bottom: 25px; border-bottom: 1px dashed rgba(255,255,255,0.08); padding-bottom: 15px; }
+        .panel-title { margin-bottom: 22px; border-bottom: 1px dashed rgba(255,255,255,0.08); padding-bottom: 14px; }
         .panel-title h3 { font-size: 18px; color: #fff; display: flex; align-items: center; gap: 8px; }
         .panel-title h3 ion-icon { color: #00f3ff; }
 
         /* Form styling */
-        .form-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 20px; }
-        @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } }
-        .form-group { margin-bottom: 20px; }
+        .form-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-bottom: 18px; }
+        .form-group { margin-bottom: 18px; }
         .form-group label { display: block; font-size: 13px; color: #94a3b8; margin-bottom: 8px; font-weight: 600; }
-        .form-group input, .form-group textarea {
+        .form-group input, .form-group textarea, .form-group select {
             width: 100%;
-            padding: 12px 16px;
+            padding: 12px 15px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 8px;
@@ -983,7 +1362,8 @@ if (isset($_GET['status'])) {
             outline: none;
             transition: border-color 0.2s;
         }
-        .form-group input:focus, .form-group textarea:focus { border-color: #00f3ff; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: #00f3ff; }
+        
         .btn-submit {
             padding: 12px 25px;
             background: linear-gradient(135deg, #007aff 0%, #00f3ff 100%);
@@ -995,24 +1375,50 @@ if (isset($_GET['status'])) {
             cursor: pointer;
             transition: all 0.2s;
             box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
         .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 0 25px rgba(0, 243, 255, 0.4); }
+        .btn-submit:active { transform: translateY(0); }
 
         /* Alert styling */
-        .alert { padding: 15px; border-radius: 8px; font-size: 14px; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
-        .alert-success { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: #10b981; }
-        .alert-error { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .alert { padding: 14px 18px; border-radius: 10px; font-size: 14px; margin-bottom: 22px; display: flex; align-items: center; gap: 10px; }
+        .alert-success { background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.25); color: #10b981; }
+        .alert-error { background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.25); color: #ef4444; }
+
+        /* Responsive Table Container */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(11, 15, 25, 0.5);
+            margin: 15px 0 25px;
+        }
+        .table-responsive::-webkit-scrollbar {
+            height: 6px;
+        }
+        .table-responsive::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: rgba(0, 243, 255, 0.3);
+            border-radius: 3px;
+        }
 
         /* Tables */
-        .gadgets-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 30px; text-align: left; }
-        .gadgets-table th, .gadgets-table td { padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 14px; }
-        .gadgets-table th { color: #94a3b8; font-weight: 600; }
-        .gadgets-table td { color: #cbd5e1; }
+        .gadgets-table, .data-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .gadgets-table th, .gadgets-table td, .data-table th, .data-table td { padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 14px; }
+        .gadgets-table th, .data-table th { color: #94a3b8; font-weight: 600; background: rgba(255,255,255,0.02); white-space: nowrap; }
+        .gadgets-table td, .data-table td { color: #cbd5e1; }
         .status-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
         .status-badge.visible { background: rgba(16,185,129,0.1); color: #10b981; border: 1px solid rgba(16,185,129,0.2); }
         .status-badge.hidden { background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.2); }
         
-        .action-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); background: transparent; color: #cbd5e1; text-decoration: none; cursor: pointer; font-size: 16px; margin-right: 5px; transition: all 0.2s; }
+        .action-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); background: transparent; color: #cbd5e1; text-decoration: none; cursor: pointer; font-size: 17px; margin-right: 4px; transition: all 0.2s; }
         .action-icon-btn:hover { background: rgba(255,255,255,0.05); color: #00f3ff; border-color: #00f3ff; }
         .action-icon-btn.delete:hover { background: rgba(239,68,68,0.1); color: #ef4444; border-color: #ef4444; }
         .order-btn:hover { color: #00f3ff !important; filter: drop-shadow(0 0 4px #00f3ff); }
@@ -1021,9 +1427,9 @@ if (isset($_GET['status'])) {
         .edit-block {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(0, 243, 255, 0.2);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 35px;
+            border-radius: 14px;
+            padding: 22px;
+            margin-top: 30px;
             display: none;
         }
 
@@ -1058,7 +1464,7 @@ if (isset($_GET['status'])) {
         }
         .tab-content-pane {
             display: none;
-            padding: 20px;
+            padding: 18px;
             background: rgba(255, 255, 255, 0.01);
             border: 1px dashed rgba(255, 255, 255, 0.12);
             border-radius: 8px;
@@ -1075,7 +1481,7 @@ if (isset($_GET['status'])) {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 30px 20px;
+            padding: 25px 15px;
             border: 2px dashed rgba(0, 243, 255, 0.2);
             border-radius: 8px;
             background: rgba(0, 243, 255, 0.01);
@@ -1100,9 +1506,9 @@ if (isset($_GET['status'])) {
             pointer-events: none;
         }
         .file-upload-info ion-icon {
-            font-size: 40px;
+            font-size: 38px;
             color: #00f3ff;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.3));
         }
         .file-upload-info p {
@@ -1128,7 +1534,7 @@ if (isset($_GET['status'])) {
             border-radius: 8px;
             border: 1px solid rgba(0, 243, 255, 0.2);
             object-fit: cover;
-            transform: scaleX(-1); /* Mirror view for easy aligning */
+            transform: scaleX(-1);
         }
         .camera-preview {
             width: 100%;
@@ -1144,39 +1550,137 @@ if (isset($_GET['status'])) {
             display: flex;
             gap: 10px;
             margin-top: 5px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
-
-        /* Data tables used in reviews/leads panels */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            margin-bottom: 30px;
-            text-align: left;
-        }
-        .data-table th, .data-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            font-size: 14px;
-        }
-        .data-table th { color: #94a3b8; font-weight: 600; }
-        .data-table td { color: #cbd5e1; }
 
         .admin-form { margin-bottom: 30px; }
+
+        /* ==========================================================================
+           MOBILE FIRST RESPONSIVE BREAKPOINTS (<= 992px & <= 600px)
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .mobile-admin-header { display: flex; }
+            .sidebar-close-btn { display: flex; }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 290px;
+                transform: translateX(-100%);
+                box-shadow: none;
+                z-index: 1000;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+                box-shadow: 15px 0 50px rgba(0, 0, 0, 0.9);
+            }
+            .main-content {
+                padding: 85px 18px 45px;
+                width: 100%;
+            }
+            .content-container {
+                max-width: 100%;
+            }
+            .panel {
+                padding: 22px 16px;
+                border-radius: 14px;
+            }
+            .header-title h1 {
+                font-size: 22px;
+            }
+            .header-title p {
+                font-size: 13px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 14px;
+                margin-bottom: 14px;
+            }
+            .form-group {
+                margin-bottom: 14px;
+            }
+            .form-group input, .form-group textarea, .form-group select {
+                font-size: 16px; /* Prevents auto-zoom on iOS Safari */
+                padding: 13px 14px;
+            }
+            .btn-submit {
+                width: 100%;
+                justify-content: center;
+                display: flex;
+                align-items: center;
+                padding: 14px 20px;
+                font-size: 15px;
+            }
+            .image-source-tabs {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .image-tab-btn {
+                padding: 14px;
+                font-size: 14px;
+            }
+            .gadgets-table th, .gadgets-table td, .data-table th, .data-table td {
+                padding: 10px 12px;
+                font-size: 13px;
+                white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 78px 12px 35px;
+            }
+            .panel {
+                padding: 18px 12px;
+            }
+            .panel-title h3 {
+                font-size: 16px;
+            }
+            .card-box {
+                padding: 16px 12px !important;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="wrapper">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="sidebar-brand">
+        <!-- Mobile Top Navbar -->
+        <div class="mobile-admin-header">
+            <button type="button" class="mobile-admin-hamburger" id="mobileAdminMenuBtn" onclick="toggleMobileSidebar()" aria-label="Toggle navigation drawer">
+                <ion-icon name="menu-outline"></ion-icon>
+            </button>
+            <div class="mobile-admin-brand">
                 <h2>S M Enterprises</h2>
-                <span>Distributor CMS</span>
+                <span>Admin CMS</span>
+            </div>
+            <a href="<?= $_SERVER['SCRIPT_NAME'] ?>?logout=true" class="mobile-logout-icon" title="Log Out">
+                <ion-icon name="log-out-outline"></ion-icon>
+            </a>
+        </div>
+        
+        <!-- Sidebar Backdrop Overlay -->
+        <div class="admin-sidebar-backdrop" id="adminSidebarBackdrop" onclick="closeMobileSidebar()"></div>
+
+        <!-- Sidebar Drawer -->
+        <div class="sidebar" id="adminSidebar">
+            <div class="sidebar-header-row">
+                <div class="sidebar-brand">
+                    <h2>S M Enterprises</h2>
+                    <span>Distributor CMS</span>
+                </div>
+                <button type="button" class="sidebar-close-btn" onclick="closeMobileSidebar()" aria-label="Close menu">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
             </div>
             
             <div class="menu-items">
                 <button class="menu-btn active" onclick="switchTab('pricing', this)">
                     <ion-icon name="wallet-outline"></ion-icon> Reolink Pricing
+                </button>
+                <button class="menu-btn" onclick="switchTab('hero-slider', this)">
+                    <ion-icon name="albums-outline"></ion-icon> Hero Slider Manager
                 </button>
                 <button class="menu-btn" onclick="switchTab('gadgets', this)">
                     <ion-icon name="grid-outline"></ion-icon> Featured Gadgets
@@ -1260,71 +1764,453 @@ if (isset($_GET['status'])) {
                     </form>
                 </div>
 
+                <!-- Tab: Hero Slider Manager -->
+                <div class="panel" id="tab-hero-slider">
+                    <div class="panel-title">
+                        <h3><ion-icon name="albums"></ion-icon> Dual Flagship Hero Slider Manager</h3>
+                    </div>
+
+                    <!-- Card 1: Global Engine Settings -->
+                    <div class="card-box" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(0, 243, 255, 0.25); border-radius: 14px; padding: 25px; margin-bottom: 30px; backdrop-filter: blur(10px);">
+                        <h4 style="color: #00f3ff; margin-top: 0; margin-bottom: 15px; font-size: 16px; display: flex; align-items: center; gap: 8px;">
+                            <ion-icon name="options-outline" style="font-size: 20px;"></ion-icon> Global Slider Engine Controls
+                        </h4>
+                        <form method="POST">
+                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Auto-Switch Duration / Speed (Seconds)</label>
+                                    <input type="number" step="0.5" min="2" max="15" name="hero_interval" value="<?= htmlspecialchars($cmsData['hero_slider']['interval_seconds'] ?? 4.5) ?>" required placeholder="e.g. 3, 4.5, 6">
+                                    <small style="color: #94a3b8; display: block; margin-top: 4px;">Har kitne seconds baad agli product slide par auto-transition ho (Recommended: 3s - 5s).</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>Slider Visibility & Behavior</label>
+                                    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 8px;">
+                                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: #e2e8f0; font-size: 14px;">
+                                            <input type="checkbox" name="hero_enabled" value="1" <?= (!isset($cmsData['hero_slider']['enabled']) || $cmsData['hero_slider']['enabled']) ? 'checked' : '' ?> style="width: 18px; height: 18px; accent-color: #00f3ff;">
+                                            Enable Hero Slider (Homepage par slider active rakhein)
+                                        </label>
+                                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: #e2e8f0; font-size: 14px;">
+                                            <input type="checkbox" name="hero_pause_on_hover" value="1" <?= (!isset($cmsData['hero_slider']['pause_on_hover']) || $cmsData['hero_slider']['pause_on_hover']) ? 'checked' : '' ?> style="width: 18px; height: 18px; accent-color: #00f3ff;">
+                                            Pause on Mouse Hover & Touch (Jab user cursor laye toh timer ruk jaye)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" name="save_hero_slider_settings" class="btn-submit" style="width: auto; padding: 10px 24px;">
+                                <ion-icon name="save-outline" style="vertical-align: middle; margin-right: 4px;"></ion-icon> Save Slider Controls
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Card 2: Slide Order & Management Table -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h4 style="color: #fff; margin: 0; font-size: 17px; display: flex; align-items: center; gap: 8px;">
+                            <ion-icon name="swap-vertical-outline" style="color: #00f3ff; font-size: 20px;"></ion-icon> Products Sequence in Hero Slider
+                        </h4>
+                        <button type="button" class="btn-submit" onclick="openAddHeroSlideModal()" style="width: auto; padding: 8px 18px; background: linear-gradient(135deg, #00f3ff 0%, #0066ff 100%); color: #020617; font-weight: 700;">
+                            <ion-icon name="add-circle-outline" style="vertical-align: middle; margin-right: 4px; font-size: 18px;"></ion-icon> Add Product to Slider
+                        </button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="gadgets-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px;">Slide Order</th>
+                                    <th style="width: 70px;">Image</th>
+                                    <th>Headline / Product</th>
+                                    <th>Pill Label</th>
+                                    <th>Price</th>
+                                    <th>Theme</th>
+                                    <th>Status</th>
+                                    <th style="width: 150px;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                $heroSlides = $cmsData['hero_slider']['slides'] ?? [];
+                                foreach ($heroSlides as $s_idx => $slide): 
+                                ?>
+                                    <tr>
+                                        <td>
+                                            <div style="display: flex; align-items: center; gap: 10px;">
+                                                <span style="font-weight: 800; color: #00f3ff; font-family: monospace; font-size: 16px; min-width: 25px;">#<?= $s_idx + 1 ?></span>
+                                                <div style="display: flex; flex-direction: column; gap: 2px;">
+                                                    <?php if ($s_idx > 0): ?>
+                                                        <a href="<?= $_SERVER['SCRIPT_NAME'] ?>?move_hero_slide_up=<?= $s_idx ?>" class="order-btn" title="Move Up (Pehle dikhayein)" style="color: #00f3ff; font-size: 16px; display: inline-flex;"><ion-icon name="caret-up-outline"></ion-icon></a>
+                                                    <?php else: ?>
+                                                        <span style="color: rgba(255,255,255,0.1); font-size: 16px; display: inline-flex; cursor: not-allowed;"><ion-icon name="caret-up-outline"></ion-icon></span>
+                                                    <?php endif; ?>
+                                                    
+                                                    <?php if ($s_idx < count($heroSlides) - 1): ?>
+                                                        <a href="<?= $_SERVER['SCRIPT_NAME'] ?>?move_hero_slide_down=<?= $s_idx ?>" class="order-btn" title="Move Down (Baad me dikhayein)" style="color: #00f3ff; font-size: 16px; display: inline-flex;"><ion-icon name="caret-down-outline"></ion-icon></a>
+                                                    <?php else: ?>
+                                                        <span style="color: rgba(255,255,255,0.1); font-size: 16px; display: inline-flex; cursor: not-allowed;"><ion-icon name="caret-down-outline"></ion-icon></span>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <img src="../<?= htmlspecialchars($slide['image'] ?? 'images/placeholder.webp') ?>" style="width: 48px; height: 48px; object-fit: contain; background: rgba(0,0,0,0.3); border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);">
+                                        </td>
+                                        <td>
+                                            <strong><?= htmlspecialchars($slide['title']) ?></strong>
+                                            <div style="font-size: 11px; color: #94a3b8; margin-top: 2px;"><?= htmlspecialchars(substr($slide['subtitle'] ?? '', 0, 70)) ?>...</div>
+                                        </td>
+                                        <td>
+                                            <span style="display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: rgba(255,255,255,0.05); border-radius: 999px; font-size: 12px;">
+                                                <ion-icon name="<?= htmlspecialchars($slide['pill_icon'] ?? 'star-outline') ?>"></ion-icon>
+                                                <?= htmlspecialchars($slide['pill_title'] ?? '') ?>
+                                            </span>
+                                        </td>
+                                        <td style="color:#ff6b00; font-weight:700;">Rs <?= number_format($slide['curr_price'] ?? 0) ?></td>
+                                        <td>
+                                            <span style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: <?= ($slide['theme'] ?? '') === 'jzones' ? '#00f3ff' : '#ff6b00' ?>;">
+                                                <?= htmlspecialchars($slide['theme'] ?? 'reolink') ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <?php if ($slide['enabled'] ?? true): ?>
+                                                <span class="status-badge visible">Active</span>
+                                            <?php else: ?>
+                                                <span class="status-badge hidden">Disabled</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="action-icon-btn" onclick="openEditHeroSlideModal(<?= $s_idx ?>, <?= htmlspecialchars(json_encode($slide)) ?>)" title="Edit Slide Details">
+                                                <ion-icon name="create-outline"></ion-icon>
+                                            </button>
+                                            <a href="<?= $_SERVER['SCRIPT_NAME'] ?>?toggle_hero_slide=<?= $s_idx ?>" class="action-icon-btn" title="Toggle Active / Inactive">
+                                                <ion-icon name="eye-outline"></ion-icon>
+                                            </a>
+                                            <a href="<?= $_SERVER['SCRIPT_NAME'] ?>?delete_hero_slide=<?= $s_idx ?>" class="action-icon-btn delete" onclick="return confirm('Kya aap sach me ye slide hero slider se hatana chahte hain?')" title="Delete Slide">
+                                                <ion-icon name="trash-outline"></ion-icon>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- ADD HERO SLIDE BLOCK -->
+                    <div class="edit-block" id="addHeroSlideBlock" style="display:none; margin-top:30px;">
+                        <div class="panel-title" style="margin-bottom:15px; padding-bottom:5px;">
+                            <h3><ion-icon name="add-circle"></ion-icon> Add New Product to Hero Slider</h3>
+                        </div>
+
+                        <!-- 1-Click Catalog Importer -->
+                        <div style="background: rgba(0, 243, 255, 0.05); border: 1px dashed rgba(0, 243, 255, 0.3); border-radius: 10px; padding: 15px 20px; margin-bottom: 20px;">
+                            <label style="color: #00f3ff; font-weight: 700; font-size: 14px; display: block; margin-bottom: 6px;">
+                                ⚡ Quick 1-Click Import from Existing Catalog:
+                            </label>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <select id="importCatalogSelect" style="flex: 1; padding: 10px 14px; background: #0f172a; border: 1px solid rgba(0, 243, 255, 0.3); border-radius: 8px; color: #fff; font-size: 14px;">
+                                    <option value="">-- Choose a Product from Catalog --</option>
+                                    <?php foreach ($cmsData['gadgets'] as $g): ?>
+                                        <option value="<?= htmlspecialchars(json_encode($g)) ?>"><?= htmlspecialchars($g['name']) ?> (Rs <?= number_format($g['curr_price']) ?>)</option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <button type="button" class="btn-submit" onclick="importCatalogProduct('add')" style="width: auto; padding: 10px 18px; background: rgba(0, 243, 255, 0.2); border: 1px solid #00f3ff; color: #00f3ff;">
+                                    Auto Fill Fields
+                                </button>
+                            </div>
+                        </div>
+
+                        <form method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>">
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Hero Headline (Product Title)</label>
+                                    <input type="text" name="slide_title" id="addSlideTitle" required placeholder="e.g. Reolink Go PT Ultra 4K 4G Solar Camera">
+                                </div>
+                                <div class="form-group">
+                                    <label>Visual Theme Style</label>
+                                    <select name="slide_theme" id="addSlideTheme" style="width:100%; padding:12px; background:#0f172a; border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff;">
+                                        <option value="reolink">Reolink Style (Deep Blue & Orange Glow)</option>
+                                        <option value="jzones">JZONES Style (Cyan & Titanium Glow)</option>
+                                        <option value="cyber">Purple Cyber Style</option>
+                                        <option value="green">Emerald Green Style</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Subtitle / Description</label>
+                                <textarea name="slide_subtitle" id="addSlideSubtitle" rows="3" required placeholder="Describe key highlights, PTA approval, standalone solar, etc..."></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Navigation Pill Title (Short name on bottom tab)</label>
+                                    <input type="text" name="slide_pill_title" id="addSlidePillTitle" placeholder="e.g. Go PT Ultra 4K">
+                                </div>
+                                <div class="form-group">
+                                    <label>Navigation Pill Subtitle</label>
+                                    <input type="text" name="slide_pill_subtitle" id="addSlidePillSubtitle" placeholder="e.g. 4K 8MP • Rs 55,000">
+                                </div>
+                                <div class="form-group">
+                                    <label>Navigation Pill Icon (Ionicons)</label>
+                                    <input type="text" name="slide_pill_icon" id="addSlidePillIcon" value="videocam-outline" placeholder="e.g. sunny-outline, car-sport-outline, videocam-outline">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Top Badges (Comma separated, max 3)</label>
+                                    <input type="text" name="slide_badges" id="addSlideBadges" placeholder="e.g. PTA Approved, 4K 8MP, 100% Wire-Free">
+                                </div>
+                                <div class="form-group">
+                                    <label>Feature Bullets (One per line)</label>
+                                    <textarea name="slide_features" id="addSlideFeatures" rows="3" placeholder="4K Ultra HD & Color Night Vision&#10;355° Pan & 140° Tilt Coverage..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Original Price (PKR)</label>
+                                    <input type="number" name="slide_orig_price" id="addSlideOrigPrice" placeholder="e.g. 75000">
+                                </div>
+                                <div class="form-group">
+                                    <label>Discounted Current Price (PKR)</label>
+                                    <input type="number" name="slide_curr_price" id="addSlideCurrPrice" required placeholder="e.g. 55000">
+                                </div>
+                                <div class="form-group">
+                                    <label>Discount Tag Text</label>
+                                    <input type="text" name="slide_save_text" id="addSlideSaveText" placeholder="e.g. Save 27%">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Primary CTA Button Text</label>
+                                    <input type="text" name="slide_primary_btn_text" id="addSlidePrimaryBtnText" value="Order Now" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Primary CTA Link</label>
+                                    <input type="text" name="slide_primary_btn_link" id="addSlidePrimaryBtnLink" value="#" placeholder="e.g. # or /products/reolink-go-pt-ultra">
+                                </div>
+                                <div class="form-group">
+                                    <label>Secondary CTA Button Text (Optional)</label>
+                                    <input type="text" name="slide_secondary_btn_text" id="addSlideSecondaryBtnText" value="Self Collect" placeholder="e.g. WhatsApp Order">
+                                </div>
+                                <div class="form-group">
+                                    <label>Secondary CTA Link (Optional)</label>
+                                    <input type="text" name="slide_secondary_btn_link" id="addSlideSecondaryBtnLink" value="#" placeholder="e.g. https://wa.me/923206755555">
+                                </div>
+                            </div>
+
+                            <!-- Product Image Source (Add Slide) -->
+                            <div class="form-group">
+                                <label>Product Image</label>
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <input type="text" name="slide_image" id="addSlideImage" placeholder="images/dl/go_pt_ultra_hero.webp" style="flex:1;">
+                                    <input type="file" name="slide_image_file" style="flex:1;">
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="display:flex; align-items:center; gap:10px; margin-top:10px;">
+                                <input type="checkbox" name="slide_show_rain" id="addSlideRain" value="1" style="width:18px; height:18px; accent-color:#00f3ff;">
+                                <label for="addSlideRain" style="margin:0; cursor:pointer;">Enable Live Weatherproof Rain Effect on Camera Visual</label>
+                            </div>
+
+                            <div style="display:flex; gap:12px; margin-top:20px;">
+                                <button type="submit" name="add_hero_slide" class="btn-submit" style="width:auto; padding:12px 28px;">
+                                    <ion-icon name="add-circle-outline" style="vertical-align:middle;"></ion-icon> Add Slide to Hero Slider
+                                </button>
+                                <button type="button" class="btn-submit" onclick="document.getElementById('addHeroSlideBlock').style.display='none'" style="width:auto; padding:12px 20px; background:rgba(255,255,255,0.08);">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- EDIT HERO SLIDE BLOCK -->
+                    <div class="edit-block" id="editHeroSlideBlock" style="display:none; margin-top:30px;">
+                        <div class="panel-title" style="margin-bottom:15px; padding-bottom:5px;">
+                            <h3><ion-icon name="create"></ion-icon> Edit Hero Slide Details</h3>
+                        </div>
+                        <form method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>">
+                            <input type="hidden" name="slide_index" id="editSlideIndex">
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Hero Headline (Product Title)</label>
+                                    <input type="text" name="edit_slide_title" id="editSlideTitle" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Visual Theme Style</label>
+                                    <select name="edit_slide_theme" id="editSlideTheme" style="width:100%; padding:12px; background:#0f172a; border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff;">
+                                        <option value="reolink">Reolink Style (Deep Blue & Orange Glow)</option>
+                                        <option value="jzones">JZONES Style (Cyan & Titanium Glow)</option>
+                                        <option value="cyber">Purple Cyber Style</option>
+                                        <option value="green">Emerald Green Style</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Subtitle / Description</label>
+                                <textarea name="edit_slide_subtitle" id="editSlideSubtitle" rows="3" required></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Navigation Pill Title</label>
+                                    <input type="text" name="edit_slide_pill_title" id="editSlidePillTitle">
+                                </div>
+                                <div class="form-group">
+                                    <label>Navigation Pill Subtitle</label>
+                                    <input type="text" name="edit_slide_pill_subtitle" id="editSlidePillSubtitle">
+                                </div>
+                                <div class="form-group">
+                                    <label>Navigation Pill Icon (Ionicons)</label>
+                                    <input type="text" name="edit_slide_pill_icon" id="editSlidePillIcon">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Top Badges (Comma separated)</label>
+                                    <input type="text" name="edit_slide_badges" id="editSlideBadges">
+                                </div>
+                                <div class="form-group">
+                                    <label>Feature Bullets (One per line)</label>
+                                    <textarea name="edit_slide_features" id="editSlideFeatures" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Original Price (PKR)</label>
+                                    <input type="number" name="edit_slide_orig_price" id="editSlideOrigPrice">
+                                </div>
+                                <div class="form-group">
+                                    <label>Discounted Current Price (PKR)</label>
+                                    <input type="number" name="edit_slide_curr_price" id="editSlideCurrPrice" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Discount Tag Text</label>
+                                    <input type="text" name="edit_slide_save_text" id="editSlideSaveText">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Primary CTA Button Text</label>
+                                    <input type="text" name="edit_slide_primary_btn_text" id="editSlidePrimaryBtnText" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Primary CTA Link</label>
+                                    <input type="text" name="edit_slide_primary_btn_link" id="editSlidePrimaryBtnLink">
+                                </div>
+                                <div class="form-group">
+                                    <label>Secondary CTA Button Text</label>
+                                    <input type="text" name="edit_slide_secondary_btn_text" id="editSlideSecondaryBtnText">
+                                </div>
+                                <div class="form-group">
+                                    <label>Secondary CTA Link</label>
+                                    <input type="text" name="edit_slide_secondary_btn_link" id="editSlideSecondaryBtnLink">
+                                </div>
+                            </div>
+
+                            <!-- Product Image Source (Edit Slide) -->
+                            <div class="form-group">
+                                <label>Product Image</label>
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <input type="text" name="edit_slide_image" id="editSlideImage" style="flex:1;">
+                                    <input type="file" name="edit_slide_image_file" style="flex:1;">
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="display:flex; align-items:center; gap:10px; margin-top:10px;">
+                                <input type="checkbox" name="edit_slide_show_rain" id="editSlideRain" value="1" style="width:18px; height:18px; accent-color:#00f3ff;">
+                                <label for="editSlideRain" style="margin:0; cursor:pointer;">Enable Live Weatherproof Rain Effect on Camera Visual</label>
+                            </div>
+
+                            <div style="display:flex; gap:12px; margin-top:20px;">
+                                <button type="submit" name="edit_hero_slide" class="btn-submit" style="width:auto; padding:12px 28px;">
+                                    <ion-icon name="save-outline" style="vertical-align:middle;"></ion-icon> Save Slide Changes
+                                </button>
+                                <button type="button" class="btn-submit" onclick="document.getElementById('editHeroSlideBlock').style.display='none'" style="width:auto; padding:12px 20px; background:rgba(255,255,255,0.08);">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
                 <!-- Tab 2: Gadgets -->
                 <div class="panel" id="tab-gadgets">
                     <div class="panel-title">
                         <h3><ion-icon name="grid"></ion-icon> Smart Tech Gadgets Inventory</h3>
                     </div>
                     
-                    <table class="gadgets-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 100px;">Order</th>
-                                <th>Name</th>
-                                <th>Original Price</th>
-                                <th>Current Price</th>
-                                <th>Tag</th>
-                                <th>Status</th>
-                                <th style="width: 150px;">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($cmsData['gadgets'] as $idx => $gadget): ?>
+                    <div class="table-responsive">
+                        <table class="gadgets-table">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <div style="display: flex; align-items: center; gap: 10px;">
-                                            <span style="font-weight: 700; color: #00f3ff; font-family: monospace; font-size: 15px; min-width: 25px;">#<?= $idx + 1 ?></span>
-                                            <div style="display: flex; flex-direction: column; gap: 2px;">
-                                                <?php if ($idx > 0): ?>
-                                                    <a href="<?= $_SERVER['SCRIPT_NAME'] ?>?move_gadget_up=<?= $idx ?>" class="order-btn" title="Move Up" style="color: #cbd5e1; font-size: 15px; display: inline-flex; transition: color 0.2s;"><ion-icon name="caret-up-outline"></ion-icon></a>
-                                                <?php else: ?>
-                                                    <span style="color: rgba(255,255,255,0.1); font-size: 15px; display: inline-flex; cursor: not-allowed;"><ion-icon name="caret-up-outline"></ion-icon></span>
-                                                <?php endif; ?>
-                                                
-                                                <?php if ($idx < count($cmsData['gadgets']) - 1): ?>
-                                                    <a href="<?= $_SERVER['SCRIPT_NAME'] ?>?move_gadget_down=<?= $idx ?>" class="order-btn" title="Move Down" style="color: #cbd5e1; font-size: 15px; display: inline-flex; transition: color 0.2s;"><ion-icon name="caret-down-outline"></ion-icon></a>
-                                                <?php else: ?>
-                                                    <span style="color: rgba(255,255,255,0.1); font-size: 15px; display: inline-flex; cursor: not-allowed;"><ion-icon name="caret-down-outline"></ion-icon></span>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><strong><?= htmlspecialchars($gadget['name']) ?></strong></td>
-                                    <td>Rs <?= number_format($gadget['orig_price']) ?></td>
-                                    <td style="color:#ff6b00; font-weight:700;">Rs <?= number_format($gadget['curr_price']) ?></td>
-                                    <td><?= htmlspecialchars($gadget['tag'] ?? '-') ?></td>
-                                    <td>
-                                        <?php if ($gadget['visible'] ?? true): ?>
-                                            <span class="status-badge visible">Visible</span>
-                                        <?php else: ?>
-                                            <span class="status-badge hidden">Hidden</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                        <button class="action-icon-btn" onclick="openEditForm(<?= $idx ?>, <?= htmlspecialchars(json_encode($gadget)) ?>)" title="Edit">
-                                            <ion-icon name="create-outline"></ion-icon>
-                                        </button>
-                                        <a href="<?= $_SERVER['SCRIPT_NAME'] ?>?toggle_gadget=<?= $idx ?>" class="action-icon-btn" title="Toggle Visibility">
-                                            <ion-icon name="eye-outline"></ion-icon>
-                                        </a>
-                                        <a href="<?= $_SERVER['SCRIPT_NAME'] ?>?delete_gadget=<?= $idx ?>" class="action-icon-btn delete" onclick="return confirm('Kya aap sach me ye item delete karna chahte hain?')" title="Delete">
-                                            <ion-icon name="trash-outline"></ion-icon>
-                                        </a>
-                                    </td>
+                                    <th style="width: 100px;">Order</th>
+                                    <th>Name</th>
+                                    <th>Original Price</th>
+                                    <th>Current Price</th>
+                                    <th>Tag</th>
+                                    <th>Status</th>
+                                    <th style="width: 150px;">Actions</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($cmsData['gadgets'] as $idx => $gadget): ?>
+                                    <tr>
+                                        <td>
+                                            <div style="display: flex; align-items: center; gap: 10px;">
+                                                <span style="font-weight: 700; color: #00f3ff; font-family: monospace; font-size: 15px; min-width: 25px;">#<?= $idx + 1 ?></span>
+                                                <div style="display: flex; flex-direction: column; gap: 2px;">
+                                                    <?php if ($idx > 0): ?>
+                                                        <a href="<?= $_SERVER['SCRIPT_NAME'] ?>?move_gadget_up=<?= $idx ?>" class="order-btn" title="Move Up" style="color: #cbd5e1; font-size: 15px; display: inline-flex; transition: color 0.2s;"><ion-icon name="caret-up-outline"></ion-icon></a>
+                                                    <?php else: ?>
+                                                        <span style="color: rgba(255,255,255,0.1); font-size: 15px; display: inline-flex; cursor: not-allowed;"><ion-icon name="caret-up-outline"></ion-icon></span>
+                                                    <?php endif; ?>
+                                                    
+                                                    <?php if ($idx < count($cmsData['gadgets']) - 1): ?>
+                                                        <a href="<?= $_SERVER['SCRIPT_NAME'] ?>?move_gadget_down=<?= $idx ?>" class="order-btn" title="Move Down" style="color: #cbd5e1; font-size: 15px; display: inline-flex; transition: color 0.2s;"><ion-icon name="caret-down-outline"></ion-icon></a>
+                                                    <?php else: ?>
+                                                        <span style="color: rgba(255,255,255,0.1); font-size: 15px; display: inline-flex; cursor: not-allowed;"><ion-icon name="caret-down-outline"></ion-icon></span>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><strong><?= htmlspecialchars($gadget['name']) ?></strong></td>
+                                        <td>Rs <?= number_format($gadget['orig_price']) ?></td>
+                                        <td style="color:#ff6b00; font-weight:700;">Rs <?= number_format($gadget['curr_price']) ?></td>
+                                        <td><?= htmlspecialchars($gadget['tag'] ?? '-') ?></td>
+                                        <td>
+                                            <?php if ($gadget['visible'] ?? true): ?>
+                                                <span class="status-badge visible">Visible</span>
+                                            <?php else: ?>
+                                                <span class="status-badge hidden">Hidden</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <button class="action-icon-btn" onclick="openEditForm(<?= $idx ?>, <?= htmlspecialchars(json_encode($gadget)) ?>)" title="Edit">
+                                                <ion-icon name="create-outline"></ion-icon>
+                                            </button>
+                                            <a href="<?= $_SERVER['SCRIPT_NAME'] ?>?toggle_gadget=<?= $idx ?>" class="action-icon-btn" title="Toggle Visibility">
+                                                <ion-icon name="eye-outline"></ion-icon>
+                                            </a>
+                                            <a href="<?= $_SERVER['SCRIPT_NAME'] ?>?delete_gadget=<?= $idx ?>" class="action-icon-btn delete" onclick="return confirm('Kya aap sach me ye item delete karna chahte hain?')" title="Delete">
+                                                <ion-icon name="trash-outline"></ion-icon>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
 
                     <!-- Edit Gadget Section -->
                     <div class="edit-block" id="editBlock">
@@ -1858,30 +2744,32 @@ if (isset($_GET['status'])) {
 
                     <h4 style="margin: 30px 0 15px; color: #94a3b8;">Existing Reviews</h4>
                     <?php if (!empty($cmsData['reviews'])): ?>
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>Name</th><th>Rating</th><th>Product</th><th>Text</th><th>Action</th></tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($cmsData['reviews'] as $i => $r): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($r['name'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($r['rating'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($r['product'] ?? '') ?></td>
-                                <td><?= htmlspecialchars(mb_strimwidth($r['text'] ?? '', 0, 60, '…')) ?></td>
-                                <td>
-                                    <form method="post" style="display:inline">
-                                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
-                                        <input type="hidden" name="review_index" value="<?= $i ?>">
-                                        <button type="submit" name="delete_review" class="action-icon-btn delete" onclick="return confirm('Delete this review?')">
-                                            <ion-icon name="trash-outline"></ion-icon>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Name</th><th>Rating</th><th>Product</th><th>Text</th><th>Action</th></tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($cmsData['reviews'] as $i => $r): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($r['name'] ?? '') ?></td>
+                                    <td><?= htmlspecialchars($r['rating'] ?? '') ?></td>
+                                    <td><?= htmlspecialchars($r['product'] ?? '') ?></td>
+                                    <td><?= htmlspecialchars(mb_strimwidth($r['text'] ?? '', 0, 60, '…')) ?></td>
+                                    <td>
+                                        <form method="post" style="display:inline">
+                                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
+                                            <input type="hidden" name="review_index" value="<?= $i ?>">
+                                            <button type="submit" name="delete_review" class="action-icon-btn delete" onclick="return confirm('Delete this review?')">
+                                                <ion-icon name="trash-outline"></ion-icon>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                     <?php else: ?>
                     <p>No reviews yet.</p>
                     <?php endif; ?>
@@ -1893,21 +2781,23 @@ if (isset($_GET['status'])) {
                         <h3><ion-icon name="people"></ion-icon> Lead Captures</h3>
                     </div>
                     <?php if (!empty($cmsData['leads'])): ?>
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>Date</th><th>Name</th><th>Phone</th><th>Product Interest</th></tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach (array_reverse($cmsData['leads']) as $lead): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($lead['date'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($lead['name'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($lead['phone'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($lead['product_interest'] ?? '') ?></td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Date</th><th>Name</th><th>Phone</th><th>Product Interest</th></tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach (array_reverse($cmsData['leads']) as $lead): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($lead['date'] ?? '') ?></td>
+                                    <td><?= htmlspecialchars($lead['name'] ?? '') ?></td>
+                                    <td><?= htmlspecialchars($lead['phone'] ?? '') ?></td>
+                                    <td><?= htmlspecialchars($lead['product_interest'] ?? '') ?></td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                     <?php else: ?>
                     <p>No leads captured yet.</p>
                     <?php endif; ?>
@@ -1943,14 +2833,51 @@ if (isset($_GET['status'])) {
             
             // Add active class to clicked button and panel
             element.classList.add('active');
-            document.getElementById('tab-' + tabId).classList.add('active');
+            const targetPanel = document.getElementById('tab-' + tabId);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+            }
             
             // Save active tab state
             localStorage.setItem('adminActiveTab', tabId);
             
-            // Close edit block if switching tab and stop camera
-            document.getElementById('editBlock').style.display = 'none';
+            // Close edit blocks if switching tab and stop camera
+            const eb = document.getElementById('editBlock');
+            if (eb) eb.style.display = 'none';
+            const ahb = document.getElementById('addHeroSlideBlock');
+            if (ahb) ahb.style.display = 'none';
+            const ehb = document.getElementById('editHeroSlideBlock');
+            if (ehb) ehb.style.display = 'none';
             stopCamera();
+
+            // Auto-close mobile drawer when a tab is selected
+            closeMobileSidebar();
+
+            // Smooth scroll main content to top
+            const mc = document.querySelector('.main-content');
+            if (mc) mc.scrollTop = 0;
+        }
+
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('adminSidebar');
+            const backdrop = document.getElementById('adminSidebarBackdrop');
+            if (!sidebar || !backdrop) return;
+            const isOpen = sidebar.classList.contains('open');
+            if (isOpen) {
+                closeMobileSidebar();
+            } else {
+                sidebar.classList.add('open');
+                backdrop.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeMobileSidebar() {
+            const sidebar = document.getElementById('adminSidebar');
+            const backdrop = document.getElementById('adminSidebarBackdrop');
+            if (sidebar) sidebar.classList.remove('open');
+            if (backdrop) backdrop.classList.remove('active');
+            document.body.style.overflow = '';
         }
 
         // Restore tab state on page load (URL ?tab= wins over localStorage)
@@ -2212,6 +3139,85 @@ if (isset($_GET['status'])) {
             document.getElementById('edit_gallery_wrapper').appendChild(input);
             
             btn.parentElement.remove();
+        }
+
+        // Hero Slider Admin Helper Functions
+        function openAddHeroSlideModal() {
+            document.getElementById('addHeroSlideBlock').style.display = 'block';
+            document.getElementById('editHeroSlideBlock').style.display = 'none';
+            document.getElementById('addHeroSlideBlock').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openEditHeroSlideModal(index, slide) {
+            document.getElementById('editHeroSlideBlock').style.display = 'block';
+            document.getElementById('addHeroSlideBlock').style.display = 'none';
+            
+            document.getElementById('editSlideIndex').value = index;
+            document.getElementById('editSlideTitle').value = slide.title || '';
+            document.getElementById('editSlideSubtitle').value = slide.subtitle || '';
+            document.getElementById('editSlideTheme').value = slide.theme || 'reolink';
+            document.getElementById('editSlidePillTitle').value = slide.pill_title || '';
+            document.getElementById('editSlidePillSubtitle').value = slide.pill_subtitle || '';
+            document.getElementById('editSlidePillIcon').value = slide.pill_icon || 'sunny-outline';
+            
+            const badgesText = (slide.badges || []).map(b => (typeof b === 'string' ? b : (b.text || ''))).filter(Boolean).join(', ');
+            document.getElementById('editSlideBadges').value = badgesText;
+            document.getElementById('editSlideFeatures').value = (slide.features || []).join('\n');
+            
+            document.getElementById('editSlideOrigPrice').value = slide.orig_price || '';
+            document.getElementById('editSlideCurrPrice').value = slide.curr_price || '';
+            document.getElementById('editSlideSaveText').value = slide.save_text || '';
+            
+            document.getElementById('editSlidePrimaryBtnText').value = slide.primary_btn_text || 'Order Now';
+            document.getElementById('editSlidePrimaryBtnLink').value = slide.primary_btn_link || '#';
+            document.getElementById('editSlideSecondaryBtnText').value = slide.secondary_btn_text || '';
+            document.getElementById('editSlideSecondaryBtnLink').value = slide.secondary_btn_link || '';
+            
+            document.getElementById('editSlideImage').value = slide.image || '';
+            document.getElementById('editSlideRain').checked = slide.show_rain === true || slide.show_rain === '1';
+            
+            document.getElementById('editHeroSlideBlock').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function importCatalogProduct(formType) {
+            const select = document.getElementById('importCatalogSelect');
+            if (!select || !select.value) return;
+            
+            try {
+                const p = JSON.parse(select.value);
+                const prefix = formType === 'edit' ? 'editSlide' : 'addSlide';
+                
+                document.getElementById(prefix + 'Title').value = p.name || '';
+                document.getElementById(prefix + 'Subtitle').value = p.desc || '';
+                document.getElementById(prefix + 'PillTitle').value = p.name ? p.name.split(' - ')[0].substring(0, 20) : '';
+                document.getElementById(prefix + 'PillSubtitle').value = 'Rs ' + (p.curr_price ? Number(p.curr_price).toLocaleString('en-PK') : '0');
+                document.getElementById(prefix + 'OrigPrice').value = p.orig_price || '';
+                document.getElementById(prefix + 'CurrPrice').value = p.curr_price || '';
+                if (p.orig_price && p.curr_price && p.orig_price > p.curr_price) {
+                    const savePct = Math.round(((p.orig_price - p.curr_price) / p.orig_price) * 100);
+                    document.getElementById(prefix + 'SaveText').value = 'Save ' + savePct + '%';
+                }
+                
+                if (p.features && Array.isArray(p.features)) {
+                    document.getElementById(prefix + 'Features').value = p.features.join('\n');
+                } else if (p.specs && typeof p.specs === 'object') {
+                    document.getElementById(prefix + 'Features').value = Object.entries(p.specs).slice(0, 4).map(([k, v]) => `${k}: ${v}`).join('\n');
+                }
+                
+                if (p.tag) {
+                    document.getElementById(prefix + 'Badges').value = 'PTA Approved, ' + p.tag + ', 100% Wire-Free';
+                }
+                
+                if (p.image) {
+                    document.getElementById(prefix + 'Image').value = p.image;
+                }
+                
+                if (p.static_url) {
+                    document.getElementById(prefix + 'PrimaryBtnLink').value = p.static_url;
+                }
+            } catch(e) {
+                console.error('Import error:', e);
+            }
         }
     </script>
 </body>

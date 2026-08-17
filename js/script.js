@@ -3,6 +3,7 @@ function initApp() {
     initStickyBar();
     initSmoothScroll();
     initLazyVideos();  // ← NEW: Lazy load videos
+    initHeroSlider();  // ← NEW: Dual Flagship Hero Auto-Slider
     
     // ----------------------------------------
     // Mobile Hamburger Menu Injection
@@ -305,32 +306,52 @@ function initApp() {
     }
 
     function initRain() {
+        if (window._heroRainAnimId) {
+            cancelAnimationFrame(window._heroRainAnimId);
+            window._heroRainAnimId = null;
+        }
+        if (window._heroRainObserver) {
+            window._heroRainObserver.disconnect();
+            window._heroRainObserver = null;
+        }
+
         const canvas = document.getElementById('rainCanvas');
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
-        let width, height;
+        if (!ctx) return;
+
+        let width = 0, height = 0;
         let drops = [];
 
         function resize() {
-            width = canvas.width = canvas.offsetWidth || 800;
-            height = canvas.height = canvas.offsetHeight || 600;
+            if (!canvas) return;
+            const parent = canvas.parentElement || canvas.closest('.product-rain-mask') || canvas.closest('.main-cam');
+            const rect = parent ? parent.getBoundingClientRect() : canvas.getBoundingClientRect();
+            const newW = Math.round(rect.width || (parent ? parent.offsetWidth : 0) || canvas.offsetWidth || 500);
+            const newH = Math.round(rect.height || (parent ? parent.offsetHeight : 0) || canvas.offsetHeight || 500);
+            if (newW > 0 && newH > 0) {
+                width = canvas.width = newW;
+                height = canvas.height = newH;
+            }
         }
 
-        window.addEventListener('resize', resize);
-        setTimeout(resize, 500); // Re-run after layout settling
+        window.removeEventListener('resize', resize);
+        window.addEventListener('resize', resize, { passive: true });
         resize();
+        setTimeout(resize, 100);
+        setTimeout(resize, 400);
+        setTimeout(resize, 1000);
 
         class Drop {
-            constructor(type) {
-                this.type = type; // 'line' or 'droplet'
+            constructor() {
                 this.reset();
             }
             reset() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * -height;
+                this.x = Math.random() * (width || 500);
+                this.y = Math.random() * -(height || 500);
                 this.v = 15 + Math.random() * 20;
-                this.len = 10 + Math.random() * 25;
-                this.alpha = 0.1 + Math.random() * 0.4;
+                this.len = 12 + Math.random() * 24;
+                this.alpha = 0.15 + Math.random() * 0.45;
             }
             update() {
                 this.y += this.v;
@@ -339,52 +360,52 @@ function initApp() {
             draw() {
                 ctx.beginPath();
                 ctx.strokeStyle = `rgba(255, 255, 255, ${this.alpha})`;
-                ctx.lineWidth = 1;
+                ctx.lineWidth = 1.2;
                 ctx.lineCap = 'round';
                 ctx.moveTo(this.x, this.y);
-                ctx.lineTo(this.x + 2, this.y + this.len); // Fixed slant to match screenshot
+                ctx.lineTo(this.x + 2, this.y + this.len);
                 ctx.stroke();
             }
         }
 
         const isMobile = window.innerWidth < 768;
-        const dropCount = isMobile ? 40 : 150; // Further reduced for mobile cooling
+        const dropCount = isMobile ? 50 : 160;
+        drops = [];
         for (let i = 0; i < dropCount; i++) drops.push(new Drop());
 
-        let animationFrameId;
         let isVisible = true;
         let isTabActive = !document.hidden;
 
-        // Page Visibility API to pause when tab is inactive
-        document.addEventListener('visibilitychange', () => {
-            isTabActive = !document.hidden;
-            if (isTabActive && isVisible) {
-                if (!animationFrameId) animate();
-            } else {
-                if (animationFrameId) cancelAnimationFrame(animationFrameId);
-                animationFrameId = null;
-            }
-        });
+        if (!window._rainVisBound) {
+            window._rainVisBound = true;
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden && typeof window.initRain === 'function') {
+                    window.initRain();
+                }
+            });
+        }
 
-        // Render Throttling with Intersection Observer
-        const rainObserver = new IntersectionObserver((entries) => {
-            isVisible = entries[0].isIntersecting;
-            if (isVisible && isTabActive) {
-                if (!animationFrameId) animate();
-            } else {
-                if (animationFrameId) cancelAnimationFrame(animationFrameId);
-                animationFrameId = null;
-            }
-        }, { threshold: 0.01 });
-        rainObserver.observe(canvas);
+        if ('IntersectionObserver' in window) {
+            window._heroRainObserver = new IntersectionObserver((entries) => {
+                isVisible = entries[0].isIntersecting;
+                if (isVisible && isTabActive) {
+                    if (!window._heroRainAnimId) animate(performance.now());
+                } else {
+                    if (window._heroRainAnimId) cancelAnimationFrame(window._heroRainAnimId);
+                    window._heroRainAnimId = null;
+                }
+            }, { threshold: 0.01 });
+            window._heroRainObserver.observe(canvas);
+        }
 
         let lastTime = performance.now();
-        const fpsLimit = isMobile ? 30 : 60; // Clamp mobile to 30 FPS to prevent heating
+        const fpsLimit = isMobile ? 35 : 60;
         const frameInterval = 1000 / fpsLimit;
 
         function animate(now) {
-            if (!isVisible || !isTabActive) {
-                animationFrameId = null;
+            const currentCanvas = document.getElementById('rainCanvas');
+            if (!currentCanvas || currentCanvas !== canvas || !isVisible || !isTabActive) {
+                window._heroRainAnimId = null;
                 return;
             }
 
@@ -398,10 +419,11 @@ function initApp() {
                     d.draw();
                 });
             }
-            animationFrameId = requestAnimationFrame(animate);
+            window._heroRainAnimId = requestAnimationFrame(animate);
         }
-        animate(performance.now());
+        window._heroRainAnimId = requestAnimationFrame(animate);
     }
+    window.initRain = initRain;
     initRain();
     initTier4();
 }
@@ -673,4 +695,169 @@ document.addEventListener('error', function(e) {
     target.src = 'images/placeholder.webp';
   }
 }, true);
+
+// ============================================
+// DUAL FLAGSHIP HERO SLIDER (REOLINK & JZONES)
+// ============================================
+function initHeroSlider(customDuration) {
+    const sliderSection = document.querySelector('.reo-hero-slider-section');
+    if (!sliderSection) return;
+
+    const slides = sliderSection.querySelectorAll('.hero-slide');
+    const tabs = sliderSection.querySelectorAll('.hero-pill-tab');
+    if (slides.length <= 1) return;
+
+    // Clear previous timer if re-initialized
+    if (window._heroSliderTimer) {
+        clearTimeout(window._heroSliderTimer);
+        window._heroSliderTimer = null;
+    }
+
+    let currentIndex = 0;
+    let autoSlideTimer = null;
+    let isPaused = false;
+    const slideDuration = customDuration || (window.cmsData && window.cmsData.hero_slider && window.cmsData.hero_slider.interval_seconds ? window.cmsData.hero_slider.interval_seconds * 1000 : 4500);
+
+    function resetProgressBars() {
+        tabs.forEach(tab => {
+            const fill = tab.querySelector('.tab-progress-fill');
+            if (fill) {
+                fill.classList.remove('running');
+                fill.style.animationDuration = (slideDuration / 1000) + 's';
+                void fill.offsetWidth; // Force reflow
+            }
+        });
+    }
+
+    function startProgress(index) {
+        resetProgressBars();
+        const activeTab = tabs[index];
+        if (activeTab) {
+            const fill = activeTab.querySelector('.tab-progress-fill');
+            if (fill) {
+                fill.style.animationDuration = (slideDuration / 1000) + 's';
+                fill.classList.add('running');
+            }
+        }
+    }
+
+    function showSlide(index) {
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active', 'prev-slide');
+            if (i === currentIndex && i !== index) {
+                slide.classList.add('prev-slide');
+            }
+        });
+
+        tabs.forEach((tab, i) => {
+            tab.classList.toggle('active', i === index);
+        });
+
+        slides[index].classList.add('active');
+        currentIndex = index;
+
+        startProgress(currentIndex);
+        restartTimer();
+
+        if (typeof window.initRain === 'function') {
+            setTimeout(window.initRain, 60);
+        }
+    }
+
+    function nextSlide() {
+        showSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+        showSlide(currentIndex - 1);
+    }
+
+    function startTimer() {
+        stopTimer();
+        if (!isPaused) {
+            autoSlideTimer = setTimeout(() => {
+                nextSlide();
+            }, slideDuration);
+        }
+    }
+
+    function stopTimer() {
+        if (autoSlideTimer) {
+            clearTimeout(autoSlideTimer);
+            autoSlideTimer = null;
+        }
+    }
+
+    function restartTimer() {
+        stopTimer();
+        startTimer();
+    }
+
+    // Expose global methods for HTML onclick triggers
+    window.goToHeroSlide = function(index) {
+        showSlide(index);
+    };
+
+    window.changeHeroSlide = function(direction) {
+        if (direction > 0) nextSlide();
+        else prevSlide();
+    };
+
+    // Pause on Hover (Desktop)
+    sliderSection.addEventListener('mouseenter', () => {
+        isPaused = true;
+        sliderSection.classList.add('is-paused');
+        stopTimer();
+    });
+
+    sliderSection.addEventListener('mouseleave', () => {
+        isPaused = false;
+        sliderSection.classList.remove('is-paused');
+        startTimer();
+    });
+
+    // Touch Swipe Gestures (Mobile)
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    sliderSection.addEventListener('touchstart', (e) => {
+        isPaused = true;
+        sliderSection.classList.add('is-paused');
+        stopTimer();
+        if (e.changedTouches && e.changedTouches.length > 0) {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }
+    }, { passive: true });
+
+    sliderSection.addEventListener('touchend', (e) => {
+        if (e.changedTouches && e.changedTouches.length > 0) {
+            const touchEndX = e.changedTouches[0].screenX;
+            const touchEndY = e.changedTouches[0].screenY;
+            const diffX = touchEndX - touchStartX;
+            const diffY = touchEndY - touchStartY;
+
+            // Horizontal swipe dominance check
+            if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX < 0) {
+                    nextSlide(); // Swipe Left -> Next
+                } else {
+                    prevSlide(); // Swipe Right -> Prev
+                }
+            }
+        }
+
+        isPaused = false;
+        sliderSection.classList.remove('is-paused');
+        startTimer();
+    }, { passive: true });
+
+    // Initial trigger
+    startProgress(0);
+    startTimer();
+}
+
 

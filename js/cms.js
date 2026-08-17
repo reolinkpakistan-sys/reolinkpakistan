@@ -94,6 +94,11 @@ function applyCMS(data) {
 
     // 4. Override Video Modal Player
     overrideVideoModal(data);
+
+    // 5. Render & Synchronize Hero Slider dynamically
+    if (data.hero_slider) {
+        renderHeroSlider(data.hero_slider, data);
+    }
 }
 
 function getNestedValue(obj, path) {
@@ -331,3 +336,343 @@ function getBasePath() {
     }
     return '/';
 }
+
+// ----------------------------------------------------
+// Product Quick View / Stories Modal Controller
+// ----------------------------------------------------
+window.openProductQuickView = function(id) {
+    const modal = document.getElementById('productQuickViewModal');
+    const body = document.getElementById('quickViewBody');
+    if (!modal || !body) return;
+
+    function render(gadget) {
+        if (!gadget) return;
+        const origPrice = gadget.orig_price ? Number(gadget.orig_price) : null;
+        const currPrice = Number(gadget.curr_price);
+        const discount = origPrice && origPrice > currPrice ? Math.round(((origPrice - currPrice) / origPrice) * 100) : null;
+        
+        let categoryName = "Smart Security";
+        if (gadget.category === "dashcams") categoryName = "🚗 4K Car Dashcam";
+        else if (gadget.category === "4g-cameras") categoryName = "☀️ 4G Solar Security";
+        else if (gadget.category === "wifi-cameras") categoryName = "🎥 4K PTZ CCTV";
+        else if (gadget.category === "wireless-mics") categoryName = "🎙️ Wireless Audio";
+        else if (gadget.category === "speakers") categoryName = "🔊 Bluetooth Speaker";
+        else if (gadget.category === "accessories") categoryName = "🔋 Smart Accessories";
+
+        const features = gadget.features || gadget.hero_bullets || [
+            "Official PTA Approved & Genuine Stock",
+            "100% Wire-Free / Plug & Play Setup",
+            "1-Month Official Replacement Warranty"
+        ];
+        const featuresList = features.slice(0, 3).map(f => `<li><ion-icon name="checkmark-circle"></ion-icon> <span>${f}</span></li>`).join('');
+
+        const whatsappNum = (window.cmsData && window.cmsData.contact && window.cmsData.contact.whatsapp) ? window.cmsData.contact.whatsapp : "0320-6755555";
+        const cleanNum = whatsappNum.replace(/[-\s]+/g, '');
+        const formattedNum = cleanNum.startsWith('0') ? '92' + cleanNum.substring(1) : cleanNum;
+        const waMsg = encodeURIComponent(`Assalam-o-Alaikum S M Enterprises,\n\nMujhe website par yeh product pasand aayi hai:\n- *${gadget.name}*\n- Qeemat: Rs ${Number(currPrice).toLocaleString('en-PK')}\n\nKindly iska order confirm karein.`);
+
+        const detailsLink = gadget.static_url || (gadget.category ? `/category/${gadget.category}` : '/#smart-gadgets');
+
+        body.innerHTML = `
+            <div class="qv-header">
+                <span class="qv-cat-badge">${categoryName}</span>
+                <span class="qv-stock-badge"><span class="qv-live-dot"></span> In Stock (Express COD)</span>
+            </div>
+            
+            <div class="qv-media-row">
+                <div class="qv-img-container">
+                    <img src="${gadget.image}" alt="${gadget.name}" class="qv-product-img">
+                    ${gadget.tag ? `<span class="qv-promo-tag">${gadget.tag}</span>` : ''}
+                </div>
+            </div>
+
+            <div class="qv-content">
+                <h3 class="qv-title">${gadget.name}</h3>
+                
+                <div class="qv-price-box">
+                    ${origPrice ? `<span class="qv-price-orig">Rs ${origPrice.toLocaleString('en-PK')}</span>` : ''}
+                    <span class="qv-price-curr">Rs ${currPrice.toLocaleString('en-PK')}</span>
+                    ${discount ? `<span class="qv-discount-pill">Save ${discount}%</span>` : ''}
+                </div>
+                <p class="qv-tax-note"><ion-icon name="cash-outline"></ion-icon> Cash on Delivery (COD) Available Nationwide</p>
+
+                <ul class="qv-features-list">
+                    ${featuresList}
+                </ul>
+
+                <div class="qv-trust-pills">
+                    <span><ion-icon name="shield-checkmark-outline"></ion-icon> PTA Approved</span>
+                    <span><ion-icon name="ribbon-outline"></ion-icon> 1-Month Warranty</span>
+                    <span><ion-icon name="flash-outline"></ion-icon> 24-48h Delivery</span>
+                </div>
+
+                <div class="qv-actions">
+                    <button class="qv-btn-order" onclick="openOrderFromQuickView('${gadget.id}')">
+                        <ion-icon name="bag-check-outline"></ion-icon> Order Now (Cash on Delivery)
+                    </button>
+                    <a href="https://wa.me/${formattedNum}?text=${waMsg}" target="_blank" class="qv-btn-whatsapp">
+                        <ion-icon name="logo-whatsapp"></ion-icon> WhatsApp Inquiry
+                    </a>
+                </div>
+                <div class="qv-footer-links">
+                    <a href="${detailsLink}" class="qv-view-full-details">View Full Specs &amp; Details <ion-icon name="arrow-forward-outline"></ion-icon></a>
+                </div>
+            </div>
+        `;
+
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    if (window.cmsData && window.cmsData.gadgets) {
+        const gadget = window.cmsData.gadgets.find(g => g.id === id);
+        render(gadget);
+    } else {
+        fetch(getBasePath() + 'cms_data.json')
+            .then(r => r.json())
+            .then(data => {
+                window.cmsData = data;
+                const gadget = data.gadgets.find(g => g.id === id);
+                render(gadget);
+            });
+    }
+};
+
+window.closeProductQuickView = function() {
+    const modal = document.getElementById('productQuickViewModal');
+    if (modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+};
+
+window.openOrderFromQuickView = function(id) {
+    closeProductQuickView();
+    if (!window.cmsData || !window.cmsData.gadgets) return;
+    const gadget = window.cmsData.gadgets.find(g => g.id === id);
+    if (!gadget) return;
+
+    window.currentOrderProduct = gadget;
+    const orderModal = document.getElementById('orderModal');
+    if (orderModal) {
+        const formOptions = orderModal.querySelector('.form-options');
+        if (formOptions) formOptions.style.display = 'none';
+
+        if (window.updateInvoiceSummary) {
+            window.updateInvoiceSummary(gadget.name, Number(gadget.curr_price));
+        } else {
+            const invoiceItemName = document.getElementById('invoiceItemName');
+            const summaryTotal = document.getElementById('summaryTotal');
+            if (invoiceItemName) invoiceItemName.textContent = gadget.name;
+            if (summaryTotal) summaryTotal.textContent = `Rs ${Number(gadget.curr_price).toLocaleString('en-PK')}`;
+        }
+        setTimeout(() => {
+            orderModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }, 150);
+    }
+};
+
+// ==========================================================================
+// DYNAMIC HERO SLIDER HYDRATION (From cms_data.json)
+// ==========================================================================
+function renderHeroSlider(sliderConfig, fullData) {
+    const sliderSection = document.querySelector('.reo-hero-slider-section');
+    if (!sliderSection) return;
+
+    if (sliderConfig.enabled === false) {
+        sliderSection.style.display = 'none';
+        return;
+    }
+
+    sliderSection.style.display = '';
+
+    const slides = (sliderConfig.slides || []).filter(s => s.enabled !== false);
+    if (!slides || slides.length === 0) return;
+
+    const wrapper = sliderSection.querySelector('#heroSliderWrapper') || sliderSection.querySelector('.hero-slider-wrapper');
+    const controls = sliderSection.querySelector('#heroSliderControls') || sliderSection.querySelector('.hero-slider-controls');
+    if (!wrapper) return;
+
+    // Build dynamic slides HTML
+    let slidesHtml = '';
+    let pillsHtml = '';
+
+    slides.forEach((slide, idx) => {
+        const isActive = idx === 0 ? 'active' : '';
+        const theme = slide.theme || 'reolink';
+        const isJzones = theme === 'jzones';
+
+        const titleGlowClass = isJzones ? 'hero-title-glow jzones-title-gradient' : 'hero-title-glow';
+        const priceBlockClass = isJzones ? 'promo-price-block jzones-price-block' : 'promo-price-block';
+        const badgeGlowClass = isJzones ? 'badge-save jzones-badge' : 'badge-save';
+        const pulseClass = isJzones ? 'pulse-ring jzones-pulse' : 'pulse-ring';
+        const glowClass = isJzones ? 'product-glow jzones-glow' : 'product-glow';
+        const camWrapperClass = isJzones ? 'cam-wrapper jzones-cam-wrapper' : 'cam-wrapper';
+
+        // Badges
+        let badgesHtml = '';
+        if (slide.badges && slide.badges.length > 0) {
+            badgesHtml = slide.badges.map(b => {
+                const bText = typeof b === 'string' ? b : b.text;
+                const bClass = typeof b === 'object' && b.class ? b.class : (isJzones ? 'cyan-glow' : 'orange');
+                const bIcon = typeof b === 'object' && b.icon ? `<ion-icon name="${b.icon}"></ion-icon>` : '';
+                return `<span class="reo-badge ${bClass}">${bIcon} ${bText}</span>`;
+            }).join('');
+        }
+
+        // Features list
+        let featuresHtml = '';
+        if (slide.features && slide.features.length > 0) {
+            const iconAccent = isJzones ? 'jzones-icon-accent' : '';
+            featuresHtml = `<ul class="hero-feature-list ${isJzones ? 'jzones-feature-list' : ''}">` + 
+                slide.features.map(f => `<li><ion-icon name="checkmark-circle" class="${iconAccent}"></ion-icon> <span>${f}</span></li>`).join('') + 
+                `</ul>`;
+        }
+
+        // Stat chips if any
+        let statChipsHtml = '';
+        if (slide.stat_chips && slide.stat_chips.length > 0) {
+            statChipsHtml = `<div class="hero-stat-chips-row">` + 
+                slide.stat_chips.map(c => `<div class="hero-stat-chip"><span class="chip-val">${c.val}</span><span class="chip-lbl">${c.lbl}</span></div>`).join('') + 
+                `</div>`;
+        }
+
+        // Price calculations
+        const origPriceFormatted = slide.orig_price ? Number(slide.orig_price).toLocaleString('en-PK') : '';
+        const currPriceFormatted = slide.curr_price ? Number(slide.curr_price).toLocaleString('en-PK') : '';
+        const saveText = slide.save_text || (slide.orig_price && slide.curr_price ? `Save ${Math.round(((slide.orig_price - slide.curr_price) / slide.orig_price) * 100)}%` : '');
+
+        // CTA Buttons
+        let buttonsHtml = '';
+        if (slide.primary_btn_text) {
+            buttonsHtml += `<a href="${slide.primary_btn_link || '#'}" class="${slide.primary_btn_class || 'btn-reo-primary'}">${slide.primary_btn_text}</a>`;
+        }
+        if (slide.secondary_btn_text) {
+            buttonsHtml += `<a href="${slide.secondary_btn_link || '#'}" class="${slide.secondary_btn_class || 'btn-reo-secondary'}">${slide.secondary_btn_text}</a>`;
+        }
+        if (slide.tertiary_btn_text) {
+            const onclickAttr = slide.tertiary_btn_onclick ? `onclick="${slide.tertiary_btn_onclick}"` : '';
+            const tertiaryLink = slide.tertiary_btn_link || (isJzones ? '/products/jzones-v630' : 'javascript:void(0)');
+            buttonsHtml += `<a href="${tertiaryLink}" class="btn-reo-secondary jzones-quick-btn" ${onclickAttr}>${slide.tertiary_btn_text}</a>`;
+        }
+
+        // Floating tags
+        let floatingTagsHtml = '';
+        if (slide.floating_tags && slide.floating_tags.length > 0) {
+            const tagsList = slide.floating_tags.map((t, ti) => {
+                const tagClass = isJzones ? `jz-${ti + 1}` : `ft-${ti + 1}`;
+                let iconHtml = '';
+                if (t.type === 'svg' || (t.icon && t.icon.startsWith('icon-'))) {
+                    iconHtml = `<svg><use href="#${t.icon}"></use></svg>`;
+                } else if (t.icon) {
+                    iconHtml = `<ion-icon name="${t.icon}"></ion-icon>`;
+                }
+                return `<div class="float-tag ${tagClass}">${iconHtml} <span>${t.text}</span></div>`;
+            }).join('');
+            floatingTagsHtml = `<div class="mobile-tags-row ${isJzones ? 'jzones-tags-row' : ''}">${tagsList}</div>`;
+        }
+
+        // Rain canvas if enabled
+        const rainCanvasHtml = slide.show_rain ? `<canvas id="rainCanvas" class="rain-canvas"></canvas>` : '';
+
+        // Product visual
+        let productVisualHtml = '';
+        if (isJzones) {
+            const jzonesLink = slide.image_link || slide.primary_btn_link || '/products/jzones-v630';
+            productVisualHtml = `
+                <div class="main-cam jzones-cam-stage">
+                    <div class="weatherproof-badge reveal-up jzones-badge-overlay">
+                        <ion-icon name="car-sport-outline"></ion-icon>
+                        <span>3-Way Car Surveillance</span>
+                    </div>
+                    <a href="${jzonesLink}" class="jzones-product-mask" title="View ${slide.title || 'JZONES V630 4K Dash Cam'} Full Details">
+                        <img src="${slide.image}" width="560" height="420" alt="${slide.image_alt || slide.title}" class="jzones-hero-main-img" loading="lazy">
+                    </a>
+                </div>`;
+        } else {
+            const isReolinkGoPtPlus = !slide.id || slide.id === 'reolink-go-pt-plus';
+            const extraVariantHtml = isReolinkGoPtPlus ? `<img src="images/camera-no-solar.webp" width="1024" height="1014" alt="Reolink Go PT Plus 4G LTE Security Camera - PTA Approved" class="variant-img v2">` : '';
+            productVisualHtml = `
+                <div class="main-cam">
+                    <div class="weatherproof-badge reveal-up">
+                        <ion-icon name="water-outline"></ion-icon>
+                        <span>Weatherproof IP66</span>
+                    </div>
+                    <div class="product-rain-mask">
+                        <img src="${slide.image}" width="600" height="600" alt="${slide.image_alt || slide.title}" class="variant-img v1" fetchpriority="high" decoding="async">
+                        ${extraVariantHtml}
+                        ${rainCanvasHtml}
+                    </div>
+                </div>`;
+        }
+
+        slidesHtml += `
+            <div class="hero-slide ${isActive}" data-slide-index="${idx}" data-theme="${theme}">
+                <div class="hero-container ${isJzones ? 'hero-container-jzones' : ''}">
+                    <div class="hero-content">
+                        <div class="badge-group">${badgesHtml}</div>
+                        <h1 class="${titleGlowClass}">${slide.title}</h1>
+                        <p class="hero-subtitle">${slide.subtitle}</p>
+                        ${featuresHtml}
+                        ${statChipsHtml}
+                        <div class="${priceBlockClass}">
+                            <div class="price-current">
+                                <span class="currency">Rs</span>
+                                <span class="amount">${currPriceFormatted}</span>
+                            </div>
+                            ${origPriceFormatted ? `<div class="price-original">Rs ${origPriceFormatted}</div>` : ''}
+                            ${saveText ? `<div class="${badgeGlowClass}"><span class="${pulseClass}"></span>${saveText}</div>` : ''}
+                        </div>
+                        <div class="hero-actions">${buttonsHtml}</div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="${glowClass}"></div>
+                        <div class="${camWrapperClass}">
+                            ${productVisualHtml}
+                            ${floatingTagsHtml}
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+        // Navigation Pill
+        pillsHtml += `
+            <button type="button" class="hero-pill-tab ${isActive}" data-slide-target="${idx}" onclick="goToHeroSlide(${idx})">
+                <span class="tab-indicator-ring"></span>
+                <span class="tab-meta">
+                    <span class="tab-title"><ion-icon name="${slide.pill_icon || 'star-outline'}"></ion-icon> ${slide.pill_title || slide.title}</span>
+                    <span class="tab-subtitle">${slide.pill_subtitle || ''}</span>
+                </span>
+                <div class="tab-progress-track">
+                    <div class="tab-progress-fill ${isActive ? 'running' : ''}"></div>
+                </div>
+            </button>`;
+    });
+
+    wrapper.innerHTML = slidesHtml;
+
+    if (controls && slides.length > 1) {
+        controls.innerHTML = `
+            <button type="button" class="hero-nav-arrow prev-arrow" onclick="changeHeroSlide(-1)" aria-label="Previous Flagship">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+            <div class="hero-slider-pills">${pillsHtml}</div>
+            <button type="button" class="hero-nav-arrow next-arrow" onclick="changeHeroSlide(1)" aria-label="Next Flagship">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>`;
+        controls.style.display = 'flex';
+    } else if (controls) {
+        controls.style.display = 'none';
+    }
+
+    // Re-initialize slider engine with CMS-configured duration
+    const duration = (sliderConfig.interval_seconds || 4.5) * 1000;
+    if (typeof initHeroSlider === 'function') {
+        initHeroSlider(duration);
+    }
+    if (typeof window.initRain === 'function') {
+        window.initRain();
+    }
+}
+

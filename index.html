@@ -407,83 +407,319 @@
     </nav>
 
     <main>
-        <!-- Hero Section -->
-        <section class="reo-hero" id="overview">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <div class="badge-group">
-                        <span class="reo-badge orange">PTA Approved</span>
-                        <span class="reo-badge blue-outline">4G LTE</span>
-                        <span class="reo-badge green-glow">100% Wire-Free</span>
-                    </div>
-                    <h1 class="hero-title-glow">Reolink Pakistan - Official 4G, Solar & WiFi Security Cameras</h1>
-                    <p class="hero-subtitle">Secure your home, farm, or business with the #1 trusted security camera brand in Pakistan. Reolink Pakistan official supplier offers PTA-approved, 100% wire-free surveillance solutions - whether you're in Lahore, Karachi, Islamabad, or the most remote areas. No WiFi? No Electricity? No Problem.</p>
+        <!-- Dual Flagship Hero Slider Section -->
+        <section class="reo-hero-slider-section" id="overview">
+            <div class="hero-slider-wrapper" id="heroSliderWrapper">
 
-                    <ul class="hero-feature-list">
-                        <li><ion-icon name="checkmark-circle-outline"></ion-icon> 2K 4MP Super HD & True Night Vision
-                        </li>
-                        <li><ion-icon name="checkmark-circle-outline"></ion-icon> 355&deg; Pan & 140&deg; Tilt Coverage
-                        </li>
-                        <li><ion-icon name="checkmark-circle-outline"></ion-icon> Standalone Solar-Powered Operation
-                        </li>
-                        <li><ion-icon name="checkmark-circle-outline"></ion-icon> 3 Days Battery Backup on Normal Usage
-                        </li>
-                    </ul>
+                <!-- SLIDE 1: REOLINK GO PT PLUS -->
+                <div class="hero-slide active" data-slide-index="0" data-theme="reolink">
+                    <div class="hero-container">
+                        <div class="hero-content">
+                            <div class="badge-group">
+                                <span class="reo-badge orange">PTA Approved</span>
+                                <span class="reo-badge blue-outline">4G LTE</span>
+                                <span class="reo-badge green-glow">100% Wire-Free</span>
+                            </div>
+                            <h1 class="hero-title-glow">Reolink Pakistan - Official 4G, Solar & WiFi Security Cameras</h1>
+                            <p class="hero-subtitle">Secure your home, farm, or business with the #1 trusted security camera brand in Pakistan. Reolink Pakistan official supplier offers PTA-approved, 100% wire-free surveillance solutions - whether you're in Lahore, Karachi, Islamabad, or the most remote areas. No WiFi? No Electricity? No Problem.</p>
 
-                    <div data-trust-badges="hero"></div>
+                            <ul class="hero-feature-list">
+                                <li><ion-icon name="checkmark-circle-outline"></ion-icon> 2K 4MP Super HD & True Night Vision
+                                </li>
+                                <li><ion-icon name="checkmark-circle-outline"></ion-icon> 355&deg; Pan & 140&deg; Tilt Coverage
+                                </li>
+                                <li><ion-icon name="checkmark-circle-outline"></ion-icon> Standalone Solar-Powered Operation
+                                </li>
+                                <li><ion-icon name="checkmark-circle-outline"></ion-icon> 3 Days Battery Backup on Normal Usage
+                                </li>
+                            </ul>
 
-                    <div class="promo-price-block">
-                        <div class="price-original">Rs 35,000</div>
-                        <div class="price-current">
-                            <span class="currency">Rs</span>
-                            <span class="amount" data-cms-key="prices.solar" data-cms-type="price-raw">23,000</span>
+                            <div data-trust-badges="hero"></div>
+
+                            <div class="promo-price-block">
+                                <div class="price-original">Rs 35,000</div>
+                                <div class="price-current">
+                                    <span class="currency">Rs</span>
+                                    <span class="amount" data-cms-key="prices.solar" data-cms-type="price-raw">23,000</span>
+                                </div>
+                                <div class="price-badge">
+                                    <div class="pulse-ring"></div>
+                                    <span>Save 35%</span>
+                                </div>
+                            </div>
+
+                            <div class="hero-actions">
+                                <a href="#" class="btn-reo-primary btn-order-trigger">Order Now</a>
+                                <a href="#" class="btn-reo-primary btn-self-collect-trigger">Self Collect</a>
+                                <a href="javascript:void(0)" onclick="openVideoModal('farm')" class="btn-reo-secondary">Watch
+                                    Video</a>
+                            </div>
                         </div>
-                        <div class="price-badge">
-                            <div class="pulse-ring"></div>
-                            <span>Save 35%</span>
-                        </div>
-                    </div>
+                        <div class="hero-visual">
+                            <div class="product-glow"></div>
+                            <div class="cam-wrapper">
+                                <div class="main-cam">
+                                    <!-- Weatherproof Badge Overlay -->
+                                    <div class="weatherproof-badge reveal-up">
+                                        <ion-icon name="water-outline"></ion-icon>
+                                        <span>Weatherproof IP66</span>
+                                    </div>
 
-                    <div class="hero-actions">
-                        <a href="#" class="btn-reo-primary btn-order-trigger">Order Now</a>
-                        <a href="#" class="btn-reo-primary btn-self-collect-trigger">Self Collect</a>
-                        <a href="javascript:void(0)" onclick="openVideoModal('farm')" class="btn-reo-secondary">Watch
-                            Video</a>
+                                    <!-- Use grid stacking for variants on mobile via CSS -->
+                                    <div class="product-rain-mask">
+                                        <img src="images/camera.webp" width="600" height="600" alt="Reolink Go PT Plus 4G Solar Camera Pakistan - Official Authorized Seller" class="variant-img v1" fetchpriority="high" decoding="async">
+                                        <img src="images/camera-no-solar.webp" width="1024" height="1014" alt="Reolink Go PT Plus 4G LTE Security Camera - PTA Approved" class="variant-img v2">
+                                        <canvas id="rainCanvas" class="rain-canvas"></canvas>
+                                    </div>
+                                </div>
+                                <!-- Static Tags Container for Mobile -->
+                                <div class="mobile-tags-row">
+                                    <div class="float-tag ft-1"><svg><use href="#icon-4g"></use></svg> <span>4G
+                                            LTE</span></div>
+                                    <div class="float-tag ft-2"><svg><use href="#icon-shield"></use></svg> <span>PTA
+                                            Approved</span></div>
+                                    <div class="float-tag ft-3"><svg><use href="#icon-sun"></use></svg> <span>Solar
+                                            Powered</span></div>
+                                    <div class="float-tag ft-4"><svg><use href="#icon-scan"></use></svg> <span>2K 4MP</span>
+                                    </div>
+                                    <div class="float-tag ft-5"><svg><use href="#icon-mic"></use></svg> <span>Two Way
+                                            Audio</span></div>
+                                    <div class="float-tag ft-6"><svg><use href="#icon-bell"></use></svg> <span>App
+                                            Alerts</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="hero-visual">
-                    <div class="product-glow"></div>
-                    <div class="cam-wrapper">
-                        <div class="main-cam">
-                            <!-- Rain Effect Container -->
 
-                            <!-- Weatherproof Badge Overlay -->
-                            <div class="weatherproof-badge reveal-up">
-                                <ion-icon name="water-outline"></ion-icon>
-                                <span>Weatherproof IP66</span>
+                <!-- SLIDE 2: JZONES V630 3-CHANNEL 4K DASHCAM -->
+                <div class="hero-slide" data-slide-index="1" data-theme="jzones">
+                    <div class="hero-container hero-container-jzones">
+                        <div class="hero-content">
+                            <div class="badge-group">
+                                <span class="reo-badge cyan-glow"><ion-icon name="hardware-chip-outline" style="vertical-align:middle; margin-right:4px;"></ion-icon> SONY STARVIS 2 IMX675</span>
+                                <span class="reo-badge purple-glow"><ion-icon name="videocam-outline" style="vertical-align:middle; margin-right:4px;"></ion-icon> 3-Channel 4K</span>
+                                <span class="reo-badge orange"><ion-icon name="gift-outline" style="vertical-align:middle; margin-right:4px;"></ion-icon> Free 64GB Card</span>
+                            </div>
+                            <h2 class="hero-title-glow jzones-title-gradient">JZONES V630 4K Dash Cam - Pakistan's #1 Car Security</h2>
+                            <p class="hero-subtitle">Equipped with Sony's flagship <strong>STARVIS 2 IMX675</strong> sensor for unmatched night visibility. 4K Front + 1080P Cabin with Infrared Night Vision + 1080P Rear. 24/7 parking surveillance with high-heat supercapacitor (-20°C to 70°C) tailored for Pakistan.</p>
+
+                            <ul class="hero-feature-list jzones-feature-list">
+                                <li><ion-icon name="checkmark-circle-outline" class="jzones-icon-accent"></ion-icon> 4K Ultra HD Front + 1080P Cabin + 1080P Rear (415&deg; Total Coverage)</li>
+                                <li><ion-icon name="checkmark-circle-outline" class="jzones-icon-accent"></ion-icon> Sony STARVIS 2 & Cabin Infrared Night Vision</li>
+                                <li><ion-icon name="checkmark-circle-outline" class="jzones-icon-accent"></ion-icon> Built-in GPS Tracking & 5.8GHz High-Speed Wi-Fi</li>
+                                <li><ion-icon name="checkmark-circle-outline" class="jzones-icon-accent"></ion-icon> Extreme Heat Tolerant Supercapacitor & 24H Parking Mode</li>
+                            </ul>
+
+                            <div class="hero-stat-chips-row">
+                                <div class="hero-stat-chip">
+                                    <span class="chip-val">4K UHD</span>
+                                    <span class="chip-lbl">Front Lens</span>
+                                </div>
+                                <div class="hero-stat-chip">
+                                    <span class="chip-val">3-WAY</span>
+                                    <span class="chip-lbl">415° View</span>
+                                </div>
+                                <div class="hero-stat-chip">
+                                    <span class="chip-val">5.8 GHz</span>
+                                    <span class="chip-lbl">Wi-Fi 6</span>
+                                </div>
+                                <div class="hero-stat-chip">
+                                    <span class="chip-val">70°C</span>
+                                    <span class="chip-lbl">Heat Proof</span>
+                                </div>
                             </div>
 
-                            <!-- Use grid stacking for variants on mobile via CSS -->
-                            <div class="product-rain-mask">
-                                <img src="images/camera.webp" width="600" height="600" alt="Reolink Go PT Plus 4G Solar Camera Pakistan - Official Authorized Seller" class="variant-img v1" fetchpriority="high" decoding="async">
-                                <img src="images/camera-no-solar.webp" width="1024" height="1014" alt="Reolink Go PT Plus 4G LTE Security Camera - PTA Approved" class="variant-img v2">
-                                <canvas id="rainCanvas" class="rain-canvas"></canvas>
+                            <div class="promo-price-block jzones-price-block">
+                                <div class="price-original">Rs 45,000</div>
+                                <div class="price-current">
+                                    <span class="currency">Rs</span>
+                                    <span class="amount">32,500</span>
+                                </div>
+                                <div class="price-badge jzones-badge">
+                                    <div class="pulse-ring jzones-pulse"></div>
+                                    <span>Save 28%</span>
+                                </div>
+                            </div>
+
+                            <div class="hero-actions">
+                                <a href="/products/jzones-v630" class="btn-reo-primary jzones-btn-cta"><ion-icon name="cart-outline" style="font-size:18px; vertical-align:middle; margin-right:6px;"></ion-icon>Order Now (COD)</a>
+                                <a href="https://wa.me/923206755555?text=Salam%2C%20mujhe%20JZONES%20V630%20Dash%20Cam%20order%20karna%20hai" target="_blank" class="btn-reo-secondary jzones-wa-btn"><ion-icon name="logo-whatsapp" style="font-size:18px; vertical-align:middle; margin-right:6px; color:#25D366;"></ion-icon>WhatsApp Order</a>
+                                <a href="/products/jzones-v630" class="btn-reo-secondary jzones-quick-btn"><ion-icon name="eye-outline" style="font-size:18px; vertical-align:middle; margin-right:6px;"></ion-icon>Quick View</a>
                             </div>
                         </div>
-                        <!-- Static Tags Container for Mobile -->
-                        <div class="mobile-tags-row">
-                            <div class="float-tag ft-1"><svg><use href="#icon-4g"></use></svg> <span>4G
-                                    LTE</span></div>
-                            <div class="float-tag ft-2"><svg><use href="#icon-shield"></use></svg> <span>PTA
-                                    Approved</span></div>
-                            <div class="float-tag ft-3"><svg><use href="#icon-sun"></use></svg> <span>Solar
-                                    Powered</span></div>
-                            <div class="float-tag ft-4"><svg><use href="#icon-scan"></use></svg> <span>2K 4MP</span>
+                        <div class="hero-visual">
+                            <div class="product-glow jzones-glow"></div>
+                            <div class="cam-wrapper jzones-cam-wrapper">
+                                <div class="main-cam jzones-cam-stage">
+                                    <div class="weatherproof-badge reveal-up jzones-badge-overlay">
+                                        <ion-icon name="car-sport-outline"></ion-icon>
+                                        <span>3-Way Car Surveillance</span>
+                                    </div>
+                                    <a href="/products/jzones-v630" class="jzones-product-mask" title="View JZONES V630 4K Dash Cam Details">
+                                        <img src="assets/jzones/jzones_product_transparent.png" width="560" height="420" alt="JZONES V630 3-Channel 4K Dash Cam Pakistan" class="jzones-hero-main-img" loading="lazy">
+                                    </a>
+                                </div>
+                                <div class="mobile-tags-row jzones-tags-row">
+                                    <div class="float-tag jz-1"><ion-icon name="videocam-outline"></ion-icon> <span>4K Front</span></div>
+                                    <div class="float-tag jz-2"><ion-icon name="people-outline"></ion-icon> <span>Cabin IR</span></div>
+                                    <div class="float-tag jz-3"><ion-icon name="car-outline"></ion-icon> <span>Rear 1080P</span></div>
+                                    <div class="float-tag jz-4"><ion-icon name="navigate-outline"></ion-icon> <span>Built-in GPS</span></div>
+                                    <div class="float-tag jz-5"><ion-icon name="wifi-outline"></ion-icon> <span>5.8G Wi-Fi</span></div>
+                                    <div class="float-tag jz-6"><ion-icon name="shield-checkmark-outline"></ion-icon> <span>Sony IMX675</span></div>
+                                </div>
                             </div>
-                            <div class="float-tag ft-5"><svg><use href="#icon-mic"></use></svg> <span>Two Way
-                                    Audio</span></div>
-                            <div class="float-tag ft-6"><svg><use href="#icon-bell"></use></svg> <span>App
-                                    Alerts</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- /.hero-slider-wrapper -->
+
+            <!-- Sleek Slider Navigation & Progress Indicator Bar -->
+            <div class="hero-slider-controls">
+                <button class="hero-nav-arrow prev-arrow" aria-label="Previous Slide" onclick="changeHeroSlide(-1)">
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                </button>
+                <div class="hero-slider-pills">
+                    <button class="hero-pill-tab active" data-slide-target="0" onclick="goToHeroSlide(0)" aria-label="Switch to Reolink Go PT Plus">
+                        <span class="tab-indicator-ring"></span>
+                        <div class="tab-meta">
+                            <span class="tab-title"><ion-icon name="sunny-outline"></ion-icon> Reolink 4G Solar</span>
+                            <span class="tab-subtitle">Off-Grid CCTV • Rs 23,000</span>
+                        </div>
+                        <div class="tab-progress-track"><div class="tab-progress-fill"></div></div>
+                    </button>
+                    <button class="hero-pill-tab" data-slide-target="1" onclick="goToHeroSlide(1)" aria-label="Switch to JZONES 4K Dashcam">
+                        <span class="tab-indicator-ring"></span>
+                        <div class="tab-meta">
+                            <span class="tab-title"><ion-icon name="car-sport-outline"></ion-icon> JZONES 4K Dashcam</span>
+                            <span class="tab-subtitle">Sony STARVIS 2 • Rs 32,500</span>
+                        </div>
+                        <div class="tab-progress-track"><div class="tab-progress-fill"></div></div>
+                    </button>
+                </div>
+                <button class="hero-nav-arrow next-arrow" aria-label="Next Slide" onclick="changeHeroSlide(1)">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </button>
+            </div>
+        </section>
+
+        <!-- Interactive Product Stories Bar (Instant Preview on Mobile & Desktop) -->
+        <section class="product-stories-section" id="quick-explore">
+            <div class="stories-container">
+                <div class="stories-header">
+                    <span class="stories-live-dot"></span>
+                    <span class="stories-header-title">🔥 QUICK EXPLORE TOP PRODUCTS</span>
+                    <span class="stories-hint"><ion-icon name="finger-print-outline"></ion-icon> Tap for Instant Details</span>
+                </div>
+                <div class="stories-scroll-wrapper">
+                    <div class="stories-track">
+                        <!-- JZONES V630 4K Dashcam -->
+                        <div class="story-item" onclick="openProductQuickView('jzones-v630')">
+                            <div class="story-ring ring-hot">
+                                <div class="story-avatar">
+                                    <img src="assets/jzones/jzones_product_transparent.png" alt="JZONES V630 4K Dashcam" width="70" height="70" loading="lazy">
+                                </div>
+                                <span class="story-badge badge-hot">HOT 🔥</span>
+                            </div>
+                            <span class="story-name">4K Dashcam</span>
+                            <span class="story-price">Rs 32,500</span>
+                        </div>
+
+                        <!-- Reolink Go PT Ultra -->
+                        <div class="story-item" onclick="openProductQuickView('reolink-go-pt-ultra')">
+                            <div class="story-ring ring-blue">
+                                <div class="story-avatar">
+                                    <img src="images/dl/go_pt_ultra_hero.webp" alt="Reolink Go PT Ultra 4K" width="70" height="70" loading="lazy">
+                                </div>
+                                <span class="story-badge badge-blue">4K 8MP</span>
+                            </div>
+                            <span class="story-name">Go PT Ultra</span>
+                            <span class="story-price">Rs 55,000</span>
+                        </div>
+
+                        <!-- Reolink Go Ranger PT -->
+                        <div class="story-item" onclick="openProductQuickView('reolink-go-ranger-pt')">
+                            <div class="story-ring ring-green">
+                                <div class="story-avatar">
+                                    <img src="images/products/reolink-go-ranger-pt/hero.webp" alt="Reolink Go Ranger PT" width="70" height="70" loading="lazy">
+                                </div>
+                                <span class="story-badge badge-green">TRAIL</span>
+                            </div>
+                            <span class="story-name">Go Ranger 4K</span>
+                            <span class="story-price">Rs 40,000</span>
+                        </div>
+
+                        <!-- Reolink RLC-823A -->
+                        <div class="story-item" onclick="openProductQuickView('rlc-823a')">
+                            <div class="story-ring ring-purple">
+                                <div class="story-avatar">
+                                    <img src="images/products/rlc-823a/gallery-1-transparent.webp" alt="Reolink RLC-823A 5X Zoom" width="70" height="70" loading="lazy">
+                                </div>
+                                <span class="story-badge badge-purple">5X ZOOM</span>
+                            </div>
+                            <span class="story-name">RLC-823A 4K</span>
+                            <span class="story-price">Rs 43,000</span>
+                        </div>
+
+                        <!-- KEEN Ranger PT -->
+                        <div class="story-item" onclick="openProductQuickView('keen-ranger-pt')">
+                            <div class="story-ring ring-orange">
+                                <div class="story-avatar">
+                                    <img src="images/products/keen-ranger-pt/hero.webp?v=3" alt="KEEN Ranger PT" width="70" height="70" loading="lazy">
+                                </div>
+                                <span class="story-badge badge-orange">WILDLIFE</span>
+                            </div>
+                            <span class="story-name">KEEN Ranger</span>
+                            <span class="story-price">Rs 35,000</span>
+                        </div>
+
+                        <!-- Reolink Go 4G -->
+                        <div class="story-item" onclick="openProductQuickView('reolink-go')">
+                            <div class="story-ring ring-gold">
+                                <div class="story-avatar">
+                                    <img src="images/products/reolink-go/hero.webp?v=solar2026" alt="Reolink Go 4G Bullet" width="70" height="70" loading="lazy">
+                                </div>
+                                <span class="story-badge badge-gold">POPULAR</span>
+                            </div>
+                            <span class="story-name">Reolink Go 4G</span>
+                            <span class="story-price">Rs 23,000</span>
+                        </div>
+
+                        <!-- Reolink Solar Panel -->
+                        <div class="story-item" onclick="openProductQuickView('solar-panel')">
+                            <div class="story-ring ring-yellow">
+                                <div class="story-avatar">
+                                    <img src="images/products/solar-panel/hero.webp?v=3" alt="Reolink Solar Panel" width="70" height="70" loading="lazy">
+                                </div>
+                                <span class="story-badge badge-yellow">ECO ☀️</span>
+                            </div>
+                            <span class="story-name">Solar Panel</span>
+                            <span class="story-price">Rs 4,500</span>
+                        </div>
+
+                        <!-- Alvoxcon Mic -->
+                        <div class="story-item" onclick="openProductQuickView('alvoxcon-mic')">
+                            <div class="story-ring ring-cyan">
+                                <div class="story-avatar">
+                                    <img src="images/products/alvoxcon-mic/hero.webp?v=2" alt="Alvoxcon Wireless Mic" width="70" height="70" loading="lazy">
+                                </div>
+                                <span class="story-badge badge-cyan">MIC 🎙️</span>
+                            </div>
+                            <span class="story-name">Alvoxcon Mic</span>
+                            <span class="story-price">Rs 7,000</span>
+                        </div>
+
+                        <!-- Bluetooth Speaker -->
+                        <div class="story-item" onclick="openProductQuickView('premium-bluetooth-speaker')">
+                            <div class="story-ring ring-pink">
+                                <div class="story-avatar">
+                                    <img src="images/prod_af60429d7cb22a2f55aa3e0aaa963244.webp" alt="Premium Bluetooth Speaker" width="70" height="70" loading="lazy">
+                                </div>
+                                <span class="story-badge badge-pink">20H BASS</span>
+                            </div>
+                            <span class="story-name">BT Speaker</span>
+                            <span class="story-price">Rs 30,000</span>
                         </div>
                     </div>
                 </div>
@@ -1995,6 +2231,17 @@
             <span class="close-modal" onclick="closeVideoModal()"><ion-icon name="close-outline"></ion-icon></span>
             <div id="videoContainer" class="video-container">
                 <!-- Videos injected here via JS -->
+            </div>
+        </div>
+    <!-- Product Quick View Bottom Sheet / Popup Modal -->
+    <div id="productQuickViewModal" class="quickview-modal" onclick="if(event.target === this) closeProductQuickView()">
+        <div class="quickview-dialog">
+            <button class="quickview-close-btn" onclick="closeProductQuickView()" aria-label="Close Preview">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            <div class="quickview-swipe-handle"></div>
+            <div class="quickview-body" id="quickViewBody">
+                <!-- Dynamically populated via JS -->
             </div>
         </div>
     </div>

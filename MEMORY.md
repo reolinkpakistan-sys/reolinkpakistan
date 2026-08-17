@@ -36,6 +36,11 @@
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
       - **Real Product Visual Assets Applied:** Updated both blog visual assets (`guide-solar-vs-wired.webp` and `guide-pta-approved.webp`) using authentic product assets (`images/camera.png` for Reolink Go PT Plus with Solar Panel, `images/pta-approved.png` for official PTA stamp, and `images/complex_wifi_system.png` for traditional wired CCTV).
+      - **Mobile-First Admin Panel, Hero Slider Layout & Rain Effect Fixes (August 2026):**
+        - Admin Panel (`admin/index.php`) ko mukammal mobile-first banaya: dynamic mobile header with hamburger menu, slide-out drawer, touch-friendly sidebar links, aur horizontal scrollable data tables (`.table-responsive`).
+        - Hero Slider Mobile Layout Bug Fixed: `js/cms.js` ke andar dynamic hydration me floating tags ko `<div class="mobile-tags-row">` me wrap kiya aur camera visuals ko `.product-rain-mask` ke sath structured kiya.
+        - Mobile screens (`@media (max-width: 900px)`) par strict flex ordering ensure ki: Camera Product Image (`.main-cam` with `order: 1 !important;`) bilkul top par aati hai, aur tamam feature tags (`.mobile-tags-row` with `order: 2 !important;`) camera picture ke theek neeche neat 2-column grid me display hotay hain. Desktop 3D absolute positioning intact rakhi gayi with `.mobile-tags-row { display: contents; }`.
+        - **Hero Weatherproof Raining Canvas Effect Restored:** `initRain()` ko global `window.initRain` banaya gaya with dynamic parent boundary calculations, automatic teardown/re-binding, and hooked into both `showSlide()` in `js/script.js` and `renderHeroSlider()` in `js/cms.js` so rain particles flow continuously on the Reolink Go PT Plus visual on both mobile and desktop.
       - **Dashcam Category & Dedicated Landing Page Expansion (August 2026):**
     - Integrated the complete **JZONES V630 4K Triple-Channel Dash Camera** dedicated landing page directly from the user's Desktop folder (`JZONES V630 Dash Camera`).
     - Added `jzones-v630.html`, `css/jzones.css`, `js/jzones.js`, and all 25 high-resolution assets into `assets/jzones/`.
@@ -43,6 +48,7 @@
     - Removed extraneous top ribbon per user design request, perfectly aligning the 3D Hero product showcase under the sticky header.
     - Fixed Category JS syntax error so `/category/dashcams` loads and renders seamlessly.
     - Routed `/products/jzones-v630` and `/jzones-v630` in `router.php` and `.htaccess`.
+    - Hero Slide Interactive Navigation: JZONES 4K Dashcam slide par **Main Product Image** aur **Quick View** button dono ko click karne par directly JZONES dedicated landing page (`/products/jzones-v630` / `jzones-v630.html`) par redirect karwaya gaya with interactive cursor, glow, and hover animations.
     - Updated `cms_data.json`, `sitemap.xml`, and `llms.txt`.  - **SEO & AI Search Domination Master Plan Executed:**
         - Added programmatic local SEO landing pages for 6 major metropolitan regions (`/cities/lahore`, `/cities/karachi`, `/cities/islamabad-rawalpindi`, `/cities/multan`, `/cities/faisalabad`, `/cities/peshawar`).
         - Created high-intent authority blog guides (`/blog/cattle-farm-security`, `/blog/pta-approval-guide`, `/blog/solar-vs-wired-cctv`, `/blog/farm-tube-well-security`).
@@ -58,6 +64,11 @@
     * `index.html` me `HowTo` Rich Snippet Schema, `areaServed` cities list, hero image `fetchpriority="high"`, clickable city delivery pills, aur 4-card blog grid integrate kiye gaye.
     * Tamam 22 HTML pages 100% clean HTML validation aur 0 missing ALT tags ke sath verified hain.
   - HTML tag nesting error (`about-container` and `about` section unclosed div causing `testimonials` and `blog` to be nested incorrectly) ko fix kiya gaya.
+- **Live Deployment & CDN Cache Investigation (August 2026):**
+  - Remote FTP server par `index.html` file bilkul theek updated hai (line 603 par Customer Reviews section, aur line 521 par Videos Highlight section).
+  - Hostinger Edge CDN (`hcdn`) purana cached snapshot serve kar raha tha due to initial 3600s cache rule.
+  - `.htaccess` aur `index.php` deploy kar diya gaya with `no-cache, no-store, must-revalidate` taake origin server se dynamic response fetch ho.
+  - Query parameter bypass (`https://www.reolink.com.pk/?v=1`) aur direct `index.php` par instant updated layout verify kiya gaya.
   - `css/styles.min.css` ko rebuild kar ke desktop aur XAMPP directories me perfectly synchronize kar diya gaya.
   - Local PHP server ke liye `router.php` root path handling update ki gayi.
 - **Catalog Expansion & Smart Gadgets Support (June 2026 Upgrade):**
@@ -313,11 +324,37 @@
 
 
 
+- **Dual Flagship Hero Auto-Slider (Reolink Go PT Plus + JZONES V630 4K Dashcam) (August 17, 2026 Upgrade):**
+  - **Homepage Hero Overhaul (`index.html`):** Converted the static hero section into a dynamic, luxury dual-flagship auto-slider (`.reo-hero-slider-section`).
+    - **Slide 1:** Reolink Go PT Plus (4G LTE Solar Camera, 2K 4MP Super HD, PTA Approved, Rs 23,000, 3D visual, rain canvas, Order Now / Self Collect / Watch Video).
+    - **Slide 2:** JZONES V630 (3-Channel 4K Dashcam, Sony STARVIS 2 IMX675 sensor, 4K Front + Cabin IR + Rear 1080P, 415° Coverage, Rs 32,500 promo, Free 64GB Card, 24H Parking Mode, Order Now / WhatsApp Order / Quick View).
+  - **CSS Styling (`css/styles.css` & `css/styles.min.css`):** Added hardware-accelerated grid-stacked slide transitions (`opacity`, `transform: translateX()`, `scale`), staggered child animations, cyber-cyan/purple glow badges, stat-chips matrix, and responsive mobile padding.
+  - **JavaScript Engine (`js/script.js`):** Added `initHeroSlider()` with 4.5s auto-rotation timer, hover-to-pause on desktop, touch-to-pause and swipe gesture detection (`touchstart`/`touchend`) on mobile, and synchronized live progress pill indicators (`.tab-progress-fill`).
+
+- **Hero Slider Admin Panel Controls & Customizer Engine (August 17, 2026 Upgrade):**
+  - **Admin Dashboard Integration (`admin/index.php`):** Added a dedicated **"Hero Slider Manager"** (`#tab-hero-slider`) panel in the admin sidebar.
+    - **Sequence & Order Priority:** Added Move Up (▲) / Move Down (▼) buttons for 1-click re-ordering of slides (#1, #2, #3, etc.) so the admin can control which product appears first, second, etc.
+    - **Dynamic Transition Speed:** Configurable auto-switch duration input in seconds (e.g. 3.0s, 4.5s, 6.0s) + Pause on Hover/Touch toggle.
+    - **1-Click Catalog Importer:** "Add Product to Slider" form features a dropdown to instantly auto-populate all fields from any product in the store catalog (e.g. *Keen Ranger PT, Reolink Go PT Ultra, RLC-823A, JZONES V630*).
+    - **Full Content & Theme Customizer:** Allows editing and adding slides with custom themes (`Reolink Blue/Orange`, `JZONES Cyan`, `Purple Cyber`, `Emerald Green`), badges, bullet features, prices, CTA buttons, custom images (file upload/URL), and rain weatherproofing effect.
+    - **Visibility Toggles & Deletion:** Instant active/disabled status toggle and delete slide action.
+  - **Dynamic Frontend Sync (`js/cms.js` & `js/script.js`):** Added `renderHeroSlider(cmsData.hero_slider, data)` which dynamically renders all active slides, navigation pills, and countdown progress animations according to the configured order and timing in `cms_data.json`.
+
+- **Mobile-First Admin Panel Overhaul (`admin/index.php`) (August 17, 2026 Upgrade):**
+  - **Mobile Top Navbar & Drawer Toggle:** Added a sleek, glassmorphic top navigation bar on mobile viewports (`<= 992px`) with a hamburger menu button, centered brand title, and direct logout button.
+  - **Slide-out Sidebar Drawer:** Converted the sidebar into a hardware-accelerated drawer on mobile (`transform: translateX(-100%)` to `0` with cubic-bezier easing), backed by a dark frosted backdrop (`backdrop-filter: blur(8px)`) and a top close `(✕)` button.
+  - **Auto-Closing & Smooth Scrolling:** Tapping any tab in the mobile sidebar automatically closes the drawer, clears any active modals/camera feeds, and scrolls the main viewport to the top of the selected panel.
+  - **Touch-Optimized Responsive Tables:** All tables (Hero Slider, Gadgets Inventory, Reviews, Leads) wrapped in `.table-responsive` with momentum touch scrolling (`-webkit-overflow-scrolling: touch`) and custom cyan scrollbars so tables never cause viewport overflow on mobile.
+  - **Thumb-Friendly Forms & iOS Zoom Prevention:** Form inputs, textareas, and selects updated with minimum `16px` font size (preventing automatic iOS Safari zoom) and `44px+` touch targets; full-width stacked layouts on screens under `992px` and `480px`.
+
 ## Proposed Improvements & Suggestions
 1. **Video Size Optimization:**
    - Bare video files (jese `go_pt_plus_sample.mp4` jo ke 14MB+ hai) page speed ko slow kar sakti hain, khas tor par mobile networks par.
    - Suggestions: Videos ko WebM aur MP4 bitrates compress kia jaye, ya to lazy loading lagayi jaye jab user click kare tabhi load hon.
 2. **LocalBusiness Schema's `sameAs` Field:**
    - Schema markup me `"sameAs": []` khali hai. Isme social links (Facebook, Instagram, YouTube) enter hone chahiye local SEO authority behtar karne ke liye.
+
+
+
 
 

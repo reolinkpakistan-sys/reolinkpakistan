@@ -62,3 +62,6 @@ live_deploy*.py
 
 # XAMPP specific
 xampp/
+
+# Temp browser artifacts
+.chrome_tmp/

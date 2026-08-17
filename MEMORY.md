@@ -357,6 +357,23 @@
   - **Touch-Optimized Responsive Tables:** All tables (Hero Slider, Gadgets Inventory, Reviews, Leads) wrapped in `.table-responsive` with momentum touch scrolling (`-webkit-overflow-scrolling: touch`) and custom cyan scrollbars so tables never cause viewport overflow on mobile.
   - **Thumb-Friendly Forms & iOS Zoom Prevention:** Form inputs, textareas, and selects updated with minimum `16px` font size (preventing automatic iOS Safari zoom) and `44px+` touch targets; full-width stacked layouts on screens under `992px` and `480px`.
 
+- **Live Hero Slider Grid Stacking & Instagram Story Layout Fix (August 18, 2026 Upgrade):**
+  - **Hero Slider Stacking Resolved:**
+    - Live website par Reolink aur JZONES products ke ek doosre ke neeche aane ka issue fix kiya gaya.
+    - `.hero-slider-wrapper` aur `.hero-slide` par explicit single-cell grid layout (`grid-column: 1 / -1; grid-row: 1 / -1; width: 100%; display: grid; grid-template-columns: 100%; grid-template-rows: 1fr;`) enforce kiya taake kisi bhi browser/viewport ya slow network par dono slides kabhi vertical stack na hon.
+    - Slide transition animation (`opacity`, `transform: translateX()`, `scale`) optimize ki gayi.
+  - **Hero Slider JavaScript Timer & Event Fix:**
+    - `js/script.js` ke andar slider rotation timer ko global `window._heroSliderTimer` par migrate kiya gaya taake `js/cms.js` ke dynamic data fetch ke waqt duplicate conflicting timers na chalein.
+    - Event listeners ko `data-listeners-attached` check ke sath idempotent banaya gaya taake hover/touch handlers duplicate na hon.
+  - **Instagram-Style Stories Layout & Desktop Navigation Enhanced:**
+    - `#quick-explore` (.product-stories-section) ke andar `.stories-track` par `flex-direction: row !important; flex-wrap: nowrap !important; overflow-y: hidden;` ensure kiya gaya.
+    - Desktop screens ke liye sleek circular left/right navigation scroll buttons (`.stories-scroll-btn.prev-btn` & `.stories-scroll-btn.next-btn`) add kiye gaye with smooth `window.scrollStories(dir)` behavior.
+    - Product avatar rings, badges positioning, typography aur mobile touch scroll ko 100% polish kiya gaya.
+  - **Asset Versioning & Live Deployment:**
+    - CSS aur JS files ka cache-busting version `?v=131` bump kiya gaya (`styles.min.css?v=131`, `script.js?v=131`, `cms.js?v=131`).
+    - `css/styles.css`, `css/styles.min.css`, `index.html`, aur `js/script.js` ko Hostinger Live FTP Server (`147.93.78.148` -> `/public_html/`) par upload kar ke live verify kar liya gaya.
+    - Changes ko Git repository `main` branch par commit aur push kar diya gaya.
+
 ## Proposed Improvements & Suggestions
 1. **Video Size Optimization:**
    - Bare video files (jese `go_pt_plus_sample.mp4` jo ke 14MB+ hai) page speed ko slow kar sakti hain, khas tor par mobile networks par.

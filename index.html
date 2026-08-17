@@ -82,7 +82,7 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
     <!-- Preconnect to ionicons CDN (loaded at body bottom) -->
     <link rel="preconnect" href="https://unpkg.com">
-    <link rel="stylesheet" href="css/styles.min.css?v=130">
+    <link rel="stylesheet" href="css/styles.min.css?v=131">
 
     <!-- Structured Data: Product Schema -->
     <script type="application/ld+json">
@@ -613,6 +613,9 @@
                     <span class="stories-hint"><ion-icon name="finger-print-outline"></ion-icon> Tap for Instant Details</span>
                 </div>
                 <div class="stories-scroll-wrapper">
+                    <button type="button" class="stories-scroll-btn prev-btn" onclick="scrollStories(-1)" aria-label="Scroll Products Left">
+                        <ion-icon name="chevron-back-outline"></ion-icon>
+                    </button>
                     <div class="stories-track">
                         <!-- JZONES V630 4K Dashcam -->
                         <div class="story-item" onclick="openProductQuickView('jzones-v630')">
@@ -722,6 +725,9 @@
                             <span class="story-price">Rs 30,000</span>
                         </div>
                     </div>
+                    <button type="button" class="stories-scroll-btn next-btn" onclick="scrollStories(1)" aria-label="Scroll Products Right">
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                    </button>
                 </div>
             </div>
         </section>
@@ -2246,12 +2252,12 @@
         </div>
     </div>
 
-    <script src="js/script.js?v=130" defer></script>
-    <script src="js/cms.js?v=130" defer></script>
+    <script src="js/script.js?v=131" defer></script>
+    <script src="js/cms.js?v=131" defer></script>
     <!-- Ionicons loaded last — non-blocking icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="js/conversion.js?v=130"></script>
+    <script src="js/conversion.js?v=131"></script>
 </body>
 
 </html>

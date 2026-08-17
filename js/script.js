@@ -707,16 +707,15 @@ function initHeroSlider(customDuration) {
     const tabs = sliderSection.querySelectorAll('.hero-pill-tab');
     if (slides.length <= 1) return;
 
-    // Clear previous timer if re-initialized
+    // Clear previous global timer if re-initialized
     if (window._heroSliderTimer) {
         clearTimeout(window._heroSliderTimer);
         window._heroSliderTimer = null;
     }
 
     let currentIndex = 0;
-    let autoSlideTimer = null;
     let isPaused = false;
-    const slideDuration = customDuration || (window.cmsData && window.cmsData.hero_slider && window.cmsData.hero_slider.interval_seconds ? window.cmsData.hero_slider.interval_seconds * 1000 : 4500);
+    const slideDuration = customDuration || (window.cmsData && window.cmsData.hero_slider && window.cmsData.hero_slider.interval_seconds ? window.cmsData.hero_slider.interval_seconds * 1000 : 4000);
 
     function resetProgressBars() {
         tabs.forEach(tab => {
@@ -778,16 +777,16 @@ function initHeroSlider(customDuration) {
     function startTimer() {
         stopTimer();
         if (!isPaused) {
-            autoSlideTimer = setTimeout(() => {
+            window._heroSliderTimer = setTimeout(() => {
                 nextSlide();
             }, slideDuration);
         }
     }
 
     function stopTimer() {
-        if (autoSlideTimer) {
-            clearTimeout(autoSlideTimer);
-            autoSlideTimer = null;
+        if (window._heroSliderTimer) {
+            clearTimeout(window._heroSliderTimer);
+            window._heroSliderTimer = null;
         }
     }
 
@@ -806,58 +805,72 @@ function initHeroSlider(customDuration) {
         else prevSlide();
     };
 
-    // Pause on Hover (Desktop)
-    sliderSection.addEventListener('mouseenter', () => {
-        isPaused = true;
-        sliderSection.classList.add('is-paused');
-        stopTimer();
-    });
+    // Attach interaction listeners once
+    if (!sliderSection.dataset.listenersAttached) {
+        sliderSection.dataset.listenersAttached = "true";
 
-    sliderSection.addEventListener('mouseleave', () => {
-        isPaused = false;
-        sliderSection.classList.remove('is-paused');
-        startTimer();
-    });
+        // Pause on Hover (Desktop)
+        sliderSection.addEventListener('mouseenter', () => {
+            isPaused = true;
+            sliderSection.classList.add('is-paused');
+            stopTimer();
+        });
 
-    // Touch Swipe Gestures (Mobile)
-    let touchStartX = 0;
-    let touchStartY = 0;
+        sliderSection.addEventListener('mouseleave', () => {
+            isPaused = false;
+            sliderSection.classList.remove('is-paused');
+            startTimer();
+        });
 
-    sliderSection.addEventListener('touchstart', (e) => {
-        isPaused = true;
-        sliderSection.classList.add('is-paused');
-        stopTimer();
-        if (e.changedTouches && e.changedTouches.length > 0) {
-            touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
-        }
-    }, { passive: true });
+        // Touch Swipe Gestures (Mobile)
+        let touchStartX = 0;
+        let touchStartY = 0;
 
-    sliderSection.addEventListener('touchend', (e) => {
-        if (e.changedTouches && e.changedTouches.length > 0) {
-            const touchEndX = e.changedTouches[0].screenX;
-            const touchEndY = e.changedTouches[0].screenY;
-            const diffX = touchEndX - touchStartX;
-            const diffY = touchEndY - touchStartY;
+        sliderSection.addEventListener('touchstart', (e) => {
+            isPaused = true;
+            sliderSection.classList.add('is-paused');
+            stopTimer();
+            if (e.changedTouches && e.changedTouches.length > 0) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }
+        }, { passive: true });
 
-            // Horizontal swipe dominance check
-            if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
-                if (diffX < 0) {
-                    nextSlide(); // Swipe Left -> Next
-                } else {
-                    prevSlide(); // Swipe Right -> Prev
+        sliderSection.addEventListener('touchend', (e) => {
+            if (e.changedTouches && e.changedTouches.length > 0) {
+                const touchEndX = e.changedTouches[0].screenX;
+                const touchEndY = e.changedTouches[0].screenY;
+                const diffX = touchEndX - touchStartX;
+                const diffY = touchEndY - touchStartY;
+
+                // Horizontal swipe dominance check
+                if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+                    if (diffX < 0) {
+                        nextSlide(); // Swipe Left -> Next
+                    } else {
+                        prevSlide(); // Swipe Right -> Prev
+                    }
                 }
             }
-        }
 
-        isPaused = false;
-        sliderSection.classList.remove('is-paused');
-        startTimer();
-    }, { passive: true });
+            isPaused = false;
+            sliderSection.classList.remove('is-paused');
+            startTimer();
+        }, { passive: true });
+    }
 
     // Initial trigger
     startProgress(0);
     startTimer();
 }
+
+// Global Helper for Product Stories Horizontal Navigation
+window.scrollStories = function(direction) {
+    const track = document.querySelector('.stories-track');
+    if (track) {
+        const scrollAmount = direction > 0 ? 320 : -320;
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+};
 
 

@@ -2218,6 +2218,7 @@ if (isset($_GET['status'])) {
                             <h3><ion-icon name="create"></ion-icon> Edit Gadget Details</h3>
                         </div>
                         <form method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>">
                             <input type="hidden" name="gadget_index" id="editIndex">
                             <div class="form-row">
                                 <div class="form-group">
@@ -2397,6 +2398,7 @@ if (isset($_GET['status'])) {
                         <h3><ion-icon name="add-circle"></ion-icon> Add New Smart Tech Product</h3>
                     </div>
                     <form method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>">
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Product Name</label>
@@ -2718,7 +2720,7 @@ if (isset($_GET['status'])) {
                         <h3><ion-icon name="star"></ion-icon> Customer Reviews</h3>
                     </div>
                     <form method="post" class="admin-form">
-                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>">
                         <h4 style="margin-bottom: 15px; color: #94a3b8;">Add New Review</h4>
                         <div class="form-row">
                             <div class="form-group">
@@ -2758,7 +2760,7 @@ if (isset($_GET['status'])) {
                                     <td><?= htmlspecialchars(mb_strimwidth($r['text'] ?? '', 0, 60, '…')) ?></td>
                                     <td>
                                         <form method="post" style="display:inline">
-                                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
+                                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>">
                                             <input type="hidden" name="review_index" value="<?= $i ?>">
                                             <button type="submit" name="delete_review" class="action-icon-btn delete" onclick="return confirm('Delete this review?')">
                                                 <ion-icon name="trash-outline"></ion-icon>

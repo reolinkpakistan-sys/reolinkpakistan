@@ -104,6 +104,16 @@
     - Hero banner with neon-blue accent glow headings aur SEO-ready meta tags
     - Responsive product cards grid with hover animations, badge ribbons, feature bullet lists
     - WhatsApp direct order buttons on each product card
+    - **JZONES Dashcam Hero Main Image Clickable Navigation:**
+      - Hero image of JZONES V630 wrapped in `<a href="/products/jzones-v630" class="jzones-product-mask">` with quick view button linking to `/products/jzones-v630`.
+      - Added modern interactive hover glow, scale transition, and pointer cursor in `css/styles.css` and `css/styles.min.css`.
+      - Live FTP deployment executed via `deploy_all.py` (243/243 files uploaded to live web root `/public_html/` on Hostinger `147.93.78.148` under user `u233785535.reolink.com.pk`).
+      - Git repository fully synced and pushed to GitHub main (`691e12f`).
+    - **Admin Panel CSRF Token Fix (August 2026):**
+      - Resolved "Invalid security token. Please refresh the page and try again." error occurring when saving product prices or details in `admin/index.php`.
+      - Cause: `Edit Gadget Details` (`#editBlock`) and `Add New Smart Tech Product` forms in `admin/index.php` were missing the hidden `<input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generateCsrfToken()) ?>">`.
+      - Injected CSRF tokens into all forms and updated reviews form to use `generateCsrfToken()`.
+      - Verified locally and deployed fixed `admin/index.php` to live server `/public_html/admin/index.php`.
     - "View Details" button linking to individual product pages
     - Empty state aur loading state UI included
   - `js/category.js` — dynamic category controller jo URL se `type` parameter read karta hai, `cms_data.json` fetch kar ke category-filtered products render karta hai.

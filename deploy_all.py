@@ -9,7 +9,7 @@ FTP_PASS = os.environ.get("FTP_PASS", "")
 FTP_PORT = int(os.environ.get("FTP_PORT", "21"))
 
 LOCAL_ROOT = "/Users/MAC/Desktop/reolinkpakistan"
-REMOTE_ROOT = "/public_html"
+REMOTE_ROOT = "public_html"
 
 def get_ftp_connection():
     ftp = ftplib.FTP()
@@ -19,10 +19,10 @@ def get_ftp_connection():
     return ftp
 
 def ensure_remote_dir(ftp, remote_dir):
-    if not remote_dir or remote_dir == '/' or remote_dir == REMOTE_ROOT:
-        return
-    parts = [p for p in remote_dir.split('/') if p]
     ftp.cwd('/')
+    if not remote_dir or remote_dir in ['/', '.', '']:
+        return
+    parts = [p for p in remote_dir.replace('\\', '/').split('/') if p]
     for part in parts:
         try:
             ftp.cwd(part)

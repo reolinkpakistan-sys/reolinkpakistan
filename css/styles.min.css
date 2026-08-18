@@ -300,6 +300,7 @@ p { font-size: 19px; color: var(--text-secondary); font-weight: 400; margin-bott
     grid-template-areas: "slide";
     align-items: center;
     overflow: hidden;
+    contain: layout paint;
 }
 
 .hero-slide {
@@ -309,61 +310,65 @@ p { font-size: 19px; color: var(--text-secondary); font-weight: 400; margin-bott
     width: 100%;
     opacity: 0;
     visibility: hidden;
-    transform: translateX(40px) scale(0.98);
-    transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-                visibility 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translate3d(100%, 0, 0);
+    transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1),
+                opacity 0.55s ease,
+                visibility 0.65s ease;
     pointer-events: none;
     z-index: 1;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform, opacity;
 }
 
+/* Active Slide in Center */
 .hero-slide.active {
     opacity: 1;
     visibility: visible;
-    transform: translateX(0) scale(1);
+    transform: translate3d(0, 0, 0);
     pointer-events: auto;
     z-index: 2;
     position: relative;
 }
 
+/* Slide Exiting to Left (Forward / Next Swipe) */
+.hero-slide.slide-out-left,
 .hero-slide.prev-slide {
-    transform: translateX(-40px) scale(0.98);
+    transform: translate3d(-100%, 0, 0);
     opacity: 0;
     visibility: hidden;
     z-index: 1;
+    pointer-events: none;
+    transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1),
+                opacity 0.55s ease,
+                visibility 0.65s ease;
 }
 
-/* Staggered entry animation on active slide child elements */
-.hero-slide.active .badge-group {
-    animation: heroSlideFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-.hero-slide.active .hero-title-glow {
-    animation: heroSlideFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
-}
-.hero-slide.active .hero-subtitle {
-    animation: heroSlideFadeIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
-}
-.hero-slide.active .hero-feature-list,
-.hero-slide.active .hero-stat-chips-row {
-    animation: heroSlideFadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
-}
-.hero-slide.active .promo-price-block {
-    animation: heroSlideFadeIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
-}
-.hero-slide.active .hero-actions {
-    animation: heroSlideFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
-}
-.hero-slide.active .hero-visual {
-    animation: heroSlideVisualIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+/* Slide Exiting to Right (Backward / Prev Swipe) */
+.hero-slide.slide-out-right {
+    transform: translate3d(100%, 0, 0);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1;
+    pointer-events: none;
+    transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1),
+                opacity 0.55s ease,
+                visibility 0.65s ease;
 }
 
-@keyframes heroSlideFadeIn {
-    0% { opacity: 0; transform: translateY(14px); }
-    100% { opacity: 1; transform: translateY(0); }
+/* Instant Offscreen Positioning Classes (No Transition Lag) */
+.hero-slide.slide-from-right {
+    transform: translate3d(100%, 0, 0) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: none !important;
 }
-@keyframes heroSlideVisualIn {
-    0% { opacity: 0; transform: scale(0.92); }
-    100% { opacity: 1; transform: scale(1); }
+
+.hero-slide.slide-from-left {
+    transform: translate3d(-100%, 0, 0) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: none !important;
 }
 
 /* Jzones Specific Gradient & Glows */

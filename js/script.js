@@ -906,22 +906,71 @@ function initHeroSlider(customDuration) {
         }
     }
 
-    function showSlide(index) {
+    function showSlide(index, direction) {
+        if (index === currentIndex && slides[index].classList.contains('active')) return;
         if (index < 0) index = slides.length - 1;
         if (index >= slides.length) index = 0;
 
+        // Determine if movement is forward (swipe left / next) or backward (swipe right / prev)
+        let isForward = true;
+        if (direction === 'prev') {
+            isForward = false;
+        } else if (direction === 'next') {
+            isForward = true;
+        } else {
+            // Clicked on tab pill or direct index jump
+            if (index < currentIndex) {
+                isForward = (currentIndex === slides.length - 1 && index === 0);
+            } else {
+                isForward = !(currentIndex === 0 && index === slides.length - 1);
+            }
+        }
+
+        const outgoingSlide = slides[currentIndex];
+        const incomingSlide = slides[index];
+
+        // Clean up classes on other inactive slides
         slides.forEach((slide, i) => {
-            slide.classList.remove('active', 'prev-slide');
-            if (i === currentIndex && i !== index) {
-                slide.classList.add('prev-slide');
+            if (i !== currentIndex && i !== index) {
+                slide.classList.remove('active', 'slide-out-left', 'slide-out-right', 'slide-from-right', 'slide-from-left', 'prev-slide');
             }
         });
+
+        // 1. Move outgoing slide away smoothly
+        if (outgoingSlide && outgoingSlide !== incomingSlide) {
+            outgoingSlide.classList.remove('active', 'slide-from-right', 'slide-from-left');
+            if (isForward) {
+                outgoingSlide.classList.remove('slide-out-right');
+                outgoingSlide.classList.add('slide-out-left');
+            } else {
+                outgoingSlide.classList.remove('slide-out-left');
+                outgoingSlide.classList.add('slide-out-right');
+            }
+        }
+
+        // 2. Position incoming slide offscreen before transition, then activate
+        if (incomingSlide) {
+            incomingSlide.classList.remove('active', 'slide-out-left', 'slide-out-right', 'prev-slide');
+            if (isForward) {
+                incomingSlide.classList.remove('slide-from-left');
+                incomingSlide.classList.add('slide-from-right');
+            } else {
+                incomingSlide.classList.remove('slide-from-right');
+                incomingSlide.classList.add('slide-from-left');
+            }
+
+            // Force reflow so starting offscreen position is committed instantly
+            void incomingSlide.offsetWidth;
+
+            // Trigger smooth slide into center view
+            incomingSlide.classList.remove('slide-from-right', 'slide-from-left');
+            incomingSlide.classList.add('active');
+        }
 
         tabs.forEach((tab, i) => {
             tab.classList.toggle('active', i === index);
         });
 
-        slides[index].classList.add('active');
         currentIndex = index;
 
         startProgress(currentIndex);
@@ -933,11 +982,11 @@ function initHeroSlider(customDuration) {
     }
 
     function nextSlide() {
-        showSlide(currentIndex + 1);
+        showSlide(currentIndex + 1, 'next');
     }
 
     function prevSlide() {
-        showSlide(currentIndex - 1);
+        showSlide(currentIndex - 1, 'prev');
     }
 
     function startTimer() {

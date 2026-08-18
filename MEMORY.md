@@ -35,6 +35,16 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **Hero Slider Smooth Right-to-Left Swipe Conversion (August 2026 - v136):**
+  - **User Feedback & Problem:**
+    - User noticed a visual jitter / vibration during the hero flagship product switch animation (between Reolink Go PT Plus and JZONES V630 4K Dashcam) and requested converting it to a buttery smooth, right-to-left horizontal swipe transition.
+  - **Root Cause Identified:**
+    - The previous implementation used simultaneous multi-axis transforms: parent container `translateX(40px) scale(0.98)` while 7 child elements executed staggered `translateY(14px)` keyframes (`heroSlideFadeIn`) and `.hero-visual` scaled up (`scale(0.92)` via `heroSlideVisualIn`). This combination caused subpixel rendering flutter and visual vibration on modern browsers.
+  - **Solution & Implementation:**
+    - Removed all jittery staggered child-element animations (`heroSlideFadeIn`, `heroSlideVisualIn`, multi-axis translations).
+    - Upgraded `.hero-slide` to a pure hardware-accelerated 3D transform (`translate3d(100%, 0, 0)` -> `translate3d(0, 0, 0)` -> `translate3d(-100%, 0, 0)`) with `cubic-bezier(0.25, 1, 0.5, 1)` easing and `backface-visibility: hidden; will-change: transform, opacity; contain: layout paint;`.
+    - Added directional classes (`.slide-out-left`, `.slide-out-right`, `.slide-from-right`, `.slide-from-left`) and refactored `showSlide(index, direction)` in `js/script.js` to support forward/backward navigation, auto-rotation, and mobile touch swipe gestures seamlessly.
+    - Synchronized `css/styles.min.css` and bumped asset version query string to `?v=136` across `index.html`, `go-pt-plus.html`, `category.html`, and `product-details.html`.
 - **Meezan Bank Details & Modal Close Universal Fix (August 2026 - v135):**
   - **Meezan Bank Account Integration:**
     - User provided official bank details for S M Enterprises:

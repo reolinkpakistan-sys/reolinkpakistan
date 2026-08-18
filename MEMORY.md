@@ -382,12 +382,28 @@
     - Synchronized `css/styles.css` and `css/styles.min.css`.
     - Uploaded to Hostinger Live FTP server (`/public_html/`) and pushed to Git (`main`).
 
+- **Hero Slider & Store Order Now Buttons & Modal Triggers Global Delegation Fix (August 19, 2026 - v134):**
+  - **Problem Solved:**
+    * Hero Slider dynamic re-rendering (`js/cms.js` `wrapper.innerHTML = slidesHtml`) ki wajah se initial DOM event listeners detach ho jate the, jis se Slide 1 (Reolink Go PT Plus) aur Slide 2 (JZONES V630 4K Dashcam) ke "Order Now" buttons par click karne par order modal nahi khulta tha.
+    * Store grid / Gadgets ke dynamic cards aur related products ke order triggers bhi kabhi کبھار listener loss ka shikar hote the.
+  - **Fix Implemented:**
+    * **Global Document Event Delegation:** `js/script.js` me pure document level par click delegation lagayi gayi jo `.btn-order-trigger`, `.btn-order-modal`, `.jzones-btn-cta`, aur `.btn-cms-order-now` ko dynamically catch karti hai chahay DOM jitni baar bhi re-render ho.
+    * **Dynamic Product Order Modal:** `window.openOrderModal(customProduct)` function banaya gaya jo custom product (e.g. JZONES V630 Dashcam @ Rs 32,500 ya Store Gadgets) pass hone par automatically solar options ko hide karta hai aur invoice calculations (Rs 2,000 Advance, 4% COD Tax, Payable on Delivery) update kar ke `#orderModal` pop up karta hai.
+    * **JZONES CTA Hook:** Slide 2 ke primary button ko `href="#"` aur `class="btn-reo-primary jzones-btn-cta btn-order-trigger"` ke sath update kiya gaya taake instant modal open ho.
+    * **Product Details & Related Items:** `js/product-details.js` me `window.currentPageProduct` store kiya gaya aur related items ke order buttons ko global `window.openOrderModal(relProd)` se connect kiya gaya.
+    * **Fallback Pricing Sync:** `go-pt-plus.html` ke fallback pricing ko 23k/21k se badal kar standard 25k/23k kar diya gaya.
+  - **Live Deployment & Git Sync:**
+    * Cache version `?v=134` bump kiya gaya across `index.html`.
+    * Hostinger live FTP server (`147.93.78.148` -> `/public_html/`) par tamam modified files upload kar di gayin.
+    * Git commit `fe3b1e8` GitHub `main` branch par successfully push kar diya gaya.
+
 ## Proposed Improvements & Suggestions
 1. **Video Size Optimization:**
    - Bare video files (jese `go_pt_plus_sample.mp4` jo ke 14MB+ hai) page speed ko slow kar sakti hain, khas tor par mobile networks par.
    - Suggestions: Videos ko WebM aur MP4 bitrates compress kia jaye, ya to lazy loading lagayi jaye jab user click kare tabhi load hon.
 2. **LocalBusiness Schema's `sameAs` Field:**
    - Schema markup me `"sameAs": []` khali hai. Isme social links (Facebook, Instagram, YouTube) enter hone chahiye local SEO authority behtar karne ke liye.
+
 
 
 

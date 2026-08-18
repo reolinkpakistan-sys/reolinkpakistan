@@ -16,7 +16,7 @@ $dataPath = __DIR__ . '/../cms_data.json';
 // Initialize default data if file is missing
 if (!file_exists($dataPath)) {
     $defaultData = [
-        "prices" => ["solar" => 23000, "no_solar" => 21000],
+        "prices" => ["solar" => 25000, "no_solar" => 23000],
         "contact" => [
             "phone" => "0320-6755555",
             "whatsapp" => "0320-6755555",
@@ -562,8 +562,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['login'])) {
     
     // Save general settings & prices
     if (isset($_POST['save_settings'])) {
-        $cmsData['prices']['solar'] = intval($_POST['price_solar'] ?? 23000);
-        $cmsData['prices']['no_solar'] = intval($_POST['price_no_solar'] ?? 21000);
+        $cmsData['prices']['solar'] = intval($_POST['price_solar'] ?? 25000);
+        $cmsData['prices']['no_solar'] = intval($_POST['price_no_solar'] ?? 23000);
         
         $cmsData['contact']['phone'] = trim($_POST['phone'] ?? '');
         $cmsData['contact']['whatsapp'] = trim($_POST['whatsapp'] ?? '');

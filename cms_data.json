@@ -24,7 +24,7 @@
                 "enabled": true,
                 "theme": "reolink",
                 "pill_title": "Reolink 4G Solar",
-                "pill_subtitle": "Off-Grid CCTV \u2022 Rs 23,000",
+                "pill_subtitle": "Off-Grid CCTV \u2022 Rs 25,000",
                 "pill_icon": "sunny-outline",
                 "badges": [
                     {
@@ -53,8 +53,8 @@
                 ],
                 "stat_chips": [],
                 "orig_price": 35000,
-                "curr_price": 23000,
-                "save_text": "Save 35%",
+                "curr_price": 25000,
+                "save_text": "Save 28%",
                 "primary_btn_text": "Order Now",
                 "primary_btn_link": "#",
                 "primary_btn_class": "btn-reo-primary btn-order-trigger",
@@ -517,7 +517,7 @@
             "homepage": true,
             "desc": "Official PTA Approved 4K 8MP Smart Wire-Free 4G LTE Cellular Trail Camera with invisible 940nm no-glow IR LEDs, 360\u00b0 pan\/tilt view, animal species recognition, and continuous solar power.",
             "orig_price": 55000,
-            "curr_price": 40000,
+            "curr_price": 45000,
             "warranty": "1-Month Warranty",
             "tag": "4K Trail Camera",
             "image_type": "url",

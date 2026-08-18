@@ -35,7 +35,26 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
-- **Master Website Optimization & Conversion Polish (August 2026 - v133):**
+- **Meezan Bank Details & Modal Close Universal Fix (August 2026 - v135):**
+  - **Meezan Bank Account Integration:**
+    - User provided official bank details for S M Enterprises:
+      * **Bank:** `Meezan Bank`
+      * **Account Title:** `S M Enterprises`
+      * **Branch Code:** `0503`
+      * **Account Number:** `05030103070124`
+    - Added high-priority Meezan Bank card to `.account-details` across:
+      1. `index.html` (`#orderModal` and `#selfCollectModal`)
+      2. `go-pt-plus.html` (`#orderModal`)
+      3. `category.html` (`#orderModal`)
+      4. `product-details.html` (`#orderModal`)
+      5. `llms.txt` (AI crawler directory payment methods updated)
+  - **Universal Modal Close Cross Button Fix:**
+    - Diagnosed and fixed the issue where clicking the top-right cross (`&times;`) on `#selfCollectModal` on laptops/desktops was not closing the modal.
+    - Root cause: In `js/script.js`, `if (e.target.closest('.close-modal'))` was checked before specific modal classes, causing `.close-self-collect` to execute `window.closeOrderModal()` instead.
+    - Solution: Refactored close event delegation to universally find parent `.reo-modal` or `.quickview-modal`, remove `.show`, and trigger appropriate close routines. Added Escape key dismiss listener.
+    - Upgraded `.close-modal` in `css/styles.css` and `css/styles.min.css` with 38x38px circular glassmorphic touch/click target, flex centering, high z-index (50), and smooth hover states.
+    - Redesigned `.account-details` with modern responsive horizontal badge cards for Meezan Bank, JazzCash, and EasyPaisa/Raast.
+  - **Master Website Optimization & Conversion Polish (August 2026 - v133):**
   - **City Landing Pages Asset Path Fix:** Fixed all 6 city pages (`cities/lahore.html`, `cities/karachi.html`, `cities/islamabad-rawalpindi.html`, `cities/multan.html`, `cities/faisalabad.html`, `cities/peshawar.html`) by updating relative image paths `images/camera.webp` and `images/favicon-32.png` to root-relative paths `/images/...`, completely eliminating 404 image errors on sub-routes.
   - **Order Modal CRO & Friction Reduction:**
     * Integrated **Quick City Selector Chips** (`[Lahore] [Karachi] [Islamabad] [Rawalpindi] [Multan] [Faisalabad] [Peshawar] [Sialkot] [Gujranwala]`) inside `#orderModal` allowing 1-click address population and reducing checkout friction.

@@ -274,22 +274,24 @@ function initApp() {
             return;
         }
 
-        // 6. Close Modal Buttons
-        if (e.target.closest('.close-modal') || e.target.closest('.close-order-modal')) {
-            window.closeOrderModal();
-            return;
-        }
-        if (e.target.closest('.close-self-collect')) {
-            window.closeSelfCollectModal();
-            return;
-        }
-        if (e.target.closest('.close-selection')) {
-            if (actionSelectionModal) actionSelectionModal.classList.remove('show');
-            document.body.style.overflow = 'auto';
-            return;
-        }
-        if (e.target.closest('.close-seller-contact')) {
-            if (sellerContactModal) sellerContactModal.classList.remove('show');
+        // 6. Close Modal Buttons (Universal close handler)
+        const closeBtn = e.target.closest('.close-modal, .close-order-modal, .close-self-collect, .close-selection, .close-seller-contact, .quickview-close-btn');
+        if (closeBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            const parentModal = closeBtn.closest('.reo-modal, .quickview-modal');
+            if (parentModal) {
+                parentModal.classList.remove('show');
+            }
+            if (closeBtn.classList.contains('close-self-collect') || (selfCollectModal && parentModal === selfCollectModal)) {
+                window.closeSelfCollectModal();
+            } else if (closeBtn.classList.contains('close-selection') || (actionSelectionModal && parentModal === actionSelectionModal)) {
+                if (actionSelectionModal) actionSelectionModal.classList.remove('show');
+            } else if (closeBtn.classList.contains('close-seller-contact') || (sellerContactModal && parentModal === sellerContactModal)) {
+                if (sellerContactModal) sellerContactModal.classList.remove('show');
+            } else {
+                window.closeOrderModal();
+            }
             document.body.style.overflow = 'auto';
             return;
         }
@@ -303,6 +305,15 @@ function initApp() {
         }
         if (sellerContactModal && e.target === sellerContactModal) {
             sellerContactModal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // Escape key modal dismiss
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' || e.keyCode === 27) {
+            const activeModals = document.querySelectorAll('.reo-modal.show, .quickview-modal.show');
+            activeModals.forEach(m => m.classList.remove('show'));
             document.body.style.overflow = 'auto';
         }
     });

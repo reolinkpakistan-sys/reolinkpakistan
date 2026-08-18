@@ -526,13 +526,13 @@ p { font-size: 19px; color: var(--text-secondary); font-weight: 400; margin-bott
     box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
 }
 
-/* Jzones Floating Spec Tags */
-.jz-1 { top: 6%; right: -85px; animation: floatBadge 4.2s ease-in-out infinite alternate; border-color: rgba(0, 243, 255, 0.4); color: #00f3ff; }
-.jz-2 { top: 28%; left: -100px; animation: floatBadge 5.2s ease-in-out infinite alternate-reverse; border-color: rgba(168, 85, 247, 0.4); color: #c084fc; }
-.jz-3 { bottom: 20%; left: -105px; animation: floatBadge 6.2s ease-in-out infinite alternate; border-color: rgba(47, 101, 246, 0.4); color: #60a5fa; }
-.jz-4 { bottom: 5%; right: -75px; animation: floatBadge 4.8s ease-in-out infinite alternate-reverse; border-color: rgba(255, 107, 0, 0.4); color: #fb923c; }
-.jz-5 { top: 8%; left: -100px; animation: floatBadge 5.7s ease-in-out infinite alternate; border-color: rgba(0, 243, 255, 0.4); color: #38bdf8; }
-.jz-6 { top: 48%; right: -95px; animation: floatBadge 3.8s ease-in-out infinite alternate-reverse; border-color: rgba(37, 211, 102, 0.4); color: #4ade80; }
+/* Jzones Floating Spec Tags — Snug Surrounding Alignment */
+.jz-1 { top: 10%; right: 6%; animation: floatBadge 4.2s ease-in-out infinite alternate; border-color: rgba(0, 243, 255, 0.4); color: #00f3ff; }
+.jz-2 { top: 44%; left: 2%; animation: floatBadge 5.2s ease-in-out infinite alternate-reverse; border-color: rgba(168, 85, 247, 0.4); color: #c084fc; }
+.jz-3 { bottom: 10%; left: 12%; animation: floatBadge 6.2s ease-in-out infinite alternate; border-color: rgba(47, 101, 246, 0.4); color: #60a5fa; }
+.jz-4 { bottom: 10%; right: 12%; animation: floatBadge 4.8s ease-in-out infinite alternate-reverse; border-color: rgba(255, 107, 0, 0.4); color: #fb923c; }
+.jz-5 { top: 10%; left: 6%; animation: floatBadge 5.7s ease-in-out infinite alternate; border-color: rgba(0, 243, 255, 0.4); color: #38bdf8; }
+.jz-6 { top: 44%; right: 2%; animation: floatBadge 3.8s ease-in-out infinite alternate-reverse; border-color: rgba(37, 211, 102, 0.4); color: #4ade80; }
 
 /* Slider Navigation & Progress Pills */
 .hero-slider-controls {
@@ -772,42 +772,49 @@ p { font-size: 19px; color: var(--text-secondary); font-weight: 400; margin-bott
     position: absolute;
     display: inline-flex; 
     align-items: center; 
-    gap: 4px; 
-    padding: 4px 8px; 
-    background: rgba(11, 15, 25, 0.85); 
-    border: 1px solid rgba(0, 243, 255, 0.3); 
+    gap: 5px; 
+    padding: 5px 10px; 
+    background: rgba(11, 15, 25, 0.88); 
+    border: 1px solid rgba(0, 243, 255, 0.35); 
     border-radius: 999px; 
-    color: #e2e8f0; 
-    font-size: 10px; 
-    font-weight: 600; 
-    backdrop-filter: blur(6px); 
-    -webkit-backdrop-filter: blur(6px);
-    box-shadow: 0 4px 15px rgba(0, 243, 255, 0.15); 
+    color: #f1f5f9; 
+    font-size: 11px; 
+    font-weight: 700; 
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), 0 0 12px rgba(0, 243, 255, 0.2); 
     z-index: 20; 
     white-space: nowrap; 
     transform-style: preserve-3d; 
+    transition: transform 0.2s ease, border-color 0.2s ease;
 }
 /* Float tags are converted to inline pills on mobile via responsive section */
 .float-tag ion-icon { font-size: 14px; color: var(--brand-blue); filter: drop-shadow(0 0 8px rgba(47, 101, 246, 0.6)); }
-.float-tag svg { width: 12px; height: 12px; fill: #00f3ff; }
+.float-tag svg { width: 13px; height: 13px; fill: #00f3ff; }
 
-.ft-1 { top: 5%; right: -90px; animation: floatBadge 4s ease-in-out infinite alternate; border-color: rgba(47, 101, 246, 0.3); }
-.ft-2 { top: 30%; left: -100px; animation: floatBadge 5s ease-in-out infinite alternate-reverse; color: #25d366; border-color: rgba(37, 211, 102, 0.3); transform: rotate(-5deg) translateZ(60px); }
+/* Reolink Floating Spec Tags — Snug Surrounding Alignment */
+.ft-1 { top: 10%; right: 6%; animation: floatBadge 4s ease-in-out infinite alternate; border-color: rgba(47, 101, 246, 0.4); }
+.ft-1 ion-icon, .ft-1 svg { color: var(--brand-blue); fill: var(--brand-blue); filter: drop-shadow(0 0 8px rgba(47, 101, 246, 0.6)); }
+
+.ft-2 { top: 44%; left: 2%; animation: floatBadge 5s ease-in-out infinite alternate-reverse; color: #25d366; border-color: rgba(37, 211, 102, 0.4); }
 .ft-2 ion-icon, .ft-2 svg { color: #25d366; fill: #25d366; filter: drop-shadow(0 0 8px rgba(37, 211, 102, 0.6)); }
 .ft-2 span { color: #fff; }
-.ft-3 { bottom: 18%; left: -110px; animation: floatBadge 6s ease-in-out infinite alternate; }
-.ft-3 ion-icon, .ft-3 svg { color: var(--brand-orange); fill: var(--brand-orange); filter: drop-shadow(0 0 8px rgba(255, 107, 0, 0.6)); }
-.ft-4 { bottom: 3%; right: -70px; animation: floatBadge 4.5s ease-in-out infinite alternate-reverse; }
 
-.ft-5 { top: 8%; left: -105px; animation: floatBadge 5.5s ease-in-out infinite alternate; }
+.ft-3 { bottom: 10%; left: 12%; animation: floatBadge 6s ease-in-out infinite alternate; border-color: rgba(255, 107, 0, 0.4); }
+.ft-3 ion-icon, .ft-3 svg { color: var(--brand-orange); fill: var(--brand-orange); filter: drop-shadow(0 0 8px rgba(255, 107, 0, 0.6)); }
+
+.ft-4 { bottom: 10%; right: 12%; animation: floatBadge 4.5s ease-in-out infinite alternate-reverse; border-color: rgba(0, 243, 255, 0.4); }
+.ft-4 ion-icon, .ft-4 svg { color: #00f3ff; fill: #00f3ff; filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.6)); }
+
+.ft-5 { top: 10%; left: 6%; animation: floatBadge 5.5s ease-in-out infinite alternate; border-color: rgba(168, 85, 247, 0.4); }
 .ft-5 ion-icon, .ft-5 svg { color: #a855f7; fill: #a855f7; filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6)); }
 
-.ft-6 { top: 48%; right: -105px; animation: floatBadge 3.5s ease-in-out infinite alternate-reverse; }
+.ft-6 { top: 44%; right: 2%; animation: floatBadge 3.5s ease-in-out infinite alternate-reverse; border-color: rgba(0, 243, 255, 0.4); }
 .ft-6 ion-icon, .ft-6 svg { color: #00f3ff; fill: #00f3ff; filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.6)); }
 
 @keyframes floatBadge {
-    0% { transform: translateY(0px) translateZ(120px); }
-    100% { transform: translateY(-20px) translateZ(120px); }
+    0% { transform: translateY(0px) translateZ(30px); }
+    100% { transform: translateY(-10px) translateZ(30px); }
 }
 
 /* Promotional Price Block */

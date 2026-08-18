@@ -227,29 +227,8 @@ function renderGadgets(container, gadgets, whatsappNum) {
             e.preventDefault();
             const id = btn.getAttribute('data-id');
             const gadget = gadgets.find(p => p.id === id);
-            if (gadget) {
-                // Set the current dynamic gadget globally so script.js submit handler knows about it
-                window.currentOrderProduct = gadget;
-                
-                const orderModal = document.getElementById('orderModal');
-                if (orderModal) {
-                    // Hide solar options since this is a dynamic product
-                    const formOptions = orderModal.querySelector('.form-options');
-                    if (formOptions) formOptions.style.display = 'none';
-                    
-                    // Set invoice summary details using window.updateInvoiceSummary
-                    if (window.updateInvoiceSummary) {
-                        window.updateInvoiceSummary(gadget.name, Number(gadget.curr_price));
-                    } else {
-                        const invoiceItemName = document.getElementById('invoiceItemName');
-                        const summaryTotal = document.getElementById('summaryTotal');
-                        if (invoiceItemName) invoiceItemName.textContent = gadget.name;
-                        if (summaryTotal) summaryTotal.textContent = `Rs ${Number(gadget.curr_price).toLocaleString('en-PK')}`;
-                    }
-                    
-                    // Show modal
-                    orderModal.classList.add('show');
-                }
+            if (gadget && window.openOrderModal) {
+                window.openOrderModal(gadget);
             }
         });
     });
@@ -451,25 +430,8 @@ window.openOrderFromQuickView = function(id) {
     if (!window.cmsData || !window.cmsData.gadgets) return;
     const gadget = window.cmsData.gadgets.find(g => g.id === id);
     if (!gadget) return;
-
-    window.currentOrderProduct = gadget;
-    const orderModal = document.getElementById('orderModal');
-    if (orderModal) {
-        const formOptions = orderModal.querySelector('.form-options');
-        if (formOptions) formOptions.style.display = 'none';
-
-        if (window.updateInvoiceSummary) {
-            window.updateInvoiceSummary(gadget.name, Number(gadget.curr_price));
-        } else {
-            const invoiceItemName = document.getElementById('invoiceItemName');
-            const summaryTotal = document.getElementById('summaryTotal');
-            if (invoiceItemName) invoiceItemName.textContent = gadget.name;
-            if (summaryTotal) summaryTotal.textContent = `Rs ${Number(gadget.curr_price).toLocaleString('en-PK')}`;
-        }
-        setTimeout(() => {
-            orderModal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        }, 150);
+    if (window.openOrderModal) {
+        window.openOrderModal(gadget);
     }
 };
 
@@ -546,7 +508,13 @@ function renderHeroSlider(sliderConfig, fullData) {
         // CTA Buttons
         let buttonsHtml = '';
         if (slide.primary_btn_text) {
-            buttonsHtml += `<a href="${slide.primary_btn_link || '#'}" class="${slide.primary_btn_class || 'btn-reo-primary'}">${slide.primary_btn_text}</a>`;
+            let primaryClass = slide.primary_btn_class || 'btn-reo-primary btn-order-trigger';
+            if (isJzones && !primaryClass.includes('jzones-btn-cta')) primaryClass += ' jzones-btn-cta';
+            if (!primaryClass.includes('btn-order-trigger')) primaryClass += ' btn-order-trigger';
+            const dataProdAttr = isJzones 
+                ? `data-id="jzones-v630" data-name="${slide.title || 'JZONES V630 4K Dash Cam'}" data-price="${slide.curr_price || 32500}"`
+                : `data-name="${slide.title || 'Reolink Go PT Plus'}" data-price="${slide.curr_price || 25000}"`;
+            buttonsHtml += `<a href="${slide.primary_btn_link || '#'}" class="${primaryClass}" ${dataProdAttr}>${slide.primary_btn_text}</a>`;
         }
         if (slide.secondary_btn_text) {
             buttonsHtml += `<a href="${slide.secondary_btn_link || '#'}" class="${slide.secondary_btn_class || 'btn-reo-secondary'}">${slide.secondary_btn_text}</a>`;

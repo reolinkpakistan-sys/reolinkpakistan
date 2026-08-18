@@ -135,78 +135,176 @@ function initApp() {
     window.openSelectionModal = function() {
         if (actionSelectionModal) {
             actionSelectionModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
         } else {
             window.location.href = '/#overview';
         }
     };
-    window.openOrderModal = function() {
-        if (orderModal) orderModal.classList.add('show');
-    };
-    window.openSelfCollectModal = function() {
-        if (selfCollectModal) selfCollectModal.classList.add('show');
-    };
 
-    document.querySelectorAll('.btn-selection-trigger').forEach(btn => btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (actionSelectionModal) {
-            actionSelectionModal.classList.add('show');
+    window.openOrderModal = function(customProduct) {
+        const modal = document.getElementById('orderModal');
+        if (!modal) return;
+
+        if (customProduct && (customProduct.name || customProduct.curr_price || customProduct.price)) {
+            window.currentOrderProduct = {
+                id: customProduct.id || 'custom-product',
+                name: customProduct.name || customProduct.title || 'Selected Product',
+                curr_price: Number(customProduct.curr_price || customProduct.price || 25000)
+            };
+            const formOptions = modal.querySelector('.form-options');
+            if (formOptions) formOptions.style.display = 'none';
+
+            if (typeof updateInvoiceSummary === 'function') {
+                updateInvoiceSummary(window.currentOrderProduct.name, window.currentOrderProduct.curr_price);
+            }
         } else {
-            window.location.href = '/#overview';
-        }
-    }));
-
-    document.querySelector('.close-selection')?.addEventListener('click', () => actionSelectionModal?.classList.remove('show'));
-    document.querySelector('.select-delivery')?.addEventListener('click', () => { 
-        actionSelectionModal?.classList.remove('show'); 
-        if (orderModal) setTimeout(() => orderModal.classList.add('show'), 100); 
-    });
-    document.querySelector('.select-self-collect')?.addEventListener('click', () => { 
-        actionSelectionModal?.classList.remove('show'); 
-        if (selfCollectModal) setTimeout(() => selfCollectModal.classList.add('show'), 100); 
-    });
-
-    document.querySelectorAll('.btn-order-trigger').forEach(btn => btn.addEventListener('click', (e) => { 
-        if (orderModal) {
-            e.preventDefault();
-            // Reset dynamic product if it was set
             window.currentOrderProduct = null;
-            
-            // Restore default item name on homepage
             const invoiceItemName = document.getElementById('invoiceItemName');
-            if (invoiceItemName) invoiceItemName.textContent = 'Reolink Go PT Plus';
-            
-            const formOptions = orderModal.querySelector('.form-options');
+            if (invoiceItemName) invoiceItemName.textContent = 'Reolink Go PT Plus (With Solar Panel)';
+
+            const formOptions = modal.querySelector('.form-options');
             if (formOptions) formOptions.style.display = 'block';
-            
-            // Re-run calculateTotal to restore Reolink Go PT Plus pricing/summary
-            calculateTotal();
-            
-            orderModal.classList.add('show'); 
-        }
-    }));
-    document.querySelector('.close-modal')?.addEventListener('click', () => orderModal?.classList.remove('show'));
 
-    document.querySelectorAll('.btn-self-collect-trigger').forEach(btn => btn.addEventListener('click', (e) => { 
+            if (typeof calculateTotal === 'function') {
+                calculateTotal();
+            }
+        }
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    };
+
+    window.closeOrderModal = function() {
+        const modal = document.getElementById('orderModal');
+        if (modal) modal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    };
+
+    window.openSelfCollectModal = function() {
         if (selfCollectModal) {
-            e.preventDefault();
-            selfCollectModal.classList.add('show'); 
+            selfCollectModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
         }
-    }));
-    document.querySelector('.close-self-collect')?.addEventListener('click', () => selfCollectModal?.classList.remove('show'));
+    };
 
-    document.querySelectorAll('.btn-seller-contact-trigger').forEach(btn => btn.addEventListener('click', (e) => { 
-        if (sellerContactModal) {
+    window.closeSelfCollectModal = function() {
+        if (selfCollectModal) selfCollectModal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    };
+
+    // Global Document Event Delegation (Handles static & dynamic elements)
+    document.addEventListener('click', function(e) {
+        // 1. Order Trigger
+        const orderBtn = e.target.closest('.btn-order-trigger, .btn-order-modal, .jzones-btn-cta, .btn-cms-order-now');
+        if (orderBtn) {
             e.preventDefault();
-            sellerContactModal.classList.add('show'); 
-        }
-    }));
-    document.querySelector('.close-seller-contact')?.addEventListener('click', () => sellerContactModal?.classList.remove('show'));
+            
+            // Check if button is inside JZONES slide or has JZONES class
+            const isJzonesSlide = orderBtn.closest('.hero-slide[data-theme="jzones"]') || orderBtn.classList.contains('jzones-btn-cta');
+            if (isJzonesSlide) {
+                window.openOrderModal({
+                    id: 'jzones-v630',
+                    name: 'JZONES V630 3-Channel 4K Dash Cam',
+                    curr_price: 32500
+                });
+                return;
+            }
 
-    window.addEventListener('click', (e) => {
-        if (orderModal && e.target === orderModal) orderModal.classList.remove('show');
-        if (selfCollectModal && e.target === selfCollectModal) selfCollectModal.classList.remove('show');
-        if (actionSelectionModal && e.target === actionSelectionModal) actionSelectionModal.classList.remove('show');
-        if (sellerContactModal && e.target === sellerContactModal) sellerContactModal.classList.remove('show');
+            // Check if button has custom data attributes or data-id
+            const prodId = orderBtn.getAttribute('data-id');
+            const prodName = orderBtn.getAttribute('data-name');
+            const prodPrice = orderBtn.getAttribute('data-price');
+            
+            if (prodName && prodPrice) {
+                window.openOrderModal({
+                    id: prodId || 'product',
+                    name: prodName,
+                    curr_price: Number(prodPrice)
+                });
+                return;
+            } else if (prodId && window.cmsData) {
+                const gadgetsList = window.cmsData.gadgets || window.cmsData.products || [];
+                const gadget = gadgetsList.find(p => p.id === prodId);
+                if (gadget) {
+                    window.openOrderModal(gadget);
+                    return;
+                }
+            }
+
+            // Default order modal (Reolink Go PT Plus)
+            window.openOrderModal();
+            return;
+        }
+
+        // 2. Self Collect Trigger
+        const selfCollectBtn = e.target.closest('.btn-self-collect-trigger');
+        if (selfCollectBtn) {
+            e.preventDefault();
+            window.openSelfCollectModal();
+            return;
+        }
+
+        // 3. Selection Modal Trigger
+        const selectBtn = e.target.closest('.btn-selection-trigger');
+        if (selectBtn) {
+            e.preventDefault();
+            window.openSelectionModal();
+            return;
+        }
+
+        // 4. Select Delivery / Self Collect inside selection modal
+        if (e.target.closest('.select-delivery')) {
+            if (actionSelectionModal) actionSelectionModal.classList.remove('show');
+            setTimeout(() => window.openOrderModal(), 100);
+            return;
+        }
+        if (e.target.closest('.select-self-collect')) {
+            if (actionSelectionModal) actionSelectionModal.classList.remove('show');
+            setTimeout(() => window.openSelfCollectModal(), 100);
+            return;
+        }
+
+        // 5. Seller Contact Trigger
+        const sellerBtn = e.target.closest('.btn-seller-contact-trigger');
+        if (sellerBtn) {
+            e.preventDefault();
+            if (sellerContactModal) {
+                sellerContactModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+            return;
+        }
+
+        // 6. Close Modal Buttons
+        if (e.target.closest('.close-modal') || e.target.closest('.close-order-modal')) {
+            window.closeOrderModal();
+            return;
+        }
+        if (e.target.closest('.close-self-collect')) {
+            window.closeSelfCollectModal();
+            return;
+        }
+        if (e.target.closest('.close-selection')) {
+            if (actionSelectionModal) actionSelectionModal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+            return;
+        }
+        if (e.target.closest('.close-seller-contact')) {
+            if (sellerContactModal) sellerContactModal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+            return;
+        }
+
+        // 7. Modal Backdrops click
+        if (orderModal && e.target === orderModal) window.closeOrderModal();
+        if (selfCollectModal && e.target === selfCollectModal) window.closeSelfCollectModal();
+        if (actionSelectionModal && e.target === actionSelectionModal) {
+            actionSelectionModal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+        if (sellerContactModal && e.target === sellerContactModal) {
+            sellerContactModal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
     });
 
     // ----------------------------------------

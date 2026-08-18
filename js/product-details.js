@@ -223,6 +223,7 @@ function injectProductSchema(product) {
 }
 
 function renderProductDetails(product, contactInfo) {
+    window.currentPageProduct = product;
     // Reset immersive-layout scarcity flag so standard layout still renders globally
     window._scarcityRenderedInLayout = false;
 
@@ -418,17 +419,38 @@ function renderProductDetails(product, contactInfo) {
         const modal = document.getElementById('actionSelectionModal');
         if (modal) {
             modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
         } else {
             window.location.href = getBasePath() + 'index.html#overview';
         }
     };
-    window.openOrderModal = function() {
+    window.openOrderModal = function(customProduct) {
+        const targetProd = customProduct || window.currentPageProduct;
         const modal = document.getElementById('orderModal');
-        if (modal) modal.classList.add('show');
+        if (!modal) return;
+
+        if (targetProd && (targetProd.name || targetProd.curr_price)) {
+            window.currentOrderProduct = {
+                id: targetProd.id || 'custom-product',
+                name: targetProd.name || targetProd.title || 'Selected Product',
+                curr_price: Number(targetProd.curr_price || targetProd.price || 25000)
+            };
+            const formOptions = modal.querySelector('.form-options');
+            if (formOptions) formOptions.style.display = 'none';
+
+            if (typeof updateInvoiceSummary === 'function') {
+                updateInvoiceSummary(window.currentOrderProduct.name, window.currentOrderProduct.curr_price);
+            }
+        }
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
     };
     window.openSelfCollectModal = function() {
         const modal = document.getElementById('selfCollectModal');
-        if (modal) modal.classList.add('show');
+        if (modal) {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
     };
 }
 
@@ -1313,12 +1335,8 @@ function renderRelatedProducts(allGadgets, currentId, contactInfo) {
             e.preventDefault();
             const id = btn.getAttribute('data-id');
             const relProd = recommendations.find(p => p.id === id);
-            if (relProd) {
-                window.currentOrderProduct = relProd;
-                updateDetailsInvoice(relProd);
-                
-                const orderModal = document.getElementById('orderModal');
-                if (orderModal) orderModal.classList.add('show');
+            if (relProd && window.openOrderModal) {
+                window.openOrderModal(relProd);
             }
         });
     });

@@ -374,6 +374,12 @@
     - `css/styles.css`, `css/styles.min.css`, `index.html`, aur `js/script.js` ko Hostinger Live FTP Server (`147.93.78.148` -> `/public_html/`) par upload kar ke live verify kar liya gaya.
     - Changes ko Git repository `main` branch par commit aur push kar diya gaya.
 
+- **Reolink Go PT Plus Pricing Synchronization (August 18, 2026):**
+  - **With Solar Panel Package:** Restored to **Rs 25,000** (Original: Rs 35,000, Save 28%).
+  - **Without Solar Panel Package:** Set to **Rs 23,000**.
+  - **Files Synchronized:** `cms_data.json`, `index.html` (Hero slide 1, navigation pill tab, comparison table, meta tags, schema FAQ, order checkout modal), `go-pt-plus.html` (price banner, upsell combo, checkout options), `admin/index.php` (default settings and POST handlers), `cities/*.html`, and blog guides.
+  - **Deployment:** Live on Hostinger FTP (`/public_html/`) and pushed to Git repository (`main`).
+
 ## Proposed Improvements & Suggestions
 1. **Video Size Optimization:**
    - Bare video files (jese `go_pt_plus_sample.mp4` jo ke 14MB+ hai) page speed ko slow kar sakti hain, khas tor par mobile networks par.

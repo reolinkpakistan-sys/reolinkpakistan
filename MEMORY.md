@@ -35,29 +35,22 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
-      - **Real Product Visual Assets Applied:** Updated both blog visual assets (`guide-solar-vs-wired.webp` and `guide-pta-approved.webp`) using authentic product assets (`images/camera.png` for Reolink Go PT Plus with Solar Panel, `images/pta-approved.png` for official PTA stamp, and `images/complex_wifi_system.png` for traditional wired CCTV).
-      - **Mobile-First Admin Panel, Hero Slider Layout & Rain Effect Fixes (August 2026):**
-        - Admin Panel (`admin/index.php`) ko mukammal mobile-first banaya: dynamic mobile header with hamburger menu, slide-out drawer, touch-friendly sidebar links, aur horizontal scrollable data tables (`.table-responsive`).
-        - Hero Slider Mobile Layout Bug Fixed: `js/cms.js` ke andar dynamic hydration me floating tags ko `<div class="mobile-tags-row">` me wrap kiya aur camera visuals ko `.product-rain-mask` ke sath structured kiya.
-        - Mobile screens (`@media (max-width: 900px)`) par strict flex ordering ensure ki: Camera Product Image (`.main-cam` with `order: 1 !important;`) bilkul top par aati hai, aur tamam feature tags (`.mobile-tags-row` with `order: 2 !important;`) camera picture ke theek neeche neat 2-column grid me display hotay hain. Desktop 3D absolute positioning intact rakhi gayi with `.mobile-tags-row { display: contents; }`.
-        - **Hero Weatherproof Raining Canvas Effect Restored:** `initRain()` ko global `window.initRain` banaya gaya with dynamic parent boundary calculations, automatic teardown/re-binding, and hooked into both `showSlide()` in `js/script.js` and `renderHeroSlider()` in `js/cms.js` so rain particles flow continuously on the Reolink Go PT Plus visual on both mobile and desktop.
-      - **Dashcam Category & Dedicated Landing Page Expansion (August 2026):**
-    - Integrated the complete **JZONES V630 4K Triple-Channel Dash Camera** dedicated landing page directly from the user's Desktop folder (`JZONES V630 Dash Camera`).
-    - Added `jzones-v630.html`, `css/jzones.css`, `js/jzones.js`, and all 25 high-resolution assets into `assets/jzones/`.
-    - Integrated official Reolink Pakistan Topbar & Navigation Bar (`reo-topbar`, `reo-header`) + Official Footer (`reo-footer`) + Floating Seller Profile Button (`whatsapp-float btn-seller-contact-trigger`).
-    - Removed extraneous top ribbon per user design request, perfectly aligning the 3D Hero product showcase under the sticky header.
-    - Fixed Category JS syntax error so `/category/dashcams` loads and renders seamlessly.
-    - Routed `/products/jzones-v630` and `/jzones-v630` in `router.php` and `.htaccess`.
-    - Hero Slide Interactive Navigation: JZONES 4K Dashcam slide par **Main Product Image** aur **Quick View** button dono ko click karne par directly JZONES dedicated landing page (`/products/jzones-v630` / `jzones-v630.html`) par redirect karwaya gaya with interactive cursor, glow, and hover animations.
-    - Updated `cms_data.json`, `sitemap.xml`, and `llms.txt`.  - **SEO & AI Search Domination Master Plan Executed:**
-        - Added programmatic local SEO landing pages for 6 major metropolitan regions (`/cities/lahore`, `/cities/karachi`, `/cities/islamabad-rawalpindi`, `/cities/multan`, `/cities/faisalabad`, `/cities/peshawar`).
-        - Created high-intent authority blog guides (`/blog/cattle-farm-security`, `/blog/pta-approval-guide`, `/blog/solar-vs-wired-cctv`, `/blog/farm-tube-well-security`).
-        - Added `llms.txt` and optimized `robots.txt` for AI search engines (ChatGPT, Claude, Perplexity, Google Gemini).
-        - Integrated rich Schema.org JSON-LD across all pages.
-        - Zero tag mismatch or ALT tag issues across all 22 HTML pages.
-      3. `/cities/islamabad-rawalpindi` (`cities/islamabad-rawalpindi.html`)
-      4. `/cities/multan` (`cities/multan.html`)
-      5. `/cities/faisalabad` (`cities/faisalabad.html`)
+- **Master Website Optimization & Conversion Polish (August 2026 - v133):**
+  - **City Landing Pages Asset Path Fix:** Fixed all 6 city pages (`cities/lahore.html`, `cities/karachi.html`, `cities/islamabad-rawalpindi.html`, `cities/multan.html`, `cities/faisalabad.html`, `cities/peshawar.html`) by updating relative image paths `images/camera.webp` and `images/favicon-32.png` to root-relative paths `/images/...`, completely eliminating 404 image errors on sub-routes.
+  - **Order Modal CRO & Friction Reduction:**
+    * Integrated **Quick City Selector Chips** (`[Lahore] [Karachi] [Islamabad] [Rawalpindi] [Multan] [Faisalabad] [Peshawar] [Sialkot] [Gujranwala]`) inside `#orderModal` allowing 1-click address population and reducing checkout friction.
+    * Added **Pakistani Phone Number Auto-Formatter** (`03XX-XXXXXXX`) with live input masking and validation.
+    * Added **Direct WhatsApp Fast Order Button** (`.btn-modal-quick-wa`) allowing users to bypass the form and confirm directly via 1-click pre-filled WhatsApp message.
+    * Synchronized static HTML invoice calculations for default Rs 25,000 package: COD Tax = Rs 920 (4% on Rs 23,000), Security Deposit = -Rs 2,000, Payable on Delivery = Rs 23,920, Total Cost = Rs 25,920.
+    * Added anti-spam honeypot field (`input[name="website_url"]`) to block automated bot submissions.
+  - **Footer SEO Internal Linking Mesh:**
+    * Upgraded footer from 2 columns to a modern 4-column responsive grid: "Explore", "City Deliveries" (all 6 city pages), "Security Guides" (all 4 technical blog articles), and "Legal & Trust".
+  - **Video Modal & Asset Streaming Optimization:**
+    * Updated modal video sources in `js/script.js` to absolute paths (`/go_pt_plus_sample.mp4`, `/dha-site-sample.mp4`, etc.) to prevent broken modal loads on nested routes.
+  - **Cache-Busting & Live Deployment:**
+    * Bumped version to `?v=133` across `index.html`.
+    * Synchronized `css/styles.css` into `css/styles.min.css`.
+    * Uploaded all 10 modified files to Hostinger FTP (`/public_html/`) and pushed commit `fb426d1` to Git `main`.
       6. `/cities/peshawar` (`cities/peshawar.html`)
     * `sitemap.xml` update kiya gaya with all new 10+ URLs with high priority.
     * `router.php` update kiya gaya for clean URL routing.

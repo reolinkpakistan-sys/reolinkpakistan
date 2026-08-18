@@ -82,7 +82,7 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
     <!-- Preconnect to ionicons CDN (loaded at body bottom) -->
     <link rel="preconnect" href="https://unpkg.com">
-    <link rel="stylesheet" href="css/styles.min.css?v=132">
+    <link rel="stylesheet" href="css/styles.min.css?v=133">
 
     <!-- Structured Data: Product Schema -->
     <script type="application/ld+json">
@@ -1981,21 +1981,39 @@
                     <a href="/#overview">Product Overview</a>
                     <a href="/#features">Smart Features</a>
                     <a href="/#specs">Technical Specs</a>
-                    <a href="/warranty">Support (FAQ)</a>
+                    <a href="/products/jzones-v630">JZONES 4K Dashcam</a>
+                    <a href="/category/security-cameras">All Security Cameras</a>
+                    <a href="/warranty">Support &amp; FAQ</a>
                 </div>
                 <div class="footer-nav-col">
-                    <h4>Legal & Trust</h4>
+                    <h4>City Deliveries</h4>
+                    <a href="/cities/lahore">Reolink Lahore</a>
+                    <a href="/cities/karachi">Reolink Karachi</a>
+                    <a href="/cities/islamabad-rawalpindi">Islamabad &amp; Rawalpindi</a>
+                    <a href="/cities/multan">Reolink Multan</a>
+                    <a href="/cities/faisalabad">Reolink Faisalabad</a>
+                    <a href="/cities/peshawar">Reolink Peshawar</a>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>Security Guides</h4>
+                    <a href="/blog/pta-approval-guide">PTA Approval Guide</a>
+                    <a href="/blog/solar-vs-wired-cctv">Solar vs Wired CCTV</a>
+                    <a href="/blog/farm-tube-well-security">Farm &amp; Tube Well Guide</a>
+                    <a href="/blog/cattle-farm-security">Cattle Farm Security</a>
+                </div>
+                <div class="footer-nav-col">
+                    <h4>Legal &amp; Trust</h4>
                     <a href="/about">About Us</a>
                     <a href="/contact">Contact Us</a>
-                    <a href="/terms">Terms & Conditions</a>
+                    <a href="/terms">Terms &amp; Conditions</a>
                     <a href="/shipping">Shipping Policy</a>
-                    <a href="/returns">Return & Refund Policy</a>
+                    <a href="/returns">Return &amp; Refund Policy</a>
                     <a href="/privacy-policy">Privacy Policy</a>
                 </div>
             </div>
         </div>
         <div class="footer-copyright">
-            <p>&copy; 2026 S M Enterprises. All Rights Reserved. Authorized Reolink Distributor & Partner.</p>
+            <p>&copy; 2026 S M Enterprises. All Rights Reserved. Authorized Reolink &amp; JZONES Distributor &amp; Partner in Pakistan.</p>
         </div>
     </footer>
 
@@ -2015,14 +2033,35 @@
             <p>Please provide your details below to confirm your order.</p>
 
             <form id="checkoutForm">
+                <!-- Anti-Spam Honeypot -->
+                <input type="text" name="website_url" class="ohnohoney" style="display:none !important;" tabindex="-1" autocomplete="off">
+
                 <!-- User Details -->
                 <div class="form-group">
                     <label>Full Name</label>
-                    <input type="text" id="custName" placeholder="Enter your name">
+                    <input type="text" id="custName" placeholder="Enter your name" required>
                 </div>
                 <div class="form-group">
                     <label>WhatsApp Number</label>
-                    <input type="tel" id="custPhone" placeholder="03XXXXXXXXX">
+                    <input type="tel" id="custPhone" placeholder="03XX-XXXXXXX" required>
+                </div>
+                <div class="form-group">
+                    <label>Delivery Address &amp; City</label>
+                    <input type="text" id="custAddress" placeholder="House/Shop #, Street, Area, City">
+                    <div class="quick-city-chips">
+                        <span class="city-chip-label">Quick Select City:</span>
+                        <div class="city-chips-grid">
+                            <button type="button" class="city-chip" data-city="Lahore">Lahore</button>
+                            <button type="button" class="city-chip" data-city="Karachi">Karachi</button>
+                            <button type="button" class="city-chip" data-city="Islamabad">Islamabad</button>
+                            <button type="button" class="city-chip" data-city="Rawalpindi">Rawalpindi</button>
+                            <button type="button" class="city-chip" data-city="Multan">Multan</button>
+                            <button type="button" class="city-chip" data-city="Faisalabad">Faisalabad</button>
+                            <button type="button" class="city-chip" data-city="Peshawar">Peshawar</button>
+                            <button type="button" class="city-chip" data-city="Sialkot">Sialkot</button>
+                            <button type="button" class="city-chip" data-city="Gujranwala">Gujranwala</button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Product Options -->
@@ -2048,7 +2087,7 @@
                 <!-- Redesigned Invoice Summary -->
                 <div class="invoice-summary">
                     <div class="invoice-row highlight">
-                        <span id="invoiceItemName">Reolink Go PT Plus</span>
+                        <span id="invoiceItemName">Reolink Go PT Plus (With Solar Panel)</span>
                         <span id="summaryCam" data-cms-key="prices.solar" data-cms-type="price">Rs 25,000</span>
                     </div>
                     <div class="invoice-row">
@@ -2061,7 +2100,7 @@
                     </div>
                     <div class="invoice-row">
                         <span>COD Tax (4% Surcharge on COD amount)</span>
-                        <span id="summaryCodTax">Rs 840</span>
+                        <span id="summaryCodTax">Rs 920</span>
                     </div>
                     <div class="invoice-row advance">
                         <span>Security Deposit (Paid Upfront)</span>
@@ -2069,11 +2108,11 @@
                     </div>
                     <div class="invoice-row cod-payable">
                         <span>Payable on Delivery (Cash on Delivery)</span>
-                        <span id="summaryCodPayable" style="color: #00f3ff; font-weight: bold;">Rs 21,840</span>
+                        <span id="summaryCodPayable" style="color: #00f3ff; font-weight: bold;">Rs 23,920</span>
                     </div>
                     <div class="invoice-total">
                         <label>Total Order Cost</label>
-                        <span class="total-amount" id="summaryTotal" data-cms-key="prices.solar" data-cms-type="price">Rs 23,840</span>
+                        <span class="total-amount" id="summaryTotal" data-cms-key="prices.solar" data-cms-type="price">Rs 25,920</span>
                     </div>
                 </div>
 
@@ -2102,7 +2141,14 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn-reo-primary submit-order-btn">Confirm Order via WhatsApp</button>
+                <button type="submit" class="btn-reo-primary submit-order-btn">
+                    <ion-icon name="logo-whatsapp" style="font-size: 18px;"></ion-icon>
+                    Confirm Order via WhatsApp
+                </button>
+                <button type="button" class="btn-modal-quick-wa" onclick="window.quickDirectWhatsAppOrder()">
+                    <ion-icon name="chatbubbles-outline"></ion-icon>
+                    Direct WhatsApp Fast Order (1-Click)
+                </button>
             </form>
         </div>
     </div>
@@ -2252,12 +2298,12 @@
         </div>
     </div>
 
-    <script src="js/script.js?v=132" defer></script>
-    <script src="js/cms.js?v=132" defer></script>
+    <script src="js/script.js?v=133" defer></script>
+    <script src="js/cms.js?v=133" defer></script>
     <!-- Ionicons loaded last — non-blocking icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="js/conversion.js?v=132"></script>
+    <script src="js/conversion.js?v=133"></script>
 </body>
 
 </html>

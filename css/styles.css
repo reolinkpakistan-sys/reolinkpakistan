@@ -1034,16 +1034,102 @@ p { font-size: 19px; color: var(--text-secondary); font-weight: 400; margin-bott
 .contact-pill.wa ion-icon { color: #25d366; }
 .contact-pill.wa:hover { background: rgba(37, 211, 102, 0.1); border-color: #25d366; }
 
-.footer-nav-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.footer-nav-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 30px; }
 .footer-nav-col h4 { 
-    font-size: 13px; text-transform: uppercase; letter-spacing: 2px; 
-    color: var(--brand-blue); margin-bottom: 25px; font-weight: 800; 
+    font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; 
+    color: var(--brand-blue); margin-bottom: 18px; font-weight: 800; 
 }
 .footer-nav-col a { 
     display: block; color: var(--text-dim); text-decoration: none; 
-    font-size: 15px; margin-bottom: 14px; transition: all 0.2s; 
+    font-size: 14px; margin-bottom: 12px; transition: all 0.2s; 
 }
 .footer-nav-col a:hover { color: #fff; transform: translateX(5px); }
+
+/* Quick City Selector Chips in Order Modal */
+.quick-city-chips {
+    margin: 8px 0 16px;
+}
+.city-chip-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #94a3b8;
+    margin-bottom: 8px;
+}
+.city-chips-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.city-chip {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #cbd5e1;
+    padding: 5px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+}
+.city-chip:hover {
+    background: rgba(0, 243, 255, 0.12);
+    border-color: rgba(0, 243, 255, 0.4);
+    color: #fff;
+    transform: translateY(-1px);
+}
+.city-chip.active {
+    background: linear-gradient(135deg, rgba(0, 243, 255, 0.25), rgba(47, 101, 246, 0.3));
+    border-color: #00f3ff;
+    color: #00f3ff;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+}
+
+/* Modal Direct WhatsApp Fast Order Button */
+.btn-modal-quick-wa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px 18px;
+    background: rgba(37, 211, 102, 0.1);
+    border: 1px solid rgba(37, 211, 102, 0.35);
+    color: #25d366;
+    border-radius: var(--radius-md, 12px);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+.btn-modal-quick-wa:hover {
+    background: rgba(37, 211, 102, 0.2);
+    border-color: #25d366;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+}
+.btn-modal-quick-wa ion-icon {
+    font-size: 18px;
+}
+
+/* Starlight Night Vision Simulation Micro-interactions */
+.vision-toggle-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+.starlight-pulse {
+    animation: starlightPulse 2.5s infinite;
+}
+@keyframes starlightPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(0, 243, 255, 0); }
+}
 
 .footer-copyright { text-align: center; color: rgba(255,255,255,0.3); font-size: 13px; font-weight: 500; }
 

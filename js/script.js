@@ -240,7 +240,7 @@ function initApp() {
 
     function calculateTotal() {
         if (optRadios.length === 0) return { camPrice: 0, optName: '', total: 0, codTax: 0, codPayable: 0 };
-        let camPrice = 23000;
+        let camPrice = 25000;
         let optName = '';
         optRadios.forEach(radio => { if (radio.checked) { camPrice = parseInt(radio.value); optName = radio.id === 'optSolar' ? 'With Solar Panel' : 'Without Solar Panel'; } });
         const summaryInfo = updateInvoiceSummary('Reolink Go PT Plus', camPrice);
@@ -249,11 +249,67 @@ function initApp() {
     optRadios.forEach(r => r.addEventListener('change', calculateTotal));
     if (summaryCam || summaryTotal) calculateTotal();
 
+    // Pakistani Phone Auto-formatter (03XX-XXXXXXX)
+    const custPhoneInput = document.getElementById('custPhone');
+    if (custPhoneInput) {
+        custPhoneInput.addEventListener('input', function(e) {
+            let val = e.target.value.replace(/\D/g, '');
+            if (val.length > 11) val = val.substring(0, 11);
+            if (val.length > 4) {
+                val = val.substring(0, 4) + '-' + val.substring(4);
+            }
+            e.target.value = val;
+        });
+    }
+
+    // Quick City Selector Chips
+    document.querySelectorAll('.city-chip').forEach(chip => {
+        chip.addEventListener('click', function() {
+            const city = this.getAttribute('data-city');
+            const addressInput = document.getElementById('custAddress');
+            if (addressInput) {
+                addressInput.value = city + ', ';
+                addressInput.focus();
+            }
+            document.querySelectorAll('.city-chip').forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // Quick Direct WhatsApp Order (1-Click Fast Track)
+    window.quickDirectWhatsAppOrder = function() {
+        const product = window.currentOrderProduct || { name: 'Reolink Go PT Plus (With Solar Panel)', curr_price: 25000 };
+        const price = Number(product.curr_price || 25000);
+        const codBase = price - 2000;
+        const codTax = Math.round(codBase * 0.04);
+        const codPayable = codBase + codTax;
+        const totalCost = price + codTax;
+        
+        let waNum = "923206755555";
+        if (window.cmsData && window.cmsData.contact && window.cmsData.contact.whatsapp) {
+            const cleanNum = window.cmsData.contact.whatsapp.replace(/[-\s]+/g, '');
+            waNum = cleanNum.startsWith('0') ? '92' + cleanNum.substring(1) : cleanNum;
+        }
+        
+        const msg = `Assalam-o-Alaikum S M Enterprises,\n\nI want to place an instant order:\n- Product: ${product.name || 'Reolink Go PT Plus'}\n- Package Price: Rs ${price.toLocaleString('en-PK')}\n- Upfront Advance Required: Rs 2,000\n- COD Surcharge (4% Govt Tax): Rs ${codTax.toLocaleString('en-PK')}\n- Remaining Payable on Delivery: Rs ${codPayable.toLocaleString('en-PK')}\n- Total Order Cost: Rs ${totalCost.toLocaleString('en-PK')}\n\nPlease confirm delivery time for my city. Thank you.`;
+        window.open(`https://wa.me/${waNum}?text=${encodeURIComponent(msg)}`, '_blank');
+        if (orderModal) orderModal.classList.remove('show');
+    };
+
     // Form Submission
     document.getElementById('checkoutForm')?.addEventListener('submit', (e) => {
         e.preventDefault();
+
+        // Anti-Spam Honeypot Check
+        const hp = document.querySelector('input[name="website_url"]')?.value;
+        if (hp) {
+            console.warn('Bot submission blocked');
+            return;
+        }
+
         const name = document.getElementById('custName')?.value || '';
         const phone = document.getElementById('custPhone')?.value || '';
+        const address = document.getElementById('custAddress')?.value || '';
         
         let message = '';
         if (window.currentOrderProduct) {
@@ -264,10 +320,10 @@ function initApp() {
             const codPayable = codBase + codTax;
             const totalCost = price + codTax;
             
-            message = `Assalam-o-Alaikum S M Enterprises,\n\nI want to confirm my order from the website:\n- Customer Name: ${name}\n- Contact Phone/WhatsApp: ${phone}\n- Product Name: ${product.name}\n- Base Price: Rs ${price.toLocaleString('en-PK')}\n- Advance Paid: Rs 2,000\n- COD Surcharge (4% Govt Tax): Rs ${codTax.toLocaleString('en-PK')}\n- Remaining Payable on Delivery: Rs ${codPayable.toLocaleString('en-PK')}\n- Total Order Cost: Rs ${totalCost.toLocaleString('en-PK')}\n\nNote: I will attach the Rs 2,000 Advance Payment screenshot in this chat. I understand that a 4% Government Tax is charged on the COD amount.`;
+            message = `Assalam-o-Alaikum S M Enterprises,\n\nI want to confirm my order from the website:\n- Customer Name: ${name}\n- Contact Phone/WhatsApp: ${phone}${address ? `\n- Delivery Address: ${address}` : ''}\n- Product Name: ${product.name}\n- Base Price: Rs ${price.toLocaleString('en-PK')}\n- Advance Paid: Rs 2,000\n- COD Surcharge (4% Govt Tax): Rs ${codTax.toLocaleString('en-PK')}\n- Remaining Payable on Delivery: Rs ${codPayable.toLocaleString('en-PK')}\n- Total Order Cost: Rs ${totalCost.toLocaleString('en-PK')}\n\nNote: I will attach the Rs 2,000 Advance Payment screenshot in this chat. I understand that a 4% Government Tax is charged on the COD amount.`;
         } else {
             const { camPrice, optName, total, codTax, codPayable } = calculateTotal();
-            message = `Assalam-o-Alaikum S M Enterprises,\n\nI want to confirm my order from the website:\n- Customer Name: ${name}\n- Contact Phone/WhatsApp: ${phone}\n- Product Name: Reolink Go PT Plus (${optName})\n- Base Price: Rs ${camPrice.toLocaleString('en-PK')}\n- Advance Paid: Rs 2,000\n- COD Surcharge (4% Govt Tax): Rs ${codTax.toLocaleString('en-PK')}\n- Remaining Payable on Delivery: Rs ${codPayable.toLocaleString('en-PK')}\n- Total Order Cost: Rs ${total.toLocaleString('en-PK')}\n\nNote: I will attach the Rs 2,000 Advance Payment screenshot in this chat. I understand that a 4% Government Tax is charged on the COD amount.`;
+            message = `Assalam-o-Alaikum S M Enterprises,\n\nI want to confirm my order from the website:\n- Customer Name: ${name}\n- Contact Phone/WhatsApp: ${phone}${address ? `\n- Delivery Address: ${address}` : ''}\n- Product Name: Reolink Go PT Plus (${optName})\n- Base Price: Rs ${camPrice.toLocaleString('en-PK')}\n- Advance Paid: Rs 2,000\n- COD Surcharge (4% Govt Tax): Rs ${codTax.toLocaleString('en-PK')}\n- Remaining Payable on Delivery: Rs ${codPayable.toLocaleString('en-PK')}\n- Total Order Cost: Rs ${total.toLocaleString('en-PK')}\n\nNote: I will attach the Rs 2,000 Advance Payment screenshot in this chat. I understand that a 4% Government Tax is charged on the COD amount.`;
         }
         const encodedMessage = encodeURIComponent(message);
         
@@ -480,10 +536,11 @@ window.setVision = function(mode) {
 window.openVideoModal = function(type) {
     const modal = document.getElementById('videoModal');
     const container = document.getElementById('videoContainer');
+    if (!container || !modal) return;
     container.innerHTML = '';
-    if (type === 'construction') container.innerHTML = `<video autoplay loop controls playsinline preload="metadata" class="modal-video"><source src="dha-site-sample.mp4" type="video/mp4"></video>`;
-    else if (type === 'farm') container.innerHTML = `<video autoplay loop controls playsinline preload="metadata" class="modal-video farm-video"><source src="go_pt_plus_sample.mp4" type="video/mp4"></video><video autoplay loop controls playsinline preload="metadata" class="modal-video farm-video"><source src="go_pt_plus_night_vision.mp4" type="video/mp4"></video>`;
-    else if (type === 'logistics') container.innerHTML = `<video autoplay loop controls playsinline preload="metadata" class="modal-video farm-video"><source src="Chungi no 9_20260214155305_20260214155335_95270005CWT782UY_0..MP4" type="video/mp4"></video><video autoplay loop controls playsinline preload="metadata" class="modal-video farm-video"><source src="Lutfabad Parking yard_20260319140007_20260319140019_95270005CVZW1D85_0..MP4" type="video/mp4"></video>`;
+    if (type === 'construction') container.innerHTML = `<video autoplay loop controls playsinline preload="metadata" class="modal-video"><source src="/dha-site-sample.mp4" type="video/mp4"></video>`;
+    else if (type === 'farm') container.innerHTML = `<video autoplay loop controls playsinline preload="metadata" class="modal-video farm-video"><source src="/go_pt_plus_sample.mp4" type="video/mp4"></video><video autoplay loop controls playsinline preload="metadata" class="modal-video farm-video"><source src="/go_pt_plus_night_vision.mp4" type="video/mp4"></video>`;
+    else if (type === 'logistics') container.innerHTML = `<video autoplay loop controls playsinline preload="metadata" class="modal-video farm-video"><source src="/Chungi no 9_20260214155305_20260214155335_95270005CWT782UY_0..MP4" type="video/mp4"></video><video autoplay loop controls playsinline preload="metadata" class="modal-video farm-video"><source src="/Lutfabad Parking yard_20260319140007_20260319140019_95270005CVZW1D85_0..MP4" type="video/mp4"></video>`;
     else if (type === 'warehouse') container.innerHTML = `<iframe width="100%" height="450" class="modal-video" src="https://www.youtube.com/embed/AfPik5OukxE?autoplay=1&mute=1&loop=1&playlist=AfPik5OukxE" frameborder="0" allowfullscreen loading="lazy"></iframe>`;
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';

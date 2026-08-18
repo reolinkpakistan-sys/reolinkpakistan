@@ -374,11 +374,20 @@
     - `css/styles.css`, `css/styles.min.css`, `index.html`, aur `js/script.js` ko Hostinger Live FTP Server (`147.93.78.148` -> `/public_html/`) par upload kar ke live verify kar liya gaya.
     - Changes ko Git repository `main` branch par commit aur push kar diya gaya.
 
-- **Reolink Go PT Plus Pricing Synchronization (August 18, 2026):**
-  - **With Solar Panel Package:** Restored to **Rs 25,000** (Original: Rs 35,000, Save 28%).
-  - **Without Solar Panel Package:** Set to **Rs 23,000**.
-  - **Files Synchronized:** `cms_data.json`, `index.html` (Hero slide 1, navigation pill tab, comparison table, meta tags, schema FAQ, order checkout modal), `go-pt-plus.html` (price banner, upsell combo, checkout options), `admin/index.php` (default settings and POST handlers), `cities/*.html`, and blog guides.
-  - **Deployment:** Live on Hostinger FTP (`/public_html/`) and pushed to Git repository (`main`).
+- **Hero Floating Spec Tags Desktop & Laptop Snug Alignment Fix (August 18, 2026):**
+  - **Problem Solved:** Desktop/laptop screens par floating tags (`.ft-1` through `.ft-6` and `.jz-1` through `.jz-6`) me excessive negative offsets (`left: -105px`, `right: -105px`) ki wajah se left side wale tags hero text ke upar overlap ho rahe the aur right side wale tags viewport se bahar cut off ho rahe the.
+  - **Fix Implemented:**
+    - Coordinates ko symmetrical aur snug framing ke sath camera/dashcam silhouette ke bilkul qareeb anchor kiya gaya:
+      * Top Pair: `ft-5` (Two Way Audio, left: 6%) aur `ft-1` (4G LTE, right: 6%) at `top: 10%`.
+      * Mid Pair: `ft-2` (PTA Approved, left: 2%) aur `ft-6` (App Alerts, right: 2%) at `top: 44%`.
+      * Bottom Pair: `ft-3` (Solar Powered, left: 12%) aur `ft-4` (2K 4MP, right: 12%) at `bottom: 10%`.
+      * JZONES tags (`.jz-1` to `.jz-6`) ko bhi identical symmetrical coordinates par align kiya gaya.
+    - Floating keyframe animation ko subtle 10px vertical float (`translateY(-10px) translateZ(30px)`) par tune kiya gaya.
+    - Mobile 2-column grid layout intact rakha gaya.
+  - **Deployment & Versioning:**
+    - Version bumped to `?v=132` in `index.html`.
+    - Synchronized `css/styles.css` and `css/styles.min.css`.
+    - Uploaded to Hostinger Live FTP server (`/public_html/`) and pushed to Git (`main`).
 
 ## Proposed Improvements & Suggestions
 1. **Video Size Optimization:**

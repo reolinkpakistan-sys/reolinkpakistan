@@ -17,10 +17,12 @@ function initApp() {
         hamburger.setAttribute('aria-label', 'Toggle menu');
         hamburger.innerHTML = '<span></span><span></span><span></span>';
         
-        // Insert it before the "Buy Now" button
-        const buyBtn = headerInner.querySelector('.nav-btn');
-        if (buyBtn) {
-            headerInner.insertBefore(hamburger, buyBtn);
+        // Insert it before the header actions or Buy Now button
+        const headerActions = headerInner.querySelector('.header-actions') || headerInner.querySelector('.nav-btn');
+        if (headerActions && headerActions.parentNode === headerInner) {
+            headerInner.insertBefore(hamburger, headerActions);
+        } else if (headerActions && headerActions.parentNode) {
+            headerActions.parentNode.insertBefore(hamburger, headerActions);
         } else {
             headerInner.appendChild(hamburger);
         }

@@ -1,12 +1,12 @@
 // Reolink Pakistan & JZONES — Service Worker
-const CACHE_NAME = 'reolink-pwa-v138';
+const CACHE_NAME = 'reolink-pwa-v139';
 const CORE_ASSETS = [
   '/',
   '/index.html',
-  '/css/styles.min.css?v=138',
-  '/js/script.js?v=138',
-  '/js/cms.js?v=138',
-  '/js/conversion.js?v=138',
+  '/css/styles.min.css?v=139',
+  '/js/script.js?v=139',
+  '/js/cms.js?v=139',
+  '/js/conversion.js?v=139',
   '/images/favicon-32.png',
   '/images/icon-192.png',
   '/images/icon-512.png',

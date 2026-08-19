@@ -5765,4 +5765,512 @@ img, video {
     text-decoration: underline;
 }
 
+/* ===================================================
+   LIVE INSTANT SEARCH (AUTOCOMPLETE DROPDOWN & HEADER)
+   =================================================== */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-search-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    color: #94a3b8;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.25s ease;
+}
+.header-search-btn:hover {
+    background: rgba(0, 243, 255, 0.1);
+    border-color: rgba(0, 243, 255, 0.4);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.25);
+}
+.header-search-btn .search-kbd {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    font-family: inherit;
+}
+
+/* Global Search Modal Overlay */
+.global-search-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(4, 7, 13, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    z-index: 3000;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 80px;
+}
+.global-search-modal.show {
+    display: flex;
+    animation: fadeInModal 0.25s ease forwards;
+}
+
+.search-modal-container {
+    width: 92%;
+    max-width: 680px;
+    background: #0d121f;
+    border: 1px solid rgba(0, 243, 255, 0.25);
+    border-radius: 20px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.85), 0 0 30px rgba(0, 243, 255, 0.15);
+    overflow: hidden;
+    position: relative;
+}
+
+.search-input-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+}
+.search-input-icon {
+    font-size: 22px;
+    color: #00f3ff;
+    margin-right: 14px;
+    flex-shrink: 0;
+}
+.search-modal-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 17px;
+    color: #ffffff;
+    font-family: inherit;
+    font-weight: 600;
+}
+.search-modal-input::placeholder {
+    color: #64748b;
+    font-weight: 400;
+}
+.search-clear-btn {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 4px 8px;
+    display: none;
+    transition: color 0.2s;
+}
+.search-clear-btn:hover { color: #ff4d4d; }
+.search-close-esc {
+    font-size: 11px;
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    color: #94a3b8;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Autocomplete Results Box */
+.search-results-list {
+    max-height: 440px;
+    overflow-y: auto;
+    padding: 12px 14px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 243, 255, 0.3) transparent;
+}
+.search-results-list::-webkit-scrollbar {
+    width: 6px;
+}
+.search-results-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 243, 255, 0.3);
+    border-radius: 999px;
+}
+
+.search-results-header {
+    font-size: 11.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    padding: 6px 12px 10px;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-radius: 12px;
+    margin-bottom: 6px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.search-result-item:hover,
+.search-result-item.is-selected {
+    background: rgba(0, 243, 255, 0.08);
+    border-color: rgba(0, 243, 255, 0.3);
+    transform: translateX(4px);
+}
+.search-item-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+.search-item-thumb {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    object-fit: contain;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+    padding: 4px;
+}
+.search-item-info {
+    min-width: 0;
+}
+.search-item-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #f1f5f9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+.search-item-title mark {
+    background: transparent;
+    color: #00f3ff;
+    font-weight: 800;
+    text-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+}
+.search-item-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+.search-cat-chip {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(47, 101, 246, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(47, 101, 246, 0.3);
+}
+.search-stock-chip {
+    font-size: 11px;
+    font-weight: 600;
+    color: #22c55e;
+}
+.search-item-right {
+    text-align: right;
+    flex-shrink: 0;
+    margin-left: 12px;
+}
+.search-item-price {
+    font-size: 15px;
+    font-weight: 800;
+    color: #00f3ff;
+}
+.search-item-arrow {
+    font-size: 16px;
+    color: #64748b;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+.search-result-item:hover .search-item-arrow,
+.search-result-item.is-selected .search-item-arrow {
+    color: #00f3ff;
+    transform: translateX(2px);
+}
+.search-no-results {
+    padding: 30px 20px;
+    text-align: center;
+    color: #94a3b8;
+}
+.search-no-results ion-icon {
+    font-size: 40px;
+    color: #64748b;
+    margin-bottom: 8px;
+}
+.search-modal-footer {
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* Category Page Autocomplete Dropdown */
+.category-search-wrapper {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    padding: 0 20px;
+}
+.cat-autocomplete-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 20px;
+    right: 20px;
+    background: #0d121f;
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 14px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+    z-index: 500;
+    display: none;
+    max-height: 380px;
+    overflow-y: auto;
+    padding: 8px;
+}
+.cat-autocomplete-dropdown.show { display: block; }
+
+/* ===================================================
+   PTA VERIFICATION POPUP & COMPLIANCE MODAL
+   =================================================== */
+.pta-modal-card {
+    max-width: 580px !important;
+    background: linear-gradient(145deg, #0b0f19 0%, #111827 100%) !important;
+    border: 1px solid rgba(255, 107, 0, 0.35) !important;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 107, 0, 0.15) !important;
+}
+.pta-modal-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.pta-shield-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 107, 0, 0.2) 0%, rgba(255, 170, 0, 0.1) 100%);
+    border: 2px solid var(--brand-orange);
+    color: var(--brand-orange);
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+    box-shadow: 0 0 25px rgba(255, 107, 0, 0.3);
+}
+.pta-modal-header h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 4px;
+}
+.pta-modal-header p {
+    font-size: 13.5px;
+    color: #fb923c;
+    margin: 0;
+    font-weight: 600;
+}
+.pta-badge-status-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+}
+.pta-live-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 10px #22c55e;
+    animation: pulse 1.5s infinite;
+}
+.pta-status-title {
+    font-size: 13.5px;
+    color: #4ade80;
+}
+.pta-intro-text {
+    font-size: 14px;
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.pta-section-heading {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.pta-section-heading ion-icon {
+    color: var(--brand-blue);
+    font-size: 18px;
+}
+.pta-steps-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.pta-step-item {
+    display: flex;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 12px;
+}
+.pta-step-item .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--brand-blue);
+    color: #fff;
+    font-weight: 800;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.pta-step-item .step-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.pta-step-item .step-info strong {
+    font-size: 13.5px;
+    color: #f1f5f9;
+}
+.pta-step-item .step-info span {
+    font-size: 12.5px;
+    color: #94a3b8;
+    line-height: 1.4;
+}
+.pta-step-item code {
+    background: rgba(0, 243, 255, 0.1);
+    color: #00f3ff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11.5px;
+}
+
+/* Simulated 8484 SMS Response Bubble */
+.pta-sms-mockup {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px dashed rgba(34, 197, 94, 0.4);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 20px;
+}
+.sms-sender-tag {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+.sms-sender-tag ion-icon { color: #22c55e; }
+.sms-message-bubble {
+    background: rgba(34, 197, 94, 0.08);
+    border-left: 3px solid #22c55e;
+    padding: 10px 12px;
+    border-radius: 6px;
+}
+.sms-badge-ok {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    background: #22c55e;
+    color: #0b0f19;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
+.sms-message-bubble p {
+    font-size: 13px !important;
+    color: #e2e8f0 !important;
+    margin: 0 !important;
+    line-height: 1.4 !important;
+}
+
+.pta-modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.pta-wa-verify-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #25d366 !important;
+    color: #fff !important;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 12px;
+    padding: 14px;
+}
+.pta-wa-verify-btn:hover {
+    background: #20ba5a !important;
+    box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+}
+.close-pta-modal-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.close-pta-modal-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+/* Clickable PTA badges indicator */
+.reo-badge.orange,
+.reo-badge[data-pta-trigger],
+.btn-pta-trigger,
+.float-tag.ft-2 {
+    cursor: pointer;
+}
+.reo-badge.orange:hover,
+.float-tag.ft-2:hover {
+    filter: brightness(1.2);
+    transform: scale(1.05);
+}
+
 

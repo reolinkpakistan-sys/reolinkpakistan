@@ -137,8 +137,15 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
+    <!-- PWA & Mobile App Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0b0f19">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Reolink PK">
+
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.min.css?v=122">
+    <link rel="stylesheet" href="css/styles.min.css?v=137">
     <link rel="stylesheet" href="css/jzones.css?v=3">
     <style>
         /* Seamless Navbar Integration */
@@ -219,11 +226,15 @@
                         <a href="/category/accessories">Smart Accessories</a>
                     </div>
                 </div>
-                <a href="/about">About Us</a>
-                <a href="/contact">Contact Us</a>
-                <a href="/warranty">Warranty/FAQ</a>
             </div>
-            <a href="#buy" class="btn-reo-primary nav-btn">Order Now</a>
+            <div class="header-actions">
+                <button type="button" class="header-search-btn" onclick="openGlobalSearch()" aria-label="Search products">
+                    <ion-icon name="search-outline"></ion-icon>
+                    <span>Search...</span>
+                    <span class="search-kbd">⌘K</span>
+                </button>
+                <a href="#buy" class="btn-reo-primary nav-btn">Order Now</a>
+            </div>
         </div>
     </nav>
 
@@ -1076,6 +1087,93 @@
         <div class="online-indicator"></div>
     </a>
 
+    <!-- Global Live Search Autocomplete Modal -->
+    <div class="global-search-modal" id="globalSearchModal" aria-hidden="true">
+        <div class="search-modal-container">
+            <div class="search-input-header">
+                <ion-icon name="search-outline" class="search-input-icon"></ion-icon>
+                <input type="text" id="globalSearchInput" class="search-modal-input" placeholder="Search 4G cameras, solar CCTV, 4K dashcams, mics..." autocomplete="off">
+                <button type="button" class="search-clear-btn" id="globalSearchClear" aria-label="Clear Search">&times;</button>
+                <span class="search-close-esc" onclick="closeGlobalSearch()">ESC</span>
+            </div>
+            <div class="search-results-list" id="globalSearchResults">
+                <!-- Live search items populated via JS -->
+            </div>
+            <div class="search-modal-footer">
+                <span><kbd style="background:rgba(255,255,255,0.1); padding:2px 5px; border-radius:4px;">↑</kbd> <kbd style="background:rgba(255,255,255,0.1); padding:2px 5px; border-radius:4px;">↓</kbd> to navigate</span>
+                <span><kbd style="background:rgba(255,255,255,0.1); padding:2px 5px; border-radius:4px;">↵</kbd> to select</span>
+                <span><kbd style="background:rgba(255,255,255,0.1); padding:2px 5px; border-radius:4px;">ESC</kbd> to close</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PTA Verification Guide & Compliance Modal -->
+    <div class="reo-modal pta-verification-modal" id="ptaVerificationModal" aria-hidden="true">
+        <div class="modal-overlay" onclick="closePtaModal()"></div>
+        <div class="modal-content pta-modal-card">
+            <button class="close-modal close-pta-modal" type="button" onclick="closePtaModal()" aria-label="Close PTA Guide">&times;</button>
+            <div class="pta-modal-header">
+                <div class="pta-shield-icon">
+                    <ion-icon name="shield-checkmark"></ion-icon>
+                </div>
+                <h3>Official PTA Approved Status</h3>
+                <p>100% Tax-Paid &amp; DIRBS Compliant by S M Enterprises</p>
+            </div>
+            <div class="pta-modal-body">
+                <div class="pta-badge-status-banner">
+                    <span class="pta-live-dot"></span>
+                    <span class="pta-status-title">PTA DIRBS Status: <strong>COMPLIANT / LIFETIME APPROVED</strong></span>
+                </div>
+                <p class="pta-intro-text">
+                    S M Enterprises ke tamam Reolink 4G Cameras official customs duty aur PTA tax-paid hain. Jazz, Zong, Telenor aur Ufone SIMs par bina kisi blocking ke lifetime operate karein ge.
+                </p>
+
+                <h4 class="pta-section-heading"><ion-icon name="phone-portrait-outline"></ion-icon> PTA Status Verify Karne Ka Aasan Tareeqa:</h4>
+                <div class="pta-steps-grid">
+                    <div class="pta-step-item">
+                        <div class="step-num">1</div>
+                        <div class="step-info">
+                            <strong>15-Digit IMEI Talash Karein</strong>
+                            <span>Camera box ke barcode label ya device body par likha 15-digit IMEI check karein.</span>
+                        </div>
+                    </div>
+                    <div class="pta-step-item">
+                        <div class="step-num">2</div>
+                        <div class="step-info">
+                            <strong>8484 Par SMS Karein</strong>
+                            <span>Apne phone se 15-digit IMEI number <strong>8484</strong> (PTA DIRBS) par SMS karein ya <code>dirbs.pta.gov.pk</code> par check karein.</span>
+                        </div>
+                    </div>
+                    <div class="pta-step-item">
+                        <div class="step-num">3</div>
+                        <div class="step-info">
+                            <strong>Official Confirmation Payein</strong>
+                            <span>PTA ki taraf se instant response confirm kare ga ke aap ka device legal aur approved hai.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulated DIRBS 8484 Response -->
+                <div class="pta-sms-mockup">
+                    <div class="sms-sender-tag"><ion-icon name="chatbubble-ellipses-outline"></ion-icon> SMS from: 8484 (DIRBS-PTA)</div>
+                    <div class="sms-message-bubble">
+                        <div class="sms-badge-ok">✓ COMPLIANT</div>
+                        <p>IMEI 861245051234567 is <strong>Compliant (Approved by PTA)</strong>. This device can be used on all mobile networks in Pakistan.</p>
+                    </div>
+                </div>
+
+                <div class="pta-modal-actions">
+                    <a href="https://wa.me/923206755555?text=Salam%2C%20mujhe%20Reolink%20camera%20ka%20PTA%20IMEI%20number%20verify%20karna%20hai" target="_blank" class="btn-reo-primary pta-wa-verify-btn">
+                        <ion-icon name="logo-whatsapp"></ion-icon> Verify IMEI with Support on WhatsApp
+                    </a>
+                    <button type="button" class="btn-reo-secondary close-pta-modal-btn" onclick="closePtaModal()">Understood / Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="js/script.js?v=137"></script>
+<script src="js/cms.js?v=137"></script>
 <script src="js/jzones.js?v=3"></script>
 </body>
 </html>

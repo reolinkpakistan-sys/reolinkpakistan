@@ -591,6 +591,9 @@ function initApp() {
     window.initRain = initRain;
     initRain();
     initTier4();
+    registerServiceWorker();
+    initGlobalLiveSearch();
+    initPtaVerificationModal();
 }
 
 if (document.readyState === 'loading') {
@@ -1087,5 +1090,299 @@ window.scrollStories = function(direction) {
         track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
 };
+
+// ============================================
+// 1. PROGRESSIVE WEB APP (SERVICE WORKER REGISTRATION)
+// ============================================
+function registerServiceWorker() {
+    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => {
+                    // Service Worker registered
+                })
+                .catch(err => {
+                    console.log('SW reg info:', err);
+                });
+        });
+    }
+}
+
+// ============================================
+// 2. GLOBAL LIVE INSTANT SEARCH (AUTOCOMPLETE)
+// ============================================
+function initGlobalLiveSearch() {
+    const searchModal = document.getElementById('globalSearchModal');
+    const searchInput = document.getElementById('globalSearchInput');
+    const searchResults = document.getElementById('globalSearchResults');
+    const searchClear = document.getElementById('globalSearchClear');
+
+    let productsCache = [];
+    let selectedIndex = -1;
+
+    // Load products database
+    function loadProducts() {
+        if (window.cmsData && window.cmsData.gadgets && window.cmsData.gadgets.length) {
+            populateCache(window.cmsData);
+            return;
+        }
+        fetch('/cms_data.json')
+            .then(res => res.json())
+            .then(data => {
+                populateCache(data);
+            })
+            .catch(() => {});
+    }
+
+    function populateCache(data) {
+        productsCache = (data.gadgets || []).filter(g => g.visible !== false);
+        // Ensure flagship 4G solar is indexed
+        if (!productsCache.find(p => p.id === 'reolink-go-pt-plus')) {
+            productsCache.unshift({
+                id: 'reolink-go-pt-plus',
+                name: 'Reolink Go PT Plus 4G Solar Camera',
+                category: '4g-cameras',
+                curr_price: (data.prices && data.prices.solar) || 25000,
+                orig_price: 35000,
+                desc: 'PTA Approved 100% wire-free 4G LTE solar security camera with 2K 4MP, 355 Pan & 140 Tilt.',
+                image: 'images/camera.webp',
+                static_url: '/go-pt-plus.html',
+                tag: 'Bestseller Flagship'
+            });
+        }
+    }
+
+    loadProducts();
+
+    function openSearch() {
+        if (!searchModal) return;
+        loadProducts();
+        searchModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        if (searchInput) {
+            searchInput.value = '';
+            searchInput.focus();
+            renderResults('');
+        }
+    }
+
+    function closeSearch() {
+        if (!searchModal) return;
+        searchModal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Bind triggers on document delegation
+    document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('.header-search-btn, .btn-search-trigger, [data-search-trigger]');
+        if (trigger) {
+            e.preventDefault();
+            openSearch();
+            return;
+        }
+        if (e.target.closest('.search-close-esc')) {
+            closeSearch();
+            return;
+        }
+        if (e.target === searchModal) {
+            closeSearch();
+            return;
+        }
+    });
+
+    // Keyboard Shortcuts (⌘K / Ctrl+K / Escape / Arrow navigation)
+    document.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            if (searchModal && searchModal.classList.contains('show')) closeSearch();
+            else openSearch();
+        } else if (e.key === 'Escape' && searchModal && searchModal.classList.contains('show')) {
+            closeSearch();
+        }
+    });
+
+    if (searchClear && searchInput) {
+        searchClear.addEventListener('click', () => {
+            searchInput.value = '';
+            searchClear.style.display = 'none';
+            searchInput.focus();
+            renderResults('');
+        });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            if (searchClear) searchClear.style.display = query ? 'block' : 'none';
+            selectedIndex = -1;
+            renderResults(query);
+        });
+
+        searchInput.addEventListener('keydown', (e) => {
+            const items = searchResults ? searchResults.querySelectorAll('.search-result-item') : [];
+            if (!items.length) return;
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                selectedIndex = (selectedIndex + 1) % items.length;
+                updateSelectedItem(items);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+                updateSelectedItem(items);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (selectedIndex >= 0 && items[selectedIndex]) {
+                    items[selectedIndex].click();
+                } else if (items[0]) {
+                    items[0].click();
+                }
+            }
+        });
+    }
+
+    function updateSelectedItem(items) {
+        items.forEach((item, idx) => {
+            item.classList.toggle('is-selected', idx === selectedIndex);
+            if (idx === selectedIndex) {
+                item.scrollIntoView({ block: 'nearest' });
+            }
+        });
+    }
+
+    function highlightMatch(text, query) {
+        if (!query || !text) return text;
+        const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escaped})`, 'gi');
+        return text.replace(regex, '<mark>$1</mark>');
+    }
+
+    function getCategoryName(slug) {
+        const map = {
+            '4g-cameras': '4G SIM CCTV',
+            'solar-cameras': 'Solar Security',
+            'wifi-cameras': 'WiFi Cameras',
+            'cctv-systems': 'Wireless NVR Kit',
+            'dashcams': 'Car Dashcams',
+            'wireless-mics': 'Wireless Mics',
+            'speakers': 'Bluetooth Speakers',
+            'accessories': 'Accessories'
+        };
+        return map[slug] || 'Smart Gadgets';
+    }
+
+    function renderResults(query) {
+        if (!searchResults) return;
+        if (!productsCache.length) {
+            searchResults.innerHTML = `<div class="search-no-results"><p>Loading products catalog...</p></div>`;
+            return;
+        }
+
+        let matches = [];
+        if (!query) {
+            matches = productsCache.slice(0, 6);
+        } else {
+            const q = query.toLowerCase();
+            matches = productsCache.filter(p => {
+                const titleMatch = (p.name || '').toLowerCase().includes(q);
+                const descMatch = (p.desc || '').toLowerCase().includes(q);
+                const catMatch = (p.category || '').toLowerCase().includes(q);
+                const kwMatch = (p.focus_keywords || '').toLowerCase().includes(q);
+                const idMatch = (p.id || '').toLowerCase().includes(q);
+                return titleMatch || descMatch || catMatch || kwMatch || idMatch;
+            });
+        }
+
+        if (!matches.length) {
+            searchResults.innerHTML = `
+                <div class="search-no-results">
+                    <ion-icon name="search-outline"></ion-icon>
+                    <p>No products found for "<strong>${escapeHtml(query)}</strong>"</p>
+                    <span style="font-size:13px; color:#64748b;">Try searching for <em>4G, Solar, Dashcam, PT Plus, or Wireless Mic</em></span>
+                </div>`;
+            return;
+        }
+
+        const headerText = query ? `Matching Products (${matches.length})` : 'Popular Flagship Models';
+        let html = `<div class="search-results-header">${headerText}</div>`;
+
+        matches.forEach((p, idx) => {
+            const url = p.static_url || (p.id === 'reolink-go-pt-plus' ? '/go-pt-plus.html' : `/products/${p.id}`);
+            const highlightedTitle = highlightMatch(p.name, query);
+            const catName = getCategoryName(p.category);
+            const formattedPrice = Number(p.curr_price || 0).toLocaleString('en-PK');
+            const img = p.image || 'images/placeholder.webp';
+
+            html += `
+                <a href="${url}" class="search-result-item" data-index="${idx}">
+                    <div class="search-item-left">
+                        <img src="${img}" class="search-item-thumb" alt="${escapeHtml(p.name)}" loading="lazy">
+                        <div class="search-item-info">
+                            <span class="search-item-title">${highlightedTitle}</span>
+                            <div class="search-item-meta">
+                                <span class="search-cat-chip">${catName}</span>
+                                <span class="search-stock-chip">● In Stock</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-item-right">
+                        <span class="search-item-price">Rs ${formattedPrice}</span>
+                        <ion-icon name="arrow-forward-outline" class="search-item-arrow"></ion-icon>
+                    </div>
+                </a>`;
+        });
+
+        searchResults.innerHTML = html;
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>"']/g, function(m) {
+            return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];
+        });
+    }
+
+    window.openGlobalSearch = openSearch;
+    window.closeGlobalSearch = closeSearch;
+}
+
+// ============================================
+// 3. INTERACTIVE PTA VERIFICATION MODAL
+// ============================================
+function initPtaVerificationModal() {
+    const ptaModal = document.getElementById('ptaVerificationModal');
+    if (!ptaModal) return;
+
+    function openPtaModal(e) {
+        if (e) e.preventDefault();
+        ptaModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePtaModal() {
+        ptaModal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+
+    document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('.reo-badge.orange, .float-tag.ft-2, .btn-pta-trigger, [data-pta-trigger]');
+        if (trigger) {
+            openPtaModal(e);
+            return;
+        }
+        if (e.target.closest('.close-pta-modal, .close-pta-modal-btn')) {
+            closePtaModal();
+            return;
+        }
+        if (e.target === ptaModal || (e.target.classList && e.target.classList.contains('modal-overlay'))) {
+            closePtaModal();
+            return;
+        }
+    });
+
+    window.openPtaModal = openPtaModal;
+    window.closePtaModal = closePtaModal;
+}
+
 
 

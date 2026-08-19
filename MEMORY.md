@@ -35,6 +35,11 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **Lower Sections Rendering Fix (August 2026 - v138):**
+  - **Issue Reported:** Live website par hero section ke neeche koi content ya videos load nahi ho rahi theen.
+  - **Root Cause:** In v137, `.nav-btn` ko `.header-actions` div me wrap kiya gaya tha. `js/script.js` me line 23 par `headerInner.insertBefore(hamburger, buyBtn)` call ho raha tha jo `NotFoundError: Node is not a child of this node` throw kar raha tha kyunke `buyBtn` ab `headerInner` ka direct child nahi balke `headerActions` ka child ban chuka tha. Is runtime error ki wajah se `initApp()` crash ho gayi thi aur scroll `IntersectionObserver` initiate nahi hua, jis se neeche ke tamam `.reveal-up` sections hidden reh gaye the.
+  - **Fix:** Safe node parent validation lagai: `headerActions.parentNode === headerInner ? headerInner.insertBefore(hamburger, headerActions) : headerActions.parentNode.insertBefore(hamburger, headerActions)`.
+  - **Verification:** Script & Cache versions ko `?v=138` bump kar ke Hostinger live server par deploy kiya aur Browser Subagent se 0 errors aur smooth visibility verify ki.
 - **4 Key Power Features Implementation (August 2026 - v137):**
   - **1. Progressive Web App (PWA & Add to Home Screen):**
     - `manifest.json` configure kiya with dark theme `#0b0f19`, standalone display, shortcuts, aur high-res icons.

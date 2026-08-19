@@ -35,6 +35,25 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **4 Key Power Features Implementation (August 2026 - v137):**
+  - **1. Progressive Web App (PWA & Add to Home Screen):**
+    - `manifest.json` configure kiya with dark theme `#0b0f19`, standalone display, shortcuts, aur high-res icons.
+    - App icons `images/icon-192.png` aur `images/icon-512.png` generate kiye with brand shield and badge.
+    - `sw.js` (Service Worker) implement kiya with Cache-First strategy for static assets (CSS, JS, fonts, icons) and Network-First for dynamic JSON data.
+    - `registerServiceWorker()` register kiya across all pages.
+  - **2. Category & Header Live Instant Search (Autocomplete):**
+    - Header search button add kiya with keyboard shortcut badge (`⌘K` / `Ctrl+K`).
+    - Modal `#globalSearchModal` with instant live search autocomplete dropdown (`initGlobalLiveSearch()` in `js/script.js`).
+    - Multi-field search (product title, category, keywords, description, specs), matched keyword highlighting (`<mark>`), category chips, live price badges, and keyboard navigation (Arrow Up/Down/Enter/Escape).
+  - **3. Interactive PTA Verification Guide Popup:**
+    - Dedicated `#ptaVerificationModal` modal add kiya with official customs duty & DIRBS lifetime status banner, step-by-step 8484 verification guide, simulated PTA DIRBS SMS bubble, and direct WhatsApp verification CTA.
+    - Global click delegation on `.reo-badge.orange`, `.float-tag.ft-2`, and `[data-pta-trigger]` to trigger the guide instantly.
+  - **4. Google FAQPage JSON-LD Structured Data Schema:**
+    - Rich FAQPage JSON-LD schemas implement kiye across `index.html`, `go-pt-plus.html`, and `warranty.html` for Google search rich snippet eligibility.
+  - **Deployment & Synchronization:**
+    - `css/styles.min.css` synchronize kiya aur asset version query string `?v=137` bump kiya.
+    - Git commit `fc85907` push to `main`.
+    - Tamam files Hostinger FTP (`147.93.78.148` -> `/public_html/`) par live upload kar ke curl se verify kiya.
 - **Hero Slider Smooth Right-to-Left Swipe Conversion (August 2026 - v136):**
   - **User Feedback & Problem:**
     - User noticed a visual jitter / vibration during the hero flagship product switch animation (between Reolink Go PT Plus and JZONES V630 4K Dashcam) and requested converting it to a buttery smooth, right-to-left horizontal swipe transition.

@@ -35,6 +35,11 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **iPhone Mockup App Demo Video Alignment & Autoplay Fix (August 2026 - v139):**
+  - **Issue Reported:** Phone mockup ke andar notification demo video misaligned thi (top 75% black space, bottom-right shifted) aur properly stream/play nahi ho rahi thi.
+  - **Root Cause:** `.mock-video-element` par `object-position: 60% 40%` aur `width: 105%; height: 105%; top: 50%; left: 50%; transform: translate(-50%, -50%)` lagaya hua tha jis ne video ko phone frame se bohot zyada right-down shift kar diya tha. Mazeed baran duplicate `.dynamic-island` overlay phone ke top notch ko block kar rahi thi jabke video me already authentic native Dynamic Island recorded thi.
+  - **Fix:** `.mock-video-element` ko `position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top;` kiya, duplicate Dynamic Island overlay disable kiya, video element par `webkit-playsinline` aur `preload="auto"` set kiya, matching poster update kiya, aur asset versions ko `?v=139` bump kar ke Hostinger live server par deploy kiya.
+  - **Verification:** Browser subagent se live page inspect kar ke verify kiya gaya — video ab iPhone frame ke andar 100% perfectly aligned, edge-to-edge centered aur smoothly play ho rahi hai.
 - **Lower Sections Rendering Fix (August 2026 - v138):**
   - **Issue Reported:** Live website par hero section ke neeche koi content ya videos load nahi ho rahi theen.
   - **Root Cause:** In v137, `.nav-btn` ko `.header-actions` div me wrap kiya gaya tha. `js/script.js` me line 23 par `headerInner.insertBefore(hamburger, buyBtn)` call ho raha tha jo `NotFoundError: Node is not a child of this node` throw kar raha tha kyunke `buyBtn` ab `headerInner` ka direct child nahi balke `headerActions` ka child ban chuka tha. Is runtime error ki wajah se `initApp()` crash ho gayi thi aur scroll `IntersectionObserver` initiate nahi hua, jis se neeche ke tamam `.reveal-up` sections hidden reh gaye the.

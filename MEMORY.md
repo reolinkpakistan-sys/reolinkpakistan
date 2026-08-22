@@ -35,6 +35,16 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **JZONES V630 4K Video Audio Replacement & Genuine Watermark Unblocking (August 2026 - v141):**
+  - **User Feedback:**
+    1. Video se original conversation / spoken audio remove kar ke sleek ambient background music lagaya jaye.
+    2. Video ke upar jo artificial speed limit/HUD lagaya tha usko hata diya jaye taake camera ka apna actual built-in watermark (`Jzones`, Date, Time, Speed, GPS coordinates) 100% clearly show ho.
+  - **Implementation:**
+    - Original voice audio ko strip kar ke synthesized warm ambient chill synth track (`videos/jzones_bg_music.m4a`) ke sath AVFoundation hardware-accelerated tool se lossless mux kiya.
+    - `jzones-v630.html` se artificial `.screen-hud-overlay` aur dark gradient ko mukammal khatam kiya.
+    - Video controls ko top-right corner me sleek floating buttons ke tor par shift kiya.
+    - CSS me aspect ratio aur `object-fit: contain` fix kiya jis se camera ka genuine bottom watermark (`Jzones 08/14/2026 10:35:56 AM 3 KM/H N31°28'1" E74°26'15"`) bina kisi cropping ke 100% legible aur unblocked ho gaya.
+    - Version `v141` & `v6` Hostinger live server par deploy kiya aur Browser Subagent se verify kiya.
 - **JZONES V630 4K Real Road Video Sample & Interactive HUD Player (August 2026 - v140):**
   - **User Request:** Desktop par moujood `Jzones V630 4K.MP4` video file ko JZONES V630 page par as real video sample post kiya jaye with details, high visual quality, zero quality compromise, aur ultra-fast lightweight web streaming.
   - **Implementation:**

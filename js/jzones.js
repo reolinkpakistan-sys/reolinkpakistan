@@ -231,21 +231,12 @@ Please confirm my order with SM Enterprises for dispatch!`;
     const frameFront = document.getElementById('frameFront');
     const frameCabin = document.getElementById('frameCabin');
     const frameRear = document.getElementById('frameRear');
-    const hudChannel = document.getElementById('hudChannel');
-    const hudResolution = document.getElementById('hudResolution');
-    const hudLiveTime = document.getElementById('hudLiveTime');
 
     const footagePlayBtn = document.getElementById('footagePlayBtn');
     const footagePlayIcon = document.getElementById('footagePlayIcon');
     const footageMuteBtn = document.getElementById('footageMuteBtn');
     const footageMuteIcon = document.getElementById('footageMuteIcon');
     const footageFullscreenBtn = document.getElementById('footageFullscreenBtn');
-
-    const channelMeta = {
-        front: { title: 'CH1: FRONT 4K (DHA LAHORE)', res: '3840×2160P 4K UHD' },
-        cabin: { title: 'CH2: CABIN IR NIGHT (160°)', res: '1920×1080P 30FPS' },
-        rear: { title: 'CH3: REAR VIEW HD (150°)', res: '1920×1080P 30FPS' }
-    };
 
     footageTabs.forEach(tab => {
         tab.addEventListener('click', () => {
@@ -276,12 +267,6 @@ Please confirm my order with SM Enterprises for dispatch!`;
             const videoControls = document.querySelector('.video-custom-controls');
             if (videoControls) {
                 videoControls.style.display = target === 'front' ? 'flex' : 'none';
-            }
-
-            // Update HUD
-            if (channelMeta[target]) {
-                if (hudChannel) hudChannel.textContent = channelMeta[target].title;
-                if (hudResolution) hudResolution.textContent = channelMeta[target].res;
             }
         });
     });
@@ -322,22 +307,6 @@ Please confirm my order with SM Enterprises for dispatch!`;
             }
         });
     }
-
-    // Real-time HUD Clock Simulation
-    const updateHudClock = () => {
-        if (!hudLiveTime) return;
-        const now = new Date();
-        const y = now.getFullYear();
-        const m = String(now.getMonth() + 1).padStart(2, '0');
-        const d = String(now.getDate()).padStart(2, '0');
-        const hh = String(now.getHours()).padStart(2, '0');
-        const mm = String(now.getMinutes()).padStart(2, '0');
-        const ss = String(now.getSeconds()).padStart(2, '0');
-        hudLiveTime.textContent = `${y}/${m}/${d} ${hh}:${mm}:${ss}`;
-    };
-    setInterval(updateHudClock, 1000);
-    updateHudClock();
-    updateHudClock();
 
     // --- 8. INTERACTIVE FAQ ACCORDION ---
     const faqItems = document.querySelectorAll('.faq-item');

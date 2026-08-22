@@ -235,8 +235,14 @@ Please confirm my order with SM Enterprises for dispatch!`;
     const hudResolution = document.getElementById('hudResolution');
     const hudLiveTime = document.getElementById('hudLiveTime');
 
+    const footagePlayBtn = document.getElementById('footagePlayBtn');
+    const footagePlayIcon = document.getElementById('footagePlayIcon');
+    const footageMuteBtn = document.getElementById('footageMuteBtn');
+    const footageMuteIcon = document.getElementById('footageMuteIcon');
+    const footageFullscreenBtn = document.getElementById('footageFullscreenBtn');
+
     const channelMeta = {
-        front: { title: 'CH1: FRONT 4K ULTRA HD', res: '3840×2160P 30FPS' },
+        front: { title: 'CH1: FRONT 4K (DHA LAHORE)', res: '3840×2160P 4K UHD' },
         cabin: { title: 'CH2: CABIN IR NIGHT (160°)', res: '1920×1080P 30FPS' },
         rear: { title: 'CH3: REAR VIEW HD (150°)', res: '1920×1080P 30FPS' }
     };
@@ -248,9 +254,29 @@ Please confirm my order with SM Enterprises for dispatch!`;
             tab.classList.add('active');
 
             // Toggle frames
-            if (frameFront) frameFront.classList.toggle('active', target === 'front');
+            if (frameFront) {
+                const isFront = target === 'front';
+                frameFront.classList.toggle('active', isFront);
+                if (isFront && frameFront.play) {
+                    frameFront.play().catch(() => {});
+                    if (footagePlayIcon) {
+                        footagePlayIcon.className = 'fas fa-pause';
+                    }
+                } else if (frameFront.pause) {
+                    frameFront.pause();
+                    if (footagePlayIcon) {
+                        footagePlayIcon.className = 'fas fa-play';
+                    }
+                }
+            }
             if (frameCabin) frameCabin.classList.toggle('active', target === 'cabin');
             if (frameRear) frameRear.classList.toggle('active', target === 'rear');
+
+            // Show/hide video controls when not on front video
+            const videoControls = document.querySelector('.video-custom-controls');
+            if (videoControls) {
+                videoControls.style.display = target === 'front' ? 'flex' : 'none';
+            }
 
             // Update HUD
             if (channelMeta[target]) {
@@ -259,6 +285,43 @@ Please confirm my order with SM Enterprises for dispatch!`;
             }
         });
     });
+
+    // Video Play / Pause Button
+    if (footagePlayBtn && frameFront) {
+        footagePlayBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (frameFront.paused) {
+                frameFront.play();
+                if (footagePlayIcon) footagePlayIcon.className = 'fas fa-pause';
+            } else {
+                frameFront.pause();
+                if (footagePlayIcon) footagePlayIcon.className = 'fas fa-play';
+            }
+        });
+    }
+
+    // Video Mute / Unmute Button
+    if (footageMuteBtn && frameFront) {
+        footageMuteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            frameFront.muted = !frameFront.muted;
+            if (footageMuteIcon) {
+                footageMuteIcon.className = frameFront.muted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+            }
+        });
+    }
+
+    // Fullscreen Button
+    if (footageFullscreenBtn && frameFront) {
+        footageFullscreenBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (frameFront.requestFullscreen) {
+                frameFront.requestFullscreen();
+            } else if (frameFront.webkitRequestFullscreen) {
+                frameFront.webkitRequestFullscreen();
+            }
+        });
+    }
 
     // Real-time HUD Clock Simulation
     const updateHudClock = () => {
@@ -273,6 +336,7 @@ Please confirm my order with SM Enterprises for dispatch!`;
         hudLiveTime.textContent = `${y}/${m}/${d} ${hh}:${mm}:${ss}`;
     };
     setInterval(updateHudClock, 1000);
+    updateHudClock();
     updateHudClock();
 
     // --- 8. INTERACTIVE FAQ ACCORDION ---

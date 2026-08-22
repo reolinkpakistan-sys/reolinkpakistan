@@ -145,8 +145,8 @@
     <meta name="apple-mobile-web-app-title" content="Reolink PK">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.min.css?v=139">
-    <link rel="stylesheet" href="css/jzones.css?v=3">
+    <link rel="stylesheet" href="css/styles.min.css?v=140">
+    <link rel="stylesheet" href="css/jzones.css?v=4">
     <style>
         /* Seamless Navbar Integration */
         body {
@@ -394,16 +394,16 @@
     <section class="apple-section" id="footage">
         <div class="section-container">
             <div class="section-header-center">
-                <span class="section-tag">LIVE FOOTAGE SIMULATOR</span>
-                <h2 class="section-title">Every detail.<br>Recorded in 4K.</h2>
-                <p class="section-subtitle">Switch channels below to inspect simultaneous multi-camera recordings.</p>
+                <span class="section-tag">REAL 4K ON-ROAD TEST FOOTAGE</span>
+                <h2 class="section-title">Every detail.<br>Recorded in True 4K.</h2>
+                <p class="section-subtitle">Real on-road driving sample recorded in DHA Lahore with live GPS telemetry, speed tracking, and crystal-clear license plate legibility.</p>
             </div>
 
             <!-- Angle Switcher Controls -->
             <div class="footage-switcher-wrap">
                 <div class="footage-tabs">
                     <button class="footage-tab active" data-target="front">
-                        <i class="fas fa-video"></i> Front 4K UHD (155°)
+                        <i class="fas fa-video"></i> Front 4K UHD (DHA Lahore Video)
                     </button>
                     <button class="footage-tab" data-target="cabin">
                         <i class="fas fa-moon"></i> Cabin IR Night (130°)
@@ -417,19 +417,59 @@
                 <div class="footage-screen-card">
                     <div class="screen-hud-overlay">
                         <div class="hud-top">
-                            <span class="hud-rec"><span class="rec-dot"></span> REC <span id="hudResolution">3840×2160P 30FPS</span></span>
-                            <span class="hud-channel" id="hudChannel">CH1: FRONT 4K</span>
+                            <span class="hud-rec"><span class="rec-dot"></span> REC <span id="hudResolution">3840×2160P 4K UHD</span></span>
+                            <span class="hud-channel" id="hudChannel">CH1: FRONT 4K (DHA LAHORE)</span>
                         </div>
                         <div class="hud-bottom">
-                            <span class="hud-time" id="hudLiveTime">2025/10/14 21:48:32</span>
-                            <span class="hud-gps"><i class="fas fa-location-arrow"></i> 68 KM/H • N 33°41' E 73°04'</span>
+                            <span class="hud-time" id="hudLiveTime">2026/08/14 10:35:49</span>
+                            <span class="hud-gps"><i class="fas fa-location-arrow"></i> 7 KM/H • N 31°28'1" E 74°26'15"</span>
                         </div>
                     </div>
 
+                    <!-- Custom Interactive Video Controls -->
+                    <div class="video-custom-controls">
+                        <button class="video-ctrl-btn" id="footagePlayBtn" title="Play / Pause Video" aria-label="Play or Pause Video">
+                            <i class="fas fa-pause" id="footagePlayIcon"></i>
+                        </button>
+                        <button class="video-ctrl-btn" id="footageMuteBtn" title="Mute / Unmute Audio" aria-label="Toggle Audio">
+                            <i class="fas fa-volume-mute" id="footageMuteIcon"></i>
+                        </button>
+                        <button class="video-ctrl-btn" id="footageFullscreenBtn" title="Fullscreen View" aria-label="Fullscreen View">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+
                     <!-- Media Frames -->
-                    <img src="assets/jzones/jzones_photo_1.jpg" alt="Front 4K Road Capture" class="footage-frame active" id="frameFront">
+                    <video id="frameFront" class="footage-frame active footage-video lazy-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/jzones/jzones_4k_sample_poster.webp">
+                        <source src="videos/jzones_v630_dha_sample_web.mp4" type="video/mp4">
+                    </video>
                     <img src="assets/jzones/jzones_photo_5.jpg" alt="Cabin IR Night Vision Capture" class="footage-frame" id="frameCabin">
                     <img src="assets/jzones/jzones_photo_2.jpg" alt="Rear Wide Angle Capture" class="footage-frame" id="frameRear">
+                </div>
+
+                <!-- 4K Sample Highlights Grid -->
+                <div class="footage-details-grid">
+                    <div class="footage-detail-card">
+                        <div class="detail-icon"><i class="fas fa-id-card"></i></div>
+                        <div class="detail-content">
+                            <h4>Crystal-Clear License Plates</h4>
+                            <p>Reads car numbers (e.g. <code>PUNJAB BSX 483</code>, <code>AAG 659</code>) even in moving traffic and multi-lane intersections with zero blur.</p>
+                        </div>
+                    </div>
+                    <div class="footage-detail-card">
+                        <div class="detail-icon"><i class="fas fa-satellite-dish"></i></div>
+                        <div class="detail-content">
+                            <h4>Embedded GPS & Speed Stamp</h4>
+                            <p>Coordinates (<code>N 31°28'1" E 74°26'15"</code>) and speed are hardcoded into every frame for rock-solid legal evidence in insurance claims.</p>
+                        </div>
+                    </div>
+                    <div class="footage-detail-card">
+                        <div class="detail-icon"><i class="fas fa-sun"></i></div>
+                        <div class="detail-content">
+                            <h4>WDR Anti-Glare Sun Balancing</h4>
+                            <p>Preserves full billboard clarity (DHA Dolmen Mall) and shadow details without overexposing under bright midday Pakistani sun.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1172,8 +1212,8 @@
         </div>
     </div>
 
-<script src="js/script.js?v=139"></script>
-<script src="js/cms.js?v=139"></script>
-<script src="js/jzones.js?v=3"></script>
+<script src="js/script.js?v=140"></script>
+<script src="js/cms.js?v=140"></script>
+<script src="js/jzones.js?v=4"></script>
 </body>
 </html>

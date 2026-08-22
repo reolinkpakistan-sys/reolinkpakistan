@@ -35,6 +35,16 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **JZONES V630 4K Real Road Video Sample & Interactive HUD Player (August 2026 - v140):**
+  - **User Request:** Desktop par moujood `Jzones V630 4K.MP4` video file ko JZONES V630 page par as real video sample post kiya jaye with details, high visual quality, zero quality compromise, aur ultra-fast lightweight web streaming.
+  - **Implementation:**
+    - Source 4K 186 MB video (`/Users/MAC/Desktop/Jzones V630 4K.MP4`, 3840x2160 @ 25fps) ko analyze kar ke native hardware-accelerated multi-pass compression se ultra-crisp web streaming video (`videos/jzones_v630_dha_sample_web.mp4`) aur 4K WebP poster (`assets/jzones/jzones_4k_sample_poster.webp`) banaya.
+    - `jzones-v630.html` ke `#footage` section me interactive 4K Video Player integrate kiya with live HUD telemetry (`REC 3840×2160P 4K UHD`, `7 KM/H • N 31°28'1" E 74°26'15" DHA Lahore`), custom Play/Pause, Mute, aur Fullscreen controls.
+    - Three-channel switcher (`Front 4K UHD DHA Lahore Video`, `Cabin IR Night`, `Rear View HD`) me real-time video play/pause lifecycle manage ki.
+    - Key proof highlights grid add kiya: License plate readability (`PUNJAB BSX 483`), embedded GPS watermark, aur WDR sun balancing.
+    - `best-car-dashcam-pakistan-guide.html` me bhi real 4K video preview block add kiya.
+    - Asset versions ko `v140` bump kiya aur Hostinger live server (`https://reolink.com.pk/`) par deploy kiya.
+  - **Verification:** Browser Subagent se live site par inspect kar ke buttery-smooth video playback aur channel switching verify ki gayi.
 - **iPhone Mockup App Demo Video Alignment & Autoplay Fix (August 2026 - v139):**
   - **Issue Reported:** Phone mockup ke andar notification demo video misaligned thi (top 75% black space, bottom-right shifted) aur properly stream/play nahi ho rahi thi.
   - **Root Cause:** `.mock-video-element` par `object-position: 60% 40%` aur `width: 105%; height: 105%; top: 50%; left: 50%; transform: translate(-50%, -50%)` lagaya hua tha jis ne video ko phone frame se bohot zyada right-down shift kar diya tha. Mazeed baran duplicate `.dynamic-island` overlay phone ke top notch ko block kar rahi thi jabke video me already authentic native Dynamic Island recorded thi.

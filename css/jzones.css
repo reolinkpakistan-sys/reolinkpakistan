@@ -1186,7 +1186,6 @@ img {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
-    max-height: 560px;
     border-radius: var(--radius-lg);
     overflow: hidden;
     background: #060709;
@@ -1200,7 +1199,7 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     background: #060709;
     opacity: 0;
     transition: opacity 0.35s ease;

@@ -11,39 +11,10 @@ if ($uri === '/' || $uri === '') {
     exit;
 }
 
-// Serve existing static files/directories directly
+// Serve existing static files directly using PHP's built-in web server (enables native HTTP 206 Partial Content Range streaming for HTML5 videos)
 $filePath = __DIR__ . $uri;
 if (file_exists($filePath) && is_file($filePath)) {
-    $ext = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-    
-    // Let PHP files be parsed and executed by the server
-    if ($ext === 'php') {
-        return false;
-    }
-    
-    // Determine MIME type for correct serving
-    $mimeTypes = [
-        'css'  => 'text/css',
-        'js'   => 'application/javascript',
-        'png'  => 'image/png',
-        'jpg'  => 'image/jpeg',
-        'jpeg' => 'image/jpeg',
-        'gif'  => 'image/gif',
-        'webp' => 'image/webp',
-        'svg'  => 'image/svg+xml',
-        'mp4'  => 'video/mp4',
-        'webm' => 'video/webm',
-        'mov'  => 'video/quicktime',
-        'ico'  => 'image/x-icon',
-        'json' => 'application/json',
-        'xml'  => 'application/xml',
-        'html' => 'text/html'
-    ];
-    if (isset($mimeTypes[$ext])) {
-        header('Content-Type: ' . $mimeTypes[$ext]);
-    }
-    readfile($filePath);
-    exit;
+    return false;
 }
 
 // Clean URL: Products (Static & Dynamic)

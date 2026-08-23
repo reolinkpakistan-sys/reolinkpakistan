@@ -383,26 +383,42 @@ Please confirm my order with SM Enterprises for dispatch!`;
     document.addEventListener('mozfullscreenchange', updateFullscreenIcon);
     document.addEventListener('MSFullscreenChange', updateFullscreenIcon);
 
-    // --- INSTANT ZERO-DELAY SCROLL AUTOPLAY ---
+    // --- INSTANT ZERO-DELAY SCROLL AUTOPLAY (LOCALHOST & PRODUCTION BULLETPROOF) ---
     if (frameFront) {
         frameFront.preload = "auto";
         frameFront.muted = true;
+        frameFront.defaultMuted = true;
+        frameFront.setAttribute('muted', '');
         frameFront.playsInline = true;
+        frameFront.setAttribute('playsinline', '');
+        frameFront.setAttribute('webkit-playsinline', '');
 
         const startPlaybackInstant = () => {
+            if (!frameFront) return;
+            frameFront.muted = true;
+            frameFront.defaultMuted = true;
             if (frameFront.paused) {
-                frameFront.muted = true;
                 const p = frameFront.play();
                 if (p !== undefined) {
                     p.then(() => {
                         if (footagePlayIcon) footagePlayIcon.className = 'fas fa-pause';
                     }).catch(() => {
                         frameFront.muted = true;
-                        frameFront.play().catch(() => {});
+                        frameFront.defaultMuted = true;
+                        frameFront.play().then(() => {
+                            if (footagePlayIcon) footagePlayIcon.className = 'fas fa-pause';
+                        }).catch(() => {});
                     });
                 }
             }
         };
+
+        // Try playing immediately
+        startPlaybackInstant();
+
+        // Play when video metadata/buffer is ready
+        frameFront.addEventListener('loadedmetadata', startPlaybackInstant, { once: true });
+        frameFront.addEventListener('canplay', startPlaybackInstant, { once: true });
 
         if ('IntersectionObserver' in window) {
             const instantVideoObserver = new IntersectionObserver((entries) => {
@@ -420,13 +436,17 @@ Please confirm my order with SM Enterprises for dispatch!`;
             instantVideoObserver.observe(footageSection);
         }
 
-        // Secondary fallback on user scroll
-        window.addEventListener('scroll', () => {
-            const rect = frameFront.getBoundingClientRect();
-            if (rect.top < window.innerHeight + 400 && rect.bottom > -400) {
-                startPlaybackInstant();
-            }
-        }, { passive: true, once: true });
+        // Interaction unlock for strict localhost browser policies (scroll, touch, mousemove)
+        ['scroll', 'touchstart', 'pointerdown', 'mousemove', 'keydown'].forEach(evtName => {
+            window.addEventListener(evtName, () => {
+                if (frameFront && frameFront.paused) {
+                    const rect = frameFront.getBoundingClientRect();
+                    if (rect.top < window.innerHeight + 600 && rect.bottom > -600) {
+                        startPlaybackInstant();
+                    }
+                }
+            }, { passive: true });
+        });
     }
 
     // --- 8. INTERACTIVE FAQ ACCORDION ---

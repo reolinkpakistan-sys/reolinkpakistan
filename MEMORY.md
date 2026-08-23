@@ -35,6 +35,14 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **JZONES V630 Mobile UI/UX Responsiveness & Segmented Tab Navigation (August 2026 - v142):**
+  - **User Feedback:** Mobile screens par top hero section ka layout theek nahi aa raha tha, video player screen full width me fit nahi thi, tabs clumsy the, aur feature highlight cards mix/overlap ho rahe the (90%+ traffic mobile se aati hai).
+  - **Implementation:**
+    - **Top Hero Section Mobile Refinement:** Product image height ko mobile par max 240px kiya, typography clamps tune kiye, stat chips ko clean 2x2 grid me fit kiya, aur CTA buttons ko 48px full-touch targets banaya.
+    - **Segmented 3-Way Tabs on Mobile:** Desktop ke lambay titles ke muqablay me mobile par responsive labels (`tab-label-short`: `Front 4K Video`, `Cabin IR Night`, `Rear View HD`) use kiye aur 3-column segmented grid control banaya jis se tabs bina kisi horizontal scroll ke screen par perfectly fit hotay hain.
+    - **Footage Screen Card on Mobile:** 100% full-width aspect ratio 16:9, uncropped clean video display with compact top-right control buttons (`Play/Pause`, `Mute`, `Fullscreen`).
+    - **Feature Highlights Stacking:** `.footage-details-grid` ko mobile par clean vertical cards stack banaya with crisp typography, icons, aur code badges taake koi text mix ya wrap glitch na ho.
+    - Version `v142` & `v7` Hostinger live server par deploy kiya aur Browser Subagent se 390x844 mobile viewport par verify kiya.
 - **JZONES V630 4K Video Audio Replacement & Genuine Watermark Unblocking (August 2026 - v141):**
   - **User Feedback:**
     1. Video se original conversation / spoken audio remove kar ke sleek ambient background music lagaya jaye.

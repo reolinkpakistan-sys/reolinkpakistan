@@ -35,6 +35,14 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **Full Website Mobile UI/UX Responsiveness & Layout Alignment Audit (August 2026 - v145):**
+  - **User Request:** Complete audit of all product pages, category pages, guides, and subpages on mobile devices (375px–480px) to identify broken elements, misalignments, squished text/buttons, or overlapping widgets.
+  - **Audit Findings & Fixes:**
+    1. **Dynamic Product Details (`product-details.html` - All Products):** `.specs-table` was using fixed 2-column table widths (30%/70%) which squished long package/warranty details on mobile. Added `@media (max-width: 640px)` transforming specs into stacked mobile cards with cyber-cyan uppercase labels on top and clear values below.
+    2. **Flagship 4G Solar Camera (`go-pt-plus.html`):** CTA action buttons ("Order Now" & "WhatsApp Inquiry") were inside an inline flex container without wrap, causing button text to clip on narrow 360px–390px screens. Added `.product-action-btns` class with vertical stacking and full 48px touch targets on mobile.
+    3. **Floating WhatsApp Widget vs Bottom Sticky Bar Collision:** On mobile devices (`max-width: 768px`), `.whatsapp-float` was positioned at `bottom: 20px;`, which overlapped directly with the fixed full-width `.sticky-whatsapp` bar. Updated `.whatsapp-float` to `bottom: 75px; right: 15px;` so it floats cleanly above the bottom sticky bar without visual clash.
+    4. **Site-wide Asset Version & Cache Synchronization:** Found that legacy policy pages and all 6 city landing pages (`cities/*.html`) were pointing to outdated `?v=121`/`?v=123` stylesheets. Synchronized and bumped all 27 HTML pages and `sw.js` to `v145`.
+    5. **Deployment:** Synced to local XAMPP, committed to Git (`ca82c6b`), and deployed all HTML, CSS, JS, and SW files to Hostinger Live FTP server.
 - **Localhost HTTP 206 Range Streaming & Bulletproof Autoplay Fix (August 2026 - v144):**
   - **User Issue Reported:** Live website par video chal rahi thi magar `http://localhost:8000/products/jzones-v630` par video automatic play nahi ho rahi thi.
   - **Root Cause Analysis:**

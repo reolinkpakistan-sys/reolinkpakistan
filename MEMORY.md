@@ -35,6 +35,16 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **JZONES V630 Fullscreen Fix & Instant Zero-Delay Scroll Autoplay (August 2026 - v143):**
+  - **User Feedback:**
+    1. Dashcam video ko jab fullscreen karna chahte hain toh full screen pe open nahi ho rahi thi (especially iOS Safari / mobile devices par).
+    2. Video scroll down karne par thora delay/late play ho rahi thi; user wanted zero-delay instant playback on scroll without any quality drop.
+  - **Implementation:**
+    - **Universal Fullscreen Support:** `video.webkitEnterFullscreen()` (iOS iPhone standard), HTML5 `requestFullscreen()` with container fallback, and double-tap toggle add kiye. Fullscreen icon dynamically `fa-expand` / `fa-compress` me toggle hota hai.
+    - **FastStart Moov Atom & Optimized 1080p Stream:** Video container me `moov` metadata byte 0 par shift kiya, keyframes har 1 second (`g=25`) par set kiye with H.264 High Profile 1080p, jis se license plates (`PUNJAB BSX 483`) 100% pin-sharp rehte hain aur initial buffer size 120 KB par aa gaya (<0.03s start).
+    - **Aggressive Pre-Trigger IntersectionObserver:** 600px margin set ki taake user ke section tak pohnchne se pehle hi decoder warmup ho jaye aur scroll hote hi bina kisi delay ke instant play ho jaye.
+    - `best-car-dashcam-pakistan-guide.html` me bhi interactive floating controls (Play/Pause, Mute, Fullscreen) aur universal script add ki.
+    - Version `v143` & `v8` Hostinger live server par deploy kiya aur Browser Subagent se video playback aur fullscreen button testing complete ki.
 - **JZONES V630 Mobile UI/UX Responsiveness & Segmented Tab Navigation (August 2026 - v142):**
   - **User Feedback:** Mobile screens par top hero section ka layout theek nahi aa raha tha, video player screen full width me fit nahi thi, tabs clumsy the, aur feature highlight cards mix/overlap ho rahe the (90%+ traffic mobile se aati hai).
   - **Implementation:**

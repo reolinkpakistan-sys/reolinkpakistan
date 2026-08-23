@@ -35,6 +35,15 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **Localhost HTTP 206 Range Streaming & Bulletproof Autoplay Fix (August 2026 - v144):**
+  - **User Issue Reported:** Live website par video chal rahi thi magar `http://localhost:8000/products/jzones-v630` par video automatic play nahi ho rahi thi.
+  - **Root Cause Analysis:**
+    1. `router.php` me static files (`.mp4`) ko `readfile()` se `HTTP 200 OK` return kiya ja raha tha bina `HTTP 206 Partial Content` aur `Accept-Ranges: bytes` headers ke. Chrome/Safari desktop browsers localhost par HTML5 video streaming range requests block hone ki wajah se pause ho jatay the.
+    2. Localhost origin par Chrome ka Media Engagement Index (MEI) 0 hota hai, jis se browser autoplay ko block kar deta tha agar `muted` & `defaultMuted` properties initialization se pehle strictly set na hon.
+  - **Fix & Implementation:**
+    - `router.php` me static files par `return false;` lagaya taake PHP ka built-in C web server natively `HTTP 206 Partial Content` aur byte range streaming handle kare.
+    - `js/jzones.js` me `frameFront.muted = true; frameFront.defaultMuted = true;` synchronously lagaya, `loadedmetadata` aur `canplay` lifecycle hooks add kiye, aur user interaction unlockers (`scroll`, `touchstart`, `pointerdown`, `mousemove`, `keydown`) register kiye.
+    - Version `v144`, `css/jzones.css?v=9`, aur `js/jzones.js?v=8` sync kiye, local XAMPP update kiya, Git commit `9faebb6` push kiya aur Hostinger live FTP par deploy kiya.
 - **JZONES V630 Fullscreen Fix & Instant Zero-Delay Scroll Autoplay (August 2026 - v143):**
   - **User Feedback:**
     1. Dashcam video ko jab fullscreen karna chahte hain toh full screen pe open nahi ho rahi thi (especially iOS Safari / mobile devices par).

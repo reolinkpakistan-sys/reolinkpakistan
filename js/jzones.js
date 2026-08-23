@@ -276,8 +276,9 @@ Please confirm my order with SM Enterprises for dispatch!`;
         footagePlayBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             if (frameFront.paused) {
-                frameFront.play();
-                if (footagePlayIcon) footagePlayIcon.className = 'fas fa-pause';
+                frameFront.play().then(() => {
+                    if (footagePlayIcon) footagePlayIcon.className = 'fas fa-pause';
+                }).catch(() => {});
             } else {
                 frameFront.pause();
                 if (footagePlayIcon) footagePlayIcon.className = 'fas fa-play';
@@ -296,16 +297,136 @@ Please confirm my order with SM Enterprises for dispatch!`;
         });
     }
 
-    // Fullscreen Button
+    // --- UNIVERSAL FULLSCREEN HANDLER (iOS Safari, Android, Desktop) ---
+    const footageFullscreenIcon = document.getElementById('footageFullscreenIcon');
+    const footageScreenCard = document.getElementById('footageScreenCard') || document.querySelector('.footage-screen-card');
+
+    function isFSActive() {
+        return !!(document.fullscreenElement || 
+                  document.webkitFullscreenElement || 
+                  document.mozFullScreenElement || 
+                  document.msFullscreenElement);
+    }
+
+    function triggerUniversalFullscreen() {
+        if (!frameFront) return;
+
+        // 1. iOS Safari (iPhone): native webkitEnterFullscreen is mandatory for HTML5 video
+        if (typeof frameFront.webkitEnterFullscreen === 'function') {
+            try {
+                frameFront.webkitEnterFullscreen();
+                return;
+            } catch (err) {
+                console.warn('webkitEnterFullscreen error:', err);
+            }
+        }
+
+        // 2. Android Chrome / Desktop: requestFullscreen on video element or card container
+        const target = frameFront;
+        const req = target.requestFullscreen || 
+                    target.webkitRequestFullscreen || 
+                    target.webkitRequestFullScreen || 
+                    target.mozRequestFullScreen || 
+                    target.msRequestFullscreen;
+
+        if (req) {
+            req.call(target).catch(() => {
+                if (footageScreenCard) {
+                    const contReq = footageScreenCard.requestFullscreen || footageScreenCard.webkitRequestFullscreen;
+                    if (contReq) contReq.call(footageScreenCard).catch(() => {});
+                }
+            });
+        }
+    }
+
+    function exitUniversalFullscreen() {
+        const exit = document.exitFullscreen || 
+                     document.webkitExitFullscreen || 
+                     document.mozCancelFullScreen || 
+                     document.msExitFullscreen;
+        if (exit) {
+            exit.call(document).catch(() => {});
+        }
+    }
+
     if (footageFullscreenBtn && frameFront) {
         footageFullscreenBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (frameFront.requestFullscreen) {
-                frameFront.requestFullscreen();
-            } else if (frameFront.webkitRequestFullscreen) {
-                frameFront.webkitRequestFullscreen();
+            if (isFSActive()) {
+                exitUniversalFullscreen();
+            } else {
+                triggerUniversalFullscreen();
             }
         });
+    }
+
+    // Double tap / double click on video to toggle fullscreen
+    if (frameFront) {
+        frameFront.addEventListener('dblclick', (e) => {
+            e.stopPropagation();
+            if (isFSActive()) {
+                exitUniversalFullscreen();
+            } else {
+                triggerUniversalFullscreen();
+            }
+        });
+    }
+
+    // Update icon when fullscreen state changes
+    const updateFullscreenIcon = () => {
+        if (footageFullscreenIcon) {
+            footageFullscreenIcon.className = isFSActive() ? 'fas fa-compress' : 'fas fa-expand';
+        }
+    };
+    document.addEventListener('fullscreenchange', updateFullscreenIcon);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
+    document.addEventListener('mozfullscreenchange', updateFullscreenIcon);
+    document.addEventListener('MSFullscreenChange', updateFullscreenIcon);
+
+    // --- INSTANT ZERO-DELAY SCROLL AUTOPLAY ---
+    if (frameFront) {
+        frameFront.preload = "auto";
+        frameFront.muted = true;
+        frameFront.playsInline = true;
+
+        const startPlaybackInstant = () => {
+            if (frameFront.paused) {
+                frameFront.muted = true;
+                const p = frameFront.play();
+                if (p !== undefined) {
+                    p.then(() => {
+                        if (footagePlayIcon) footagePlayIcon.className = 'fas fa-pause';
+                    }).catch(() => {
+                        frameFront.muted = true;
+                        frameFront.play().catch(() => {});
+                    });
+                }
+            }
+        };
+
+        if ('IntersectionObserver' in window) {
+            const instantVideoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        startPlaybackInstant();
+                    }
+                });
+            }, {
+                rootMargin: '600px 0px 600px 0px', // 600px pre-trigger buffer before scrolling into view
+                threshold: 0.01
+            });
+
+            const footageSection = document.getElementById('footage') || frameFront;
+            instantVideoObserver.observe(footageSection);
+        }
+
+        // Secondary fallback on user scroll
+        window.addEventListener('scroll', () => {
+            const rect = frameFront.getBoundingClientRect();
+            if (rect.top < window.innerHeight + 400 && rect.bottom > -400) {
+                startPlaybackInstant();
+            }
+        }, { passive: true, once: true });
     }
 
     // --- 8. INTERACTIVE FAQ ACCORDION ---

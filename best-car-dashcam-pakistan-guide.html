@@ -62,8 +62,8 @@
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.min.css?v=142">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.min.css?v=143">
 
     <!-- Structured Data: Article Schema -->
     <script type="application/ld+json">
@@ -233,8 +233,21 @@
                         </span>
                         <span style="color: #94a3b8; font-size: 12px; font-family: monospace;">REC 3840×2160P • GPS: 31°28'N 74°26'E</span>
                     </div>
-                    <div style="position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #000;">
-                        <video autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/jzones/jzones_4k_sample_poster.webp" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                    <div style="position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #000;" id="guideVideoContainer">
+                        <!-- Custom Interactive Video Controls -->
+                        <div style="position: absolute; top: 10px; right: 10px; display: flex; gap: 8px; z-index: 15;">
+                            <button id="guidePlayBtn" style="width: 34px; height: 34px; border-radius: 50%; background: rgba(0,0,0,0.75); border: 1px solid rgba(255,255,255,0.25); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(8px);" title="Play / Pause" aria-label="Play or Pause">
+                                <i class="fas fa-pause" id="guidePlayIcon"></i>
+                            </button>
+                            <button id="guideMuteBtn" style="width: 34px; height: 34px; border-radius: 50%; background: rgba(0,0,0,0.75); border: 1px solid rgba(255,255,255,0.25); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(8px);" title="Mute / Unmute" aria-label="Toggle Audio">
+                                <i class="fas fa-volume-mute" id="guideMuteIcon"></i>
+                            </button>
+                            <button id="guideFullscreenBtn" style="width: 34px; height: 34px; border-radius: 50%; background: rgba(0,0,0,0.75); border: 1px solid rgba(255,255,255,0.25); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(8px);" title="Fullscreen View" aria-label="Fullscreen">
+                                <i class="fas fa-expand" id="guideFullscreenIcon"></i>
+                            </button>
+                        </div>
+
+                        <video id="guideVideoEl" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/jzones/jzones_4k_sample_poster.webp" style="width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer;">
                             <source src="videos/jzones_v630_dha_sample_web.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -333,6 +346,118 @@
         <img src="images/seller_face_final.webp" alt="Mohsin Munawar - Sales Expert" class="seller-pic" loading="lazy">
         <div class="online-indicator"></div>
     </a>
+
+    <!-- Video Controller Script: Universal Fullscreen & Instant Autoplay -->
+    <script>
+    (function() {
+        const videoEl = document.getElementById('guideVideoEl');
+        const containerEl = document.getElementById('guideVideoContainer');
+        const playBtn = document.getElementById('guidePlayBtn');
+        const playIcon = document.getElementById('guidePlayIcon');
+        const muteBtn = document.getElementById('guideMuteBtn');
+        const muteIcon = document.getElementById('guideMuteIcon');
+        const fsBtn = document.getElementById('guideFullscreenBtn');
+        const fsIcon = document.getElementById('guideFullscreenIcon');
+
+        if (!videoEl) return;
+
+        // Play/Pause
+        if (playBtn) {
+            playBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (videoEl.paused) {
+                    videoEl.play();
+                    if (playIcon) playIcon.className = 'fas fa-pause';
+                } else {
+                    videoEl.pause();
+                    if (playIcon) playIcon.className = 'fas fa-play';
+                }
+            });
+        }
+
+        // Mute/Unmute
+        if (muteBtn) {
+            muteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                videoEl.muted = !videoEl.muted;
+                if (muteIcon) {
+                    muteIcon.className = videoEl.muted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+                }
+            });
+        }
+
+        // Universal Fullscreen logic (iOS Safari, Android Chrome, Desktop)
+        function isFS() {
+            return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+        }
+
+        function triggerFullscreen() {
+            // iOS Safari requires webkitEnterFullscreen on video tag
+            if (typeof videoEl.webkitEnterFullscreen === 'function') {
+                try {
+                    videoEl.webkitEnterFullscreen();
+                    return;
+                } catch(e) {}
+            }
+
+            const target = videoEl;
+            const req = target.requestFullscreen || target.webkitRequestFullscreen || target.webkitRequestFullScreen || target.mozRequestFullScreen || target.msRequestFullscreen;
+            if (req) {
+                req.call(target).catch(() => {
+                    if (containerEl && containerEl.requestFullscreen) {
+                        containerEl.requestFullscreen().catch(() => {});
+                    }
+                });
+            }
+        }
+
+        function exitFS() {
+            const ex = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+            if (ex) ex.call(document).catch(() => {});
+        }
+
+        if (fsBtn) {
+            fsBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (isFS()) {
+                    exitFS();
+                } else {
+                    triggerFullscreen();
+                }
+            });
+        }
+
+        videoEl.addEventListener('dblclick', (e) => {
+            e.stopPropagation();
+            if (isFS()) exitFS(); else triggerFullscreen();
+        });
+
+        const updateIcon = () => {
+            if (fsIcon) {
+                fsIcon.className = isFS() ? 'fas fa-compress' : 'fas fa-expand';
+            }
+        };
+        document.addEventListener('fullscreenchange', updateIcon);
+        document.addEventListener('webkitfullscreenchange', updateIcon);
+
+        // Instant Autoplay on Scroll (IntersectionObserver with 600px margin)
+        if ('IntersectionObserver' in window) {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (videoEl.paused) {
+                            videoEl.muted = true;
+                            videoEl.play().then(() => {
+                                if (playIcon) playIcon.className = 'fas fa-pause';
+                            }).catch(() => {});
+                        }
+                    }
+                });
+            }, { rootMargin: '600px 0px 600px 0px', threshold: 0.01 });
+            obs.observe(videoEl);
+        }
+    })();
+    </script>
 
     <!-- Ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

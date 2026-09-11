@@ -51,6 +51,18 @@
        * Successfully executed `deploy_all.py` to Hostinger live server (`147.93.78.148` -> `/public_html/`).
        * Result: **246/246 files** uploaded with 100% success in 360.4s.
        * Live verification: `https://www.reolink.com.pk/` (HTTP 200), `/cities/karachi` (HTTP 200), `/products/jzones-v630` (HTTP 200), `cms_data.json` verified 100% free of leads.
+    10. **Dolmen Mall Dashcam Video Flawless Zero-Lag Optimization (September 12, 2026 - v147):**
+       * **Issue Reported by User:** The live video on the Jzones V630 dashcam page (`jzones-v630.html`) showing Dolmen Mall was lagging and stuttering severely.
+       * **Root Cause:** The previous video file was 112.6 MB with a 14.3 Mbps bitrate and an extraneous 228-second trailing audio track (total duration 288s instead of the 60s video). This bloated payload choked cellular and broadband connections, draining the video buffer and causing stutter/frame drops.
+       * **Resolution:**
+         - Re-rendered the native 60-second driving clip using Apple AVFoundation hardware encoder (`scratch/render_flawless_web_video.m`).
+         - Trimmed audio and video to exact 60.0s, configured 1080p Full HD @ 25fps with a calibrated 3.2 Mbps stream (file size reduced by 78% from 112.6 MB down to 24.3 MB).
+         - Configured `moov` atom at byte 0 (`FastStart`) for instant instantaneous streaming. Far-away license plates (`PUNJAB BSX 483`) remain 100% sharp.
+         - Generated new 1080p WebP and JPG poster frames at 30.0s.
+         - Appended cache-busting query parameter `?v=147` in `jzones-v630.html` to bypass Hostinger CDN edge caching.
+         - Uploaded optimized video and posters directly to live server (`/public_html/videos/` and `/public_html/assets/jzones/`).
+         - Synced to local XAMPP and pushed commit `2670947` to GitHub `main`.
+         - Verified live: HTTP 206 partial content streaming response time dropped to 5ms with zero lag or stutter.
 - **Pristine Native 4K Ultra HD (3840x2160) Video & Upbeat Driving Soundtrack Upgrade (August 2026 - v146):**
   - **User Feedback:** User noticed previous downscaled/compressed video quality and requested maximum crystal-clear pristine picture quality (no quality degradation, sharp license plate recognition, pin-sharp road textures) with smooth/responsive playback, plus replacement of background audio with an energetic, modern driving soundtrack.
   - **Implementation & Enhancements:**

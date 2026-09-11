@@ -553,6 +553,44 @@
 2. **LocalBusiness Schema's `sameAs` Field:**
    - Schema markup me `"sameAs": []` khali hai. Isme social links (Facebook, Instagram, YouTube) enter hone chahiye local SEO authority behtar karne ke liye.
 
+---
+
+## 🚀 Phase 11: JZONES V630 Limited Stock Clearance Sale (Rs. 22,500) & High-Conversion Overhaul (Sep 12, 2026)
+
+### 1. Pricing Strategy & Core Changes
+- **Previous Regular Price:** Rs. 32,500 (Market Retail: Rs. 45,000)
+- **New Clearance Price:** **Rs. 22,500** (Flat **Rs. 10,000 OFF** / 31% Instant Discount)
+- **Key Offer Elements:** Free Nationwide Delivery included (Worth Rs. 500) + Free 64GB High-Speed MicroSD Card included (Worth Rs. 2,000) + Cash on Delivery + 7 Days Replacement.
+
+### 2. High-Conversion UI/UX Enhancements Implemented
+1. **Top Clearance Ticker Bar (`.clearance-ticker-bar`):**
+   - Flame-gradient bar on top of the page: "🔥 LIMITED STOCK CLEARANCE SALE: JZONES V630 4K Dashcam was Rs. 32,500 ➔ Now Only Rs. 22,500 | FLAT RS. 10,000 OFF | FREE DELIVERY ALL PAKISTAN + FREE 64GB CARD".
+2. **Hero Section Redesign:**
+   - Glowing clearance header tag: `🔥 LIMITED CLEARANCE SALE • FLAT RS. 10,000 DISCOUNT`.
+   - Strikethrough comparison: `Was Rs. 32,500` / `Market Rs. 45,000` with large bold metallic `Rs. 22,500` and `SAVE RS. 10,000 (31% DISCOUNT)` badge.
+   - **Real-Time Stock Scarcity Progress Meter:** Shows "Limited Clearance Stock Left: 6 Units Remaining" with animated glowing gradient progress bar.
+   - **Urgency Flash Countdown Timer:** Monospace digital clock counting down hours, minutes, and seconds to midnight to drive immediate checkout action.
+   - **Hero Perks Grid:** 4 clear chips highlighting Free Delivery (Rs. 0), Free 64GB Card, COD, and SM Enterprises Official Warranty.
+3. **Floating Sticky Buy Bar (`.sticky-buy-bar`):**
+   - Pops up on scroll (after hero section): shows product thumbnail, "JZONES V630 4K Dashcam (CLEARANCE)", price `Rs. 22,500` (crossed `Rs. 32,500`), "Free Delivery", plus quick action buttons ("Order Now" & "WhatsApp Order").
+4. **Checkout Form & Calculations (`#buy`):**
+   - Package 1: `1x Unit (Clearance Special)` updated to `Rs. 22,500` (Save Rs. 10,000).
+   - Package 2: `2x Units (Family Dual Pack)` updated to `Rs. 42,900` (Save Rs. 22,100).
+   - Summary lines updated with Regular Price (Rs. 32,500 crossed out), Clearance Special Price (Rs. 22,500), Free Delivery, Free 64GB Card, Total Payable: `Rs. 22,500`.
+   - Integrated with `api/capture-lead.php` via fetch on submit so every order lead is saved to `admin/leads.json`.
+5. **Site-Wide Pricing Synchronization:**
+   - `index.html`: Hero slide 2 updated to Rs. 22,500 with "Save Rs 10,000", pill tab updated to "Rs 22,500 (Clearance)", and product story badge updated to "CLEARANCE 🔥 Rs 22,500".
+   - `cms_data.json`: Slider + Gadgets entries updated with `curr_price: 22500`, `orig_price: 32500`, tag `Clearance Sale • Rs 10,000 OFF`.
+   - `js/script.js` & `js/cms.js`: Updated fallback prices and modal triggers.
+   - `best-car-dashcam-pakistan-guide.html`: Top pick highlight price updated to Rs. 22,500.
+   - `llms.txt`: Updated product spec price to Rs. 22,500 clearance sale.
+   - Schema & Metadata: `Product` schema `price: "22500"`, OpenGraph `product:price:amount: 22500`, and `FAQPage` schema updated.
+
+### 3. Deployment Status
+- Local XAMPP synced: `/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/`
+- GitHub pushed: commit `66f69d4` on `main`
+- Hostinger Live FTP deployed: HTTP 200 live verified on `https://www.reolink.com.pk/products/jzones-v630`
+
 
 
 

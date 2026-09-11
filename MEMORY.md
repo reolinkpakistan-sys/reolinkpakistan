@@ -677,6 +677,44 @@ Dominating Google Search and AI search engines (Perplexity, ChatGPT Search, Goog
 - GitHub pushed: commits `71a97e4` and `308a3d3` on `main`
 - Hostinger Live FTP deployed: All SEO files live and verified on `https://www.reolink.com.pk/products/jzones-v630`
 
+---
+
+## 🍏 Phase 13: Apple-Style Interactive Scrollytelling Redesign & 60 FPS Animation Engine Fix (`go-pt-plus.html` - Sep 12, 2026 - v149)
+
+### 1. Project Objective & Vision
+- **Flagship Hero Product:** Reolink Go PT Plus (PTA-Approved 4G LTE Solar PTZ Camera).
+- **Core Concept:** Completely overhauled static landing page into an ultra-modern, Apple-style pinned 3D scrollytelling experience. The camera remains pinned in 3D perspective, smoothly orbiting, panning, and transitioning across 4 realistic Pakistani deployment environments on scroll:
+  1. **Stage 1 (Hero Studio Reveal):** Sleek dark studio spotlight with 3D gyroscopic/cursor tilt, *"No WiFi? No Electricity? No Problem."*, PTA lifetime approval badge, quick-action checkout CTAs.
+  2. **Stage 2 (DHA / Bahria Construction Site):** Photorealistic construction site background (`assets/scrollytelling/construction_bg.webp`), camera mounts onto steel scaffolding girders with pulsating holographic HUD beacons for 4G LTE SIM slot and IP66 heavy weatherproof casing.
+  3. **Stage 3 (Rural Farmhouse / Dera Night Vision):** Pitch-black cattle farm background (`assets/scrollytelling/farm_night_bg.webp`), camera activates 6 IR LED red glow, 66ft Starlight night vision spotlight beam, and live AI detection radar bounding boxes (`[Human: 98%]`, `[Livestock: 95%]`) with interactive Day/Night toggle.
+  4. **Stage 4 (Closing & Conversion Dock):** Camera glides left and docks beside a high-converting conversion card (Rs. 25,000, Save 28%, PTA Approved, Free Solar Panel, Free COD Nationwide) triggering `#orderModal` and direct WhatsApp demo.
+
+### 2. User Feedback: "meray hisan say animation achay say work nahi kar raha"
+- **User Issue:** Animation had lag, jitter, and rubber-banding during scroll, and elements were overlapping awkwardly on mobile viewports (`500x757`).
+
+### 3. Root Causes Diagnosed & Permanent Architectural Fixes
+1. **Conflicting CSS Transitions Stripped (The Frame Lag Cause):**
+   - In `css/scrollytelling.css`, `.camera-rig-container` had `transition: transform 0.6s cubic-bezier(...)`, `.scrolly-bg-scene` had `transition: opacity 0.8s`, and `.scrolly-text-card` had `transition: opacity 0.5s`.
+   - On every scroll microtick, GSAP's continuous coordinate interpolation was fighting the browser's CSS transition delay, causing stutter, delayed reaction, and rubber-band snapping.
+   - **Fix:** Removed all CSS transitions from GSAP-scrubbed elements (`transition: none;`), delegating all transforms and opacities purely to GSAP's tick engine.
+2. **Anchor Offset Wipeout Resolved:**
+   - CSS `transform: translate(-50%, -50%)` was being overwritten whenever GSAP applied translate3d coordinates, jumping the anchor point abruptly to top-left.
+   - **Fix:** Standardized with `gsap.set(cameraRig, { xPercent: -50, yPercent: -50, transformOrigin: "center center" })`.
+3. **Pure Scrubbed GSAP Timeline Architecture:**
+   - Converted discontinuous step-based class toggling into a single normalized 10s GSAP ScrollTrigger timeline with tight `scrub: 0.8` (immediate tactile trackpad/touch swipe response).
+4. **Offline Local GSAP Engine + CDN Fallback:**
+   - Downloaded `js/gsap.min.js` (71KB) and `js/ScrollTrigger.min.js` (42KB) directly into `js/` directory so offline/local previews (`file://` protocol) load instantly without CDN network latency or blocking.
+5. **Mobile Viewport Spacing Calibrated (`500x757` and smaller):**
+   - Calibrated camera rig to `width: 240px; height: 240px; top: 25%` and text cards to `top: 48%; max-width: 92%; padding: 1.5rem 1.25rem`.
+   - Verified 100% zero overlap between text and camera across all 4 stages on mobile.
+
+### 4. Deployment & Verification
+- Synced to local XAMPP: `/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/`
+- Git committed & pushed: `0e4853b` on `main`
+- Hostinger Live FTP deployed via `deploy_live.py` (52 files).
+- Live URLs verified: `https://www.reolink.com.pk/products/4g-sim-solar-camera` & `https://www.reolink.com.pk/products/reolink-go-pt-plus`.
+
+
 
 
 

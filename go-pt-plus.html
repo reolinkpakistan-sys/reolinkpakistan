@@ -59,7 +59,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Reolink PK">
-    <link rel="stylesheet" href="css/styles.min.css?v=146">
+    <link rel="stylesheet" href="css/styles.min.css?v=147">
 <!-- Structured Data: Product Schema -->
     <script type="application/ld+json">
     {
@@ -692,8 +692,8 @@
         </div>
     </footer>
 
-     <script src="js/script.js?v=146"></script>
-     <script src="js/cms.js?v=146"></script>
+     <script src="js/script.js?v=147"></script>
+     <script src="js/cms.js?v=147"></script>
      <script>
         function changeImage(src, element) {
             const webpSrc = src.replace(/\.png$/, '.webp');
@@ -889,13 +889,59 @@
                 </div>
             </div>
         </div>
+    <!-- FLOATING STICKY BUY BAR (HIGH-CONVERSION MOBILE & DESKTOP) -->
+    <div class="sticky-buy-bar" id="stickyBuyBarGo">
+        <div class="sticky-buy-container">
+            <div class="sticky-prod-info">
+                <img src="images/camera.webp" alt="Reolink Go PT Plus" class="sticky-thumb">
+                <div class="sticky-text">
+                    <div class="sticky-title">
+                        Reolink Go PT Plus
+                        <span class="badge-mini-sale">4G SIM</span>
+                    </div>
+                    <div class="sticky-price-group">
+                        <span class="sticky-price-curr" data-cms-key="prices.solar">Rs. 25,000</span>
+                        <span class="sticky-price-old">Rs. 35,000</span>
+                        <span class="sticky-badge-free">Free Delivery</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sticky-buy-actions">
+                <a href="https://wa.me/923206755555?text=Hi%20S%20M%20Enterprises%2C%20I%20am%20interested%20in%20Reolink%20Go%20PT%20Plus." target="_blank" class="btn-sticky-wa" title="WhatsApp Fast Inquiry">
+                    <ion-icon name="logo-whatsapp"></ion-icon>
+                </a>
+                <button type="button" class="btn-sticky-order btn-order-trigger">
+                    <ion-icon name="cart-outline"></ion-icon> Order Now (COD)
+                </button>
+            </div>
+        </div>
     </div>
+    <script>
+        (function() {
+            var bar = document.getElementById('stickyBuyBarGo');
+            if (!bar) return;
+            var heroAction = document.querySelector('.product-action-btns');
+            window.addEventListener('scroll', function() {
+                if (!heroAction) {
+                    if (window.scrollY > 400) bar.classList.add('visible');
+                    else bar.classList.remove('visible');
+                    return;
+                }
+                var rect = heroAction.getBoundingClientRect();
+                if (rect.bottom < 0) {
+                    bar.classList.add('visible');
+                } else {
+                    bar.classList.remove('visible');
+                }
+            }, { passive: true });
+        })();
+    </script>
 
-    <script src="js/script.js?v=146"></script>
-    <script src="js/cms.js?v=146"></script>
+    <script src="js/script.js?v=147"></script>
+    <script src="js/cms.js?v=147"></script>
     <!-- Ionicons loaded last — non-blocking -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="js/conversion.js?v=146"></script>
+    <script src="js/conversion.js?v=147"></script>
 </body>
 </html>

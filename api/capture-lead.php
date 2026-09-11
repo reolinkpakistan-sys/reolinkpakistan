@@ -13,6 +13,14 @@ if (!$input) {
     exit;
 }
 
+// Anti-spam Honeypot Check: if bot fills hidden field, silently exit with 200 OK
+$honeypot = trim($input['website_url_check'] ?? $input['website_url'] ?? $input['honeypot'] ?? '');
+if ($honeypot !== '') {
+    // Silently drop bot lead
+    echo json_encode(['success' => true]);
+    exit;
+}
+
 $name = trim($input['name'] ?? '');
 $phone = trim($input['phone'] ?? '');
 $productInterest = trim($input['product_interest'] ?? '');
@@ -21,6 +29,13 @@ $source = trim($input['source'] ?? 'lead_form');
 if ($name === '' || $phone === '') {
     http_response_code(400);
     echo json_encode(['success' => false, 'error' => 'Name and phone are required']);
+    exit;
+}
+
+// Length constraints & sanitization
+if (mb_strlen($name) > 100 || mb_strlen($phone) > 35 || mb_strlen($productInterest) > 250) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'error' => 'Input exceeds maximum allowed length']);
     exit;
 }
 

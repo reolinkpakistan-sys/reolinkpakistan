@@ -1261,6 +1261,51 @@ function renderStandardLayout(product, contactInfo) {
             mediaShowcase.innerHTML += thumbnailsHTML;
         }
     }
+
+    // Initialize/Update dynamic floating sticky buy bar
+    updateStickyBuyBarPD(product);
+}
+
+function updateStickyBuyBarPD(product) {
+    const bar = document.getElementById('stickyBuyBarPD');
+    if (!bar) return;
+
+    const img = document.getElementById('stickyBarImg');
+    const title = document.getElementById('stickyBarTitle');
+    const currPrice = document.getElementById('stickyBarCurrPrice');
+    const origPrice = document.getElementById('stickyBarOrigPrice');
+    const waBtn = document.getElementById('stickyBarWaBtn');
+
+    if (img && product.image) img.src = product.image;
+    if (title && product.name) title.textContent = product.name;
+    if (currPrice && product.curr_price) currPrice.textContent = 'Rs. ' + formatPrice(product.curr_price);
+    if (origPrice) {
+        if (product.orig_price && product.orig_price > product.curr_price) {
+            origPrice.textContent = 'Rs. ' + formatPrice(product.orig_price);
+            origPrice.style.display = 'inline';
+        } else {
+            origPrice.style.display = 'none';
+        }
+    }
+    if (waBtn) {
+        waBtn.href = `https://wa.me/923206755555?text=${encodeURIComponent('Salam! Mujhe ' + product.name + ' order karna hai.')}`;
+    }
+
+    // Scroll listener to toggle bar visibility
+    window.addEventListener('scroll', function() {
+        const trigger = document.getElementById('heroOrderBtn') || document.querySelector('.hero-actions') || document.querySelector('.product-info-panel');
+        if (!trigger) {
+            if (window.scrollY > 400) bar.classList.add('visible');
+            else bar.classList.remove('visible');
+            return;
+        }
+        const rect = trigger.getBoundingClientRect();
+        if (rect.bottom < 0) {
+            bar.classList.add('visible');
+        } else {
+            bar.classList.remove('visible');
+        }
+    }, { passive: true });
 }
 
 function renderRelatedProducts(allGadgets, currentId, contactInfo) {

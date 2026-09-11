@@ -68,6 +68,10 @@ if (preg_match('#^/cities/([^/]+)/?$#', $uri, $matches)) {
 }
 
 // Clean URL: Pages
+if ($uri === '/track-order' || $uri === '/track-order/' || $uri === '/track' || $uri === '/track/') {
+    include __DIR__ . '/track-order.html';
+    exit;
+}
 if ($uri === '/about' || $uri === '/about/') {
     include __DIR__ . '/about.html';
     exit;

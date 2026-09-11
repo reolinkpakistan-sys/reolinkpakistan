@@ -132,8 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const barPrice = document.getElementById('barPrice');
 
     let selectedPackage = {
-        name: '1x JZONES V630 3-Channel Kit',
-        price: 32500
+        name: '1x JZONES V630 3-Channel Kit (Clearance Special)',
+        price: 22500
     };
 
     pkgTabs.forEach(tab => {
@@ -180,6 +180,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 date: new Date().toISOString()
             };
 
+            // Securely capture lead in admin/leads.json
+            fetch('/api/capture-lead.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: name,
+                    phone: phone,
+                    product_interest: `JZONES V630 4K Dashcam (Clearance Sale Rs. ${selectedPackage.price.toLocaleString()}) - ${selectedPackage.name} - City: ${city} - Address: ${address}`,
+                    source: 'jzones_v630_clearance_form'
+                })
+            }).catch(err => console.warn('Lead capture error:', err));
+
             console.log('Order Submitted Successfully:', orderData);
 
             if (successOverlay) {
@@ -204,13 +216,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const city = document.getElementById('userCity').value || 'Pakistan';
             const address = document.getElementById('userAddress').value.trim() || 'Pending';
 
-            const message = `*NEW ORDER - JZONES V630 DASH CAM*
+            const message = `*NEW ORDER - JZONES V630 DASH CAM (CLEARANCE SALE)*
 *Distributor:* SM Enterprises Pakistan
 ----------------------------------
+*Offer:* Limited Clearance Sale (Flat Rs. 10,000 OFF)
 *Package:* ${selectedPackage.name}
 *Price:* Rs. ${selectedPackage.price.toLocaleString()} (Cash On Delivery)
 *Free Gift:* 64GB High-Endurance Card Included
-*Free Shipping:* All Pakistan
+*Free Shipping:* All Pakistan Nationwide
 
 *Customer Details:*
 • Name: ${name}
@@ -517,5 +530,49 @@ Please confirm my order with SM Enterprises for dispatch!`;
     }
     if (carMakeSelect) {
         carMakeSelect.addEventListener('change', handleCarCheck);
+    }
+
+    // --- 16. CLEARANCE COUNTDOWN TIMER & STICKY BUY BAR ---
+    const stickyBuyBar = document.getElementById('stickyBuyBar');
+    const heroSection = document.getElementById('overview');
+    const buySection = document.getElementById('buy');
+
+    if (stickyBuyBar) {
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const heroHeight = heroSection ? heroSection.offsetHeight : 550;
+            const buyTop = buySection ? buySection.offsetTop - 350 : 999999;
+
+            if (scrollY > heroHeight && scrollY < buyTop) {
+                stickyBuyBar.classList.add('visible');
+            } else {
+                stickyBuyBar.classList.remove('visible');
+            }
+        }, { passive: true });
+    }
+
+    // Clearance Countdown Timer (High-Urgency Flash Sale)
+    const countHours = document.getElementById('countHours');
+    const countMinutes = document.getElementById('countMinutes');
+    const countSeconds = document.getElementById('countSeconds');
+
+    if (countHours && countMinutes && countSeconds) {
+        const updateTimer = () => {
+            const now = new Date();
+            const target = new Date();
+            target.setHours(23, 59, 59, 999);
+            let diff = target.getTime() - now.getTime();
+            if (diff < 0) diff = 12 * 3600 * 1000; // Reset if passed midnight
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+            countHours.textContent = String(hours).padStart(2, '0');
+            countMinutes.textContent = String(mins).padStart(2, '0');
+            countSeconds.textContent = String(secs).padStart(2, '0');
+        };
+        updateTimer();
+        setInterval(updateTimer, 1000);
     }
 });

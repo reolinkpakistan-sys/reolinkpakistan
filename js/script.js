@@ -205,8 +205,8 @@ function initApp() {
             if (isJzonesSlide) {
                 window.openOrderModal({
                     id: 'jzones-v630',
-                    name: 'JZONES V630 3-Channel 4K Dash Cam',
-                    curr_price: 32500
+                    name: 'JZONES V630 3-Channel 4K Dash Cam (Clearance Sale)',
+                    curr_price: 22500
                 });
                 return;
             }

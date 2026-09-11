@@ -105,9 +105,14 @@
                 "enabled": true,
                 "theme": "jzones",
                 "pill_title": "JZONES 4K Dashcam",
-                "pill_subtitle": "Sony STARVIS 2 • Rs 32,500",
+                "pill_subtitle": "Sony STARVIS 2 • Rs 22,500 (Clearance Sale)",
                 "pill_icon": "car-sport-outline",
                 "badges": [
+                    {
+                        "text": "🔥 CLEARANCE SALE • FLAT RS 10,000 OFF",
+                        "class": "orange",
+                        "icon": "flame-outline"
+                    },
                     {
                         "text": "SONY STARVIS 2 IMX675",
                         "class": "cyan-glow",
@@ -150,9 +155,9 @@
                         "lbl": "Heat Proof"
                     }
                 ],
-                "orig_price": 45000,
-                "curr_price": 32500,
-                "save_text": "Save 28%",
+                "orig_price": 32500,
+                "curr_price": 22500,
+                "save_text": "Save Rs 10,000",
                 "primary_btn_text": "Order Now (COD)",
                 "primary_btn_link": "#",
                 "primary_btn_class": "btn-reo-primary jzones-btn-cta btn-order-trigger",
@@ -1329,12 +1334,12 @@
             "category": "dashcams",
             "homepage": true,
             "desc": "Premium 3-Channel Dash Camera with Sony STARVIS 2 IMX675 Sensor. Records 4K Ultra HD Front, 1080P Cabin with IR Night Vision, and 1080P Rear simultaneously. Features built-in 5GHz WiFi, GPS Route Tracking, 24/7 Parking Monitor, and G-Sensor Collision Lock.",
-            "orig_price": 45000,
-            "curr_price": 32500,
-            "stock": 8,
-            "viewing": 14,
+            "orig_price": 32500,
+            "curr_price": 22500,
+            "stock": 6,
+            "viewing": 19,
             "warranty": "18-Month Warranty",
-            "tag": "Flat 28% Off",
+            "tag": "Clearance Sale • Rs 10,000 OFF",
             "image_type": "url",
             "image": "assets/jzones/jzones_product_transparent.png",
             "static_url": "/products/jzones-v630",

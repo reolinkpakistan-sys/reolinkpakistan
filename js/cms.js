@@ -515,7 +515,7 @@ function renderHeroSlider(sliderConfig, fullData) {
             if (isJzones && !primaryClass.includes('jzones-btn-cta')) primaryClass += ' jzones-btn-cta';
             if (!primaryClass.includes('btn-order-trigger')) primaryClass += ' btn-order-trigger';
             const dataProdAttr = isJzones 
-                ? `data-id="jzones-v630" data-name="${slide.title || 'JZONES V630 4K Dash Cam'}" data-price="${slide.curr_price || 32500}"`
+                ? `data-id="jzones-v630" data-name="${slide.title || 'JZONES V630 4K Dash Cam'}" data-price="${slide.curr_price || 22500}"`
                 : `data-name="${slide.title || 'Reolink Go PT Plus'}" data-price="${slide.curr_price || 25000}"`;
             buttonsHtml += `<a href="${slide.primary_btn_link || '#'}" class="${primaryClass}" ${dataProdAttr}>${slide.primary_btn_text}</a>`;
         }

@@ -89,24 +89,28 @@ const CATEGORY_META = {
 `
     },
     'dashcams': {
-        eyebrow: 'Vehicle Security & Smart Surveillance',
-        title: 'Best <span class="accent-glow">Car Dashcams</span> in Pakistan | JZONES 4K',
-        desc: 'Official JZONES 3-Channel 4K Ultra HD Triple Car Dash Cams with Sony STARVIS 2 IMX675, Super Night Vision, Built-in GPS & 5GHz WiFi, 24/7 Parking Mode, and Supercapacitor Heat Resistance.',
-        keywords: 'jzones v630, jzones dash camera, car dashcam pakistan, 3 channel dash cam, 4k dash camera pakistan, sony starvis 2 dashcam, best dash cam price in pakistan, rideshare uber careem car camera pakistan',
+        eyebrow: 'Car Dashcam in Pakistan — Official Distributor',
+        title: 'Best <span class="accent-glow">Car Dashcams</span> in Pakistan | 4K 3-Channel',
+        desc: 'Shop the best car dash cameras in Pakistan. Official JZONES V630 4K 3-Channel Dashcam with Sony STARVIS 2, Cabin IR Night Vision, Built-in GPS, 5GHz WiFi & 70°C Supercapacitor. Limited Clearance Sale Rs. 22,500 with Free Nationwide Delivery & COD.',
+        keywords: 'dashcam pakistan, car dashcam pakistan, dash camera price in pakistan, best car dashcam in pakistan, 4k dashcam pakistan, car camera pakistan, 3 channel dash cam, car security camera pakistan, jzones v630, uber careem dashcam pakistan, car video recorder pakistan, dashcam karachi lahore islamabad',
         richDesc: `
 <div class="seo-content-block">
-    <h3 style="color:#fff; font-size:22px; margin-bottom:15px;">3-Channel 4K Dash Cams with Sony STARVIS 2 in Pakistan</h3>
-    <p>Protect your car on Pakistan’s roads with advanced 3-channel 4K dash camera systems from S M Enterprises. Driving in major Pakistani cities like Lahore, Karachi, Islamabad, and Multan requires reliable proof against road accidents, reckless drivers, traffic disputes, and vehicle vandalism. Our 3-channel triple car dash cams monitor the road ahead in crystal-clear 4K Ultra HD, record the interior cabin in 1080P FHD with infrared IR night vision (perfect for family trips, Uber, Careem, and Bykea rideshare drivers), and capture the rear view in 1080P simultaneously.</p>
-    <p>Equipped with industry-leading **Sony STARVIS 2 IMX675 image sensors** and large F1.8 apertures, our dash cams deliver unmatched HDR low-light clarity, making license plates and street signs sharp even on pitch-dark roads. Built-in high-speed 5GHz WiFi lets you instantly stream and download crash footage to your iOS/Android phone via dedicated apps, while integrated GPS logs your exact driving speed, route, and time stamps directly on video evidence.</p>
-    <h4 style="color:#fff; font-size:18px; margin-top:20px; margin-bottom:10px;">Why Install a 3-Channel 4K Dashcam in Pakistan?</h4>
+    <h3 style="color:#fff; font-size:22px; margin-bottom:15px;">Best Car Dashcams & 4K 3-Channel Dash Cameras in Pakistan</h3>
+    <p>Searching for the <strong>best car dashcam in Pakistan</strong>? S M Enterprises is Pakistan’s authorized importer of high-performance car dash cameras. Navigating traffic on Pakistani roads—from Sharea Faisal in Karachi and the Lahore Ring Road to the Islamabad Expressway and GT Road—demands reliable video evidence against reckless driving, hit-and-run accidents, sudden motorcyclist sideswipes, and false police challans.</p>
+    <p>Our flagship <strong>JZONES V630 4K 3-Channel Dash Cam</strong> provides 360° total vehicle surveillance. Powered by the groundbreaking <strong>Sony STARVIS 2 IMX675 sensor</strong>, it captures pin-sharp 4K Ultra HD front footage with crystal-clear number plate readability at night, 1080P interior cabin footage with 4 Infrared LEDs (vital for family security and Uber, Careem, and Indrive rideshare drivers), and 1080P waterproof rear recording.</p>
+    
+    <h4 style="color:#fff; font-size:18px; margin-top:20px; margin-bottom:10px;">Why Pakistani Drivers Choose JZONES 4K Dashcams:</h4>
     <ul style="padding-left:20px; margin-bottom:20px; list-style-type:disc; color: #94a3b8;">
-        <li style="margin-bottom: 8px;"><strong>360° Triple Shield:</strong> Simultaneous recording of Front 4K (155° FOV), Cabin 1080P (160° FOV with IR night vision), and Rear 1080P (160° FOV).</li>
-        <li style="margin-bottom: 8px;"><strong>Sony STARVIS 2 Night Vision:</strong> Superior exposure balancing in dark conditions to read vehicle number plates accurately.</li>
-        <li style="margin-bottom: 8px;"><strong>Built-in GPS & 5GHz WiFi:</strong> Real-time speed and route logging + instant mobile wireless footage downloads.</li>
-        <li style="margin-bottom: 8px;"><strong>24/7 Parking Surveillance:</strong> Time-lapse, motion detection, and G-sensor collision detection protect your parked car from hit-and-runs.</li>
-        <li style="margin-bottom: 8px;"><strong>Extreme Heat & Weather Resistance:</strong> Super capacitor design engineered to withstand Pakistan’s harsh 50°C summer heat without battery swelling.</li>
-        <li style="margin-bottom: 8px;"><strong>Seamless Loop Recording:</strong> Overwrites oldest files automatically with MicroSD card support up to 256GB.</li>
+        <li style="margin-bottom: 8px;"><strong>Sony STARVIS 2 Night Vision:</strong> Superior HDR exposure balances glaring high-beams and dark unlit streets to record clear license plates.</li>
+        <li style="margin-bottom: 8px;"><strong>Heat-Proof Supercapacitor (-20°C to 70°C):</strong> Zero dangerous lithium batteries. Safely endures Pakistan’s 50°C+ summer heat without swelling or risk of fire.</li>
+        <li style="margin-bottom: 8px;"><strong>Built-in GPS Speed & Route Stamping:</strong> Stamps live KM/H speed and Google Maps coordinates directly on video files as certified legal evidence.</li>
+        <li style="margin-bottom: 8px;"><strong>5.8GHz High-Speed Wi-Fi 6:</strong> Connect your iPhone or Android phone in seconds via the free app to preview and download videos instantly without removing the memory card.</li>
+        <li style="margin-bottom: 8px;"><strong>24/7 G-Sensor Parking Guard:</strong> Automatically wakes up and locks 30 seconds of emergency footage if your parked car is hit or tampered with.</li>
+        <li style="margin-bottom: 8px;"><strong>100% Plug & Play DIY Installation:</strong> Includes 12V socket cable, electrostatic film, and pry tool. Zero wire cutting—maintains factory car warranty.</li>
     </ul>
+
+    <h4 style="color:#fff; font-size:18px; margin-top:20px; margin-bottom:10px;">Car Dashcam Price in Pakistan & Nationwide Delivery</h4>
+    <p>Get the official JZONES V630 3-Channel 4K Dashcam at our limited clearance price of <strong>Rs. 22,500</strong> (regular Rs. 32,500). Every kit comes with a <strong>FREE 64GB High-Endurance MicroSD Card</strong> and <strong>Free Cash on Delivery (COD)</strong> across Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Sialkot, Gujranwala, Quetta, and all other cities in Pakistan. Read our comprehensive <a href="/blog/best-car-dashcam-pakistan-guide" style="color: #00f3ff; text-decoration: underline;">Car Dashcam Pakistan Buyer's Guide</a> or explore the full specs on our <a href="/products/jzones-v630" style="color: #00f3ff; text-decoration: underline;">JZONES V630 4K Product Page</a>.</p>
 </div>
 `
     },
@@ -288,7 +292,9 @@ function updatePageMeta(type) {
     const descEl = document.getElementById('pageDesc');
     const kwEl = document.getElementById('pageKeywords');
 
-    const pageTitle = `${meta.eyebrow} | S M Enterprises - Reolink Pakistan`;
+    const pageTitle = type === 'dashcams'
+        ? `Best Car Dashcam in Pakistan | 4K Dash Camera Price | S M Enterprises`
+        : `${meta.eyebrow} | S M Enterprises - Reolink Pakistan`;
     titleEl.textContent = pageTitle;
     descEl.setAttribute('content', meta.desc);
     kwEl.setAttribute('content', meta.keywords);

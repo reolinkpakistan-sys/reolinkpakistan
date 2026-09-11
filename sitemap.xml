@@ -35,9 +35,9 @@
   </url>
   <url>
     <loc>https://www.reolink.com.pk/blog/best-car-dashcam-pakistan-guide</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.90</priority>
   </url>
 
   <!-- Programmatic City Landing Pages -->
@@ -149,9 +149,9 @@
   </url>
   <url>
     <loc>https://www.reolink.com.pk/category/dashcams</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
   </url>
   <url>
     <loc>https://www.reolink.com.pk/category/wireless-mics</loc>
@@ -235,8 +235,8 @@
   </url>
   <url>
     <loc>https://www.reolink.com.pk/products/jzones-v630</loc>
-    <lastmod>2026-08-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <lastmod>2026-09-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
   </url>
 </urlset>

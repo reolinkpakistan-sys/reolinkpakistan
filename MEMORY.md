@@ -35,6 +35,23 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **Apple-Style Interactive Scrollytelling Landing Page Redesign (`go-pt-plus.html` - v148, September 12, 2026):**
+  - **Objective:** Overhauled the flagship product page for **Reolink Go PT Plus (PTA-Approved 4G LTE Solar PTZ Camera)** from a static layout into an interactive Apple-style "Scrollytelling" experience where the camera stays pinned in 3D while transitioning through real-world Pakistani use cases.
+  - **Implementation Architecture:**
+    1. **450vh Scrolly Track & 100vh Pinned Stage:** Built using GSAP 3.12 + ScrollTrigger with smooth scrub (`scrub: 1.2`) and hardware-accelerated 3D CSS transforms (`translate3d`, `rotateX/Y`).
+    2. **Stage 1 (Hero Studio Reveal):** Dark tech studio spotlight, interactive mouse and gyroscope 3D tilt on hero camera rig, clear Apple-style typography (*"No WiFi? No Electricity? No Problem."*), PTA lifetime approval chip, and primary CTAs.
+    3. **Stage 2 (DHA/Bahria Construction Site):** Transition to photorealistic DHA building construction background (`assets/scrollytelling/construction_bg.webp`). Camera glides to left and mounts onto structural steel girders. Holographic HUD beacons pulse for 4G LTE SIM slot and IP66 heavy weatherproof casing.
+    4. **Stage 3 (Rural Farmhouse / Dera Night Vision):** Transition to pitch-black cattle farm at night (`assets/scrollytelling/farm_night_bg.webp`). Camera activates 6 IR LED red glow, emits 66ft Starlight night vision spotlight beam, and renders live AI detection radar bounding boxes (`[Human: 98%]`, `[Livestock: 95%]`) with an interactive Day/Night toggle switch.
+    5. **Stage 4 (Closing & Conversion Dock):** Camera glides left and docks beside a high-converting pricing card (`Rs 25,000`, `Save 28%`, PTA Approved, Free 6W Solar Panel, Free COD Nationwide, 1-Month Warranty) with 1-click order button triggering `#orderModal` and WhatsApp demo.
+    6. **Post-Scrolly Rich Content Container:** Detailed Apple-style specifications grid (`#specs`), complete unboxing kit cards ("What's In The Box"), frequently bought together accessories widget, verified Pakistani customer reviews (Lahore, Multan, Faisalabad), and comprehensive FAQ stack.
+    7. **Mobile-First Responsiveness:** Calibrated camera scale (240px) and vertical anchoring (`top: 25%` camera, `top: 48%` cards) to ensure zero overlap between text and camera across 390px - 844px mobile viewports.
+    8. **Testing, Git & Live Deployment:**
+       * Verified with browser subagent across all 4 stages and mobile viewports.
+       * Ran `scratch/comprehensive_audit.py` with 0 missing assets, 0 broken links, 0 schema errors.
+       * Synced to local XAMPP (`/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan`).
+       * Committed to GitHub `main` (`67d0ed5`) and pushed to `origin/main`.
+       * Deployed via `deploy_live.py` (50/50 files uploaded successfully to Hostinger FTP `147.93.78.148`).
+       * Verified live URLs: `https://www.reolink.com.pk/products/4g-sim-solar-camera` (HTTP 200) and `https://www.reolink.com.pk/products/reolink-go-pt-plus` (HTTP 200).
 - **Master Website CRO, Order Tracking & Local City SEO Domination (September 12, 2026 - v148):**
   - **User Trigger:** Comprehensive enhancement audit across conversion optimization (CRO), Pakistani eCommerce trust, local city search ranking, speed, and API security.
   - **Key Features & Enhancements Implemented:**

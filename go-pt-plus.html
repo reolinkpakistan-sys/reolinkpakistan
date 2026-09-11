@@ -1113,10 +1113,16 @@
         })();
     </script>
 
-    <!-- GSAP 3.12 + ScrollTrigger CDN for Hardware-Accelerated Scrollytelling -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="js/scrollytelling.js?v=148"></script>
+    <!-- GSAP 3.12 + ScrollTrigger Engine (Offline Local + CDN Fallback) -->
+    <script src="js/gsap.min.js"></script>
+    <script src="js/ScrollTrigger.min.js"></script>
+    <script>
+        if (typeof gsap === 'undefined') {
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script>');
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"><\/script>');
+        }
+    </script>
+    <script src="js/scrollytelling.js?v=149"></script>
     <script src="js/script.js?v=148"></script>
     <script src="js/cms.js?v=148"></script>
     <!-- Ionicons loaded last — non-blocking -->

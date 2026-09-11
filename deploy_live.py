@@ -59,6 +59,8 @@ FILES = [
     ("js/script.js", "/public_html/js/script.js"),
     ("js/cms.js", "/public_html/js/cms.js"),
     ("js/conversion.js", "/public_html/js/conversion.js"),
+    ("js/gsap.min.js", "/public_html/js/gsap.min.js"),
+    ("js/ScrollTrigger.min.js", "/public_html/js/ScrollTrigger.min.js"),
     ("js/scrollytelling.js", "/public_html/js/scrollytelling.js"),
     ("assets/scrollytelling/construction_bg.webp", "/public_html/assets/scrollytelling/construction_bg.webp"),
     ("assets/scrollytelling/farm_night_bg.webp", "/public_html/assets/scrollytelling/farm_night_bg.webp"),

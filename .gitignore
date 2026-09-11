@@ -49,9 +49,11 @@ code_audit_report.html
 Security_Hardening_Presentation.pdf
 security_hardening_presentation.html
 
-# Security logs
+# Security logs & customer data
 admin/logs/
 *.log
+admin/leads.json
+leads.json
 
 # Deployment scripts (may contain credentials)
 live_deploy*.py

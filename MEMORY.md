@@ -35,6 +35,17 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **Site-wide Comprehensive Audit & Security Hardening (September 2026 - v146.1):**
+  - **Audit Trigger:** Complete technical, security, schema, asset, and link audit across all 27 HTML pages, API endpoints, and configuration files.
+  - **Key Fixes Implemented:**
+    1. **Data Privacy & Lead Security Hardening:** Relocated lead storage from publicly fetchable `cms_data.json` to protected `admin/leads.json` with `LOCK_EX` concurrency file locking and updated `admin/.htaccess` to deny web access. Sanitized `cms_data.json` of all sensitive customer leads and updated `.gitignore` to prevent committing customer data. Updated `admin/index.php` to seamlessly render leads from `admin/leads.json`.
+    2. **Flagship Schema Fix (`go-pt-plus.html`):** Repaired truncated `BreadcrumbList` JSON-LD schema syntax error (`] } </script>`), restoring 100% Google Search rich snippet compliance.
+    3. **City Pages Asset Resolution (`cities/*.html`):** Converted relative asset links (`css/styles.min.css`, `js/script.js`, `js/cms.js`, `js/conversion.js`, `favicon.ico`) to root-absolute paths (`/css/...`, `/js/...`), ensuring bulletproof styling and script execution across clean URLs and reverse proxies.
+    4. **Navigation & Content Consistency:** Aligned footer link in `contact.html` and `warranty.html` to point to `/returns` (Return & Refund Policy) and standardized email to `support@reolink.com.pk` in `best-car-dashcam-pakistan-guide.html`. Added Warranty Policy link to `index.html` footer.
+    5. **Asset Version Synchronization:** Unified all lingering `?v=2`, `?v=3`, `?v=9`, `?v=10` query parameters in `index.html` and `jzones-v630.html` to `?v=146`.
+    6. **DevOps & Deployment Sync:** Updated `deploy_live.py` and `final_push.py` to include all modern guides (`best-car-dashcam-pakistan-guide.html`, `solar-vs-wired-cctv.html`, etc.), city landing pages, AI crawler guide (`llms.txt`), and Jzones dashcam assets. Removed orphan `remote_index.html`.
+    7. **XAMPP & Local Sync:** Synchronized all updated files to `/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan`.
+    8. **Audit Verification:** Re-ran `scratch/comprehensive_audit.py` with **0 Missing Assets, 0 Broken Links, 0 Broken Anchors, 0 Schema Errors, 0 SEO Errors, 0 Security Leaks**.
 - **Pristine Native 4K Ultra HD (3840x2160) Video & Upbeat Driving Soundtrack Upgrade (August 2026 - v146):**
   - **User Feedback:** User noticed previous downscaled/compressed video quality and requested maximum crystal-clear pristine picture quality (no quality degradation, sharp license plate recognition, pin-sharp road textures) with smooth/responsive playback, plus replacement of background audio with an energetic, modern driving soundtrack.
   - **Implementation & Enhancements:**

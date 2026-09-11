@@ -1,4 +1,4 @@
-<FilesMatch "^(config\.php|cms_data\.json)$">
+<FilesMatch "^(config\.php|cms_data\.json|leads\.json)$">
     Require all denied
 </FilesMatch>
 

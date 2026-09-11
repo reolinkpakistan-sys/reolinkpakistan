@@ -20,7 +20,17 @@
 
     function getBasePath() {
         const base = document.querySelector('base');
-        return base ? base.getAttribute('href') : '/';
+        if (base && base.getAttribute('href') && window.location.protocol !== 'file:') {
+            return base.getAttribute('href');
+        }
+        const prefixes = ['/cities/', '/products/', '/blog/', '/category/'];
+        for (const prefix of prefixes) {
+            const idx = window.location.pathname.indexOf(prefix);
+            if (idx !== -1) {
+                return window.location.pathname.substring(0, idx + 1);
+            }
+        }
+        return '/';
     }
 
     function fetchCmsData() {
@@ -113,7 +123,7 @@
             const product = fd.get('product_interest') || 'General inquiry';
             const lead = { name, phone, product_interest: product, source: 'lead_form' };
 
-            // Persist lead to cms_data.json via backend endpoint
+            // Persist lead to admin/leads.json via backend endpoint
             fetch(getBasePath() + 'api/capture-lead.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

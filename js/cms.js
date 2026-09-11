@@ -300,17 +300,20 @@ function overrideVideoModal(data) {
 }
 
 function getBasePath() {
-    const idxProducts = window.location.pathname.indexOf('/products/');
-    if (idxProducts !== -1) {
-        return window.location.pathname.substring(0, idxProducts + 1);
+    const base = document.querySelector('base');
+    if (base && base.getAttribute('href') && window.location.protocol !== 'file:') {
+        return base.getAttribute('href');
     }
-    const idxBlog = window.location.pathname.indexOf('/blog/');
-    if (idxBlog !== -1) {
-        return window.location.pathname.substring(0, idxBlog + 1);
+    const prefixes = ['/cities/', '/products/', '/blog/', '/category/'];
+    for (const prefix of prefixes) {
+        const idx = window.location.pathname.indexOf(prefix);
+        if (idx !== -1) {
+            return window.location.pathname.substring(0, idx + 1);
+        }
     }
     const pathname = window.location.pathname;
     const lastSlash = pathname.lastIndexOf('/');
-    if (lastSlash !== -1) {
+    if (lastSlash !== -1 && window.location.protocol === 'file:') {
         return pathname.substring(0, lastSlash + 1);
     }
     return '/';

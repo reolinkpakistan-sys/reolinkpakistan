@@ -35,6 +35,10 @@ if (!file_exists($dataPath)) {
 
 $cmsData = json_decode(file_get_contents($dataPath), true);
 
+$leadsPath = __DIR__ . '/leads.json';
+$leads = file_exists($leadsPath) ? json_decode(file_get_contents($leadsPath), true) : [];
+if (!is_array($leads)) { $leads = []; }
+
 // Helper functions for reviews/leads management
 function verify_csrf_token(): bool {
     return validateCsrfToken($_POST['csrf_token'] ?? '');
@@ -2782,14 +2786,14 @@ if (isset($_GET['status'])) {
                     <div class="panel-title">
                         <h3><ion-icon name="people"></ion-icon> Lead Captures</h3>
                     </div>
-                    <?php if (!empty($cmsData['leads'])): ?>
+                    <?php if (!empty($leads)): ?>
                     <div class="table-responsive">
                         <table class="data-table">
                             <thead>
                                 <tr><th>Date</th><th>Name</th><th>Phone</th><th>Product Interest</th></tr>
                             </thead>
                             <tbody>
-                                <?php foreach (array_reverse($cmsData['leads']) as $lead): ?>
+                                <?php foreach (array_reverse($leads) as $lead): ?>
                                 <tr>
                                     <td><?= htmlspecialchars($lead['date'] ?? '') ?></td>
                                     <td><?= htmlspecialchars($lead['name'] ?? '') ?></td>

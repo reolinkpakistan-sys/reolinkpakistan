@@ -1,8 +1,9 @@
 <?php
-// capture-lead.php — Append a lead to cms_data.json
+// capture-lead.php — Securely append lead to admin/leads.json
 header('Content-Type: application/json');
 
-$dataPath = __DIR__ . '/../cms_data.json';
+$leadsDir = __DIR__ . '/../admin';
+$leadsPath = $leadsDir . '/leads.json';
 
 // Read input
 $input = json_decode(file_get_contents('php://input'), true);
@@ -23,38 +24,35 @@ if ($name === '' || $phone === '') {
     exit;
 }
 
-// Load CMS data
-if (!file_exists($dataPath)) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'cms_data.json not found']);
-    exit;
+// Ensure admin dir exists
+if (!is_dir($leadsDir)) {
+    mkdir($leadsDir, 0755, true);
 }
 
-$cmsData = json_decode(file_get_contents($dataPath), true);
-if (!is_array($cmsData)) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'Failed to parse cms_data.json']);
-    exit;
+// Load existing leads
+$leads = [];
+if (file_exists($leadsPath)) {
+    $existing = json_decode(file_get_contents($leadsPath), true);
+    if (is_array($existing)) {
+        $leads = $existing;
+    }
 }
 
-if (!isset($cmsData['leads']) || !is_array($cmsData['leads'])) {
-    $cmsData['leads'] = [];
-}
-
-$cmsData['leads'][] = [
+$leads[] = [
     'id' => time() . '-' . bin2hex(random_bytes(4)),
     'date' => date('c'),
-    'name' => $name,
-    'phone' => $phone,
-    'product_interest' => $productInterest,
-    'source' => $source
+    'name' => htmlspecialchars($name, ENT_QUOTES, 'UTF-8'),
+    'phone' => htmlspecialchars($phone, ENT_QUOTES, 'UTF-8'),
+    'product_interest' => htmlspecialchars($productInterest, ENT_QUOTES, 'UTF-8'),
+    'source' => htmlspecialchars($source, ENT_QUOTES, 'UTF-8')
 ];
 
-$written = file_put_contents($dataPath, json_encode($cmsData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+$written = file_put_contents($leadsPath, json_encode($leads, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
 if ($written === false) {
     http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'Failed to write cms_data.json']);
+    echo json_encode(['success' => false, 'error' => 'Failed to write leads file']);
     exit;
 }
 
 echo json_encode(['success' => true]);
+

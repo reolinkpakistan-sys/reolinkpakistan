@@ -501,13 +501,20 @@ function renderGrid(gadgets, type, contact) {
 }
 
 function getBasePath() {
-    const idxCategory = window.location.pathname.indexOf('/category/');
-    if (idxCategory !== -1) {
-        return window.location.pathname.substring(0, idxCategory + 1);
+    const base = document.querySelector('base');
+    if (base && base.getAttribute('href') && window.location.protocol !== 'file:') {
+        return base.getAttribute('href');
+    }
+    const prefixes = ['/cities/', '/products/', '/blog/', '/category/'];
+    for (const prefix of prefixes) {
+        const idx = window.location.pathname.indexOf(prefix);
+        if (idx !== -1) {
+            return window.location.pathname.substring(0, idx + 1);
+        }
     }
     const pathname = window.location.pathname;
     const lastSlash = pathname.lastIndexOf('/');
-    if (lastSlash !== -1) {
+    if (lastSlash !== -1 && window.location.protocol === 'file:') {
         return pathname.substring(0, lastSlash + 1);
     }
     return '/';

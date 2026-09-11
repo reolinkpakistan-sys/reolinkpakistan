@@ -78,39 +78,70 @@ def reliable_upload(ftp_holder, local_path, remote_path):
     return False
 
 def main():
-    files = [
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/index.html", "/public_html/index.html"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/about.html", "/public_html/about.html"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/contact.html", "/public_html/contact.html"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/warranty.html", "/public_html/warranty.html"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/go-pt-plus.html", "/public_html/go-pt-plus.html"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/cattle-farm-security.html", "/public_html/cattle-farm-security.html"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/css/styles.min.css", "/public_html/css/styles.min.css"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/404.html", "/public_html/404.html"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/terms.html", "/public_html/terms.html"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/shipping.html", "/public_html/shipping.html"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/returns.html", "/public_html/returns.html"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/js/script.js", "/public_html/js/script.js"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/js/cms.js", "/public_html/js/cms.js"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/cms_data.json", "/public_html/cms_data.json"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/admin/index.php", "/public_html/admin/index.php"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/robots.txt", "/public_html/robots.txt"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/sitemap.xml", "/public_html/sitemap.xml"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/favicon.ico", "/public_html/favicon.ico"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/images/favicon.png", "/public_html/images/favicon.png"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/images/favicon-32.png", "/public_html/images/favicon-32.png"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/product-details.html", "/public_html/product-details.html"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/category.html", "/public_html/category.html"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/js/product-details.js", "/public_html/js/product-details.js"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/js/category.js", "/public_html/js/category.js"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/js/conversion.js", "/public_html/js/conversion.js"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/privacy-policy.html", "/public_html/privacy-policy.html"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/.htaccess", "/public_html/.htaccess"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/admin/security.php", "/public_html/admin/security.php"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/admin/config.php", "/public_html/admin/config.php"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/api/capture-lead.php", "/public_html/api/capture-lead.php"),
-        ("/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/save_image.php", "/public_html/save_image.php")
+    base_candidates = [
+        os.path.abspath(os.path.dirname(__file__)),
+        "/Users/MAC/Desktop/reolinkpakistan",
+        "/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan"
     ]
+    local_root = None
+    for cand in base_candidates:
+        if os.path.exists(os.path.join(cand, "index.html")):
+            local_root = cand
+            break
+    if not local_root:
+        local_root = os.getcwd()
+
+    core_files = [
+        "index.html",
+        "jzones-v630.html",
+        "product-details.html",
+        "go-pt-plus.html",
+        "category.html",
+        "about.html",
+        "contact.html",
+        "warranty.html",
+        "shipping.html",
+        "returns.html",
+        "terms.html",
+        "privacy-policy.html",
+        "404.html",
+        "cattle-farm-security.html",
+        "best-car-dashcam-pakistan-guide.html",
+        "pta-approval-guide.html",
+        "solar-vs-wired-cctv.html",
+        "farm-tube-well-security.html",
+        "cities/karachi.html",
+        "cities/lahore.html",
+        "cities/multan.html",
+        "cities/islamabad-rawalpindi.html",
+        "cities/peshawar.html",
+        "cities/faisalabad.html",
+        "css/styles.css",
+        "css/styles.min.css",
+        "css/jzones.css",
+        "js/script.js",
+        "js/cms.js",
+        "js/conversion.js",
+        "js/product-details.js",
+        "js/category.js",
+        "js/jzones.js",
+        "admin/index.php",
+        "admin/security.php",
+        "admin/config.php",
+        "admin/.htaccess",
+        "api/capture-lead.php",
+        "save_image.php",
+        "cms_data.json",
+        ".htaccess",
+        "robots.txt",
+        "sitemap.xml",
+        "llms.txt",
+        "favicon.ico",
+        "images/favicon.png",
+        "images/favicon-32.png"
+    ]
+
+    files = [(os.path.join(local_root, f), f"/public_html/{f}") for f in core_files if os.path.exists(os.path.join(local_root, f))]
     
     print("--- Starting SEO Deployment ---")
     start_time = time.time()

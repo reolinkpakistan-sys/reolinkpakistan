@@ -60,6 +60,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Reolink PK">
     <link rel="stylesheet" href="css/styles.min.css?v=147">
+    <link rel="stylesheet" href="css/scrollytelling.css?v=148">
 <!-- Structured Data: Product Schema -->
     <script type="application/ld+json">
     {
@@ -270,186 +271,363 @@
         </div>
     </nav>
 
-    <main style="padding-top: 120px;">
-        <div class="product-detail-container">
-            <!-- Left: Gallery -->
-            <div class="gallery-container">
-                <div class="main-gallery-img">
-                    <picture>
-                        <source id="mainProductSource" srcset="images/camera.webp" type="image/webp">
-                        <img id="mainProductImg" src="images/camera.png" width="600" height="600" alt="Reolink Go PT Plus 4G Solar Camera">
-                    </picture>
+    <main class="scrolly-main" style="padding-top: 0; margin-top: 0; position: relative;">
+        <!-- Apple-Style Scrollytelling 450vh Product Journey -->
+        <section class="scrolly-track" id="scrollyTrack">
+            <div class="scrolly-stage" id="scrollyStage">
+                <!-- Multi-Layer Dynamic Background Scenes -->
+                <div class="scrolly-bg-layer">
+                    <div class="scrolly-bg-scene bg-scene-studio active" data-scene="1"></div>
+                    <div class="scrolly-bg-scene bg-scene-construction" data-scene="2"></div>
+                    <div class="scrolly-bg-scene bg-scene-farm" data-scene="3"></div>
+                    <div class="scrolly-bg-scene bg-scene-conversion" data-scene="4"></div>
+                    <div class="scrolly-vignette"></div>
                 </div>
-                <div class="gallery-thumbs">
-                    <img class="thumb-img active" src="images/camera.webp" alt="With Solar Panel" loading="lazy" onclick="changeImage('images/camera.webp', this)">
-                    <img class="thumb-img" src="images/camera-no-solar.webp" alt="Without Solar Panel" loading="lazy" onclick="changeImage('images/camera-no-solar.webp', this)">
+
+                <!-- Pinned 3D Hero Camera Rig -->
+                <div class="camera-rig-container idle-float" id="cameraRig">
+                    <div class="camera-3d-wrapper" id="camera3dWrapper">
+                        <picture>
+                            <source srcset="images/camera.webp" type="image/webp">
+                            <img src="images/camera.png" alt="Reolink Go PT Plus 4G Solar PTZ Camera" class="hero-camera-img" id="heroCameraImg" width="600" height="600">
+                        </picture>
+                        <div class="camera-lens-flare"></div>
+                        <div class="camera-ir-glow" id="cameraIrGlow"></div>
+                    </div>
+                </div>
+
+                <!-- HUD Holographic Callouts (Stage 2: Construction Site) -->
+                <div class="hud-layer" id="hudLayer">
+                    <div class="hud-callout hud-sim">
+                        <div class="hud-beacon"></div>
+                        <div class="hud-text">
+                            <strong>4G LTE SIM Micro-Slot</strong>
+                            <span>Jazz, Zong, Ufone, Telenor (PTA Approved)</span>
+                        </div>
+                    </div>
+                    <div class="hud-callout hud-weather">
+                        <div class="hud-beacon"></div>
+                        <div class="hud-text">
+                            <strong>IP66 Heavy Weatherproof</strong>
+                            <span>Dust, Monsoon Rain & 50°C Heat Resistant</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Starlight Night Vision & AI Radar Bounding Boxes (Stage 3: Farmhouse) -->
+                <div class="night-vision-overlay" id="nightVisionOverlay">
+                    <div class="night-spotlight-beam"></div>
+                    <div class="ai-target-box ai-human">
+                        <span class="ai-target-tag">Human: 98%</span>
+                    </div>
+                    <div class="ai-target-box ai-cattle">
+                        <span class="ai-target-tag">Livestock: 95%</span>
+                    </div>
+                </div>
+
+                <!-- Scrollytelling Story Cards (Apple Typography & CTAs) -->
+                <div class="scrolly-content-layer">
+                    <!-- Stage 1: Studio Reveal -->
+                    <div class="scrolly-text-card text-stage-1 active" id="stageCard1">
+                        <span class="scrolly-badge badge-cyan"><ion-icon name="flash-outline"></ion-icon> Next-Gen Wire-Free Surveillance</span>
+                        <h1 class="scrolly-headline">No WiFi? No Electricity?<br><span>No Problem.</span></h1>
+                        <p class="scrolly-subhead">Reolink Go PT Plus is Pakistan's premier PTA-approved 4G LTE solar PTZ camera. 100% wire-free, 24/7 autonomous protection anywhere under the sun.</p>
+                        <div class="scrolly-micro-badges">
+                            <span class="micro-chip"><ion-icon name="shield-checkmark"></ion-icon> PTA Lifetime Approved</span>
+                            <span class="micro-chip"><ion-icon name="sunny"></ion-icon> Solar Powered Non-Stop</span>
+                            <span class="micro-chip"><ion-icon name="cellular"></ion-icon> 4G SIM Universal</span>
+                            <span class="micro-chip"><ion-icon name="eye"></ion-icon> 2K 4MP Super HD</span>
+                        </div>
+                        <div class="scrolly-cta-group">
+                            <button type="button" class="btn-scrolly-primary btn-order-trigger">
+                                <ion-icon name="cart-outline"></ion-icon> Order Now (Rs 25,000)
+                            </button>
+                            <a href="https://wa.me/923206755555?text=Hi%20S%20M%20Enterprises%2C%20I%20want%20to%20know%20more%20about%20the%20Reolink%20Go%20PT%20Plus%204G%20Solar%20Camera." target="_blank" class="btn-scrolly-wa">
+                                <ion-icon name="logo-whatsapp"></ion-icon> WhatsApp Demo
+                            </a>
+                            <a href="#specs" class="btn-scrolly-ghost">Explore Tech Specs <ion-icon name="arrow-down-outline"></ion-icon></a>
+                        </div>
+                    </div>
+
+                    <!-- Stage 2: DHA/Bahria Construction Site -->
+                    <div class="scrolly-text-card text-stage-2" id="stageCard2">
+                        <span class="scrolly-badge badge-orange"><ion-icon name="construct-outline"></ion-icon> DHA & Bahria Construction Sites</span>
+                        <h2 class="scrolly-headline">Zero Cabling.<br><span>Zero Downtime.</span></h2>
+                        <p class="scrolly-subhead">Mount directly on steel girders, scaffolding, or perimeter walls. 355° Pan and 140° Tilt gives project managers 360° remote oversight of materials, machinery, and site personnel from any phone in Pakistan.</p>
+                        <div class="scrolly-micro-badges">
+                            <span class="micro-chip"><ion-icon name="swap-horizontal"></ion-icon> 355° Pan / 140° Tilt</span>
+                            <span class="micro-chip"><ion-icon name="rainy"></ion-icon> IP66 Waterproof</span>
+                            <span class="micro-chip"><ion-icon name="volume-high"></ion-icon> Anti-Theft Siren</span>
+                        </div>
+                        <div class="scrolly-cta-group">
+                            <button type="button" class="btn-scrolly-primary btn-order-trigger">
+                                <ion-icon name="cart-outline"></ion-icon> Buy For Construction Site
+                            </button>
+                            <a href="https://wa.me/923206755555?text=Salam%2C%20mujhe%20apne%20construction%20site%20ke%20liye%20Reolink%204G%20camera%20chahiye." target="_blank" class="btn-scrolly-wa">
+                                <ion-icon name="logo-whatsapp"></ion-icon> Ask Project Consultant
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Stage 3: Rural Dera / Cattle Farm Night Vision -->
+                    <div class="scrolly-text-card text-stage-3" id="stageCard3">
+                        <span class="scrolly-badge badge-cyan"><ion-icon name="moon-outline"></ion-icon> Rural Farmhouse & Dera Security</span>
+                        <h2 class="scrolly-headline">See in Pitch Dark.<br><span>Recognize Humans Instantly.</span></h2>
+                        <p class="scrolly-subhead">Advanced Starlight CMOS sensor detects true shapes up to 66ft in total darkness. Onboard AI filters false alarms from wind and swaying trees, pinging your smartphone instantly when an intruder enters your property.</p>
+                        <div class="nv-toggle-bar">
+                            <button type="button" class="nv-btn active" id="btnStarlight">Starlight Night Vision</button>
+                            <button type="button" class="nv-btn" id="btnDaylight">Day Color Vision</button>
+                        </div>
+                    </div>
+
+                    <!-- Stage 4: Conversion Dock (Closing Card) -->
+                    <div class="scrolly-text-card text-stage-4" id="stageCard4">
+                        <div class="conversion-card">
+                            <span class="scrolly-badge badge-green"><ion-icon name="checkmark-done-outline"></ion-icon> Ready For Nationwide Dispatch</span>
+                            <h3 style="font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 6px;">Reolink Go PT Plus Complete Kit</h3>
+                            <p style="font-size: 13px; color: #94a3b8; margin-bottom: 18px;">Full 4G Solar PTZ Camera + High-Efficiency Solar Panel + Tree/Wall Mount Strap + Lifetime PTA Compliance</p>
+                            <div class="price-row-scrolly">
+                                <div class="price-scrolly-curr" data-cms-key="prices.solar">Rs 25,000</div>
+                                <div class="price-scrolly-orig">Rs 35,000</div>
+                                <div class="price-scrolly-save">SAVE 28%</div>
+                            </div>
+                            <ul class="package-checklist">
+                                <li><ion-icon name="checkmark-circle"></ion-icon> 100% Official PTA Approved (Works on Jazz, Zong, Ufone, Telenor)</li>
+                                <li><ion-icon name="checkmark-circle"></ion-icon> Includes Free 6W Solar Panel & 6000mAh Battery</li>
+                                <li><ion-icon name="checkmark-circle"></ion-icon> Free Nationwide Cash on Delivery (24-48h Delivery)</li>
+                                <li><ion-icon name="checkmark-circle"></ion-icon> 1-Month S M Enterprises Warranty & 7-Day Exchange</li>
+                            </ul>
+                            <div class="scrolly-cta-group" style="width: 100%; flex-direction: column;">
+                                <button type="button" class="btn-scrolly-primary btn-order-trigger" style="width: 100%; justify-content: center; font-size: 16px; padding: 16px;">
+                                    <ion-icon name="cart-outline"></ion-icon> Confirm Order (Cash on Delivery)
+                                </button>
+                                <a href="https://wa.me/923206755555?text=Salam%20S%20M%20Enterprises%2C%20I%20want%20to%20order%20Reolink%20Go%20PT%20Plus%20Kit%20for%20Rs%2025%2C000." target="_blank" class="btn-scrolly-wa" style="width: 100%; justify-content: center;">
+                                    <ion-icon name="logo-whatsapp"></ion-icon> Quick Order on WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scroll Progress Interactive Rail -->
+                <div class="scroll-progress-rail" id="scrollRail">
+                    <div class="rail-dot active" data-target-progress="0.05" title="Studio Reveal"></div>
+                    <div class="rail-dot" data-target-progress="0.35" title="Construction Site"></div>
+                    <div class="rail-dot" data-target-progress="0.65" title="Farmhouse Night Vision"></div>
+                    <div class="rail-dot" data-target-progress="0.95" title="Order Package"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Post-Scrollytelling Content Container -->
+        <div class="scrolly-post-content" id="specs">
+            <!-- Section 1: Detailed Apple-Style Specifications -->
+            <div class="scrolly-section-header">
+                <span class="scrolly-badge badge-cyan"><ion-icon name="hardware-chip-outline"></ion-icon> Engineering & Performance</span>
+                <h2>Cutting-Edge Specifications</h2>
+                <p>Engineered to deliver uninterrupted, broadcast-grade surveillance in the harshest outdoor conditions across Pakistan.</p>
+            </div>
+
+            <div class="specs-feature-grid">
+                <div class="spec-glass-card">
+                    <ion-icon name="videocam-outline" class="spec-icon"></ion-icon>
+                    <h4>2K 4MP Super HD Clarity</h4>
+                    <p>Crystal-clear 2560 x 1440 resolution reveals critical details including vehicle number plates, worker faces, and livestock tags with 16x digital zoom.</p>
+                </div>
+                <div class="spec-glass-card">
+                    <ion-icon name="cellular-outline" class="spec-icon"></ion-icon>
+                    <h4>Universal 4G LTE Connectivity</h4>
+                    <p>Compatible with all major Pakistani cellular networks (Jazz, Zong, Ufone, Telenor). Operates on low data bandwidth with intelligent compression.</p>
+                </div>
+                <div class="spec-glass-card">
+                    <ion-icon name="sunny-outline" class="spec-icon"></ion-icon>
+                    <h4>Non-Stop Solar Power</h4>
+                    <p>Continuous solar harvesting paired with a high-capacity rechargeable battery provides 365-day independence from WAPDA and load-shedding.</p>
+                </div>
+                <div class="spec-glass-card">
+                    <ion-icon name="sync-outline" class="spec-icon"></ion-icon>
+                    <h4>355° Pan & 140° Tilt</h4>
+                    <p>Control the camera remotely from anywhere in the world. Eliminate blind spots with full 360-degree situational awareness.</p>
+                </div>
+                <div class="spec-glass-card">
+                    <ion-icon name="moon-outline" class="spec-icon"></ion-icon>
+                    <h4>66ft Starlight Night Vision</h4>
+                    <p>Advanced Starlight CMOS sensor captures vibrant details in near pitch-black rural areas up to 20 meters away.</p>
+                </div>
+                <div class="spec-glass-card">
+                    <ion-icon name="shield-checkmark-outline" class="spec-icon"></ion-icon>
+                    <h4>IP66 Weatherproof Housing</h4>
+                    <p>Built for extreme Pakistani climates: resists 50°C summer heat in Multan, heavy monsoon downpours in Lahore, and dust storms in Sindh.</p>
                 </div>
             </div>
 
-            <!-- Right: Content -->
-            <div class="product-info-panel">
-                <div class="badge-group" style="margin-bottom: 10px;">
-                    <span class="reo-badge orange">PTA Approved</span>
-                    <span class="reo-badge green-glow">Solar Powered</span>
+            <!-- Section 2: What's In The Box Unboxing -->
+            <div class="scrolly-section-header">
+                <span class="scrolly-badge badge-orange"><ion-icon name="cube-outline"></ion-icon> Complete Unboxing Kit</span>
+                <h2>Everything Included in the Box</h2>
+                <p>Everything you need for an instant 10-minute setup without calling an electrician or CCTV technician.</p>
+            </div>
+
+            <div class="unboxing-grid">
+                <div class="unboxing-item">
+                    <ion-icon name="videocam" class="unboxing-icon"></ion-icon>
+                    <strong>Reolink Go PT Plus</strong>
+                    <span>2K PTZ Camera Unit</span>
                 </div>
-                <h1 class="product-meta-title">Reolink Go PT Plus 4G SIM Camera</h1>
+                <div class="unboxing-item">
+                    <ion-icon name="sunny" class="unboxing-icon"></ion-icon>
+                    <strong>Reolink Solar Panel</strong>
+                    <span>6W Weatherproof Panel</span>
+                </div>
+                <div class="unboxing-item">
+                    <ion-icon name="shield-checkmark" class="unboxing-icon"></ion-icon>
+                    <strong>PTA Approved IMEI</strong>
+                    <span>Lifetime DIRBS Cleared</span>
+                </div>
+                <div class="unboxing-item">
+                    <ion-icon name="git-network-outline" class="unboxing-icon"></ion-icon>
+                    <strong>Tree & Wall Strap</strong>
+                    <span>Versatile Mounting Bracket</span>
+                </div>
+                <div class="unboxing-item">
+                    <ion-icon name="flash-outline" class="unboxing-icon"></ion-icon>
+                    <strong>USB-C Cable</strong>
+                    <span>Heavy-duty outdoor cord</span>
+                </div>
+                <div class="unboxing-item">
+                    <ion-icon name="construct-outline" class="unboxing-icon"></ion-icon>
+                    <strong>Screw Kit & Needle</strong>
+                    <span>Installation Hardware Pack</span>
+                </div>
+            </div>
+
+            <!-- Frequently Bought Together Upsell Section -->
+            <div class="upsell-widget" style="margin-bottom: 80px;">
+                <div class="upsell-title">
+                    <ion-icon name="gift-outline" style="color: #ff6b00; font-size: 20px;"></ion-icon>
+                    <span>Frequently Bought Together</span>
+                </div>
+                <p style="font-size: 13px; color: #94a3b8; margin-bottom: 15px;">Add a Wireless Mic or Portable Speaker to your farm security setup for complete surveillance & coverage.</p>
                 
-                <div class="product-rating">
-                    <div class="stars">
-                        <ion-icon name="star"></ion-icon>
-                        <ion-icon name="star"></ion-icon>
-                        <ion-icon name="star"></ion-icon>
-                        <ion-icon name="star"></ion-icon>
-                        <ion-icon name="star-half"></ion-icon>
-                    </div>
-                    <span class="rating-text">(150+ reviews & orders verified)</span>
-                </div>
-
-                <p style="font-size: 15px; line-height: 1.6; color: #ccc; margin-bottom: 25px;">
-                    The ultimate standalone wire-free security camera. Built for areas where internet connection and electrical power are unavailable. Perfect for remote farms, construction zones, warehouses, and vacation homes.
-                </p>
-
-                <div class="product-price-block">
-                    <div class="price-wrap">
-                        <div class="original">Rs 35,000</div>
-                        <div class="current" data-cms-key="prices.solar" data-cms-type="price">Rs 25,000</div>
-                    </div>
-                    <span class="reo-badge orange" style="padding: 8px 12px; font-weight: 600;">Save 28%</span>
-                </div>
-
-                <div class="trust-badges-grid">
-                    <div class="trust-badge-card">
-                        <ion-icon name="shield-checkmark-outline"></ion-icon>
-                        <div>PTA Approved</div>
-                    </div>
-                    <div class="trust-badge-card">
-                        <ion-icon name="construct-outline"></ion-icon>
-                        <div>1-Month Warranty</div>
-                    </div>
-                    <div class="trust-badge-card">
-                        <ion-icon name="cube-outline"></ion-icon>
-                        <div>Without Box</div>
-                    </div>
-                    <div class="trust-badge-card">
-                        <ion-icon name="sync-outline"></ion-icon>
-                        <div>7-Day Exchange</div>
+                <div class="upsell-item">
+                    <div class="upsell-left">
+                        <input type="checkbox" class="upsell-checkbox" id="upsellMic" data-price="4999">
+                        <label for="upsellMic" style="font-size: 14px; color: #fff; cursor: pointer;">
+                            🎙️ Premium Wireless Mic <span style="font-size: 12px; color: #94a3b8;">(Noise Cancelling) - Rs 4,999</span>
+                        </label>
                     </div>
                 </div>
+                
+                <div class="upsell-item">
+                    <div class="upsell-left">
+                        <input type="checkbox" class="upsell-checkbox" id="upsellSpeaker" data-price="5999">
+                        <label for="upsellSpeaker" style="font-size: 14px; color: #fff; cursor: pointer;">
+                            🔊 Outdoor Bluetooth Speaker <span style="font-size: 12px; color: #94a3b8;">(Waterproof) - Rs 5,999</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-size: 13px; color: #94a3b8;">
+                        Selected Extras: <span id="upsellCount" style="color: #ff6b00; font-weight: 700;">0</span>
+                    </div>
+                    <div style="font-size: 15px; font-weight: 700; color: #fff;">
+                        Combo Price: <span id="comboTotal" data-cms-key="prices.solar" data-cms-type="price" style="color: #ff6b00;">Rs 25,000</span>
+                    </div>
+                </div>
+            </div>
 
-                <div class="product-action-btns">
-                    <a href="#" class="btn-reo-primary btn-order-trigger" style="flex: 1; justify-content: center; text-align: center; font-weight: 600; padding: 15px;">
-                        <ion-icon name="cart-outline"></ion-icon> Order Now
+            <!-- Customer Reviews Showcase -->
+            <div class="scrolly-section-header">
+                <span class="scrolly-badge badge-green"><ion-icon name="star-outline"></ion-icon> Verified Pakistani Customer Stories</span>
+                <h2>Trusted Across All Provinces</h2>
+                <p>Over 150+ verified farm owners, construction contractors, and residential customers in Pakistan trust Reolink Go PT Plus.</p>
+            </div>
+
+            <div class="reviews-masonry">
+                <div class="review-glass-bubble">
+                    <div class="review-bubble-header">
+                        <div class="reviewer-meta">
+                            <strong>Muhammad Asif</strong>
+                            <span>Dera / Farmhouse, Raiwind Road, Lahore</span>
+                        </div>
+                        <div class="review-stars">
+                            <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon>
+                        </div>
+                    </div>
+                    <p class="review-quote">"Outstanding results for my farmhouse near Lahore. No electricity or wifi is available there. Simple Jazz SIM card insertion and solar panel did all the job. The 355-degree pan lets me inspect all cattle sheds right from my bed in Lahore. Highly recommended!"</p>
+                </div>
+
+                <div class="review-glass-bubble">
+                    <div class="review-bubble-header">
+                        <div class="reviewer-meta">
+                            <strong>Engr. Zahid Malik</strong>
+                            <span>Commercial Plaza Project, Multan</span>
+                        </div>
+                        <div class="review-stars">
+                            <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon>
+                        </div>
+                    </div>
+                    <p class="review-quote">"We mounted this on steel scaffolding at our construction site in Multan. PTA registered, works seamlessly on 4G. Great tracking and Siren feature helped prevent night material theft. S M Enterprises delivered within 24 hours."</p>
+                </div>
+
+                <div class="review-glass-bubble">
+                    <div class="review-bubble-header">
+                        <div class="reviewer-meta">
+                            <strong>Chaudhry Kamran</strong>
+                            <span>Agricultural Warehouse, Faisalabad</span>
+                        </div>
+                        <div class="review-stars">
+                            <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star-half"></ion-icon>
+                        </div>
+                    </div>
+                    <p class="review-quote">"The two-way audio is crystal clear. I can speak directly to workers and gatekeepers across the field. Battery holds charge for 4-5 rainy days easily without any sunshine. Outstanding device."</p>
+                </div>
+            </div>
+
+            <!-- Frequently Asked Questions -->
+            <div class="scrolly-section-header">
+                <span class="scrolly-badge badge-cyan"><ion-icon name="help-circle-outline"></ion-icon> Questions & Answers</span>
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know about PTA compliance, SIM cards, and battery life.</p>
+            </div>
+
+            <div class="faq-stack">
+                <div class="faq-entry">
+                    <h4><ion-icon name="shield-checkmark"></ion-icon> Is this camera officially PTA approved in Pakistan?</h4>
+                    <p>Yes, 100% PTA Approved. All cameras imported and sold by S M Enterprises have officially cleared customs duties with lifetime DIRBS-compliant IMEIs on Jazz, Zong, Telenor, and Ufone networks.</p>
+                </div>
+                <div class="faq-entry">
+                    <h4><ion-icon name="sunny"></ion-icon> How does the solar panel work on cloudy or rainy days?</h4>
+                    <p>The high-capacity 6000mAh lithium rechargeable battery holds enough energy to power the camera for up to 3 to 5 continuous days of overcast or rainy weather. Even diffused daylight will slowly trickle-charge the battery.</p>
+                </div>
+                <div class="faq-entry">
+                    <h4><ion-icon name="cellular"></ion-icon> How much 4G SIM data does the camera consume per month?</h4>
+                    <p>For standard daily live checks and motion alarm notifications, a normal 5GB to 10GB monthly data package on Jazz or Zong is more than sufficient. The camera only consumes data when you view the live feed or when motion is recorded.</p>
+                </div>
+                <div class="faq-entry">
+                    <h4><ion-icon name="phone-portrait"></ion-icon> Can multiple family members watch the live stream together?</h4>
+                    <p>Yes! Up to 12 users can access the camera through the official Reolink smartphone app (iOS and Android) or Windows/Mac PC client simultaneously using secure admin credentials.</p>
+                </div>
+            </div>
+
+            <!-- Bottom Direct Order Banner -->
+            <div class="conversion-card" style="margin-top: 40px; text-align: center; max-width: 900px; margin-left: auto; margin-right: auto;">
+                <span class="scrolly-badge badge-green"><ion-icon name="sparkles-outline"></ion-icon> Special Clearance Deal</span>
+                <h2 style="font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 12px;">Get Your Reolink Go PT Plus Today</h2>
+                <p style="font-size: 16px; color: #94a3b8; max-width: 600px; margin: 0 auto 24px;">Enjoy total peace of mind with 100% wire-free 4G solar surveillance. Free nationwide delivery with Cash on Delivery option.</p>
+                <div class="price-row-scrolly" style="justify-content: center; margin-bottom: 24px;">
+                    <div class="price-scrolly-curr" data-cms-key="prices.solar">Rs 25,000</div>
+                    <div class="price-scrolly-orig">Rs 35,000</div>
+                    <div class="price-scrolly-save">SAVE 28%</div>
+                </div>
+                <div class="scrolly-cta-group" style="justify-content: center;">
+                    <button type="button" class="btn-scrolly-primary btn-order-trigger" style="font-size: 16px; padding: 16px 36px;">
+                        <ion-icon name="cart-outline"></ion-icon> Order Now (Cash on Delivery)
+                    </button>
+                    <a href="https://wa.me/923206755555?text=Hi%20S%20M%20Enterprises%2C%20I%20want%20to%20order%20the%20Reolink%20Go%20PT%20Plus%204G%20Camera." target="_blank" class="btn-scrolly-wa" style="font-size: 16px; padding: 16px 28px;">
+                        <ion-icon name="logo-whatsapp"></ion-icon> WhatsApp Order
                     </a>
-                    <a href="https://wa.me/923206755555?text=Hi%20S%20M%20Enterprises%2C%20I%20am%20interested%20in%20the%20Reolink%20Go%20PT%20Plus%204G%20Solar%20Camera%20for%20my%20property.%20Please%20guide%20me." target="_blank" class="btn-reo-secondary" style="flex: 1; justify-content: center; text-align: center; font-weight: 600; padding: 15px;">
-                        <ion-icon name="logo-whatsapp"></ion-icon> WhatsApp Inquiry
-                    </a>
-                </div>
-
-                <!-- Frequently Bought Together Upsell Section -->
-                <div class="upsell-widget">
-                    <div class="upsell-title">
-                        <ion-icon name="gift-outline" style="color: #ff6b00; font-size: 20px;"></ion-icon>
-                        <span>Frequently Bought Together</span>
-                    </div>
-                    <p style="font-size: 13px; color: #94a3b8; margin-bottom: 15px;">Add a Wireless Mic or Portable Speaker to your farm security setup for complete surveillance & coverage.</p>
-                    
-                    <div class="upsell-item">
-                        <div class="upsell-left">
-                            <input type="checkbox" class="upsell-checkbox" id="upsellMic" data-price="4999">
-                            <label for="upsellMic" style="font-size: 14px; color: #fff; cursor: pointer;">
-                                🎙️ Premium Wireless Mic <span style="font-size: 12px; color: #94a3b8;">(Noise Cancelling) - Rs 4,999</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="upsell-item">
-                        <div class="upsell-left">
-                            <input type="checkbox" class="upsell-checkbox" id="upsellSpeaker" data-price="5999">
-                            <label for="upsellSpeaker" style="font-size: 14px; color: #fff; cursor: pointer;">
-                                🔊 Outdoor Bluetooth Speaker <span style="font-size: 12px; color: #94a3b8;">(Waterproof) - Rs 5,999</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center;">
-                        <div style="font-size: 13px; color: #94a3b8;">
-                            Selected Extras: <span id="upsellCount" style="color: #ff6b00; font-weight: 700;">0</span>
-                        </div>
-                        <div style="font-size: 15px; font-weight: 700; color: #fff;">
-                            Combo Price: <span id="comboTotal" data-cms-key="prices.solar" data-cms-type="price" style="color: #ff6b00;">Rs 25,000</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Structured Technical Specs -->
-                <h3>Technical Specifications</h3>
-                <table class="spec-table">
-                    <tr>
-                        <td class="label">Model</td>
-                        <td class="val">Reolink Go PT Plus</td>
-                    </tr>
-                    <tr>
-                        <td class="label">Resolution</td>
-                        <td class="val">2K 4MP Super HD (2560 x 1440)</td>
-                    </tr>
-                    <tr>
-                        <td class="label">Network</td>
-                        <td class="val">4G LTE (SIM Card Required)</td>
-                    </tr>
-                    <tr>
-                        <td class="label">PTZ Rotation</td>
-                        <td class="val">355° Pan, 140° Tilt</td>
-                    </tr>
-                    <tr>
-                        <td class="label">Power</td>
-                        <td class="val">Rechargeable Battery + Solar Panel Support</td>
-                    </tr>
-                    <tr>
-                        <td class="label">Night Vision</td>
-                        <td class="val">Up to 66ft (Starlight Sensor)</td>
-                    </tr>
-                    <tr>
-                        <td class="label">Audio</td>
-                        <td class="val">Two-way high quality audio</td>
-                    </tr>
-                </table>
-
-                <!-- Customer Reviews Section -->
-                <div class="reviews-section">
-                    <h3 style="margin-bottom: 20px;">Customer Reviews</h3>
-                    <div class="review-card">
-                        <div class="review-header">
-                            <span class="review-user">Muhammad Asif</span>
-                            <div class="stars" style="font-size: 12px;">
-                                <ion-icon name="star"></ion-icon>
-                                <ion-icon name="star"></ion-icon>
-                                <ion-icon name="star"></ion-icon>
-                                <ion-icon name="star"></ion-icon>
-                                <ion-icon name="star"></ion-icon>
-                            </div>
-                        </div>
-                        <span class="review-city">Lahore</span>
-                        <p style="font-size: 13px; color: #ccc; margin-top: 10px; line-height: 1.5;">
-                            Outstanding results for my farmhouse near Lahore. No electricity or wifi is available there. Simple Jazz SIM card insertion and solar panel did all the job. Highly recommended.
-                        </p>
-                    </div>
-
-                    <div class="review-card">
-                        <div class="review-header">
-                            <span class="review-user">Zahid Malik</span>
-                            <div class="stars" style="font-size: 12px;">
-                                <ion-icon name="star"></ion-icon>
-                                <ion-icon name="star"></ion-icon>
-                                <ion-icon name="star"></ion-icon>
-                                <ion-icon name="star"></ion-icon>
-                                <ion-icon name="star"></ion-icon>
-                            </div>
-                        </div>
-                        <span class="review-city">Multan</span>
-                        <p style="font-size: 13px; color: #ccc; margin-top: 10px; line-height: 1.5;">
-                            Used on our construction site. PTA registered, works seamlessly on 4G. Great tracking. S M Enterprises was very helpful.
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -692,8 +870,6 @@
         </div>
     </footer>
 
-     <script src="js/script.js?v=147"></script>
-     <script src="js/cms.js?v=147"></script>
      <script>
         function changeImage(src, element) {
             const webpSrc = src.replace(/\.png$/, '.webp');
@@ -937,11 +1113,15 @@
         })();
     </script>
 
-    <script src="js/script.js?v=147"></script>
-    <script src="js/cms.js?v=147"></script>
+    <!-- GSAP 3.12 + ScrollTrigger CDN for Hardware-Accelerated Scrollytelling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/scrollytelling.js?v=148"></script>
+    <script src="js/script.js?v=148"></script>
+    <script src="js/cms.js?v=148"></script>
     <!-- Ionicons loaded last — non-blocking -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="js/conversion.js?v=147"></script>
+    <script src="js/conversion.js?v=148"></script>
 </body>
 </html>

@@ -35,7 +35,19 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
-- **Apple-Style Interactive Scrollytelling Landing Page Redesign (`go-pt-plus.html` - v148, September 12, 2026):**
+- **Relocation of Mobile Hamburger Menu to Left Side (September 14, 2026 - v150):**
+  - **User Directive:** "acha ek kam pr karo mobile view main jo right side main three lines ka option tum nay banaya hai usay left side main lay ao"
+  - **Implementation Details:**
+    1. **DOM Hierarchy (`js/script.js`):** Hamburger button insertion logic ko update kiya taake button `.sm-brand-logo` se pehle (left side par) insert ho (`headerInner.insertBefore(hamburger, brandLogo)`).
+    2. **Flexbox Ordering (`css/styles.css`):**
+       - Mobile view (`≤768px` & `≤992px`) par order configure kiya:
+         * `.menu-hamburger`: `order: 1 !important; margin: 0 10px 0 0 !important;` (Far left side)
+         * `.sm-brand-logo`: `order: 2 !important; margin-right: auto !important;` (Middle/Left brand title + shield)
+         * `.header-actions`: `order: 3 !important;` (Far right side: 35px round search icon + Buy Now CTA)
+       - Extra-compact screens (`≤380px`): `.menu-hamburger` (`order: 1 !important; margin: 0 6px 0 0 !important;`), `.sm-brand-logo` (`order: 2 !important;`), `.header-actions` (`order: 3 !important;`).
+    3. **Minification & Cache Busting (v150):** `css/styles.min.css` ko re-minify kiya aur tamam 26 HTML files + `sw.js` me asset cache version `?v=150` bump kiya.
+    4. **Git, XAMPP & Live Deployment:** Local XAMPP htdocs par sync kiya, GitHub `main` branch par commit & push kiya (`28bc638`), aur live Hostinger FTP par deploy kiya.
+
   - **Objective:** Overhauled the flagship product page for **Reolink Go PT Plus (PTA-Approved 4G LTE Solar PTZ Camera)** from a static layout into an interactive Apple-style "Scrollytelling" experience where the camera stays pinned in 3D while transitioning through real-world Pakistani use cases.
   - **Implementation Architecture:**
     1. **450vh Scrolly Track & 100vh Pinned Stage:** Built using GSAP 3.12 + ScrollTrigger with smooth scrub (`scrub: 1.2`) and hardware-accelerated 3D CSS transforms (`translate3d`, `rotateX/Y`).

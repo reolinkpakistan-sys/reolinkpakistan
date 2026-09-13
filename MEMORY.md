@@ -56,8 +56,7 @@
   - **Architecture & Implementation:**
     * **Backend Bridge (`api/track-order.php`):** Server-side cURL endpoint banaya jo Mulphilog se live consignment data fetch karta hai aur DOMXPath ke through Order ID, Booking Date, From/To city, Current Status, aur Step-by-Step Scans parse kar ke clean JSON return karta hai.
     * **Frontend UI (`track-order.html`):** Modern dark-mode tracking summary card integrate kiya with 4-stage visual milestone bar (Booked ➔ In Transit ➔ Out for Delivery ➔ Delivered), dynamic status badges (emerald/amber/blue), and checkpoint scan history list.
-    * **Intelligent Error & WhatsApp Fallback:** Agar consignment number abhi rider ke pas ho aur system mein sync na hua ho to friendly explanation ke sath direct 1-tap WhatsApp support button pre-filled consignment number ke sath show hota hai.
-    * **Routing & Clean URLs:** `router.php` update kiya for `/api/track-order`.
+    * **Single Courier Focus (M&P Express Logistics Only):** User request ke mutabiq TCS, Trax, aur Leopards ke extra options ko remove kar diya gaya. Ab portal par sirf official partner M&P Express Logistics ka dedicated portal mojood hai taake customer confusion na ho aur direct in-page tracking use kare.
   - **Files Updated / Created:** `api/track-order.php`, `track-order.html`, `router.php`, `deploy_all.py`, `deploy_live.py`.
   - **Live Deployment:** All files uploaded to Hostinger live server (`147.93.78.148`). Live API `https://www.reolink.com.pk/api/track-order.php` aur frontend `https://www.reolink.com.pk/track-order` dono live verified hain.
 - **Master Website CRO, Order Tracking & Local City SEO Domination (September 12, 2026 - v148):**

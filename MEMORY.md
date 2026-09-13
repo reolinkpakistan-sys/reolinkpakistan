@@ -51,6 +51,21 @@
        * Synced to local XAMPP (`/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan`).
        * Committed to GitHub `main` (`67d0ed5`) and pushed to `origin/main`.
        * Deployed via `deploy_live.py` (50/50 files uploaded successfully to Hostinger FTP `147.93.78.148`).
+- **Universal Topbar & Header Consistency Harmonization (September 14, 2026 - v149):**
+  - **Issue Reported by User:** Track Order section me top bar ke icons ka colour aur phone number ka colour change ho raha tha. User directive: *"Top bar kisi bhi option main change nahi honi chahiye"*.
+  - **Root Cause Analysis:**
+    1. `track-order.html` me topbar ka text change kiya hua tha: `OFFICIAL REOLINK & JZONES PARTNER | NATIONWIDE EXPRESS M&P COURIER TRACKING` (balkey standard text `OFFICIAL REOLINK PARTNER IN PAKISTAN | FREE SHIPPING & CASH ON DELIVERY NATIONWIDE (4% GOVT TAX ON COD AMOUNTS)` hona chahiye tha).
+    2. `track-order.html` ki navigation bar me `.header-actions` ke andar standard Search button ki jagah ek extra `<a href="tel:03206755555" class="phone-link"><ion-icon name="call-outline"></ion-icon><span>0320-6755555</span></a>` add kiya hua tha, jis ka icon aur phone number alag rang me render ho rahe the.
+    3. Buy Now button par `nav-btn` class missing thi jis se wo blue tha jabke baqi pages par gold gradient (`#ffd700`) tha.
+    4. Track Order nav link par inline `style="color:#00aeef;"` tha jo dusre nav links se mismatch ho raha tha.
+    5. `best-car-dashcam-pakistan-guide.html` me bhi old non-standard topbar phone mojood tha.
+  - **Solution Implemented:**
+    1. **Topbar 100% Identical:** `track-order.html` aur `best-car-dashcam-pakistan-guide.html` ke topbar ko standard `reo-topbar` me convert kiya with exact flash-text, Support link, aur WhatsApp link (`#07080a`).
+    2. **Header Actions Harmonization:** `track-order.html` se extra phone-link aur call icon hata kar standard circular search button (`header-search-btn`) aur gold CTA (`nav-btn`) laga diya gaya.
+    3. **Global Search Modal:** `track-order.html` me `#globalSearchModal` add kar diya gaya taake search button seamlessly kaam kare.
+    4. **CSS Cleanup:** `css/styles.css` se `.phone-link` rules remove kiye aur `css/styles.min.css` ko re-minify kiya.
+    5. **Cache-Busting (v149):** Tamam HTML pages aur `sw.js` me version `?v=149` bump kiya.
+    6. **Sync & Deploy:** Local XAMPP par synchronize kiya, GitHub `main` par push kiya (`5a4ab42`), aur live Hostinger FTP server par deploy kiya.
 - **Mobile Header Navigation & Brand Logo Responsiveness Fix (September 14, 2026 - v148):**
   - **Issue Reported by User:** Mobile view (`reolink.com.pk`) par header layout totally break ho raha tha:
     1. Top par "S M ENTERPRISES" brand logo itna bara tha ke screen ka bara hissa gher raha tha.

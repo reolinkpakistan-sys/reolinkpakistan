@@ -35,6 +35,29 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **Activation of Smart Gadgets, Wireless Microphones & Bluetooth Speakers (September 14, 2026 - v151):**
+  - **User Directive:** "ek masla or bhi aa raha hai smart gadgets kay section main koi bhi product show nahi ho raha na hi wireless mics main mic show ho raha haor na premium speakers main speaker show ho raha hai isay bhi check karo or jaldi say fix karo"
+  - **Root Cause Analysis:**
+    * In `js/category.js`, `INACTIVE_CATEGORIES` was hardcoded to `['wifi-cameras', 'cctv-systems', 'wireless-mics', 'speakers', 'accessories']`. Whenever a customer accessed `/category/wireless-mics` or `/category/speakers`, it triggered an early exit displaying "Coming Soon / Restocking".
+    * In `cms_data.json`, `premium-bluetooth-speaker` had `"homepage": false`, preventing it from appearing in homepage gadget showcases.
+    * No dedicated `smart-gadgets` route existed in `router.php`, nor in `CATEGORY_META` in `js/category.js`.
+  - **Comprehensive Fixes & Enhancements:**
+    1. **Dynamic Category Engine (`js/category.js`):**
+       - Cleaned `INACTIVE_CATEGORIES` to only `['cctv-systems']` (only actual 0-inventory category).
+       - Added `'smart-gadgets'` with SEO meta descriptions, Urdu title (`سمارٹ گیجٹس اور آڈیو ڈیوائسز`), and banner badges.
+       - Configured `SMART_GADGET_CATEGORIES = ['wireless-mics', 'speakers', 'accessories', 'dashcams']` so `/category/smart-gadgets` renders all 4 products: `Alvoxcon Wireless Mic`, `Premium Bluetooth Speaker`, `Reolink Solar Panel`, and `JZONES V630 3-Channel 4K Dashcam`.
+       - Added fallback SVG icons in `getFallbackSVG` for `alvoxcon-mic` and `premium-bluetooth-speaker`.
+    2. **Router Routing (`router.php`):** Added `'smart-gadgets'` to `$allowedCategories` whitelist for clean URL `/category/smart-gadgets`.
+    3. **CMS Data (`cms_data.json`):** Set `premium-bluetooth-speaker.homepage = true` to display across homepage feeds.
+    4. **Homepage & Category Filters (`index.html`, `category.html`, `js/cms.js`):**
+       - Added `#homepageCatalogPills` filter buttons (`All`, `Smart Gadgets`, `Wireless Mics`, `Speakers`, `4G Cameras`, `Dashcams`, `Accessories`).
+       - Injected pre-rendered baseline product cards into `#catalogGrid` for instant display before JS hydration.
+       - Enhanced `attachCatalogSearch` to filter smoothly by category pills as well as text search.
+    5. **Navigation & Breadcrumbs (All 17 HTML pages, `js/product-details.js`):**
+       - Added `All Smart Gadgets` to navigation dropdowns and footers across all site templates.
+       - Updated dynamic breadcrumbs on `product-details.html` to link to `/category/smart-gadgets`.
+    6. **Minification & Version Bump (v151):** Minified `css/styles.min.css` (163KB) and bumped asset version `?v=151` across all 25 HTML files and `sw.js`.
+    7. **XAMPP, Git & Live Deployment:** Synced to local XAMPP (`/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan`), committed & pushed to GitHub main (`21b2bb8`), and uploaded to live server (`147.93.78.148`).
 - **Relocation of Mobile Hamburger Menu to Left Side (September 14, 2026 - v150):**
   - **User Directive:** "acha ek kam pr karo mobile view main jo right side main three lines ka option tum nay banaya hai usay left side main lay ao"
   - **Implementation Details:**

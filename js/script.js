@@ -17,14 +17,12 @@ function initApp() {
         hamburger.setAttribute('aria-label', 'Toggle menu');
         hamburger.innerHTML = '<span></span><span></span><span></span>';
         
-        // Insert it before the header actions or Buy Now button
-        const headerActions = headerInner.querySelector('.header-actions') || headerInner.querySelector('.nav-btn');
-        if (headerActions && headerActions.parentNode === headerInner) {
-            headerInner.insertBefore(hamburger, headerActions);
-        } else if (headerActions && headerActions.parentNode) {
-            headerActions.parentNode.insertBefore(hamburger, headerActions);
+        // Insert it to the left side (before the brand logo)
+        const brandLogo = headerInner.querySelector('.sm-brand-logo');
+        if (brandLogo && brandLogo.parentNode === headerInner) {
+            headerInner.insertBefore(hamburger, brandLogo);
         } else {
-            headerInner.appendChild(hamburger);
+            headerInner.insertBefore(hamburger, headerInner.firstChild);
         }
 
         // Create mobile drawer overlay

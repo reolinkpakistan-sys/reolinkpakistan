@@ -1663,6 +1663,7 @@ p { font-size: 19px; color: var(--text-secondary); font-weight: 400; margin-bott
         gap: 8px;
     }
     .sm-brand-logo {
+        order: 2;
         margin-right: auto;
         gap: 8px;
         min-width: 0;
@@ -1701,7 +1702,7 @@ p { font-size: 19px; color: var(--text-secondary); font-weight: 400; margin-bott
         align-items: center;
         gap: 6px;
         flex-shrink: 0;
-        order: 2;
+        order: 3;
     }
     .header-search-btn {
         width: 36px;
@@ -1748,12 +1749,12 @@ p { font-size: 19px; color: var(--text-secondary); font-weight: 400; margin-bott
         width: 22px;
         height: 16px;
         padding: 0;
-        margin: 0 0 0 6px !important;
+        margin: 0 10px 0 0 !important;
         background: transparent;
         border: none;
         cursor: pointer;
         flex-shrink: 0;
-        order: 3;
+        order: 1;
         z-index: 1002;
     }
     .menu-hamburger span {
@@ -4172,8 +4173,8 @@ body {
 @media (max-width: 992px) {
     .menu-hamburger {
         display: flex;
-        margin: 0 0 0 6px;
-        order: 3;
+        margin: 0 10px 0 0;
+        order: 1;
     }
 }
 
@@ -6623,6 +6624,7 @@ img, video {
         flex-shrink: 1 !important;
         display: flex !important;
         align-items: center !important;
+        order: 2 !important;
     }
     .reo-header .brand-svg-container {
         width: 35px !important;
@@ -6657,7 +6659,7 @@ img, video {
         align-items: center !important;
         gap: 6px !important;
         flex-shrink: 0 !important;
-        order: 2 !important;
+        order: 3 !important;
     }
     .header-search-btn {
         width: 35px !important;
@@ -6704,12 +6706,12 @@ img, video {
         width: 22px !important;
         height: 16px !important;
         padding: 0 !important;
-        margin: 0 0 0 6px !important;
+        margin: 0 10px 0 0 !important;
         background: transparent !important;
         border: none !important;
         cursor: pointer !important;
         flex-shrink: 0 !important;
-        order: 3 !important;
+        order: 1 !important;
         z-index: 1002 !important;
     }
     .menu-hamburger span {
@@ -6728,6 +6730,7 @@ img, video {
     }
     .sm-brand-logo {
         gap: 5px !important;
+        order: 2 !important;
     }
     .reo-header .brand-svg-container {
         width: 31px !important;
@@ -6746,6 +6749,7 @@ img, video {
     }
     .header-actions {
         gap: 4px !important;
+        order: 3 !important;
     }
     .header-search-btn {
         width: 32px !important;
@@ -6764,7 +6768,8 @@ img, video {
     .menu-hamburger {
         width: 18px !important;
         height: 14px !important;
-        margin: 0 0 0 3px !important;
+        margin: 0 6px 0 0 !important;
+        order: 1 !important;
     }
 }
 

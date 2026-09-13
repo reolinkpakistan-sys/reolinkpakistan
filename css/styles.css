@@ -251,7 +251,7 @@ p { font-size: 19px; color: var(--text-secondary); font-weight: 400; margin-bott
     opacity: 0.6;
     transition: all 0.3s ease;
 }
-.nav-links a:hover::after, .nav-links a.active::after, .nav-links a[href="/about"].active::after, .nav-links a[href="/contact"].active::after, .nav-links a[href="/warranty"].active::after {
+.nav-links a:hover::after, .nav-links a.active::after, .nav-links a[href="/about"].active::after, .nav-links a[href="/contact"].active::after, .nav-links a[href="/warranty"].active::after, .nav-links a[href="/track-order"].active::after {
     width: 100%;
     left: 0;
     opacity: 1;
@@ -4102,64 +4102,165 @@ body {
     background-color: #00f3ff;
 }
 
-/* Mobile Menu Drawer Overlay */
+/* Mobile Menu Drawer & Backdrop Overlay */
+.drawer-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.drawer-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
 .mobile-menu-drawer {
     position: fixed;
     top: 0;
     left: -100%;
-    width: 290px;
+    width: 300px;
+    max-width: 86vw;
     height: 100%;
-    background: rgba(7, 8, 10, 0.98);
+    background: linear-gradient(180deg, rgba(9, 11, 16, 0.98) 0%, rgba(13, 17, 23, 0.99) 100%);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(0, 243, 255, 0.15);
     z-index: 10001;
-    padding: 70px 24px 30px;
-    transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 15px 0 35px rgba(0,0,0,0.8);
+    padding: 20px 18px 25px;
+    transition: left 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 20px 0 50px rgba(0, 0, 0, 0.9);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 .mobile-menu-drawer.active {
     left: 0;
 }
-.drawer-close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 32px;
+
+.drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.drawer-brand {
+    display: flex;
+    flex-direction: column;
+}
+.drawer-brand-title {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
     color: #fff;
+}
+.drawer-brand-subtitle {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #00f3ff;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+.drawer-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    transition: color 0.2s;
     line-height: 1;
+    transition: all 0.2s ease;
 }
 .drawer-close:hover {
-    color: #00f3ff;
+    background: rgba(239, 68, 68, 0.25);
+    border-color: #ef4444;
+    color: #ef4444;
 }
+
 .mobile-menu-drawer .nav-links {
     display: flex !important;
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
+    gap: 12px;
     width: 100%;
 }
 .mobile-menu-drawer .nav-links a {
-    font-size: 16px;
-    color: #fff;
-    padding: 6px 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #e2e8f0;
+    padding: 8px 12px;
     width: 100%;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    border-bottom: none;
     text-shadow: none;
     text-align: left;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
 }
 .mobile-menu-drawer .nav-links a::after {
-    display: none !important; /* Remove bottom glow line */
+    display: none !important;
 }
+.mobile-menu-drawer .nav-links a:hover,
+.mobile-menu-drawer .nav-links a.active {
+    background: rgba(0, 243, 255, 0.08);
+    color: #00f3ff;
+}
+.mobile-menu-drawer .nav-links a[href="/track-order"],
+.mobile-menu-drawer .drawer-track-link {
+    background: rgba(0, 243, 255, 0.08);
+    border: 1px solid rgba(0, 243, 255, 0.25);
+    color: #00f3ff;
+    font-weight: 700;
+}
+.mobile-menu-drawer .nav-links a[href="/track-order"]:hover,
+.mobile-menu-drawer .drawer-track-link:hover {
+    background: rgba(0, 243, 255, 0.16);
+    border-color: #00f3ff;
+}
+
 .mobile-menu-drawer .dropdown {
     width: 100%;
     position: relative;
 }
+.mobile-menu-drawer .dropdown-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+.mobile-menu-drawer .dropdown-trigger ion-icon {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+    color: #94a3b8;
+}
+.mobile-menu-drawer .dropdown.mobile-open .dropdown-trigger {
+    color: #00f3ff;
+    background: rgba(0, 243, 255, 0.05);
+}
+.mobile-menu-drawer .dropdown.mobile-open .dropdown-trigger ion-icon {
+    transform: rotate(180deg);
+    color: #00f3ff;
+}
+
 .mobile-menu-drawer .dropdown-menu {
     display: none;
     position: static !important;
@@ -4169,8 +4270,9 @@ body {
     background: rgba(255, 255, 255, 0.02) !important;
     border: none !important;
     border-left: 2px solid #00f3ff !important;
-    padding-left: 15px !important;
-    margin-top: 10px !important;
+    padding-left: 10px !important;
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
     width: 100% !important;
     min-width: unset !important;
     box-shadow: none !important;
@@ -4179,31 +4281,51 @@ body {
 .mobile-menu-drawer .dropdown.mobile-open .dropdown-menu {
     display: flex !important;
     flex-direction: column !important;
-    gap: 12px !important;
+    gap: 8px !important;
 }
 .mobile-menu-drawer .dropdown-menu a {
     display: block !important;
     width: 100% !important;
-    padding: 8px 10px !important;
-    font-size: 14px !important;
-    color: #cbd5e1 !important;
+    padding: 7px 10px !important;
+    font-size: 13.5px !important;
+    color: #94a3b8 !important;
     background: transparent !important;
+    border-radius: 6px !important;
     border-bottom: none !important;
     text-align: left !important;
     transform: none !important;
 }
-.mobile-menu-drawer .dropdown-menu a:hover {
+.mobile-menu-drawer .dropdown-menu a:hover,
+.mobile-menu-drawer .dropdown-menu a.active {
     color: #00f3ff !important;
-    background: rgba(0, 243, 255, 0.05) !important;
+    background: rgba(0, 243, 255, 0.06) !important;
 }
-.mobile-menu-drawer .dropdown.mobile-open .dropdown-trigger {
+
+.drawer-footer {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    width: 100%;
+}
+.drawer-wa-btn {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: rgba(37, 211, 102, 0.12);
+    border: 1px solid rgba(37, 211, 102, 0.3);
+    color: #25D366 !important;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
 }
-.mobile-menu-drawer .dropdown.mobile-open .dropdown-trigger ion-icon {
-    transform: rotate(180deg);
-    color: #00f3ff;
+.drawer-wa-btn:hover {
+    background: rgba(37, 211, 102, 0.22);
+    border-color: #25D366;
 }
 
 /* Enable Hamburger on Mobile Screen Sizes */

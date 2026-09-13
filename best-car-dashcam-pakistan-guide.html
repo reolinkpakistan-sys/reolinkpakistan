@@ -63,7 +63,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.min.css?v=151">
+    <link rel="stylesheet" href="css/styles.min.css?v=152">
 
     <!-- Structured Data 1: Article Schema -->
     <script type="application/ld+json">
@@ -191,28 +191,60 @@
         </div>
     </div>
     
-    <header class="reo-header">
-        <div class="header-container">
-            <a href="/" class="header-logo">
-                <span class="logo-bold">S M</span>
-                <span class="logo-sub">ENTERPRISES</span>
+    <nav class="reo-header">
+        <div class="header-inner">
+            <a href="/" class="sm-brand-logo">
+                <div class="brand-svg-container">
+                    <svg class="main-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 5L8.5 25V75L50 95L91.5 75V25L50 5Z" class="logo-shield" stroke="currentColor"
+                            stroke-width="2" />
+                        <path d="M35 35H65L35 50H65L35 65H65" class="logo-letters" stroke="currentColor"
+                            stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+                        <circle cx="50" cy="50" r="38" class="logo-ring" stroke="currentColor" stroke-width="1"
+                            stroke-dasharray="10 5" />
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">S M ENTERPRISES</span>
+                    <span class="brand-subtitle">Reolink Authorized Partner</span>
+                </div>
             </a>
-            <nav class="header-nav">
+            <div class="nav-links">
                 <a href="/">Home</a>
-                <a href="/category/4g-cameras">4G Cameras</a>
-                <a href="/category/solar-cameras">Solar Cameras</a>
-                <a href="/category/dashcams" class="active">Dashcams</a>
-                <a href="/category/wifi-cameras">WiFi Cameras</a>
-                <a href="/about">About</a>
-                <a href="/contact">Contact</a>
-            </nav>
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-trigger">Security Cameras <ion-icon name="chevron-down-outline" style="font-size:12px; margin-left:4px; vertical-align:middle;"></ion-icon></a>
+                    <div class="dropdown-menu">
+                        <a href="/category/4g-cameras">4G SIM Cameras</a>
+                        <a href="/category/solar-cameras">Solar Cameras</a>
+                        <a href="/category/wifi-cameras">WiFi Cameras</a>
+                        <a href="/category/cctv-systems">Wireless IP Kits</a>
+                        <a href="/category/dashcams">Car Dashcams</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-trigger">Smart Gadgets <ion-icon name="chevron-down-outline" style="font-size:12px; margin-left:4px; vertical-align:middle;"></ion-icon></a>
+                    <div class="dropdown-menu">
+                        <a href="/category/smart-gadgets" style="color: #00f3ff; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08);">All Smart Gadgets</a>
+                        <a href="/category/wireless-mics">Wireless Mics</a>
+                        <a href="/category/speakers">Premium Speakers</a>
+                        <a href="/category/accessories">Smart Accessories</a>
+                    </div>
+                </div>
+                <a href="/track-order">Track Order</a>
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact Us</a>
+                <a href="/warranty">Warranty/FAQ</a>
+            </div>
             <div class="header-actions">
-                <a href="https://wa.me/923206755555" class="btn-header-wa" target="_blank">
-                    <ion-icon name="logo-whatsapp"></ion-icon> WhatsApp
-                </a>
+                <button type="button" class="header-search-btn" onclick="openGlobalSearch()" aria-label="Search products">
+                    <ion-icon name="search-outline"></ion-icon>
+                    <span>Search...</span>
+                    <span class="search-kbd">⌘K</span>
+                </button>
+                <a href="/#overview" class="btn-reo-primary nav-btn">Buy Now</a>
             </div>
         </div>
-    </header>
+    </nav>
 
     <!-- Main Content -->
     <main class="blog-main-container">
@@ -514,6 +546,7 @@
     })();
     </script>
 
+    <script src="js/script.js?v=152" defer></script>
     <!-- Ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

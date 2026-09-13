@@ -8,56 +8,156 @@ function initApp() {
     // ----------------------------------------
     // Mobile Hamburger Menu Injection
     // ----------------------------------------
-    const headerInner = document.querySelector('.header-inner');
-    const navLinks = document.querySelector('.nav-links');
-    if (headerInner && navLinks) {
-        // Create hamburger button
-        const hamburger = document.createElement('button');
-        hamburger.className = 'menu-hamburger';
-        hamburger.setAttribute('aria-label', 'Toggle menu');
-        hamburger.innerHTML = '<span></span><span></span><span></span>';
-        
-        // Insert it to the left side (before the brand logo)
-        const brandLogo = headerInner.querySelector('.sm-brand-logo');
-        if (brandLogo && brandLogo.parentNode === headerInner) {
-            headerInner.insertBefore(hamburger, brandLogo);
-        } else {
-            headerInner.insertBefore(hamburger, headerInner.firstChild);
+    // ----------------------------------------
+    // Mobile Hamburger Menu Injection & Drawer
+    // ----------------------------------------
+    const headerInner = document.querySelector('.header-inner') || document.querySelector('.header-container');
+    const navLinks = document.querySelector('.nav-links') || document.querySelector('.header-nav');
+    if (headerInner && navLinks && !document.querySelector('.mobile-menu-drawer')) {
+        // Create hamburger button if not already present
+        let hamburger = headerInner.querySelector('.menu-hamburger');
+        if (!hamburger) {
+            hamburger = document.createElement('button');
+            hamburger.className = 'menu-hamburger';
+            hamburger.setAttribute('aria-label', 'Toggle menu');
+            hamburger.innerHTML = '<span></span><span></span><span></span>';
+            
+            // Insert it to the left side (before the brand logo or as first child)
+            const brandLogo = headerInner.querySelector('.sm-brand-logo') || headerInner.querySelector('.header-logo');
+            if (brandLogo && brandLogo.parentNode === headerInner) {
+                headerInner.insertBefore(hamburger, brandLogo);
+            } else {
+                headerInner.insertBefore(hamburger, headerInner.firstChild);
+            }
         }
 
-        // Create mobile drawer overlay
+        // Create backdrop overlay behind drawer
+        let backdrop = document.querySelector('.drawer-backdrop');
+        if (!backdrop) {
+            backdrop = document.createElement('div');
+            backdrop.className = 'drawer-backdrop';
+            document.body.appendChild(backdrop);
+        }
+
+        // Create mobile drawer container
         const mobileDrawer = document.createElement('div');
         mobileDrawer.className = 'mobile-menu-drawer';
         
-        // Clone the nav links content
+        // Drawer Header with Brand & Close Button
+        const drawerHeader = document.createElement('div');
+        drawerHeader.className = 'drawer-header';
+        drawerHeader.innerHTML = `
+            <div class="drawer-brand">
+                <span class="drawer-brand-title">S M ENTERPRISES</span>
+                <span class="drawer-brand-subtitle">Reolink Partner</span>
+            </div>
+            <button type="button" class="drawer-close" aria-label="Close menu">&times;</button>
+        `;
+        mobileDrawer.appendChild(drawerHeader);
+
+        // Clone and sanitize nav links
         const navLinksCloned = navLinks.cloneNode(true);
+        navLinksCloned.className = 'nav-links';
         navLinksCloned.style.display = 'flex';
-        
-        // Add close button to drawer
-        const closeBtn = document.createElement('div');
-        closeBtn.className = 'drawer-close';
-        closeBtn.innerHTML = '&times;';
-        mobileDrawer.appendChild(closeBtn);
+
+        // SAFETY: Guarantee Track Order is always present in mobile menu
+        if (!navLinksCloned.querySelector('a[href="/track-order"]')) {
+            const trackItem = document.createElement('a');
+            trackItem.href = '/track-order';
+            trackItem.className = 'drawer-track-link';
+            trackItem.innerHTML = '<ion-icon name="navigate-circle-outline" style="font-size:18px; margin-right:8px; vertical-align:middle; color:#00f3ff;"></ion-icon>Track Order';
+            
+            const aboutLink = navLinksCloned.querySelector('a[href="/about"]');
+            if (aboutLink) {
+                navLinksCloned.insertBefore(trackItem, aboutLink);
+            } else {
+                navLinksCloned.appendChild(trackItem);
+            }
+        }
+
+        // SAFETY: Guarantee Warranty/FAQ is present
+        if (!navLinksCloned.querySelector('a[href="/warranty"]')) {
+            const warItem = document.createElement('a');
+            warItem.href = '/warranty';
+            warItem.textContent = 'Warranty/FAQ';
+            navLinksCloned.appendChild(warItem);
+        }
+
+        // SAFETY: Guarantee Smart Gadgets dropdown has "All Smart Gadgets"
+        const dropdowns = navLinksCloned.querySelectorAll('.dropdown');
+        dropdowns.forEach(dd => {
+            const text = (dd.textContent || '').toLowerCase();
+            if (text.includes('smart gadget')) {
+                const subMenu = dd.querySelector('.dropdown-menu');
+                if (subMenu && !subMenu.querySelector('a[href="/category/smart-gadgets"]')) {
+                    const allSgLink = document.createElement('a');
+                    allSgLink.href = '/category/smart-gadgets';
+                    allSgLink.style.color = '#00f3ff';
+                    allSgLink.style.fontWeight = '700';
+                    allSgLink.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
+                    allSgLink.textContent = 'All Smart Gadgets';
+                    subMenu.insertBefore(allSgLink, subMenu.firstChild);
+                }
+            }
+        });
+
         mobileDrawer.appendChild(navLinksCloned);
+
+        // Drawer Footer with WhatsApp Quick Support
+        const drawerFooter = document.createElement('div');
+        drawerFooter.className = 'drawer-footer';
+        drawerFooter.innerHTML = `
+            <a href="https://wa.me/923206755555" class="drawer-wa-btn" target="_blank">
+                <ion-icon name="logo-whatsapp" style="font-size:18px; margin-right:6px; color:#25D366;"></ion-icon>
+                <span>WhatsApp: 0320-6755555</span>
+            </a>
+        `;
+        mobileDrawer.appendChild(drawerFooter);
+
         document.body.appendChild(mobileDrawer);
+
+        // Open & Close Controller Functions
+        function openMobileDrawer() {
+            mobileDrawer.classList.add('active');
+            hamburger.classList.add('active');
+            backdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileDrawer() {
+            mobileDrawer.classList.remove('active');
+            hamburger.classList.remove('active');
+            backdrop.classList.remove('active');
+            document.body.style.overflow = '';
+        }
 
         // Click to toggle drawer
         hamburger.addEventListener('click', (e) => {
             e.stopPropagation();
-            mobileDrawer.classList.toggle('active');
-            hamburger.classList.toggle('active');
+            if (mobileDrawer.classList.contains('active')) {
+                closeMobileDrawer();
+            } else {
+                openMobileDrawer();
+            }
         });
 
-        closeBtn.addEventListener('click', () => {
-            mobileDrawer.classList.remove('active');
-            hamburger.classList.remove('active');
+        const closeBtn = drawerHeader.querySelector('.drawer-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeMobileDrawer);
+        }
+
+        backdrop.addEventListener('click', closeMobileDrawer);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileDrawer.classList.contains('active')) {
+                closeMobileDrawer();
+            }
         });
 
-        // Close when clicking outside the drawer
+        // Close when clicking outside
         document.addEventListener('click', (e) => {
-            if (!mobileDrawer.contains(e.target) && !hamburger.contains(e.target)) {
-                mobileDrawer.classList.remove('active');
-                hamburger.classList.remove('active');
+            if (mobileDrawer.classList.contains('active') && !mobileDrawer.contains(e.target) && !hamburger.contains(e.target)) {
+                closeMobileDrawer();
             }
         });
 
@@ -70,6 +170,15 @@ function initApp() {
                     e.preventDefault();
                     e.stopPropagation();
                     dropdown.classList.toggle('mobile-open');
+                });
+            }
+        });
+
+        // Close drawer immediately when any destination link is clicked
+        mobileDrawer.querySelectorAll('a').forEach(link => {
+            if (!link.classList.contains('dropdown-trigger') && link.getAttribute('href') !== 'javascript:void(0)') {
+                link.addEventListener('click', () => {
+                    closeMobileDrawer();
                 });
             }
         });

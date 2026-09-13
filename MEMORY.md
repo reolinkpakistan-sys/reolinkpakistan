@@ -51,11 +51,15 @@
        * Synced to local XAMPP (`/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan`).
        * Committed to GitHub `main` (`67d0ed5`) and pushed to `origin/main`.
        * Deployed via `deploy_live.py` (50/50 files uploaded successfully to Hostinger FTP `147.93.78.148`).
-- **M&P Courier Tracking URL Update to Official Mulphilog Portal (September 14, 2026):**
-  - **Issue:** Website ke `/track-order` portal par M&P Express select kar ke tracking number enter karne par purani domain (`mnpcourier.com/mytracking`) par redirect ho raha tha jo open nahi hoti.
-  - **Solution:** Tracking link ko official active M&P portal (`https://www.mulphilog.com/tracking/{consignmentNumber}`) par update kiya gaya. Ab koi bhi tracking/consignment number enter karega to direct Mulphilog ke live tracking page par smoothly chala jayega. Saath hi input se `#` aur extra spaces automatically strip honge.
-  - **Files Updated:** `track-order.html`, `deploy_all.py`.
-  - **Live Deployment:** `track-order.html` successfully uploaded to live production server (`/public_html/track-order.html` on Hostinger `147.93.78.148`). Live URL `https://www.reolink.com.pk/track-order` verified working with HTTP 200 and live Mulphilog tracking redirect.
+- **Native In-Page Real-Time Order Tracking Feature (September 14, 2026):**
+  - **Feature Objective:** Customer ko M&P ki website par redirect kiye baghair direct `reolink.com.pk/track-order` par hi live delivery status, origin/destination route, booking date, aur complete transit checkpoint timeline render karna.
+  - **Architecture & Implementation:**
+    * **Backend Bridge (`api/track-order.php`):** Server-side cURL endpoint banaya jo Mulphilog se live consignment data fetch karta hai aur DOMXPath ke through Order ID, Booking Date, From/To city, Current Status, aur Step-by-Step Scans parse kar ke clean JSON return karta hai.
+    * **Frontend UI (`track-order.html`):** Modern dark-mode tracking summary card integrate kiya with 4-stage visual milestone bar (Booked ➔ In Transit ➔ Out for Delivery ➔ Delivered), dynamic status badges (emerald/amber/blue), and checkpoint scan history list.
+    * **Intelligent Error & WhatsApp Fallback:** Agar consignment number abhi rider ke pas ho aur system mein sync na hua ho to friendly explanation ke sath direct 1-tap WhatsApp support button pre-filled consignment number ke sath show hota hai.
+    * **Routing & Clean URLs:** `router.php` update kiya for `/api/track-order`.
+  - **Files Updated / Created:** `api/track-order.php`, `track-order.html`, `router.php`, `deploy_all.py`, `deploy_live.py`.
+  - **Live Deployment:** All files uploaded to Hostinger live server (`147.93.78.148`). Live API `https://www.reolink.com.pk/api/track-order.php` aur frontend `https://www.reolink.com.pk/track-order` dono live verified hain.
 - **Master Website CRO, Order Tracking & Local City SEO Domination (September 12, 2026 - v148):**
   - **User Trigger:** Comprehensive enhancement audit across conversion optimization (CRO), Pakistani eCommerce trust, local city search ranking, speed, and API security.
   - **Key Features & Enhancements Implemented:**

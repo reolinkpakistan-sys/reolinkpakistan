@@ -116,6 +116,7 @@ def collect_files_to_deploy():
         "admin/security.php",
         "admin/config.php",
         "api/capture-lead.php",
+        "api/track-order.php",
     ]
     
     for rel_path in core_files:

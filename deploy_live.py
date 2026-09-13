@@ -72,6 +72,8 @@ FILES = [
     ("admin/config.php", "/public_html/admin/config.php"),
     ("admin/.htaccess", "/public_html/admin/.htaccess"),
     ("api/capture-lead.php", "/public_html/api/capture-lead.php"),
+    ("api/track-order.php", "/public_html/api/track-order.php"),
+    ("router.php", "/public_html/router.php"),
     ("save_image.php", "/public_html/save_image.php"),
     ("cms_data.json", "/public_html/cms_data.json"),
     (".htaccess", "/public_html/.htaccess"),

@@ -72,6 +72,10 @@ if ($uri === '/track-order' || $uri === '/track-order/' || $uri === '/track' || 
     include __DIR__ . '/track-order.html';
     exit;
 }
+if ($uri === '/api/track-order' || $uri === '/api/track-order/') {
+    include __DIR__ . '/api/track-order.php';
+    exit;
+}
 if ($uri === '/about' || $uri === '/about/') {
     include __DIR__ . '/about.html';
     exit;

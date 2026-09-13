@@ -53,6 +53,7 @@ FILES = [
     ("track-order.html", "/public_html/track-order.html"),
     ("css/styles.css", "/public_html/css/styles.css"),
     ("css/styles.min.css", "/public_html/css/styles.min.css"),
+    ("sw.js", "/public_html/sw.js"),
     ("css/jzones.css", "/public_html/css/jzones.css"),
     ("css/jzones.min.css", "/public_html/css/jzones.min.css"),
     ("css/scrollytelling.css", "/public_html/css/scrollytelling.css"),

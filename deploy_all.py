@@ -103,6 +103,7 @@ def collect_files_to_deploy():
         "router.php",
         "save_image.php",
         "favicon.ico",
+        "sw.js",
         "css/styles.css",
         "css/styles.min.css",
         "css/jzones.css",

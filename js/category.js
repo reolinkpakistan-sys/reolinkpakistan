@@ -175,6 +175,26 @@ const CATEGORY_META = {
     </ul>
 </div>
 `
+    },
+    'smart-gadgets': {
+        eyebrow: 'Authentic Tech & Smart Audio',
+        title: 'Premium <span class="accent-glow">Smart Gadgets</span> & Devices in Pakistan',
+        desc: 'Explore authentic smart tech gadgets from S M Enterprises — professional wireless microphones, high-fidelity Bluetooth speakers, car dashcams, and genuine accessories with official warranty and nationwide COD delivery.',
+        keywords: 'smart gadgets pakistan, wireless mic, bluetooth speaker, car dashcam, tech gadgets, audio gear pakistan',
+        richDesc: `
+<div class="seo-content-block">
+    <h3 style="color:#fff; font-size:22px; margin-bottom:15px;">Smart Gadgets, Wireless Audio & Tech Devices in Pakistan</h3>
+    <p>S M Enterprises brings you a curated catalog of high-performance smart gadgets and wireless audio gear. From professional ultra-low-latency dual-channel wireless lapel microphones for vloggers and content creators, to high-fidelity portable Bluetooth speakers with deep bass, to 4K triple-channel car dashcams and genuine accessories, every product is guaranteed authentic and tested for Pakistani conditions.</p>
+    <p>Enjoy official 1-month replacement warranty, prompt customer support, and fast Cash on Delivery (COD) across Karachi, Lahore, Islamabad, Rawalpindi, Multan, Faisalabad, Peshawar, and nationwide.</p>
+    <h4 style="color:#fff; font-size:18px; margin-top:20px; margin-bottom:10px;">Why Buy Smart Gadgets from S M Enterprises?</h4>
+    <ul style="padding-left:20px; margin-bottom:20px; list-style-type:disc; color: #94a3b8;">
+        <li style="margin-bottom: 8px;"><strong>100% Genuine Products:</strong> Rigorously inspected and authenticated hardware.</li>
+        <li style="margin-bottom: 8px;"><strong>Official Local Warranty:</strong> 1-Month replacement & repair coverage.</li>
+        <li style="margin-bottom: 8px;"><strong>Nationwide COD:</strong> Inspect package at your doorstep anywhere in Pakistan.</li>
+        <li style="margin-bottom: 8px;"><strong>Plug & Play Simplicity:</strong> No technical setup required.</li>
+    </ul>
+</div>
+`
     }
 };
 
@@ -242,8 +262,9 @@ function injectCategorySchema(type, meta) {
 function getFallbackSVG(id) {
     const svgs = {
         'mic': `<svg viewBox="0 0 100 100" width="120" height="120" style="color:#00f3ff;filter:drop-shadow(0 0 12px rgba(0,243,255,0.4))"><rect x="40" y="20" width="20" height="40" rx="10" fill="currentColor" opacity="0.8"/><path d="M30 40C30 51 40 60 50 60C60 60 70 51 70 40" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/><line x1="50" y1="60" x2="50" y2="75" stroke="currentColor" stroke-width="4"/><line x1="35" y1="75" x2="65" y2="75" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>`,
-
-
+        'alvoxcon-mic': `<svg viewBox="0 0 100 100" width="120" height="120" style="color:#00f3ff;filter:drop-shadow(0 0 12px rgba(0,243,255,0.4))"><rect x="40" y="20" width="20" height="40" rx="10" fill="currentColor" opacity="0.8"/><path d="M30 40C30 51 40 60 50 60C60 60 70 51 70 40" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/><line x1="50" y1="60" x2="50" y2="75" stroke="currentColor" stroke-width="4"/><line x1="35" y1="75" x2="65" y2="75" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>`,
+        'speaker': `<svg viewBox="0 0 100 100" width="120" height="120" style="color:#ff6b00;filter:drop-shadow(0 0 12px rgba(255,107,0,0.4))"><rect x="25" y="15" width="50" height="70" rx="12" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="50" cy="38" r="12" fill="currentColor" opacity="0.3" stroke="currentColor" stroke-width="2"/><circle cx="50" cy="38" r="4" fill="currentColor"/><circle cx="50" cy="68" r="16" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="50" cy="68" r="8" fill="currentColor" opacity="0.5"/></svg>`,
+        'premium-bluetooth-speaker': `<svg viewBox="0 0 100 100" width="120" height="120" style="color:#ff6b00;filter:drop-shadow(0 0 12px rgba(255,107,0,0.4))"><rect x="25" y="15" width="50" height="70" rx="12" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="50" cy="38" r="12" fill="currentColor" opacity="0.3" stroke="currentColor" stroke-width="2"/><circle cx="50" cy="38" r="4" fill="currentColor"/><circle cx="50" cy="68" r="16" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="50" cy="68" r="8" fill="currentColor" opacity="0.5"/></svg>`,
         'solar-panel': `<svg viewBox="0 0 100 100" width="120" height="120" style="color:#ffcc00;filter:drop-shadow(0 0 12px rgba(255,204,0,0.4))"><rect x="10" y="25" width="80" height="50" rx="4" fill="none" stroke="currentColor" stroke-width="4"/><line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" stroke-width="2"/><line x1="37" y1="25" x2="37" y2="75" stroke="currentColor" stroke-width="2"/><line x1="63" y1="25" x2="63" y2="75" stroke="currentColor" stroke-width="2"/><line x1="50" y1="75" x2="50" y2="90" stroke="currentColor" stroke-width="4"/></svg>`,
         'default': `<svg viewBox="0 0 100 100" width="120" height="120" style="color:#94a3b8;filter:drop-shadow(0 0 8px rgba(148,163,184,0.3))"><rect x="25" y="30" width="50" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="50" cy="50" r="10" fill="currentColor" opacity="0.5"/></svg>`
     };
@@ -322,9 +343,19 @@ function updatePageMeta(type) {
 
     // Highlight active nav dropdown link
     document.querySelectorAll('.dropdown-menu a').forEach(a => {
-        if (a.href.includes(`/category/${type}`)) {
+        if (type && a.href.includes(`/category/${type}`)) {
             a.style.color = '#00f3ff';
             a.style.fontWeight = '700';
+        }
+    });
+
+    // Highlight active category pill
+    document.querySelectorAll('#categoryPillsBar .cat-pill').forEach(pill => {
+        const pType = pill.getAttribute('data-type');
+        if (pType === type || (!type && pType === 'all')) {
+            pill.classList.add('active');
+        } else {
+            pill.classList.remove('active');
         }
     });
 }
@@ -341,8 +372,8 @@ function applyCategoryFilters(searchTerm = '') {
     const gadgets = _categoryGadgets;
     const contact = _categoryContact;
 
-    // Handle Coming Soon categories
-    const INACTIVE_CATEGORIES = ['wifi-cameras', 'cctv-systems', 'wireless-mics', 'speakers', 'accessories'];
+    // Handle Coming Soon categories (only categories with no available stock)
+    const INACTIVE_CATEGORIES = ['cctv-systems'];
     if (INACTIVE_CATEGORIES.includes(type)) {
         grid.innerHTML = `
             <div class="coming-soon-card reveal-up" style="grid-column: 1/-1; text-align: center; padding: 60px 20px; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 16px; backdrop-filter: blur(10px); margin-bottom: 30px;">
@@ -356,10 +387,15 @@ function applyCategoryFilters(searchTerm = '') {
         return;
     }
 
+    // Categories that qualify as smart gadgets
+    const SMART_GADGET_CATEGORIES = ['wireless-mics', 'speakers', 'accessories', 'dashcams'];
+
     // For 4g-cameras, also show solar-cameras (same physical products)
     let filtered;
     if (type === 'solar-cameras') {
         filtered = gadgets.filter(g => g.category === 'solar-cameras' || g.category === '4g-cameras');
+    } else if (type === 'smart-gadgets') {
+        filtered = gadgets.filter(g => SMART_GADGET_CATEGORIES.includes(g.category) || g.category === 'smart-gadgets');
     } else if (type) {
         filtered = gadgets.filter(g => g.category === type);
     } else {

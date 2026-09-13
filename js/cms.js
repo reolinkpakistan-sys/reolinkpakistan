@@ -122,14 +122,14 @@ function getTrustBadgeIcon(iconName, size = 11) {
 }
 
 function getFallbackSVG(id) {
-    if (id === 'mic') {
+    if (id === 'mic' || id === 'alvoxcon-mic') {
         return `<svg viewBox="0 0 100 100" width="80" height="80" style="color: #00f3ff; filter: drop-shadow(0 0 8px rgba(0,243,255,0.4));">
             <rect x="40" y="20" width="20" height="40" rx="10" fill="currentColor" opacity="0.8"/>
             <path d="M30 40C30 51 40 60 50 60C60 60 70 51 70 40" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/>
             <line x1="50" y1="60" x2="50" y2="75" stroke="currentColor" stroke-width="4"/>
             <line x1="35" y1="75" x2="65" y2="75" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
         </svg>`;
-    } else if (id === 'speaker') {
+    } else if (id === 'speaker' || id === 'premium-bluetooth-speaker') {
         return `<svg viewBox="0 0 100 100" width="80" height="80" style="color: #ff6b00; filter: drop-shadow(0 0 8px rgba(255,107,0,0.4));">
             <rect x="25" y="15" width="50" height="70" rx="12" fill="none" stroke="currentColor" stroke-width="4"/>
             <circle cx="50" cy="38" r="12" fill="currentColor" opacity="0.3" stroke="currentColor" stroke-width="2"/>
@@ -236,20 +236,47 @@ function renderGadgets(container, gadgets, whatsappNum) {
 
 function attachCatalogSearch(container, gadgets, whatsappNum) {
     const input = document.getElementById('catalogSearch');
-    if (!input) return;
+    const pills = document.querySelectorAll('#homepageCatalogPills .cat-pill');
+    let activeFilter = 'all';
 
-    input.addEventListener('input', (e) => {
-        const term = e.target.value.trim().toLowerCase();
-        if (!term) {
-            renderGadgets(container, gadgets, whatsappNum);
-            return;
+    const applyFilterAndSearch = () => {
+        const term = input ? input.value.trim().toLowerCase() : '';
+        const SMART_GADGET_CATEGORIES = ['wireless-mics', 'speakers', 'accessories', 'dashcams'];
+
+        let list = gadgets;
+        if (activeFilter === 'smart-gadgets') {
+            list = gadgets.filter(g => SMART_GADGET_CATEGORIES.includes(g.category) || g.category === 'smart-gadgets');
+        } else if (activeFilter === 'solar-cameras') {
+            list = gadgets.filter(g => g.category === 'solar-cameras' || g.category === '4g-cameras');
+        } else if (activeFilter !== 'all') {
+            list = gadgets.filter(g => g.category === activeFilter);
         }
-        const filtered = gadgets.filter(g => {
-            const text = `${g.name} ${g.desc || ''} ${g.category || ''} ${g.tag || ''}`.toLowerCase();
-            return text.includes(term);
+
+        if (term) {
+            list = list.filter(g => {
+                const text = `${g.name} ${g.desc || ''} ${g.category || ''} ${g.tag || ''}`.toLowerCase();
+                return text.includes(term);
+            });
+        }
+        renderGadgets(container, list, whatsappNum);
+    };
+
+    if (input && !input._hasListener) {
+        input._hasListener = true;
+        input.addEventListener('input', applyFilterAndSearch);
+    }
+
+    if (pills && pills.length) {
+        pills.forEach(pill => {
+            pill.addEventListener('click', (e) => {
+                e.preventDefault();
+                pills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                activeFilter = pill.getAttribute('data-filter') || 'all';
+                applyFilterAndSearch();
+            });
         });
-        renderGadgets(container, filtered, whatsappNum);
-    });
+    }
 }
 
 function overrideVideoModal(data) {

@@ -1139,6 +1139,21 @@ function renderStandardLayout(product, contactInfo) {
     if (breadcrumbCurrent) {
         breadcrumbCurrent.textContent = product.name;
     }
+    const breadcrumbCategory = document.getElementById('breadcrumbCategory');
+    if (breadcrumbCategory && product.category) {
+        const catMap = {
+            'wireless-mics': { title: 'Wireless Mics', url: '/category/wireless-mics' },
+            'speakers': { title: 'Bluetooth Speakers', url: '/category/speakers' },
+            'accessories': { title: 'Smart Accessories', url: '/category/accessories' },
+            'dashcams': { title: 'Car Dashcams', url: '/category/dashcams' },
+            '4g-cameras': { title: '4G SIM Cameras', url: '/category/4g-cameras' },
+            'solar-cameras': { title: 'Solar Cameras', url: '/category/solar-cameras' },
+            'wifi-cameras': { title: 'WiFi Cameras', url: '/category/wifi-cameras' }
+        };
+        const catInfo = catMap[product.category] || { title: 'Smart Gadgets', url: '/category/smart-gadgets' };
+        breadcrumbCategory.textContent = catInfo.title;
+        breadcrumbCategory.href = catInfo.url;
+    }
 
     // Badge/Tag
     const productTag = document.getElementById('productTag');

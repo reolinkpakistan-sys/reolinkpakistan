@@ -1297,7 +1297,7 @@
             "id": "premium-bluetooth-speaker",
             "name": "Premium High-Fidelity Bluetooth Speaker",
             "category": "speakers",
-            "homepage": false,
+            "homepage": true,
             "desc": "Premium High-Fidelity Wireless Bluetooth Speaker, More than 20 hrs of playtime, IPX2 Water Resistant, Bluetooth v5.0, multi-host functionality, Quick Charge",
             "orig_price": 55000,
             "curr_price": 30000,

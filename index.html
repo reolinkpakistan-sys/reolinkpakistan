@@ -85,7 +85,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Reolink PK">
-    <link rel="stylesheet" href="css/styles.min.css?v=150">
+    <link rel="stylesheet" href="css/styles.min.css?v=151">
 
     <!-- Structured Data: Product Schema -->
     <script type="application/ld+json">
@@ -396,6 +396,7 @@
                 <div class="dropdown">
                     <a href="javascript:void(0)" class="dropdown-trigger">Smart Gadgets <ion-icon name="chevron-down-outline" style="font-size:12px; margin-left:4px; vertical-align:middle;"></ion-icon></a>
                     <div class="dropdown-menu">
+                        <a href="/category/smart-gadgets" style="color: #00f3ff; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08);">All Smart Gadgets</a>
                         <a href="/category/wireless-mics">Wireless Mics</a>
                         <a href="/category/speakers">Premium Speakers</a>
                         <a href="/category/accessories">Smart Accessories</a>
@@ -847,8 +848,298 @@
             </div>
         </div>
 
+        <!-- Catalog Category Filter Pills -->
+        <div class="catalog-filters reveal-up delay-1" id="homepageCatalogPills">
+            <button type="button" class="cat-pill active" data-filter="all">All Products (10)</button>
+            <button type="button" class="cat-pill" data-filter="smart-gadgets">Smart Gadgets</button>
+            <button type="button" class="cat-pill" data-filter="wireless-mics">Wireless Mics</button>
+            <button type="button" class="cat-pill" data-filter="speakers">Bluetooth Speakers</button>
+            <button type="button" class="cat-pill" data-filter="4g-cameras">4G SIM Cameras</button>
+            <button type="button" class="cat-pill" data-filter="dashcams">Car Dashcams</button>
+            <button type="button" class="cat-pill" data-filter="accessories">Accessories</button>
+        </div>
+
         <div class="store-grid reveal-up delay-1" id="catalogGrid">
-            <!-- Rendered by js/cms.js -->
+            <div class="rl-store-card" data-category="4g-cameras">
+                <span class="rl-card-badge">Wildlife Edition</span>
+                <div class="rl-card-media" onclick="window.location.href='/products/keen-ranger-pt'">
+                    <img src="images/products/keen-ranger-pt/hero.webp?v=3" alt="KEEN Ranger PT - 4G Trail Camera" loading="lazy">
+                </div>
+                <div class="rl-card-content">
+                    <h3 class="rl-card-title" onclick="window.location.href='/products/keen-ranger-pt'">KEEN Ranger PT - 4G Trail Camera</h3>
+                <ul class="rl-card-specs">
+                    <li>Intelligent Animal Detection</li>
+                    <li>No-Glow IR LEDs (940nm)</li>
+                    <li>0.5s Fast Trigger Speed</li>
+                </ul>
+                    <div class="rl-card-trust">
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 12 15 16 10"/></svg> PTA</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg> COD</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg> Free Ship</span>
+                    </div>
+                    <div class="rl-card-footer">
+                        <div class="rl-card-price-box">
+                            <span class="rl-price-orig">Rs 45,000</span>
+                            <span class="rl-price-curr">Rs 35,000</span>
+                        </div>
+                        <a href="#" class="rl-btn-buy btn-cms-order-now" data-id="keen-ranger-pt">
+                            <ion-icon name="logo-whatsapp"></ion-icon> Order
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="rl-store-card" data-category="4g-cameras">
+                <span class="rl-card-badge">4K Ultra HD</span>
+                <div class="rl-card-media" onclick="window.location.href='/products/reolink-go-pt-ultra'">
+                    <img src="images/dl/go_pt_ultra_hero.webp" alt="Reolink Go PT Ultra" loading="lazy">
+                </div>
+                <div class="rl-card-content">
+                    <h3 class="rl-card-title" onclick="window.location.href='/products/reolink-go-pt-ultra'">Reolink Go PT Ultra</h3>
+                <ul class="rl-card-specs">
+                    <li>4K 8MP Ultra HD</li>
+                    <li>PTA Approved 4G Sim Security</li>
+                    <li>355° Pan & 140° Tilt Rotation</li>
+                </ul>
+                    <div class="rl-card-trust">
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 12 15 16 10"/></svg> PTA</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg> COD</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg> Free Ship</span>
+                    </div>
+                    <div class="rl-card-footer">
+                        <div class="rl-card-price-box">
+                            <span class="rl-price-orig">Rs 75,000</span>
+                            <span class="rl-price-curr">Rs 55,000</span>
+                        </div>
+                        <a href="#" class="rl-btn-buy btn-cms-order-now" data-id="reolink-go-pt-ultra">
+                            <ion-icon name="logo-whatsapp"></ion-icon> Order
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="rl-store-card" data-category="4g-cameras">
+                <span class="rl-card-badge">4K Trail Camera</span>
+                <div class="rl-card-media" onclick="window.location.href='/products/reolink-go-ranger-pt'">
+                    <img src="images/products/reolink-go-ranger-pt/hero.webp" alt="Reolink Go Ranger PT" loading="lazy">
+                </div>
+                <div class="rl-card-content">
+                    <h3 class="rl-card-title" onclick="window.location.href='/products/reolink-go-ranger-pt'">Reolink Go Ranger PT</h3>
+                <ul class="rl-card-specs">
+                    <li>True 4K 8MP Ultra HD Resolution</li>
+                    <li>Invisible 940nm No-Glow Night Vision</li>
+                    <li>355° Pan & 140° Tilt Rotation</li>
+                </ul>
+                    <div class="rl-card-trust">
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 12 15 16 10"/></svg> PTA</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg> COD</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg> Free Ship</span>
+                    </div>
+                    <div class="rl-card-footer">
+                        <div class="rl-card-price-box">
+                            <span class="rl-price-orig">Rs 55,000</span>
+                            <span class="rl-price-curr">Rs 45,000</span>
+                        </div>
+                        <a href="#" class="rl-btn-buy btn-cms-order-now" data-id="reolink-go-ranger-pt">
+                            <ion-icon name="logo-whatsapp"></ion-icon> Order
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="rl-store-card" data-category="4g-cameras">
+                <span class="rl-card-badge">Best Seller</span>
+                <div class="rl-card-media" onclick="window.location.href='/products/reolink-go'">
+                    <img src="images/products/reolink-go/hero.webp?v=solar2026" alt="Reolink Go 4G Cellular Camera" loading="lazy">
+                </div>
+                <div class="rl-card-content">
+                    <h3 class="rl-card-title" onclick="window.location.href='/products/reolink-go'">Reolink Go 4G Cellular Camera</h3>
+                <ul class="rl-card-specs">
+                    <li>100% Wire-Free & Cellular Network</li>
+                    <li>Rechargeable Battery or Solar Panel Power</li>
+                    <li>1080p Full HD & Starlight Night Vision</li>
+                </ul>
+                    <div class="rl-card-trust">
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 12 15 16 10"/></svg> PTA</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg> COD</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg> Free Ship</span>
+                    </div>
+                    <div class="rl-card-footer">
+                        <div class="rl-card-price-box">
+                            <span class="rl-price-orig">Rs 29,000</span>
+                            <span class="rl-price-curr">Rs 23,000</span>
+                        </div>
+                        <a href="#" class="rl-btn-buy btn-cms-order-now" data-id="reolink-go">
+                            <ion-icon name="logo-whatsapp"></ion-icon> Order
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="rl-store-card" data-category="4g-cameras">
+                <span class="rl-card-badge">Popular Choice</span>
+                <div class="rl-card-media" onclick="window.location.href='/products/go-plus'">
+                    <img src="images/camera-no-solar.webp?v=4" alt="Reolink Go PT Plus (Without Solar Plate)" loading="lazy">
+                </div>
+                <div class="rl-card-content">
+                    <h3 class="rl-card-title" onclick="window.location.href='/products/go-plus'">Reolink Go PT Plus (Without Solar Plate)</h3>
+                <ul class="rl-card-specs">
+                    <li>2K 4MP Super HD Clarity</li>
+                    <li>PTA Approved 4G SIM Guard</li>
+                    <li>355° Pan & 140° Tilt Rotation</li>
+                </ul>
+                    <div class="rl-card-trust">
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 12 15 16 10"/></svg> PTA</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg> COD</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg> Free Ship</span>
+                    </div>
+                    <div class="rl-card-footer">
+                        <div class="rl-card-price-box">
+                            <span class="rl-price-orig">Rs 28,000</span>
+                            <span class="rl-price-curr">Rs 23,000</span>
+                        </div>
+                        <a href="#" class="rl-btn-buy btn-cms-order-now" data-id="go-plus">
+                            <ion-icon name="logo-whatsapp"></ion-icon> Order
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="rl-store-card" data-category="wifi-cameras">
+                <span class="rl-card-badge">PTZ PoE Premium</span>
+                <div class="rl-card-media" onclick="window.location.href='/products/rlc-823a'">
+                    <img src="images/products/rlc-823a/gallery-1-transparent.webp?v=4" alt="Reolink RLC-823A" loading="lazy">
+                </div>
+                <div class="rl-card-content">
+                    <h3 class="rl-card-title" onclick="window.location.href='/products/rlc-823a'">Reolink RLC-823A</h3>
+                <ul class="rl-card-specs">
+                    <li>4K 8MP Ultra HD Resolution</li>
+                    <li>5X Optical Zoom Precision</li>
+                    <li>360° Pan & 90° Tilt PTZ</li>
+                </ul>
+                    <div class="rl-card-trust">
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 12 15 16 10"/></svg> PTA</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg> COD</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg> Free Ship</span>
+                    </div>
+                    <div class="rl-card-footer">
+                        <div class="rl-card-price-box">
+                            <span class="rl-price-orig">Rs 55,000</span>
+                            <span class="rl-price-curr">Rs 43,000</span>
+                        </div>
+                        <a href="#" class="rl-btn-buy btn-cms-order-now" data-id="rlc-823a">
+                            <ion-icon name="logo-whatsapp"></ion-icon> Order
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="rl-store-card" data-category="accessories">
+                <span class="rl-card-badge">Eco Power</span>
+                <div class="rl-card-media" onclick="window.location.href='/products/solar-panel'">
+                    <img src="images/products/solar-panel/hero.webp?v=3" alt="Reolink Solar Panel (Micro-USB)" loading="lazy">
+                </div>
+                <div class="rl-card-content">
+                    <h3 class="rl-card-title" onclick="window.location.href='/products/solar-panel'">Reolink Solar Panel (Micro-USB)</h3>
+                <ul class="rl-card-specs">
+                    <li>Eco-Friendly Continuous Power Charge</li>
+                    <li>4-Meter Heavy-Duty USB Connection Cable</li>
+                    <li>IP65 Weatherproof & Rugged Outdoor Housing</li>
+                </ul>
+                    <div class="rl-card-trust">
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 12 15 16 10"/></svg> PTA</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg> COD</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg> Free Ship</span>
+                    </div>
+                    <div class="rl-card-footer">
+                        <div class="rl-card-price-box">
+                            <span class="rl-price-orig">Rs 6,000</span>
+                            <span class="rl-price-curr">Rs 4,500</span>
+                        </div>
+                        <a href="#" class="rl-btn-buy btn-cms-order-now" data-id="solar-panel">
+                            <ion-icon name="logo-whatsapp"></ion-icon> Order
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="rl-store-card" data-category="wireless-mics">
+                <span class="rl-card-badge">Featured</span>
+                <div class="rl-card-media" onclick="window.location.href='/products/alvoxcon-mic'">
+                    <img src="images/products/alvoxcon-mic/hero.webp?v=2" alt="Alvoxcon Rechargeable USB Wireless Microphone" loading="lazy">
+                </div>
+                <div class="rl-card-content">
+                    <h3 class="rl-card-title" onclick="window.location.href='/products/alvoxcon-mic'">Alvoxcon Rechargeable USB Wireless Microphone</h3>
+                <ul class="rl-card-specs">
+                    <li>UHF Digital Wireless (60ft Range)</li>
+                    <li>Rechargeable Battery (7 Hours Life)</li>
+                    <li>Universal Compatibility (iPhone, PC, Laptops, PA)</li>
+                </ul>
+                    <div class="rl-card-trust">
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 12 15 16 10"/></svg> PTA</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg> COD</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg> Free Ship</span>
+                    </div>
+                    <div class="rl-card-footer">
+                        <div class="rl-card-price-box">
+                            <span class="rl-price-orig">Rs 10,500</span>
+                            <span class="rl-price-curr">Rs 7,000</span>
+                        </div>
+                        <a href="#" class="rl-btn-buy btn-cms-order-now" data-id="alvoxcon-mic">
+                            <ion-icon name="logo-whatsapp"></ion-icon> Order
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="rl-store-card" data-category="speakers">
+                <span class="rl-card-badge">Special Offer</span>
+                <div class="rl-card-media" onclick="window.location.href='/products/premium-bluetooth-speaker'">
+                    <img src="images/prod_af60429d7cb22a2f55aa3e0aaa963244.webp" alt="Premium High-Fidelity Bluetooth Speaker" loading="lazy">
+                </div>
+                <div class="rl-card-content">
+                    <h3 class="rl-card-title" onclick="window.location.href='/products/premium-bluetooth-speaker'">Premium High-Fidelity Bluetooth Speaker</h3>
+                <ul class="rl-card-specs">
+                    <li>20+ Hours Portable Playtime</li>
+                    <li>IPX2 Water Resistant Design</li>
+                    <li>Multi-Host Bluetooth Connection</li>
+                </ul>
+                    <div class="rl-card-trust">
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 12 15 16 10"/></svg> PTA</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg> COD</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg> Free Ship</span>
+                    </div>
+                    <div class="rl-card-footer">
+                        <div class="rl-card-price-box">
+                            <span class="rl-price-orig">Rs 55,000</span>
+                            <span class="rl-price-curr">Rs 30,000</span>
+                        </div>
+                        <a href="#" class="rl-btn-buy btn-cms-order-now" data-id="premium-bluetooth-speaker">
+                            <ion-icon name="logo-whatsapp"></ion-icon> Order
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="rl-store-card" data-category="dashcams">
+                <span class="rl-card-badge">Clearance Sale • Rs 10,000 OFF</span>
+                <div class="rl-card-media" onclick="window.location.href='/products/jzones-v630'">
+                    <img src="assets/jzones/jzones_product_transparent.png" alt="JZONES V630 — 4K Triple-Channel Dash Camera" loading="lazy">
+                </div>
+                <div class="rl-card-content">
+                    <h3 class="rl-card-title" onclick="window.location.href='/products/jzones-v630'">JZONES V630 — 4K Triple-Channel Dash Camera</h3>
+                <ul class="rl-card-specs">
+                    <li>4K (3840*2160P) Front + 1080P Cabin + 1080P Rear</li>
+                    <li>Sony STARVIS 2 IMX675 Sensor with F1.8 Large Aperture</li>
+                    <li>4 Cabin IR LED Lights for Total Darkness Interior Recording</li>
+                </ul>
+                    <div class="rl-card-trust">
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 12 15 16 10"/></svg> PTA</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg> COD</span>
+                        <span><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg> Free Ship</span>
+                    </div>
+                    <div class="rl-card-footer">
+                        <div class="rl-card-price-box">
+                            <span class="rl-price-orig">Rs 32,500</span>
+                            <span class="rl-price-curr">Rs 22,500</span>
+                        </div>
+                        <a href="#" class="rl-btn-buy btn-cms-order-now" data-id="jzones-v630">
+                            <ion-icon name="logo-whatsapp"></ion-icon> Order
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1994,6 +2285,7 @@
                     <a href="/#specs">Technical Specs</a>
                     <a href="/products/jzones-v630">JZONES 4K Dashcam</a>
                     <a href="/category/security-cameras">All Security Cameras</a>
+                    <a href="/category/smart-gadgets" style="color: #00f3ff; font-weight: 600;">Smart Gadgets &amp; Mics</a>
                     <a href="/warranty">Support &amp; FAQ</a>
                 </div>
                 <div class="footer-nav-col">
@@ -2432,12 +2724,12 @@
         </div>
     </div>
 
-    <script src="js/script.js?v=150" defer></script>
-    <script src="js/cms.js?v=150" defer></script>
+    <script src="js/script.js?v=151" defer></script>
+    <script src="js/cms.js?v=151" defer></script>
     <!-- Ionicons loaded last — non-blocking icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="js/conversion.js?v=150"></script>
+    <script src="js/conversion.js?v=151"></script>
 </body>
 
 </html>

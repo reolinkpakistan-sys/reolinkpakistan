@@ -106,7 +106,7 @@ if ($uri === '/terms' || $uri === '/terms/') {
 }
 
 // Clean URL: Category pages
-$allowedCategories = ['4g-cameras', 'solar-cameras', 'wifi-cameras', 'cctv-systems', 'dashcams', 'wireless-mics', 'speakers', 'accessories'];
+$allowedCategories = ['4g-cameras', 'solar-cameras', 'wifi-cameras', 'cctv-systems', 'dashcams', 'wireless-mics', 'speakers', 'accessories', 'smart-gadgets'];
 if (preg_match('#^/category/([a-zA-Z0-9_-]+)/?$#', $uri, $matches)) {
     $category = $matches[1];
     if (in_array($category, $allowedCategories, true)) {

@@ -1653,15 +1653,116 @@ p { font-size: 19px; color: var(--text-secondary); font-weight: 400; margin-bott
     }
     .topbar-links { display: none; } /* Hide on small mobile to reduce clutter */
 
-    /* ===== HEADER / NAV ===== */
-    .nav-links { display: none; }
-    .reo-header { padding: 12px 0; }
+    /* ===== HEADER / NAV (Mobile ≤768px) ===== */
+    .nav-links { display: none !important; }
+    .reo-header { padding: 8px 0; }
     .header-inner {
-        padding: 0 15px;
-        justify-content: space-between; /* Ensure logo and button are balanced */
+        padding: 0 12px;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
     }
-    .sm-brand-logo { margin-right: auto; } /* Push button to the right */
-    .nav-btn { padding: 8px 16px; font-size: 12px; min-height: 40px; }
+    .sm-brand-logo {
+        margin-right: auto;
+        gap: 8px;
+        min-width: 0;
+        flex-shrink: 1;
+    }
+    .reo-header .brand-svg-container {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        padding: 4px;
+        border-radius: 8px;
+        flex-shrink: 0;
+    }
+    .reo-header .brand-text {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .reo-header .brand-title {
+        font-size: 14px;
+        letter-spacing: 0.02em;
+        line-height: 1.15;
+        margin-bottom: 2px;
+        white-space: nowrap;
+    }
+    .reo-header .brand-subtitle {
+        font-size: 7.5px;
+        letter-spacing: 0.04em;
+        line-height: 1;
+        white-space: nowrap;
+        opacity: 0.85;
+    }
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+        order: 2;
+    }
+    .header-search-btn {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        padding: 0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #94a3b8;
+        flex-shrink: 0;
+    }
+    .header-search-btn span,
+    .header-search-btn .search-kbd {
+        display: none !important;
+    }
+    .header-search-btn ion-icon {
+        font-size: 18px;
+        margin: 0;
+    }
+    .reo-header .nav-btn,
+    .nav-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        min-height: 36px;
+        height: 36px;
+        line-height: 22px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        border-radius: 20px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: auto !important;
+    }
+    .menu-hamburger {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 22px;
+        height: 16px;
+        padding: 0;
+        margin: 0 0 0 6px !important;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        flex-shrink: 0;
+        order: 3;
+        z-index: 1002;
+    }
+    .menu-hamburger span {
+        width: 100%;
+        height: 2px;
+        background-color: #ffffff;
+        border-radius: 2px;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
     
     /* ===== GLOBAL TYPOGRAPHY (Mobile) ===== */
     h1 { font-size: 32px; margin-bottom: 15px; line-height: 1.15; letter-spacing: -0.01em; }
@@ -2042,7 +2143,7 @@ p { font-size: 19px; color: var(--text-secondary); font-weight: 400; margin-bott
     .hero-subtitle { font-size: 14px; margin-bottom: 25px; }
     .hero-feature-list li { font-size: 13px; }
     .hero-actions { gap: 10px; }
-    .btn-reo-primary { width: 100%; text-align: center; }
+    .hero-actions .btn-reo-primary { width: 100%; text-align: center; }
 }
 
 @keyframes fadeInModal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -4071,7 +4172,8 @@ body {
 @media (max-width: 992px) {
     .menu-hamburger {
         display: flex;
-        margin-right: 15px;
+        margin: 0 0 0 6px;
+        order: 3;
     }
 }
 
@@ -6497,5 +6599,197 @@ img, video {
         font-size: 20px;
     }
 }
+
+/* ===================================================
+   MOBILE HEADER & BRAND RESPONSIVE OPTIMIZATIONS (≤768px)
+   =================================================== */
+@media (max-width: 768px) {
+    .reo-header {
+        padding: 7px 0 !important;
+    }
+    .header-inner {
+        padding: 0 12px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 8px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .sm-brand-logo {
+        margin-right: auto !important;
+        gap: 8px !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+    .reo-header .brand-svg-container {
+        width: 35px !important;
+        height: 35px !important;
+        min-width: 35px !important;
+        padding: 4px !important;
+        border-radius: 8px !important;
+        flex-shrink: 0 !important;
+    }
+    .reo-header .brand-text {
+        min-width: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+    }
+    .reo-header .brand-title {
+        font-size: 13.5px !important;
+        letter-spacing: 0.02em !important;
+        line-height: 1.15 !important;
+        margin-bottom: 2px !important;
+        white-space: nowrap !important;
+    }
+    .reo-header .brand-subtitle {
+        font-size: 7.5px !important;
+        letter-spacing: 0.04em !important;
+        line-height: 1 !important;
+        white-space: nowrap !important;
+        opacity: 0.85 !important;
+    }
+    .header-actions {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        flex-shrink: 0 !important;
+        order: 2 !important;
+    }
+    .header-search-btn {
+        width: 35px !important;
+        height: 35px !important;
+        min-width: 35px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        color: #94a3b8 !important;
+        flex-shrink: 0 !important;
+    }
+    .header-search-btn span,
+    .header-search-btn .search-kbd {
+        display: none !important;
+    }
+    .header-search-btn ion-icon {
+        font-size: 17px !important;
+        margin: 0 !important;
+    }
+    .reo-header .nav-btn,
+    .nav-btn {
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+        min-height: 35px !important;
+        height: 35px !important;
+        line-height: 21px !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+        border-radius: 20px !important;
+        font-weight: 700 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: auto !important;
+    }
+    .menu-hamburger {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        width: 22px !important;
+        height: 16px !important;
+        padding: 0 !important;
+        margin: 0 0 0 6px !important;
+        background: transparent !important;
+        border: none !important;
+        cursor: pointer !important;
+        flex-shrink: 0 !important;
+        order: 3 !important;
+        z-index: 1002 !important;
+    }
+    .menu-hamburger span {
+        width: 100% !important;
+        height: 2px !important;
+        background-color: #ffffff !important;
+        border-radius: 2px !important;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    }
+    .phone-link {
+        width: 35px !important;
+        height: 35px !important;
+        min-width: 35px !important;
+        border-radius: 50% !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 !important;
+    }
+    .phone-link span {
+        display: none !important;
+    }
+    .phone-link ion-icon {
+        font-size: 17px !important;
+        margin: 0 !important;
+    }
+}
+
+@media (max-width: 380px) {
+    .header-inner {
+        padding: 0 8px !important;
+        gap: 4px !important;
+    }
+    .sm-brand-logo {
+        gap: 5px !important;
+    }
+    .reo-header .brand-svg-container {
+        width: 31px !important;
+        height: 31px !important;
+        min-width: 31px !important;
+        padding: 3px !important;
+        border-radius: 7px !important;
+    }
+    .reo-header .brand-title {
+        font-size: 12px !important;
+        letter-spacing: 0.01em !important;
+    }
+    .reo-header .brand-subtitle {
+        font-size: 7px !important;
+        letter-spacing: 0.02em !important;
+    }
+    .header-actions {
+        gap: 4px !important;
+    }
+    .header-search-btn {
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+    }
+    .header-search-btn ion-icon {
+        font-size: 16px !important;
+    }
+    .nav-btn {
+        padding: 5px 9px !important;
+        font-size: 11px !important;
+        min-height: 32px !important;
+        height: 32px !important;
+    }
+    .menu-hamburger {
+        width: 18px !important;
+        height: 14px !important;
+        margin: 0 0 0 3px !important;
+    }
+    .phone-link {
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+    }
+}
+
 
 

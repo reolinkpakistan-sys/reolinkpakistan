@@ -51,6 +51,36 @@
        * Synced to local XAMPP (`/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan`).
        * Committed to GitHub `main` (`67d0ed5`) and pushed to `origin/main`.
        * Deployed via `deploy_live.py` (50/50 files uploaded successfully to Hostinger FTP `147.93.78.148`).
+- **Mobile Header Navigation & Brand Logo Responsiveness Fix (September 14, 2026 - v148):**
+  - **Issue Reported by User:** Mobile view (`reolink.com.pk`) par header layout totally break ho raha tha:
+    1. Top par "S M ENTERPRISES" brand logo itna bara tha ke screen ka bara hissa gher raha tha.
+    2. Search button `Search... ⌘K` bohot wide tha jis ki wajah se horizontal space khatam ho gayi thi.
+    3. Primary CTA button ("Buy Now") screen se completely bahir (horizontal overflow) chala gaya tha aur sirf 1-2px border nazar aa raha tha.
+    4. Hamburger menu mobile par visible / properly styled nahi thi.
+  - **Root Cause Analysis:**
+    1. `.sm-brand-logo` par mobile specific sizing missing thi — 48px SVG shield icon aur 20px `.brand-title` desktop dimensions me hi render ho rahe the (~235px width).
+    2. `.header-search-btn` par mobile rule missing tha jis se text "Search..." aur kbd shortcut badge "⌘K" visible the (~140px width).
+    3. `css/styles.min.css` outdated thi aur usme `.header-actions`, `.header-search-btn`, `.menu-hamburger`, aur drawer styles completely missing the.
+    4. Line 2045 par un-scoped `.btn-reo-primary { width: 100%; }` rule tha jo choti screens par button ko break kar raha tha.
+    5. Total width 500px+ ho chuki thi jo 360px-390px mobile viewports par Buy Now button ko off-screen push kar rahi thi.
+  - **Complete Solution Implemented:**
+    1. **Responsive Header Container:** `.reo-header` padding ko 8px aur `.header-inner` ko `padding: 0 12px; gap: 8px; justify-content: space-between;` par configure kiya.
+    2. **Compact Brand Identity:**
+       - `.brand-svg-container`: `width: 35px; height: 35px; min-width: 35px; padding: 4px; border-radius: 8px;`
+       - `.brand-title`: `font-size: 13.5px; letter-spacing: 0.02em; white-space: nowrap;`
+       - `.brand-subtitle`: `font-size: 7.5px; letter-spacing: 0.04em; white-space: nowrap;`
+    3. **Circular Icon-Only Search Button:**
+       - `.header-search-btn`: `width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;`
+       - Text aur keyboard shortcut hide kar diye gaye (`.header-search-btn span, .header-search-btn .search-kbd { display: none !important; }`), jis se 100px+ horizontal space save hui.
+    4. **Buy Now Button & Flex Order:**
+       - `.nav-btn`: `padding: 6px 12px; font-size: 12px; min-height: 35px; height: 35px; border-radius: 20px; white-space: nowrap; flex-shrink: 0;`
+       - Un-scoped `.btn-reo-primary` rule ko `.hero-actions .btn-reo-primary` me scope kiya.
+    5. **Hamburger Menu Alignment:**
+       - `.menu-hamburger`: `display: flex !important; order: 3; margin: 0 0 0 6px !important;` (Right-most position beside Buy Now button).
+    6. **Ultra-Small Screen Support (≤380px & ≤360px):** Extra-compact scales add kiye taake iPhone SE aur chotay budget Android phones par bhi 0 overflow ho.
+    7. **Asset Synchronization & Minification:** `css/styles.css` ko rebuild kar ke `css/styles.min.css` generate kiya (155KB, all classes verified).
+    8. **Cache-Busting Bump (v148):** Tamam HTML pages aur `sw.js` me asset version `?v=148` bump kiya.
+    9. **Git & Deploy:** Local XAMPP par sync kiya, GitHub `main` par commit aur push (`84ea786`, `f2def85`), aur live server par deploy kiya.
 - **Native In-Page Real-Time Order Tracking Feature (September 14, 2026):**
   - **Feature Objective:** Customer ko M&P ki website par redirect kiye baghair direct `reolink.com.pk/track-order` par hi live delivery status, origin/destination route, booking date, aur complete transit checkpoint timeline render karna.
   - **Architecture & Implementation:**

@@ -6719,24 +6719,6 @@ img, video {
         border-radius: 2px !important;
         transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
     }
-    .phone-link {
-        width: 35px !important;
-        height: 35px !important;
-        min-width: 35px !important;
-        border-radius: 50% !important;
-        background: rgba(255, 255, 255, 0.08) !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        padding: 0 !important;
-    }
-    .phone-link span {
-        display: none !important;
-    }
-    .phone-link ion-icon {
-        font-size: 17px !important;
-        margin: 0 !important;
-    }
 }
 
 @media (max-width: 380px) {
@@ -6783,11 +6765,6 @@ img, video {
         width: 18px !important;
         height: 14px !important;
         margin: 0 0 0 3px !important;
-    }
-    .phone-link {
-        width: 32px !important;
-        height: 32px !important;
-        min-width: 32px !important;
     }
 }
 

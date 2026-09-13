@@ -56,7 +56,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.min.css?v=148">
+    <link rel="stylesheet" href="css/styles.min.css?v=149">
 
     <style>
         .track-hero {
@@ -817,10 +817,10 @@
     <!-- Top Bar -->
     <div class="reo-topbar">
         <div class="topbar-inner">
-            <span class="flash-text">OFFICIAL REOLINK & JZONES PARTNER | NATIONWIDE EXPRESS M&P COURIER TRACKING</span>
+            <span class="flash-text">OFFICIAL REOLINK PARTNER IN PAKISTAN | FREE SHIPPING & CASH ON DELIVERY NATIONWIDE (4% GOVT TAX ON COD AMOUNTS)</span>
             <div class="topbar-links">
                 <a href="/warranty">Support</a>
-                <a href="https://wa.me/923206755555" target="_blank">WhatsApp: 0320-6755555</a>
+                <a href="https://wa.me/923206755555" target="_blank" data-cms-key="contact.whatsapp">WhatsApp: 0320-6755555</a>
             </div>
         </div>
     </div>
@@ -831,9 +831,12 @@
             <a href="/" class="sm-brand-logo">
                 <div class="brand-svg-container">
                     <svg class="main-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M50 5L8.5 25V75L50 95L91.5 75V25L50 5Z" class="logo-shield" stroke="currentColor" stroke-width="2" />
-                        <path d="M35 35H65L35 50H65L35 65H65" class="logo-letters" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
-                        <circle cx="50" cy="50" r="38" class="logo-ring" stroke="currentColor" stroke-width="1" stroke-dasharray="10 5" />
+                        <path d="M50 5L8.5 25V75L50 95L91.5 75V25L50 5Z" class="logo-shield" stroke="currentColor"
+                            stroke-width="2" />
+                        <path d="M35 35H65L35 50H65L35 65H65" class="logo-letters" stroke="currentColor"
+                            stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+                        <circle cx="50" cy="50" r="38" class="logo-ring" stroke="currentColor" stroke-width="1"
+                            stroke-dasharray="10 5" />
                     </svg>
                 </div>
                 <div class="brand-text">
@@ -861,16 +864,18 @@
                         <a href="/category/accessories">Smart Accessories</a>
                     </div>
                 </div>
-                <a href="/track-order" class="active" style="color:#00aeef; font-weight:700;">Track Order</a>
+                <a href="/track-order" class="active">Track Order</a>
                 <a href="/about">About Us</a>
                 <a href="/contact">Contact Us</a>
+                <a href="/warranty">Warranty/FAQ</a>
             </div>
             <div class="header-actions">
-                <a href="tel:03206755555" class="phone-link">
-                    <ion-icon name="call-outline"></ion-icon>
-                    <span>0320-6755555</span>
-                </a>
-                <a href="/#overview" class="btn-reo-primary">Buy Now</a>
+                <button type="button" class="header-search-btn" onclick="openGlobalSearch()" aria-label="Search products">
+                    <ion-icon name="search-outline"></ion-icon>
+                    <span>Search...</span>
+                    <span class="search-kbd">⌘K</span>
+                </button>
+                <a href="/#overview" class="btn-reo-primary nav-btn">Buy Now</a>
             </div>
         </div>
     </nav>
@@ -1317,10 +1322,30 @@
         }
     </script>
 
-    <script src="js/script.js?v=148" defer></script>
+    <!-- Global Live Search Autocomplete Modal -->
+    <div class="global-search-modal" id="globalSearchModal" aria-hidden="true">
+        <div class="search-modal-container">
+            <div class="search-input-header">
+                <ion-icon name="search-outline" class="search-input-icon"></ion-icon>
+                <input type="text" id="globalSearchInput" class="search-modal-input" placeholder="Search 4G cameras, solar CCTV, 4K dashcams, mics..." autocomplete="off">
+                <button type="button" class="search-clear-btn" id="globalSearchClear" aria-label="Clear Search">&times;</button>
+                <span class="search-close-esc" onclick="closeGlobalSearch()">ESC</span>
+            </div>
+            <div class="search-results-list" id="globalSearchResults">
+                <!-- Live search items populated via JS -->
+            </div>
+            <div class="search-modal-footer">
+                <span><kbd style="background:rgba(255,255,255,0.1); padding:2px 5px; border-radius:4px;">↑</kbd> <kbd style="background:rgba(255,255,255,0.1); padding:2px 5px; border-radius:4px;">↓</kbd> to navigate</span>
+                <span><kbd style="background:rgba(255,255,255,0.1); padding:2px 5px; border-radius:4px;">↵</kbd> to select</span>
+                <span><kbd style="background:rgba(255,255,255,0.1); padding:2px 5px; border-radius:4px;">ESC</kbd> to close</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js?v=149" defer></script>
     <!-- Ionicons loaded last -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="js/conversion.js?v=148"></script>
+    <script src="js/conversion.js?v=149"></script>
 </body>
 </html>

@@ -35,6 +35,30 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **Universal Mobile Navigation Drawer & Track Order Ubiquity (September 14, 2026 - v152):**
+  - **User Directive:** "mobile par jab hum smart gadgets kay option main jatay hain to three lines walay option par click karnay par wahaan say trackorder ka option ghaib kyun ho jata hai main ye chahta hun ki three line par jab bhi hum click karein to jo bhi option hain us main wo sabhi nazar bhi ayein or kam bhi karein chahay hum apni website kay kisi bhi section main hoon"
+  - **Root Cause Analysis:**
+    * In earlier templates, only `index.html`, `jzones-v630.html`, and `track-order.html` contained `<a href="/track-order">Track Order</a>` in `.nav-links`.
+    * Pages like `category.html`, `product-details.html`, `go-pt-plus.html`, `about.html`, `contact.html`, and `cities/*.html` had incomplete `.nav-links` blocks. Because `js/script.js` cloned `.nav-links` to build the mobile drawer, navigating to `/category/smart-gadgets` caused Track Order to disappear from the drawer.
+  - **Comprehensive Fixes & Architecture:**
+    1. **Universal Canonical Navigation (`*.html`, `cities/*.html`):**
+       - Standardized `<div class="nav-links">` across ALL 25 HTML templates.
+       - Every page now includes the full suite of links: `Home`, `Security Cameras (Dropdown)`, `Smart Gadgets (Dropdown with All Smart Gadgets)`, `Track Order`, `About Us`, `Contact Us`, and `Warranty/FAQ`.
+       - Standardized `best-car-dashcam-pakistan-guide.html` from disparate header markup to standard `<nav class="reo-header"><div class="header-inner">` and included `js/script.js`.
+    2. **Resilient Mobile Drawer Engine (`js/script.js`):**
+       - Added `.drawer-backdrop` with blur that fades in and dismisses drawer on outside tap.
+       - Added `.drawer-header` with brand branding and circular close button (`&times;`).
+       - Programmatic Safety Guarantee: Automatically checks if `Track Order`, `Warranty/FAQ`, and `All Smart Gadgets` exist in the cloned DOM; if missing, injects them dynamically with neon-cyan highlights and icons.
+       - Added `.drawer-footer` with 1-tap WhatsApp 0320-6755555 direct support button.
+       - Added click listener on all destination links (`a:not(.dropdown-trigger)`) to automatically close the drawer upon navigation.
+       - Body scroll lock (`overflow: hidden`) during drawer activation, restored on close.
+    3. **Design & Aesthetics (`css/styles.css` & `css/styles.min.css`):**
+       - Styled `.drawer-backdrop` (rgba(0,0,0,0.75), blur(6px), z-index: 10000).
+       - Styled `.mobile-menu-drawer` (300px, gradient dark glass, border-right: cyan, z-index: 10001).
+       - Styled `.drawer-track-link` with cyber-cyan border and background badge so Track Order immediately catches the user's eye.
+       - Re-minified `css/styles.min.css` (166KB).
+    4. **Cache Busting (v152):** Bumped asset versions across all 25 HTML pages and `sw.js` to `?v=152`.
+    5. **XAMPP, Git & Live Server Deploy:** Synced to XAMPP, pushed to GitHub `main` (`6f6e247`), and deployed to Hostinger FTP (`147.93.78.148`).
 - **Activation of Smart Gadgets, Wireless Microphones & Bluetooth Speakers (September 14, 2026 - v151):**
   - **User Directive:** "ek masla or bhi aa raha hai smart gadgets kay section main koi bhi product show nahi ho raha na hi wireless mics main mic show ho raha haor na premium speakers main speaker show ho raha hai isay bhi check karo or jaldi say fix karo"
   - **Root Cause Analysis:**

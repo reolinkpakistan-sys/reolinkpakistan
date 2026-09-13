@@ -51,7 +51,10 @@
        * Synced to local XAMPP (`/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan`).
        * Committed to GitHub `main` (`67d0ed5`) and pushed to `origin/main`.
        * Deployed via `deploy_live.py` (50/50 files uploaded successfully to Hostinger FTP `147.93.78.148`).
-       * Verified live URLs: `https://www.reolink.com.pk/products/4g-sim-solar-camera` (HTTP 200) and `https://www.reolink.com.pk/products/reolink-go-pt-plus` (HTTP 200).
+- **M&P Courier Tracking URL Update to Official Mulphilog Portal (September 14, 2026):**
+  - **Issue:** Website ke `/track-order` portal par M&P Express select kar ke tracking number enter karne par purani domain (`mnpcourier.com/mytracking`) par redirect ho raha tha jo open nahi hoti.
+  - **Solution:** Tracking link ko official active M&P portal (`https://www.mulphilog.com/tracking/{consignmentNumber}`) par update kiya gaya. Ab koi bhi tracking/consignment number enter karega to direct Mulphilog ke live tracking page par smoothly chala jayega. Saath hi input se `#` aur extra spaces automatically strip honge.
+  - **Files Updated:** `track-order.html`, `deploy_all.py`.
 - **Master Website CRO, Order Tracking & Local City SEO Domination (September 12, 2026 - v148):**
   - **User Trigger:** Comprehensive enhancement audit across conversion optimization (CRO), Pakistani eCommerce trust, local city search ranking, speed, and API security.
   - **Key Features & Enhancements Implemented:**

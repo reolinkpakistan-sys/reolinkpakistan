@@ -712,15 +712,19 @@
 
         function handleTrack(e) {
             e.preventDefault();
-            const input = document.getElementById('trackInput').value.trim();
+            let input = document.getElementById('trackInput').value.trim();
             if (!input) return;
+
+            // Strip any '#' or extra spaces from tracking number
+            input = input.replace(/^#+/, '').trim();
 
             const selectedCourier = document.querySelector('input[name="courier"]:checked').value;
             let trackUrl = '';
 
             switch (selectedCourier) {
                 case 'mnp':
-                    trackUrl = 'https://www.mnpcourier.com/mytracking?consignmentNo=' + encodeURIComponent(input);
+                    // Official M&P Express Logistics (Muller & Phipps Pakistan) live tracking portal
+                    trackUrl = 'https://www.mulphilog.com/tracking/' + encodeURIComponent(input);
                     break;
                 case 'tcs':
                     trackUrl = 'https://www.tcsexpress.com/track/' + encodeURIComponent(input);
@@ -732,7 +736,7 @@
                     trackUrl = 'https://leopardscourier.com/tracking?track_id=' + encodeURIComponent(input);
                     break;
                 default:
-                    trackUrl = 'https://www.mnpcourier.com/mytracking?consignmentNo=' + encodeURIComponent(input);
+                    trackUrl = 'https://www.mulphilog.com/tracking/' + encodeURIComponent(input);
             }
 
             // Open in new window/tab safely

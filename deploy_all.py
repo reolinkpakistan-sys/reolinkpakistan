@@ -93,6 +93,7 @@ def collect_files_to_deploy():
         "pta-approval-guide.html",
         "solar-vs-wired-cctv.html",
         "farm-tube-well-security.html",
+        "track-order.html",
         "404.html",
         "sitemap.xml",
         "robots.txt",

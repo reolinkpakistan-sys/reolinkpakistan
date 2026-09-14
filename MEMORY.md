@@ -35,6 +35,21 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **4G Camera Main Image Visibility Fix (September 14, 2026 - v153):**
+  - **User Directive:** "main tumhain apni website par mojud ek product ka link send kar raha hun isay check karo is product ko jab open kartay hain to is product ka main image hi show nahi hota isay bhi fix karo https://www.reolink.com.pk/category/4g-cameras"
+  - **Root Cause Analysis:**
+    * In `https://www.reolink.com.pk/category/4g-cameras`, two products had issues when opened on individual product pages:
+      1. `Reolink Go 4G Cellular Camera` (`/products/reolink-go`): Had a 13.6MB 3D model configuration (`model_3d`) in `cms_data.json`. In `js/product-details.js`, the code was replacing `#heroMainImg` with an empty `<model-viewer>` without a poster attribute. On mobile devices, downloading 13.6MB over mobile networks failed or hung, leaving a pitch-black blank empty screen with no product image.
+      2. `KEEN Ranger PT` (`/products/keen-ranger-pt`): Used layout `nature_immersive`, which only embedded a background video (`keen-ranger-pt-banner-1.mp4`) and text overlay, omitting an `<img>` tag for the actual camera product in the hero section. On mobile, the background video zoomed onto tree bark and the camera was invisible.
+  - **Fixes Applied:**
+    * `cms_data.json`: Set `"model_3d": ""` on `reolink-go` so it loads its official high-resolution, crystal-clear transparent hero image (`images/products/reolink-go/hero.webp?v=solar2026`) immediately in <0.05s.
+    * `js/product-details.js`:
+      - Ensured `#heroMainImg` always renders `product.image` directly as an `<img>` element with `animation: none; opacity: 1; display: block;`.
+      - Updated `renderNatureLayout` to wrap the hero in `.nature-hero-container` and prominently showcase `<img src="${product.image}" class="nature-main-img">`.
+    * `css/styles.css` & `css/styles.min.css`: Added responsive styling for `.nature-hero-container`, `.nature-hero-visual`, and `.nature-main-img` with subtle floating animation on desktop and clean centered scaling on mobile viewports.
+    * Minified `css/styles.min.css` (157KB).
+    * Bumped asset cache version across all 26 HTML pages and `sw.js` to `?v=153`.
+    * Deployed 249 files to live production via FTP (`Letmein.9900`) and verified with mobile (`390x844`) and desktop browser subagent that all 4G cameras (`reolink-go`, `keen-ranger-pt`, `reolink-go-pt-ultra`, `reolink-go-ranger-pt`, `go-plus`) render their main product images instantly and flawlessly.
 - **Universal Mobile Navigation Drawer & Track Order Ubiquity (September 14, 2026 - v152):**
   - **User Directive:** "mobile par jab hum smart gadgets kay option main jatay hain to three lines walay option par click karnay par wahaan say trackorder ka option ghaib kyun ho jata hai main ye chahta hun ki three line par jab bhi hum click karein to jo bhi option hain us main wo sabhi nazar bhi ayein or kam bhi karein chahay hum apni website kay kisi bhi section main hoon"
   - **Root Cause Analysis:**

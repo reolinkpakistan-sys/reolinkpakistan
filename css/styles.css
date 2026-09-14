@@ -3089,20 +3089,65 @@ body {
 
 .nature-hero-section {
     position: relative;
-    height: 90vh;
+    min-height: 85vh;
     width: 100%;
     overflow: hidden;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    padding-right: 8%;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.nature-hero-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nature-hero-visual {
+    flex: 1;
+    max-width: 460px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nature-main-img {
+    max-width: 100%;
+    max-height: 440px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.9));
+    animation: floatNature 4s ease-in-out infinite;
+}
+
+@keyframes floatNature {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
 @media (max-width: 992px) {
     .nature-hero-section {
-        justify-content: center;
-        padding-right: 0;
-        padding: 0 20px;
+        min-height: auto;
+        padding: 30px 15px;
+    }
+    .nature-hero-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .nature-hero-visual {
+        max-width: 260px;
+        margin: 0 auto;
+    }
+    .nature-main-img {
+        max-height: 240px;
     }
 }
 

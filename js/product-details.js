@@ -643,50 +643,22 @@ function renderHeroLayout(product, contactInfo) {
     const mainImg = document.getElementById('heroMainImg');
     if (mainImg) {
         let activeVisual = mainImg;
-        if (product.model_3d) {
-            if (mainImg.tagName.toLowerCase() !== 'model-viewer') {
-                const modelViewer = document.createElement('model-viewer');
-                modelViewer.id = 'heroMainImg';
-                modelViewer.className = 'variant-img v1';
-                modelViewer.setAttribute('src', product.model_3d);
-                modelViewer.setAttribute('auto-rotate', '');
-                modelViewer.setAttribute('camera-controls', '');
-                modelViewer.setAttribute('shadow-intensity', '1');
-                modelViewer.style.width = '100%';
-                modelViewer.style.height = '450px';
-                modelViewer.style.background = 'transparent';
-                modelViewer.style.outline = 'none';
-                modelViewer.style.setProperty('--poster-color', 'transparent');
-                
-                mainImg.parentNode.replaceChild(modelViewer, mainImg);
-                activeVisual = modelViewer;
-            } else {
-                mainImg.setAttribute('src', product.model_3d);
-                activeVisual = mainImg;
-            }
-            // Fix collapse, pointer-events and animation issues for 3D model
-            activeVisual.style.animation = 'none';
-            activeVisual.style.opacity = '1';
-            activeVisual.style.height = '450px';
-            activeVisual.style.pointerEvents = 'auto';
+        if (mainImg.tagName.toLowerCase() === 'model-viewer') {
+            const img = document.createElement('img');
+            img.id = 'heroMainImg';
+            img.className = 'variant-img v1';
+            img.alt = product.name;
+            img.src = product.image;
+            mainImg.parentNode.replaceChild(img, mainImg);
+            activeVisual = img;
         } else {
-            if (mainImg.tagName.toLowerCase() === 'model-viewer') {
-                const img = document.createElement('img');
-                img.id = 'heroMainImg';
-                img.className = 'variant-img v1';
-                img.alt = product.name;
-                img.src = product.image;
-                mainImg.parentNode.replaceChild(img, mainImg);
-                activeVisual = img;
-            } else {
-                mainImg.src = product.image;
-                mainImg.alt = product.name;
-                activeVisual = mainImg;
-            }
-            // Fix animation bug: Disable variant fade animation if there's no night variant
-            activeVisual.style.animation = 'none';
-            activeVisual.style.opacity = '1';
+            mainImg.src = product.image;
+            mainImg.alt = product.name;
+            activeVisual = mainImg;
         }
+        activeVisual.style.animation = 'none';
+        activeVisual.style.opacity = '1';
+        activeVisual.style.display = 'block';
     }
 
     const rainCanvas = document.getElementById('heroRainCanvas');
@@ -1509,18 +1481,23 @@ function renderNatureLayout(product, contactInfo) {
             <video class="nature-bg-video" autoplay loop muted playsinline>
                 <source src="videos/products/keen-ranger-pt/keen-ranger-pt-banner-1.mp4" type="video/mp4">
             </video>
-            <div class="nature-hero-overlay">
-                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
-                    <div class="nature-pta-badge" style="margin-bottom: 0;"><ion-icon name="shield-checkmark-outline" style="vertical-align: middle; margin-right: 5px; font-size: 16px;"></ion-icon> PTA APPROVED</div>
-                    <div class="nature-pta-badge" style="margin-bottom: 0; background: rgba(33, 150, 243, 0.2); color: #00bcd4; border-color: #2196f3;"><ion-icon name="construct-outline" style="vertical-align: middle; margin-right: 5px; font-size: 16px;"></ion-icon> 1-MONTH WARRANTY</div>
-                    <div class="nature-pta-badge" style="margin-bottom: 0; background: rgba(255, 152, 0, 0.2); color: #ff9800; border-color: #ff9800;"><ion-icon name="cube-outline" style="vertical-align: middle; margin-right: 5px; font-size: 16px;"></ion-icon> WITHOUT BOX</div>
+            <div class="nature-hero-container">
+                <div class="nature-hero-visual">
+                    <img src="${product.image}" alt="${product.name}" class="nature-main-img" onerror="this.src='images/products/keen-ranger-pt/hero.webp'">
                 </div>
-                <h1 class="nature-title">${product.name}</h1>
-                <p class="nature-subtitle">${product.desc}</p>
-                <div class="nature-action-wrapper">
-                    <div class="nature-hero-price">Rs. ${product.curr_price.toLocaleString()}</div>
-                    <button class="nature-btn" onclick="openSelectionModal()">Order Now via WhatsApp</button>
-                    ${getScarcityHtml(product) ? `<div class="nature-scarcity" style="width: 100%; text-align: center; margin-top: 10px;">${getScarcityHtml(product)}</div>` : ''}
+                <div class="nature-hero-overlay">
+                    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+                        <div class="nature-pta-badge" style="margin-bottom: 0;"><ion-icon name="shield-checkmark-outline" style="vertical-align: middle; margin-right: 5px; font-size: 16px;"></ion-icon> PTA APPROVED</div>
+                        <div class="nature-pta-badge" style="margin-bottom: 0; background: rgba(33, 150, 243, 0.2); color: #00bcd4; border-color: #2196f3;"><ion-icon name="construct-outline" style="vertical-align: middle; margin-right: 5px; font-size: 16px;"></ion-icon> 1-MONTH WARRANTY</div>
+                        <div class="nature-pta-badge" style="margin-bottom: 0; background: rgba(255, 152, 0, 0.2); color: #ff9800; border-color: #ff9800;"><ion-icon name="cube-outline" style="vertical-align: middle; margin-right: 5px; font-size: 16px;"></ion-icon> WITHOUT BOX</div>
+                    </div>
+                    <h1 class="nature-title">${product.name}</h1>
+                    <p class="nature-subtitle">${product.desc}</p>
+                    <div class="nature-action-wrapper">
+                        <div class="nature-hero-price">Rs. ${product.curr_price.toLocaleString()}</div>
+                        <button class="nature-btn" onclick="openSelectionModal()">Order Now via WhatsApp</button>
+                        ${getScarcityHtml(product) ? `<div class="nature-scarcity" style="width: 100%; text-align: center; margin-top: 10px;">${getScarcityHtml(product)}</div>` : ''}
+                    </div>
                 </div>
             </div>
         </div>

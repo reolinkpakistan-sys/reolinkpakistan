@@ -35,6 +35,17 @@
       1. `/cities/lahore` (`cities/lahore.html`)
       2. `/cities/karachi` (`cities/karachi.html`)
       ## Recent Key Accomplishments
+- **JZONES V630 1-Year Official Warranty Integration & Visual Proof (September 29, 2026):**
+  - **User Directive:** "mujhy website par kuch ad karna hai jo humara product hai jzones v630 dashcam us main kuch cheezain add karni hain jaisay ki warranty kay hawalay say 1 year warranty offer karni hai" -> "mujhy dikhao ki ye changes kaisay dikh rahay hain phir live website par push karna"
+  - **Implementation Details:**
+    1. **Hero Badges & Perks Grid (`jzones-v630.html`, `css/jzones.css`):** Added a gold-accented `.hero-pill-tag.tag-gold` (`1-YEAR OFFICIAL WARRANTY` with shield icon) alongside Sony STARVIS 2 and 2026 Flagship Edition badges. Updated perks grid to `1 Year Official Warranty`.
+    2. **Unboxing Kit ("What's In The Box"):** Highlighted `Official 1-Year SM Enterprises Warranty Card` with gold border badge.
+    3. **Side-by-Side Comparison Table:** Updated JZONES column in `Warranty & Support` row from 7-day replacement to `1 Year Official Warranty (SM Enterprises)`.
+    4. **FAQ Accordion & Structured Data Schema:** Added dedicated FAQ item explaining 1-Year Warranty terms and WhatsApp claim process. Updated `Product` and `FAQPage` JSON-LD schemas.
+    5. **Checkout Price Breakdown:** Added `1 Year Official Warranty (SM Enterprises)` in the order summary box.
+    6. **Universal Consistency (`cms_data.json`, `warranty.html`):** Synchronized warranty field in CMS catalog to `1-Year Official Warranty` and added dedicated JZONES dashcam warranty block in `warranty.html`.
+    7. **Minification & Local Sync:** Re-minified `css/jzones.min.css` (46.7KB) and synced all modified files to `/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan`.
+    8. **Visual Proof & Browser Testing:** Verified with browser subagent across all sections, captured visual screenshots, and generated comprehensive preview report. Live push held pending user sign-off.
 - **4G Camera Main Image Visibility Fix (September 14, 2026 - v153):**
   - **User Directive:** "main tumhain apni website par mojud ek product ka link send kar raha hun isay check karo is product ko jab open kartay hain to is product ka main image hi show nahi hota isay bhi fix karo https://www.reolink.com.pk/category/4g-cameras"
   - **Root Cause Analysis:**
@@ -839,6 +850,30 @@ Dominating Google Search and AI search engines (Perplexity, ChatGPT Search, Goog
 - Git committed & pushed: `0e4853b` on `main`
 - Hostinger Live FTP deployed via `deploy_live.py` (52 files).
 - Live URLs verified: `https://www.reolink.com.pk/products/4g-sim-solar-camera` & `https://www.reolink.com.pk/products/reolink-go-pt-plus`.
+
+- **Full Payment Advance vs Cash on Delivery (COD) Dynamic Policy Overhaul (September 29, 2026 - v154):**
+  - **User Directive:** "jitne bhi log website se order karte hain na unko cash on delivery karein ya full payment advance karein unko free delivery hi offer hoti hai jabkay main chahta hoon jo cash on delivery karte hain select unko 500 rupees delivery charges bhi charge hon aur 4% government tax bhi charge ho to uske sath total bill banaya karo unka aur jo full payment advance karte hain unko 4% wo bhi waive off ho jaye aur apna delivery charges bhi free kar do aur isko thora sa na website ke upar prominent bhi karo k jo full payment advance karega usko delivery bhi free hai aur 4% tax bhi charge nahi hoga to koshish karo k iska jo hai na tamam products k andar isko highlight karo aur home page k upar bhi isko highlight kar saktay ho to wo bhi kar do hero section main"
+  - **Core Implementation:**
+    1. **Dynamic Billing Formula:**
+       - Full Payment Advance: Delivery = Rs. 0 (FREE), Govt Tax = Rs. 0 (0% Waived Off). Total = Base Product Price. Customer gets instant savings badge (e.g., Saves Rs. 1,400 to Rs. 2,216+).
+       - Cash on Delivery (COD): Delivery = +Rs. 500 (Express Courier), Govt Tax = +4% of Base Product Price. Total = Base Price + 500 + Tax.
+    2. **Interactive Payment Method Selector (`.payment-method-selector` / `.pms-grid`):**
+       - Implemented on `jzones-v630.html` and universal `#orderModal` across `index.html`, `product-details.html`, `go-pt-plus.html`, `category.html`.
+       - Two interactive radio cards: "Full Payment Advance (100% Free Shipping, 0% Tax Saved)" vs "Cash on Delivery (COD) (+Rs. 500 Delivery, +4% Tax)".
+       - Dynamic real-time calculation of itemized invoice rows, total payable, and WhatsApp CTA button text.
+       - Advance mode displays bank account details (Meezan Bank `05030103070124`, JazzCash `0320 6755555`, EasyPaisa `0320 6755555`).
+       - COD mode hides bank accounts and shows a red-accented courier disclosure notice.
+    3. **Prominent Website Announcements & Banners:**
+       - Topbar announcement bar across all 13 HTML pages updated: `⚡ FULL ADVANCE OFFER: 100% FREE DELIVERY + 0% TAX (SAVE RS. 1,400+) | CASH ON DELIVERY (COD) ALSO AVAILABLE (+RS. 500 & 4% TAX)`.
+       - Homepage hero slides (Slide 1: Reolink Go PT Plus, Slide 2: JZONES V630) feature golden-orange pulsing deal badge banners (`.hero-advance-deal-banner`).
+       - `cms_data.json` updated with new urgency bar text.
+    4. **Minification & Asset Sync:**
+       - Minified `css/styles.min.css` (162.4KB) and `css/jzones.min.css` (46.7KB).
+       - Synced all modified files to local XAMPP `/Applications/XAMPP/xamppfiles/htdocs/reolinkpakistan/`.
+    5. **Visual Verification Before Live Deploy:**
+       - Browser subagent captured full resolution screenshots of JZONES V630 checkout, homepage hero, and universal `#orderModal` across both Advance and COD states.
+       - Awaiting explicit user clearance before pushing to Hostinger live server.
+
 
 
 

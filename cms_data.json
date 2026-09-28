@@ -127,6 +127,11 @@
                         "text": "Free 64GB Card",
                         "class": "orange",
                         "icon": "gift-outline"
+                    },
+                    {
+                        "text": "1 YEAR WARRANTY",
+                        "class": "cyan-glow",
+                        "icon": "shield-checkmark-outline"
                     }
                 ],
                 "title": "JZONES V630 4K Dash Cam - Pakistan's #1 Car Security",
@@ -1338,7 +1343,7 @@
             "curr_price": 22500,
             "stock": 6,
             "viewing": 19,
-            "warranty": "18-Month Warranty",
+            "warranty": "1-Year Official Warranty",
             "tag": "Clearance Sale • Rs 10,000 OFF",
             "image_type": "url",
             "image": "assets/jzones/jzones_product_transparent.png",
@@ -1349,6 +1354,7 @@
             "focus_keywords": "jzones v630, car dashcam pakistan, 3 channel dash cam, 4k dash camera, sony starvis 2 dashcam, car security camera",
             "layout_type": "hero_immersive",
             "hero_badges": [
+                "1-Year Warranty",
                 "Sony STARVIS 2",
                 "4K Triple Camera",
                 "Built-in GPS & WiFi",
@@ -1386,7 +1392,8 @@
                 "Parking Modes": "24-Hour Time-Lapse, G-Sensor Collision Lock, Motion Detection",
                 "Storage Capacity": "Supports MicroSD Card up to 256GB (Class 10 / U3)",
                 "Power Supply": "Super Capacitor / 12V-24V Car Socket / Hardwire Kit Compatible",
-                "Audio": "Built-in High-Fidelity Microphone & Speaker"
+                "Audio": "Built-in High-Fidelity Microphone & Speaker",
+                "Warranty": "1-Year Official Warranty (SM Enterprises)"
             }
         }
     ],
@@ -1423,7 +1430,7 @@
         }
     ],
     "settings": {
-        "urgency_bar_text": "OFFICIAL REOLINK PARTNER IN PAKISTAN | FREE SHIPPING & CASH ON DELIVERY NATIONWIDE (4% GOVT TAX ON COD AMOUNTS)",
+        "urgency_bar_text": "⚡ FULL ADVANCE OFFER: 100% FREE DELIVERY + 0% TAX (SAVE RS. 1,400+) | CASH ON DELIVERY (COD) ALSO AVAILABLE (+RS. 500 & 4% TAX)",
         "trust_badges": [
             {
                 "icon": "shield-checkmark",

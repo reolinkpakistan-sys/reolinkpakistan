@@ -214,7 +214,7 @@
     <!-- Top Bar -->
     <div class="reo-topbar">
         <div class="topbar-inner">
-            <span class="flash-text">OFFICIAL REOLINK PARTNER IN PAKISTAN | FREE SHIPPING & CASH ON DELIVERY NATIONWIDE (4% GOVT TAX ON COD AMOUNTS)</span>
+            <span class="flash-text">⚡ FULL ADVANCE OFFER: 100% FREE DELIVERY + 0% TAX (SAVE RS. 1,400+) | CASH ON DELIVERY (COD) ALSO AVAILABLE (+RS. 500 &amp; 4% TAX)</span>
             <div class="topbar-links">
                 <a href="/warranty">Support</a>
                 <a href="https://wa.me/923206755555" target="_blank" data-cms-key="contact.whatsapp">WhatsApp: 0320-6755555</a>
@@ -673,42 +673,67 @@
                     <div style="font-size: 12px; color: #94a3b8; margin: -5px 0 15px 0;">*Default package includes both camera and solar panel. If you already have a solar panel, you can choose the camera-only option.</div>
                 </div>
 
-                <div class="invoice-summary">
-                    <div class="invoice-row highlight">
-                        <span>Reolink Go PT Plus</span>
-                         <span id="summaryCam" data-cms-key="prices.solar" data-cms-type="price">Rs 25,000</span>
+                <!-- Payment Method Toggle -->
+                <div class="payment-method-selector">
+                    <div class="pms-header">
+                        <span class="pms-title"><i class="fas fa-wallet"></i> Choose Payment Method:</span>
+                        <span class="pms-badge-save" id="modalPmsBadgeSave"><i class="fas fa-bolt"></i> Advance Saves Rs. 1,500</span>
                     </div>
-                    <div class="invoice-row">
-                        <span>Standard Delivery</span>
-                        <span class="strikethrough">Rs 1,500</span>
-                    </div>
-                    <div class="invoice-row savings">
-                        <span>🤩 Nationwide FREE Shipping</span>
-                        <span>- Rs 1,500</span>
-                    </div>
-                    <div class="invoice-row">
-                        <span>COD Tax (4% Surcharge on COD amount)</span>
-                        <span id="summaryCodTax">Rs 840</span>
-                    </div>
-                    <div class="invoice-row advance">
-                        <span>Security Deposit (Paid Upfront)</span>
-                        <span style="color: #ff6b00;">- Rs 2,000</span>
-                    </div>
-                    <div class="invoice-row cod-payable">
-                        <span>Payable on Delivery (Cash on Delivery)</span>
-                        <span id="summaryCodPayable" style="color: #00f3ff; font-weight: bold;">Rs 21,840</span>
-                    </div>
-                    <div class="invoice-total">
-                        <label>Total Order Cost</label>
-                         <span class="total-amount" id="summaryTotal" data-cms-key="prices.solar" data-cms-type="price">Rs 23,840</span>
+                    <div class="pms-grid">
+                        <label class="pms-card active" id="modalPmsCardAdvance">
+                            <input type="radio" name="modalPaymentMethod" value="advance" checked>
+                            <div class="pms-radio-indicator"><i class="fas fa-circle-check"></i></div>
+                            <div class="pms-info">
+                                <div class="pms-opt-title">
+                                    <strong>Full Payment Advance</strong>
+                                    <span class="pms-chip-free">100% Free Shipping</span>
+                                    <span class="pms-chip-tax">0% Tax (Saved)</span>
+                                </div>
+                                <div class="pms-opt-desc">Pay via Bank / JazzCash / EasyPaisa. <strong>FREE Delivery + 4% Tax fully waived!</strong></div>
+                            </div>
+                        </label>
+                        <label class="pms-card" id="modalPmsCardCod">
+                            <input type="radio" name="modalPaymentMethod" value="cod">
+                            <div class="pms-radio-indicator"><i class="far fa-circle"></i></div>
+                            <div class="pms-info">
+                                <div class="pms-opt-title">
+                                    <strong>Cash on Delivery (COD)</strong>
+                                    <span class="pms-chip-fee">+ Rs. 500 Delivery</span>
+                                    <span class="pms-chip-fee">+ 4% Tax</span>
+                                </div>
+                                <div class="pms-opt-desc">Pay cash to rider upon arrival. <strong>Rs. 500 shipping &amp; 4% govt tax apply.</strong></div>
+                            </div>
+                        </label>
                     </div>
                 </div>
 
-                <div class="payment-section">
-                    <div class="payment-alert">
-                        <ion-icon name="warning"></ion-icon>
-                        <p><strong>Rs 2,000 Advance Required</strong> to confirm your order. Note: A 4% extra charge (government tax) applies on the remaining Cash on Delivery (COD) amount.</p>
+                <!-- Redesigned Invoice Summary -->
+                <div class="invoice-summary">
+                    <div class="invoice-row highlight">
+                        <span id="invoiceItemName">Reolink Go PT Plus</span>
+                        <span id="summaryCam" data-cms-key="prices.solar" data-cms-type="price">Rs 25,000</span>
                     </div>
+                    <div class="invoice-row" id="modalDeliveryRow">
+                        <span id="modalDeliveryLabel">Delivery Charges</span>
+                        <span id="modalDeliveryVal" class="free-text">FREE (Saved Rs. 500)</span>
+                    </div>
+                    <div class="invoice-row" id="modalTaxRow">
+                        <span id="modalTaxLabel">Govt Courier Tax (4%)</span>
+                        <span id="modalTaxVal" class="free-text">0% WAIVED OFF (Saved Rs. 1,000)</span>
+                    </div>
+                    <div class="invoice-total">
+                        <label id="modalTotalLabel">Total Payable (Full Advance)</label>
+                        <span class="total-amount" id="summaryTotal" style="color: #0dff64;">Rs 25,000</span>
+                    </div>
+                </div>
+
+                <!-- Advance Payment Accounts Section -->
+                <div class="payment-section" id="advancePaymentSection">
+                    <div class="payment-alert" style="background: rgba(16, 185, 129, 0.1); border-left-color: #10b981;">
+                        <ion-icon name="checkmark-circle-outline" style="color: #10b981;"></ion-icon>
+                        <p style="color: #e2e8f0;">Transfer <strong id="advanceAmountModal" style="color: #10b981;">Rs 25,000</strong> to get <strong>100% FREE Delivery &amp; 0% Tax (Save Rs. 1,500+)</strong>:</p>
+                    </div>
+
                     <div class="account-details">
                         <div class="account-card bank-highlight">
                             <div class="acc-meta">
@@ -726,7 +751,7 @@
                                 <span class="acc-name">Mohsin Munawar</span>
                             </div>
                             <div class="acc-val">
-                                <span class="acc-number">0322 0675555</span>
+                                <span class="acc-number">0320 6755555</span>
                                 <span class="acc-sub">Mobile Account</span>
                             </div>
                         </div>
@@ -746,7 +771,19 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn-reo-primary submit-order-btn">Confirm Order via WhatsApp</button>
+                <!-- COD Notice Box (Shown when COD selected) -->
+                <div class="cod-notice-box hidden" id="codNoticeModal" style="margin-bottom: 20px;">
+                    <ion-icon name="information-circle-outline"></ion-icon>
+                    <div>
+                        <strong style="color: #fff;">Cash on Delivery (COD) Selected:</strong>
+                        <p style="margin: 4px 0 0 0; color: #cbd5e1; font-size: 0.8rem; line-height: 1.4;">Rs. 500 express courier delivery fee plus 4% government courier tax are included in your bill. You will pay the entire bill in cash to the rider at your doorstep.</p>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-reo-primary submit-order-btn">
+                    <ion-icon name="logo-whatsapp" style="font-size: 18px;"></ion-icon>
+                    <span id="modalSubmitBtnText">Confirm Full Advance Order via WhatsApp (Save Rs. 1,500)</span>
+                </button>
             </form>
         </div>
     </div>

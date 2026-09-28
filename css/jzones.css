@@ -325,6 +325,14 @@ img {
     border-color: rgba(0, 240, 255, 0.25);
 }
 
+.hero-pill-tag.tag-gold {
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.1);
+    border-color: rgba(251, 191, 36, 0.35);
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.12);
+}
+
+
 .hero-headline {
     font-size: clamp(2.3rem, 8.5vw, 4.8rem);
     font-weight: 900;
@@ -3185,4 +3193,263 @@ video.footage-frame {
         font-size: 0.78rem !important;
     }
 }
+
+/* ========================================================
+   ADVANCE PAYMENT OFFER & PAYMENT METHOD SELECTOR STYLES
+   ======================================================== */
+.hero-advance-deal-banner {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(0, 240, 255, 0.08));
+    border: 1px solid rgba(251, 191, 36, 0.35);
+    border-radius: 12px;
+    padding: 10px 16px;
+    margin: 18px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.86rem;
+    color: #f1f5f9;
+    text-align: left;
+    backdrop-filter: blur(10px);
+}
+.hero-advance-deal-banner .hadb-badge {
+    background: #fbbf24;
+    color: #0b0f19;
+    font-weight: 800;
+    font-size: 0.72rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.hero-advance-deal-banner em {
+    color: #94a3b8;
+    font-style: normal;
+}
+@media (max-width: 640px) {
+    .hero-advance-deal-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        font-size: 0.8rem;
+    }
+}
+
+.payment-method-selector {
+    margin: 20px 0;
+    text-align: left;
+}
+.pms-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.pms-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.pms-badge-save {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.12);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+.pms-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+@media (max-width: 640px) {
+    .pms-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.pms-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px 14px;
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    transition: all 0.25s ease;
+    position: relative;
+}
+.pms-card input[type="radio"] {
+    display: none;
+}
+.pms-card.active {
+    border-color: #fbbf24;
+    background: rgba(251, 191, 36, 0.08);
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.12);
+}
+.pms-card#pmsCardCod.active {
+    border-color: #00f0ff;
+    background: rgba(0, 240, 255, 0.08);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.12);
+}
+.pms-radio-indicator {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-top: 2px;
+}
+.pms-card.active .pms-radio-indicator {
+    color: #fbbf24;
+}
+.pms-card#pmsCardCod.active .pms-radio-indicator {
+    color: #00f0ff;
+}
+.pms-info {
+    flex: 1;
+}
+.pms-opt-title {
+    font-size: 0.88rem;
+    color: #fff;
+    margin-bottom: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+.pms-chip-free {
+    font-size: 0.7rem;
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+.pms-chip-tax {
+    font-size: 0.7rem;
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.35);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+.pms-chip-fee {
+    font-size: 0.7rem;
+    background: rgba(248, 113, 113, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+.pms-opt-desc {
+    font-size: 0.74rem;
+    color: #94a3b8;
+    line-height: 1.35;
+}
+
+.advance-bank-box {
+    background: rgba(251, 191, 36, 0.04);
+    border: 1px solid rgba(251, 191, 36, 0.25);
+    border-radius: 12px;
+    padding: 14px;
+    margin: 16px 0;
+    text-align: left;
+}
+.advance-bank-box.hidden {
+    display: none;
+}
+.abb-header {
+    font-size: 0.85rem;
+    color: #fbbf24;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.abb-accounts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+}
+@media (max-width: 640px) {
+    .abb-accounts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.abb-acc-card {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 0.76rem;
+}
+.abb-bank-name {
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.abb-title {
+    color: #94a3b8;
+    font-size: 0.72rem;
+}
+.abb-number {
+    font-family: monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #00f0ff;
+    letter-spacing: 0.04em;
+    margin-top: 3px;
+}
+.abb-instruction {
+    font-size: 0.72rem;
+    color: #94a3b8;
+    margin: 6px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cod-notice-box {
+    background: rgba(239, 68, 68, 0.05);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin: 16px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    text-align: left;
+    font-size: 0.8rem;
+    color: #cbd5e1;
+}
+.cod-notice-box.hidden {
+    display: none;
+}
+.cod-notice-box i {
+    font-size: 1.2rem;
+    color: #f87171;
+    margin-top: 2px;
+}
+.cod-notice-box strong {
+    color: #f87171;
+}
+.cod-notice-box p {
+    margin: 4px 0 0;
+    font-size: 0.76rem;
+    color: #94a3b8;
+}
+
 

@@ -428,33 +428,165 @@ function initApp() {
     });
 
     // ----------------------------------------
-    // Calculator Logic
+    // Calculator & Payment Method Logic
     // ----------------------------------------
     const optRadios = document.querySelectorAll('input[name="productOption"]');
     const summaryCam = document.getElementById('summaryCam');
     const summaryTotal = document.getElementById('summaryTotal');
 
+    window.modalPaymentMethod = 'advance'; // 'advance' or 'cod'
+
     function updateInvoiceSummary(productName, price) {
         const invoiceItemName = document.getElementById('invoiceItemName');
         const summaryCamEl = document.getElementById('summaryCam');
+        const modalDeliveryVal = document.getElementById('modalDeliveryVal');
+        const modalTaxVal = document.getElementById('modalTaxVal');
+        const modalTotalLabel = document.getElementById('modalTotalLabel');
+        const summaryTotalEl = document.getElementById('summaryTotal');
+        const modalPmsBadgeSave = document.getElementById('modalPmsBadgeSave');
+        const advanceAmountModal = document.getElementById('advanceAmountModal');
+        const advancePaymentSection = document.getElementById('advancePaymentSection');
+        const codNoticeModal = document.getElementById('codNoticeModal');
+        const modalSubmitBtnText = document.getElementById('modalSubmitBtnText');
+        const modalPmsCardAdvance = document.getElementById('modalPmsCardAdvance');
+        const modalPmsCardCod = document.getElementById('modalPmsCardCod');
+
+        // Backward compatibility elements
         const summaryCodTax = document.getElementById('summaryCodTax');
         const summaryCodPayable = document.getElementById('summaryCodPayable');
-        const summaryTotalEl = document.getElementById('summaryTotal');
 
-        const codBase = price - 2000;
-        const codTax = Math.round(codBase * 0.04);
-        const codPayable = codBase + codTax;
-        const totalCost = price + codTax;
+        const basePrice = Number(price);
+        const codDeliveryFee = 500;
+        const codTax = Math.round(basePrice * 0.04);
+        const totalSavings = codDeliveryFee + codTax;
+        const isAdvance = (window.modalPaymentMethod === 'advance');
+        const deliveryFee = isAdvance ? 0 : codDeliveryFee;
+        const taxFee = isAdvance ? 0 : codTax;
+        const grandTotal = basePrice + deliveryFee + taxFee;
 
         if (invoiceItemName) invoiceItemName.textContent = productName;
-        if (summaryCamEl) summaryCamEl.textContent = `Rs ${price.toLocaleString()}`;
-        if (summaryCodTax) summaryCodTax.textContent = `Rs ${codTax.toLocaleString()}`;
-        if (summaryCodPayable) summaryCodPayable.textContent = `Rs ${codPayable.toLocaleString()}`;
-        if (summaryTotalEl) summaryTotalEl.textContent = `Rs ${totalCost.toLocaleString()}`;
-        return { price, codTax, codPayable, totalCost };
+        if (summaryCamEl) summaryCamEl.textContent = `Rs ${basePrice.toLocaleString()}`;
+
+        // Delivery Row
+        if (modalDeliveryVal) {
+            if (isAdvance) {
+                modalDeliveryVal.textContent = 'FREE (Saved Rs. 500)';
+                modalDeliveryVal.className = 'free-text';
+            } else {
+                modalDeliveryVal.textContent = '+ Rs. 500';
+                modalDeliveryVal.className = '';
+            }
+        }
+
+        // Tax Row
+        if (modalTaxVal) {
+            if (isAdvance) {
+                modalTaxVal.textContent = `0% WAIVED OFF (Saved Rs. ${codTax.toLocaleString()})`;
+                modalTaxVal.className = 'free-text';
+            } else {
+                modalTaxVal.textContent = `+ Rs. ${codTax.toLocaleString()} (4% Govt Tax)`;
+                modalTaxVal.className = '';
+            }
+        }
+
+        // Legacy / fallback elements
+        if (summaryCodTax) summaryCodTax.textContent = isAdvance ? '0% Waived' : `Rs ${codTax.toLocaleString()}`;
+        if (summaryCodPayable) summaryCodPayable.textContent = isAdvance ? `Rs ${basePrice.toLocaleString()}` : `Rs ${grandTotal.toLocaleString()}`;
+
+        // Total
+        if (summaryTotalEl) {
+            summaryTotalEl.textContent = `Rs ${grandTotal.toLocaleString()}`;
+            summaryTotalEl.style.color = isAdvance ? '#0dff64' : '#f59e0b';
+        }
+
+        if (modalTotalLabel) {
+            modalTotalLabel.textContent = isAdvance ? 'Total Payable (Full Advance)' : 'Total Payable on Delivery (COD)';
+        }
+
+        if (modalPmsBadgeSave) {
+            modalPmsBadgeSave.innerHTML = `<i class="fas fa-bolt"></i> Advance Saves Rs. ${totalSavings.toLocaleString()}`;
+        }
+
+        if (advanceAmountModal) {
+            advanceAmountModal.textContent = `Rs ${basePrice.toLocaleString()}`;
+        }
+
+        if (advancePaymentSection) {
+            if (isAdvance) advancePaymentSection.classList.remove('hidden');
+            else advancePaymentSection.classList.add('hidden');
+        }
+
+        if (codNoticeModal) {
+            if (!isAdvance) codNoticeModal.classList.remove('hidden');
+            else codNoticeModal.classList.add('hidden');
+        }
+
+        if (modalSubmitBtnText) {
+            if (isAdvance) {
+                modalSubmitBtnText.textContent = `Confirm Full Advance Order via WhatsApp (Save Rs. ${totalSavings.toLocaleString()})`;
+            } else {
+                modalSubmitBtnText.textContent = `Confirm Cash on Delivery Order via WhatsApp (Rs. ${grandTotal.toLocaleString()})`;
+            }
+        }
+
+        // Update PMS Radio Cards UI
+        if (modalPmsCardAdvance) {
+            modalPmsCardAdvance.classList.toggle('active', isAdvance);
+            const icon = modalPmsCardAdvance.querySelector('.pms-radio-indicator i');
+            if (icon) icon.className = isAdvance ? 'fas fa-circle-check' : 'far fa-circle';
+        }
+        if (modalPmsCardCod) {
+            modalPmsCardCod.classList.toggle('active', !isAdvance);
+            const icon = modalPmsCardCod.querySelector('.pms-radio-indicator i');
+            if (icon) icon.className = !isAdvance ? 'fas fa-circle-check' : 'far fa-circle';
+        }
+
+        return { price: basePrice, codTax, codPayable: grandTotal, totalCost: grandTotal, isAdvance, totalSavings };
     }
-    // Expose globally so cms.js can update invoice details when a dynamic gadget is ordered
+    // Expose globally
     window.updateInvoiceSummary = updateInvoiceSummary;
+
+    // Payment Radio Change Listeners for Modal
+    function setupModalPaymentToggles() {
+        const paymentRadios = document.querySelectorAll('input[name="modalPaymentMethod"]');
+        const pmsCardAdvance = document.getElementById('modalPmsCardAdvance');
+        const pmsCardCod = document.getElementById('modalPmsCardCod');
+
+        paymentRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                window.modalPaymentMethod = e.target.value;
+                refreshCurrentModalInvoice();
+            });
+        });
+
+        if (pmsCardAdvance) {
+            pmsCardAdvance.addEventListener('click', () => {
+                const radio = pmsCardAdvance.querySelector('input[type="radio"]');
+                if (radio) radio.checked = true;
+                window.modalPaymentMethod = 'advance';
+                refreshCurrentModalInvoice();
+            });
+        }
+
+        if (pmsCardCod) {
+            pmsCardCod.addEventListener('click', () => {
+                const radio = pmsCardCod.querySelector('input[type="radio"]');
+                if (radio) radio.checked = true;
+                window.modalPaymentMethod = 'cod';
+                refreshCurrentModalInvoice();
+            });
+        }
+    }
+
+    function refreshCurrentModalInvoice() {
+        if (window.currentOrderProduct) {
+            updateInvoiceSummary(window.currentOrderProduct.name, window.currentOrderProduct.curr_price);
+        } else if (typeof calculateTotal === 'function') {
+            calculateTotal();
+        }
+    }
+
+    setupModalPaymentToggles();
 
     function calculateTotal() {
         if (optRadios.length === 0) return { camPrice: 0, optName: '', total: 0, codTax: 0, codPayable: 0 };
@@ -462,7 +594,7 @@ function initApp() {
         let optName = '';
         optRadios.forEach(radio => { if (radio.checked) { camPrice = parseInt(radio.value); optName = radio.id === 'optSolar' ? 'With Solar Panel' : 'Without Solar Panel'; } });
         const summaryInfo = updateInvoiceSummary('Reolink Go PT Plus', camPrice);
-        return { camPrice, optName, total: summaryInfo.totalCost, codTax: summaryInfo.codTax, codPayable: summaryInfo.codPayable };
+        return { camPrice, optName, total: summaryInfo.totalCost, codTax: summaryInfo.codTax, codPayable: summaryInfo.codPayable, isAdvance: summaryInfo.isAdvance, totalSavings: summaryInfo.totalSavings };
     }
     optRadios.forEach(r => r.addEventListener('change', calculateTotal));
     if (summaryCam || summaryTotal) calculateTotal();
@@ -498,10 +630,11 @@ function initApp() {
     window.quickDirectWhatsAppOrder = function() {
         const product = window.currentOrderProduct || { name: 'Reolink Go PT Plus (With Solar Panel)', curr_price: 25000 };
         const price = Number(product.curr_price || 25000);
-        const codBase = price - 2000;
-        const codTax = Math.round(codBase * 0.04);
-        const codPayable = codBase + codTax;
-        const totalCost = price + codTax;
+        const isAdvance = (window.modalPaymentMethod === 'advance');
+        const codDeliveryFee = 500;
+        const codTax = Math.round(price * 0.04);
+        const totalSavings = codDeliveryFee + codTax;
+        const grandTotal = isAdvance ? price : (price + codDeliveryFee + codTax);
         
         let waNum = "923206755555";
         if (window.cmsData && window.cmsData.contact && window.cmsData.contact.whatsapp) {
@@ -509,7 +642,19 @@ function initApp() {
             waNum = cleanNum.startsWith('0') ? '92' + cleanNum.substring(1) : cleanNum;
         }
         
-        const msg = `Assalam-o-Alaikum S M Enterprises,\n\nI want to place an instant order:\n- Product: ${product.name || 'Reolink Go PT Plus'}\n- Package Price: Rs ${price.toLocaleString('en-PK')}\n- Upfront Advance Required: Rs 2,000\n- COD Surcharge (4% Govt Tax): Rs ${codTax.toLocaleString('en-PK')}\n- Remaining Payable on Delivery: Rs ${codPayable.toLocaleString('en-PK')}\n- Total Order Cost: Rs ${totalCost.toLocaleString('en-PK')}\n\nPlease confirm delivery time for my city. Thank you.`;
+        const msg = `*INSTANT ORDER - SM ENTERPRISES PAKISTAN*
+----------------------------------
+*Product:* ${product.name || 'Reolink Go PT Plus'}
+*Payment Method:* ${isAdvance ? 'Full Payment Advance (Bank/JazzCash/EasyPaisa)' : 'Cash on Delivery (COD)'}
+*Base Price:* Rs ${price.toLocaleString('en-PK')}
+*Delivery Charges:* ${isAdvance ? 'FREE (Saved Rs. 500)' : 'Rs 500'}
+*Govt Courier Tax (4%):* ${isAdvance ? '0% WAIVED OFF (Saved Rs. ' + codTax.toLocaleString('en-PK') + ')' : 'Rs ' + codTax.toLocaleString('en-PK')}
+----------------------------------
+*TOTAL PAYABLE:* Rs ${grandTotal.toLocaleString('en-PK')}
+${isAdvance ? `⭐ *ADVANCE OFFER:* 100% Free Shipping & 0% Tax (Saved Rs. ${totalSavings.toLocaleString('en-PK')}!)` : '⚠️ *COD:* Rs 500 Delivery + 4% Courier Tax added.'}
+----------------------------------
+Please confirm dispatch time for my city. Thank you!`;
+
         window.open(`https://wa.me/${waNum}?text=${encodeURIComponent(msg)}`, '_blank');
         if (orderModal) orderModal.classList.remove('show');
     };
@@ -528,23 +673,67 @@ function initApp() {
         const name = document.getElementById('custName')?.value || '';
         const phone = document.getElementById('custPhone')?.value || '';
         const address = document.getElementById('custAddress')?.value || '';
+        const isAdvance = (window.modalPaymentMethod === 'advance');
         
         let message = '';
         if (window.currentOrderProduct) {
             const product = window.currentOrderProduct;
             const price = Number(product.curr_price);
-            const codBase = price - 2000;
-            const codTax = Math.round(codBase * 0.04);
-            const codPayable = codBase + codTax;
-            const totalCost = price + codTax;
+            const codDeliveryFee = 500;
+            const codTax = Math.round(price * 0.04);
+            const totalSavings = codDeliveryFee + codTax;
+            const grandTotal = isAdvance ? price : (price + codDeliveryFee + codTax);
             
-            message = `Assalam-o-Alaikum S M Enterprises,\n\nI want to confirm my order from the website:\n- Customer Name: ${name}\n- Contact Phone/WhatsApp: ${phone}${address ? `\n- Delivery Address: ${address}` : ''}\n- Product Name: ${product.name}\n- Base Price: Rs ${price.toLocaleString('en-PK')}\n- Advance Paid: Rs 2,000\n- COD Surcharge (4% Govt Tax): Rs ${codTax.toLocaleString('en-PK')}\n- Remaining Payable on Delivery: Rs ${codPayable.toLocaleString('en-PK')}\n- Total Order Cost: Rs ${totalCost.toLocaleString('en-PK')}\n\nNote: I will attach the Rs 2,000 Advance Payment screenshot in this chat. I understand that a 4% Government Tax is charged on the COD amount.`;
+            message = `*NEW WEBSITE ORDER - SM ENTERPRISES*
+----------------------------------
+*Customer Name:* ${name}
+*Phone / WhatsApp:* ${phone}${address ? `\n*Delivery Address:* ${address}` : ''}
+----------------------------------
+*Product:* ${product.name}
+*Payment Method:* ${isAdvance ? 'Full Payment Advance (Bank / JazzCash / EasyPaisa)' : 'Cash on Delivery (COD)'}
+*Base Price:* Rs ${price.toLocaleString('en-PK')}
+*Delivery Charges:* ${isAdvance ? 'FREE (Saved Rs. 500)' : 'Rs 500'}
+*Govt Courier Tax (4%):* ${isAdvance ? '0% WAIVED OFF (Saved Rs. ' + codTax.toLocaleString('en-PK') + ')' : 'Rs ' + codTax.toLocaleString('en-PK')}
+----------------------------------
+*TOTAL PAYABLE:* Rs ${grandTotal.toLocaleString('en-PK')}
+${isAdvance ? `⭐ *ADVANCE BENEFIT:* Free Delivery & 0% Tax (Saved Rs. ${totalSavings.toLocaleString('en-PK')})! I will attach payment screenshot.` : '⚠️ *COD:* Delivery Rs 500 + 4% Courier Tax included.'}
+----------------------------------
+Please confirm my order for dispatch!`;
         } else {
-            const { camPrice, optName, total, codTax, codPayable } = calculateTotal();
-            message = `Assalam-o-Alaikum S M Enterprises,\n\nI want to confirm my order from the website:\n- Customer Name: ${name}\n- Contact Phone/WhatsApp: ${phone}${address ? `\n- Delivery Address: ${address}` : ''}\n- Product Name: Reolink Go PT Plus (${optName})\n- Base Price: Rs ${camPrice.toLocaleString('en-PK')}\n- Advance Paid: Rs 2,000\n- COD Surcharge (4% Govt Tax): Rs ${codTax.toLocaleString('en-PK')}\n- Remaining Payable on Delivery: Rs ${codPayable.toLocaleString('en-PK')}\n- Total Order Cost: Rs ${total.toLocaleString('en-PK')}\n\nNote: I will attach the Rs 2,000 Advance Payment screenshot in this chat. I understand that a 4% Government Tax is charged on the COD amount.`;
+            const { camPrice, optName, total, codTax, totalSavings } = calculateTotal();
+            const codDeliveryFee = 500;
+            const grandTotal = total;
+            
+            message = `*NEW WEBSITE ORDER - SM ENTERPRISES*
+----------------------------------
+*Customer Name:* ${name}
+*Phone / WhatsApp:* ${phone}${address ? `\n*Delivery Address:* ${address}` : ''}
+----------------------------------
+*Product:* Reolink Go PT Plus (${optName})
+*Payment Method:* ${isAdvance ? 'Full Payment Advance (Bank / JazzCash / EasyPaisa)' : 'Cash on Delivery (COD)'}
+*Base Price:* Rs ${camPrice.toLocaleString('en-PK')}
+*Delivery Charges:* ${isAdvance ? 'FREE (Saved Rs. 500)' : 'Rs 500'}
+*Govt Courier Tax (4%):* ${isAdvance ? '0% WAIVED OFF (Saved Rs. ' + codTax.toLocaleString('en-PK') + ')' : 'Rs ' + codTax.toLocaleString('en-PK')}
+----------------------------------
+*TOTAL PAYABLE:* Rs ${grandTotal.toLocaleString('en-PK')}
+${isAdvance ? `⭐ *ADVANCE BENEFIT:* Free Delivery & 0% Tax (Saved Rs. ${totalSavings.toLocaleString('en-PK')})! I will attach payment screenshot.` : '⚠️ *COD:* Delivery Rs 500 + 4% Courier Tax included.'}
+----------------------------------
+Please confirm my order for dispatch!`;
         }
         const encodedMessage = encodeURIComponent(message);
         
+        // Capture lead
+        fetch('/api/capture-lead.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: name,
+                phone: phone,
+                product_interest: `Website Order [${isAdvance ? 'ADVANCE (Free Delivery + 0% Tax)' : 'COD (+Rs 500 Deliv + 4% Tax)'}] - ${window.currentOrderProduct ? window.currentOrderProduct.name : 'Reolink Go PT Plus'} - Address: ${address}`,
+                source: 'website_order_modal'
+            })
+        }).catch(err => console.warn('Lead capture error:', err));
+
         // Use clean number config from dynamic data if available
         let waNum = "923206755555";
         if (window.cmsData && window.cmsData.contact && window.cmsData.contact.whatsapp) {

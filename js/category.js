@@ -503,28 +503,138 @@ function applyCategoryFilters(searchTerm = '') {
 
 // Modal logic
 let _selectedProduct = null;
+let _catPaymentMethod = 'advance';
+
+function updateCategoryInvoiceSummary() {
+    if (!_selectedProduct) return;
+    const price = Number(_selectedProduct.curr_price);
+    const isAdvance = (_catPaymentMethod === 'advance');
+    const codDeliveryFee = 500;
+    const codTax = Math.round(price * 0.04);
+    const totalSavings = codDeliveryFee + codTax;
+    const grandTotal = isAdvance ? price : (price + codDeliveryFee + codTax);
+
+    const catSummaryCam = document.getElementById('catSummaryCam');
+    const catInvoicePrice = document.getElementById('catInvoicePrice');
+    const catDeliveryVal = document.getElementById('catDeliveryVal');
+    const catTaxVal = document.getElementById('catTaxVal');
+    const catTotalLabel = document.getElementById('catTotalLabel');
+    const catSummaryTotal = document.getElementById('catSummaryTotal');
+    const catPmsBadgeSave = document.getElementById('catPmsBadgeSave');
+    const catAdvanceAmountModal = document.getElementById('catAdvanceAmountModal');
+    const catAdvancePaymentSection = document.getElementById('catAdvancePaymentSection');
+    const catCodNoticeModal = document.getElementById('catCodNoticeModal');
+    const catModalSubmitBtnText = document.getElementById('catModalSubmitBtnText');
+    const catPmsCardAdvance = document.getElementById('catPmsCardAdvance');
+    const catPmsCardCod = document.getElementById('catPmsCardCod');
+
+    if (catSummaryCam) catSummaryCam.textContent = _selectedProduct.name;
+    if (catInvoicePrice) catInvoicePrice.textContent = `Rs ${formatPrice(price)}`;
+
+    if (catDeliveryVal) {
+        if (isAdvance) {
+            catDeliveryVal.textContent = 'FREE (Saved Rs. 500)';
+            catDeliveryVal.className = 'free-text';
+        } else {
+            catDeliveryVal.textContent = '+ Rs. 500';
+            catDeliveryVal.className = '';
+        }
+    }
+
+    if (catTaxVal) {
+        if (isAdvance) {
+            catTaxVal.textContent = `0% WAIVED OFF (Saved Rs. ${formatPrice(codTax)})`;
+            catTaxVal.className = 'free-text';
+        } else {
+            catTaxVal.textContent = `+ Rs. ${formatPrice(codTax)} (4% Govt Tax)`;
+            catTaxVal.className = '';
+        }
+    }
+
+    if (catSummaryTotal) {
+        catSummaryTotal.textContent = `Rs ${formatPrice(grandTotal)}`;
+        catSummaryTotal.style.color = isAdvance ? '#0dff64' : '#f59e0b';
+    }
+
+    if (catTotalLabel) {
+        catTotalLabel.textContent = isAdvance ? 'Total Payable (Full Advance)' : 'Total Payable on Delivery (COD)';
+    }
+
+    if (catPmsBadgeSave) {
+        catPmsBadgeSave.innerHTML = `<i class="fas fa-bolt"></i> Advance Saves Rs. ${formatPrice(totalSavings)}`;
+    }
+
+    if (catAdvanceAmountModal) {
+        catAdvanceAmountModal.textContent = `Rs ${formatPrice(price)}`;
+    }
+
+    if (catAdvancePaymentSection) {
+        if (isAdvance) catAdvancePaymentSection.classList.remove('hidden');
+        else catAdvancePaymentSection.classList.add('hidden');
+    }
+
+    if (catCodNoticeModal) {
+        if (!isAdvance) catCodNoticeModal.classList.remove('hidden');
+        else catCodNoticeModal.classList.add('hidden');
+    }
+
+    if (catModalSubmitBtnText) {
+        if (isAdvance) {
+            catModalSubmitBtnText.textContent = `Confirm Full Advance Order via WhatsApp (Save Rs. ${formatPrice(totalSavings)})`;
+        } else {
+            catModalSubmitBtnText.textContent = `Confirm Cash on Delivery Order via WhatsApp (Rs. ${formatPrice(grandTotal)})`;
+        }
+    }
+
+    if (catPmsCardAdvance) {
+        catPmsCardAdvance.classList.toggle('active', isAdvance);
+        const icon = catPmsCardAdvance.querySelector('.pms-radio-indicator i');
+        if (icon) icon.className = isAdvance ? 'fas fa-circle-check' : 'far fa-circle';
+    }
+    if (catPmsCardCod) {
+        catPmsCardCod.classList.toggle('active', !isAdvance);
+        const icon = catPmsCardCod.querySelector('.pms-radio-indicator i');
+        if (icon) icon.className = !isAdvance ? 'fas fa-circle-check' : 'far fa-circle';
+    }
+}
 
 function openCategoryOrderModal(product) {
     _selectedProduct = product;
+    _catPaymentMethod = 'advance';
     const modal = document.getElementById('orderModal');
-    
-    const price = Number(product.curr_price);
-    const codBase = price - 2000;
-    const codTax = Math.round(codBase * 0.04);
-    const codPayable = codBase + codTax;
-    const totalCost = price + codTax;
-
-    document.getElementById('catSummaryCam').textContent = product.name;
-    document.getElementById('catInvoicePrice').textContent = `Rs ${formatPrice(price)}`;
-    
-    const catSummaryCodTax = document.getElementById('catSummaryCodTax');
-    const catSummaryCodPayable = document.getElementById('catSummaryCodPayable');
-    if (catSummaryCodTax) catSummaryCodTax.textContent = `Rs ${formatPrice(codTax)}`;
-    if (catSummaryCodPayable) catSummaryCodPayable.textContent = `Rs ${formatPrice(codPayable)}`;
-    
-    document.getElementById('catSummaryTotal').textContent = `Rs ${formatPrice(totalCost)}`;
-    
+    updateCategoryInvoiceSummary();
     if (modal) modal.classList.add('show');
+}
+
+function setupCatPaymentListeners() {
+    const radios = document.querySelectorAll('input[name="catPaymentMethod"]');
+    const cardAdvance = document.getElementById('catPmsCardAdvance');
+    const cardCod = document.getElementById('catPmsCardCod');
+
+    radios.forEach(radio => {
+        radio.addEventListener('change', e => {
+            _catPaymentMethod = e.target.value;
+            updateCategoryInvoiceSummary();
+        });
+    });
+
+    if (cardAdvance) {
+        cardAdvance.addEventListener('click', () => {
+            const radio = cardAdvance.querySelector('input[type="radio"]');
+            if (radio) radio.checked = true;
+            _catPaymentMethod = 'advance';
+            updateCategoryInvoiceSummary();
+        });
+    }
+
+    if (cardCod) {
+        cardCod.addEventListener('click', () => {
+            const radio = cardCod.querySelector('input[type="radio"]');
+            if (radio) radio.checked = true;
+            _catPaymentMethod = 'cod';
+            updateCategoryInvoiceSummary();
+        });
+    }
 }
 
 function renderGrid(gadgets, type, contact) {
@@ -576,6 +686,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === modal) modal.classList.remove('show');
     });
 
+    setupCatPaymentListeners();
+
     // Checkout form
     document.getElementById('catCheckoutForm')?.addEventListener('submit', e => {
         e.preventDefault();
@@ -584,13 +696,40 @@ document.addEventListener('DOMContentLoaded', () => {
         const phone = document.getElementById('catCustPhone').value;
         
         const price = Number(_selectedProduct.curr_price);
-        const codBase = price - 2000;
-        const codTax = Math.round(codBase * 0.04);
-        const codPayable = codBase + codTax;
-        const totalCost = price + codTax;
+        const isAdvance = (_catPaymentMethod === 'advance');
+        const codDeliveryFee = 500;
+        const codTax = Math.round(price * 0.04);
+        const totalSavings = codDeliveryFee + codTax;
+        const grandTotal = isAdvance ? price : (price + codDeliveryFee + codTax);
 
-        const msg = `Assalam-o-Alaikum S M Enterprises,\n\nMain apna order confirm karna chahta hun:\n- Name: ${name}\n- Phone: ${phone}\n- Product: ${_selectedProduct.name}\n- Base Price: Rs ${formatPrice(price)}\n- Advance Paid: Rs 2,000\n- COD Surcharge (4% Govt Tax): Rs ${formatPrice(codTax)}\n- Remaining Payable on Delivery: Rs ${formatPrice(codPayable)}\n- Total Order Cost: Rs ${formatPrice(totalCost)}\n\nNote: Advance payment screenshot yahan share karunga. Mujhe maloom hai ke COD amount par 4% government tax applicable hai.`;
+        const msg = `*NEW WEBSITE ORDER - SM ENTERPRISES*
+----------------------------------
+*Customer Name:* ${name}
+*Phone / WhatsApp:* ${phone}
+----------------------------------
+*Product:* ${_selectedProduct.name}
+*Payment Method:* ${isAdvance ? 'Full Payment Advance (Bank / JazzCash / EasyPaisa)' : 'Cash on Delivery (COD)'}
+*Base Price:* Rs ${formatPrice(price)}
+*Delivery Charges:* ${isAdvance ? 'FREE (Saved Rs. 500)' : 'Rs 500'}
+*Govt Courier Tax (4%):* ${isAdvance ? '0% WAIVED OFF (Saved Rs. ' + formatPrice(codTax) + ')' : 'Rs ' + formatPrice(codTax)}
+----------------------------------
+*TOTAL PAYABLE:* Rs ${formatPrice(grandTotal)}
+${isAdvance ? `⭐ *ADVANCE BENEFIT:* Free Delivery & 0% Tax (Saved Rs. ${formatPrice(totalSavings)})! I will attach payment screenshot.` : '⚠️ *COD:* Delivery Rs 500 + 4% Courier Tax included.'}
+----------------------------------
+Please confirm my order for dispatch!`;
         
+        // Capture lead
+        fetch('/api/capture-lead.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: name,
+                phone: phone,
+                product_interest: `Category Order [${isAdvance ? 'ADVANCE (Free Delivery + 0% Tax)' : 'COD (+Rs 500 Deliv + 4% Tax)'}] - ${_selectedProduct.name}`,
+                source: 'category_order_modal'
+            })
+        }).catch(err => console.warn('Lead capture error:', err));
+
         let waNum = "923206755555";
         if (window.cmsData && window.cmsData.contact && window.cmsData.contact.whatsapp) {
             const cleanNum = window.cmsData.contact.whatsapp.replace(/[-\s]+/g, '');

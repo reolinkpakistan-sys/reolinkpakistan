@@ -129,12 +129,144 @@ document.addEventListener('DOMContentLoaded', () => {
     const pkgTabs = document.querySelectorAll('.pkg-tab');
     const calcSubtotal = document.getElementById('calcSubtotal');
     const calcTotal = document.getElementById('calcTotal');
+    const calcTotalLabel = document.getElementById('calcTotalLabel');
+    const calcDeliveryVal = document.getElementById('calcDeliveryVal');
+    const calcTaxVal = document.getElementById('calcTaxVal');
     const barPrice = document.getElementById('barPrice');
+    const pmsBadgeSave = document.getElementById('pmsBadgeSave');
+    const advanceAmountDisplay = document.getElementById('advanceAmountDisplay');
+    const advanceBankBox = document.getElementById('advanceBankBox');
+    const codNoticeBox = document.getElementById('codNoticeBox');
+    const submitBtnText = document.getElementById('submitBtnText');
+    const pmsCardAdvance = document.getElementById('pmsCardAdvance');
+    const pmsCardCod = document.getElementById('pmsCardCod');
+    const paymentRadios = document.querySelectorAll('input[name="paymentMethod"]');
 
     let selectedPackage = {
         name: '1x JZONES V630 3-Channel Kit (Clearance Special)',
         price: 22500
     };
+    let selectedPaymentMethod = 'advance'; // 'advance' or 'cod'
+
+    function updatePricingCalculation() {
+        const basePrice = selectedPackage.price;
+        const codDeliveryFee = 500;
+        const codTax = Math.round(basePrice * 0.04);
+        const totalSavings = codDeliveryFee + codTax;
+
+        const isAdvance = (selectedPaymentMethod === 'advance');
+        const deliveryFee = isAdvance ? 0 : codDeliveryFee;
+        const taxFee = isAdvance ? 0 : codTax;
+        const grandTotal = basePrice + deliveryFee + taxFee;
+
+        // Subtotal
+        if (calcSubtotal) calcSubtotal.textContent = `Rs. ${basePrice.toLocaleString()}`;
+
+        // Delivery Row
+        if (calcDeliveryVal) {
+            if (isAdvance) {
+                calcDeliveryVal.textContent = 'FREE (Saved Rs. 500)';
+                calcDeliveryVal.className = 'text-green';
+            } else {
+                calcDeliveryVal.textContent = '+ Rs. 500';
+                calcDeliveryVal.className = 'text-white';
+            }
+        }
+
+        // Tax Row
+        if (calcTaxVal) {
+            if (isAdvance) {
+                calcTaxVal.textContent = `0% WAIVED OFF (Saved Rs. ${codTax.toLocaleString()})`;
+                calcTaxVal.className = 'text-green';
+            } else {
+                calcTaxVal.textContent = `+ Rs. ${codTax.toLocaleString()} (4% Govt Courier Tax)`;
+                calcTaxVal.className = 'text-white';
+            }
+        }
+
+        // Total
+        if (calcTotal) {
+            calcTotal.textContent = `Rs. ${grandTotal.toLocaleString()}`;
+            calcTotal.style.color = isAdvance ? '#10b981' : '#f59e0b';
+        }
+
+        // Total Label
+        if (calcTotalLabel) {
+            calcTotalLabel.textContent = isAdvance ? 'Total Payable (Full Advance - Free Delivery)' : 'Total Payable on Delivery (COD)';
+        }
+
+        // Badge Savings
+        if (pmsBadgeSave) {
+            pmsBadgeSave.innerHTML = `<i class="fas fa-bolt"></i> Advance Saves Rs. ${totalSavings.toLocaleString()}`;
+        }
+
+        // Bank Box & COD Notice Box
+        if (advanceAmountDisplay) {
+            advanceAmountDisplay.textContent = `Rs. ${basePrice.toLocaleString()}`;
+        }
+
+        if (advanceBankBox) {
+            if (isAdvance) advanceBankBox.classList.remove('hidden');
+            else advanceBankBox.classList.add('hidden');
+        }
+
+        if (codNoticeBox) {
+            if (!isAdvance) codNoticeBox.classList.remove('hidden');
+            else codNoticeBox.classList.add('hidden');
+        }
+
+        // Submit Button Text
+        if (submitBtnText) {
+            if (isAdvance) {
+                submitBtnText.textContent = `Confirm Order (Full Advance - Save Rs. ${totalSavings.toLocaleString()})`;
+            } else {
+                submitBtnText.textContent = `Confirm Cash on Delivery Order (Rs. ${grandTotal.toLocaleString()})`;
+            }
+        }
+
+        // Bottom Sticky Bar Price
+        if (barPrice) {
+            barPrice.textContent = `Rs. ${grandTotal.toLocaleString()}`;
+        }
+
+        // Update PMS Radio Cards UI
+        if (pmsCardAdvance) {
+            pmsCardAdvance.classList.toggle('active', isAdvance);
+            const icon = pmsCardAdvance.querySelector('.pms-radio-indicator i');
+            if (icon) icon.className = isAdvance ? 'fas fa-circle-check' : 'far fa-circle';
+        }
+        if (pmsCardCod) {
+            pmsCardCod.classList.toggle('active', !isAdvance);
+            const icon = pmsCardCod.querySelector('.pms-radio-indicator i');
+            if (icon) icon.className = !isAdvance ? 'fas fa-circle-check' : 'far fa-circle';
+        }
+    }
+
+    // Payment Radio Change Listeners
+    paymentRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            selectedPaymentMethod = e.target.value;
+            updatePricingCalculation();
+        });
+    });
+
+    if (pmsCardAdvance) {
+        pmsCardAdvance.addEventListener('click', () => {
+            const radio = pmsCardAdvance.querySelector('input[type="radio"]');
+            if (radio) radio.checked = true;
+            selectedPaymentMethod = 'advance';
+            updatePricingCalculation();
+        });
+    }
+
+    if (pmsCardCod) {
+        pmsCardCod.addEventListener('click', () => {
+            const radio = pmsCardCod.querySelector('input[type="radio"]');
+            if (radio) radio.checked = true;
+            selectedPaymentMethod = 'cod';
+            updatePricingCalculation();
+        });
+    }
 
     pkgTabs.forEach(tab => {
         tab.addEventListener('click', (e) => {
@@ -146,15 +278,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = tab.dataset.name;
 
             selectedPackage = { name, price };
-
-            const formattedPrice = `Rs. ${price.toLocaleString()}`;
-            if (calcSubtotal) calcSubtotal.textContent = formattedPrice;
-            if (calcTotal) calcTotal.textContent = formattedPrice;
-            if (barPrice) barPrice.textContent = formattedPrice;
+            updatePricingCalculation();
         });
     });
 
-    // --- 5. CASH ON DELIVERY FORM SUBMISSION ---
+    // Initial calculation run
+    updatePricingCalculation();
+
+    // --- 5. ORDER FORM SUBMISSION ---
     const checkoutForm = document.getElementById('appleCheckoutForm');
     const successOverlay = document.getElementById('orderSuccess');
     const closeSuccessBtn = document.getElementById('closeSuccessBtn');
@@ -173,21 +304,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            const basePrice = selectedPackage.price;
+            const codDeliveryFee = 500;
+            const codTax = Math.round(basePrice * 0.04);
+            const isAdvance = (selectedPaymentMethod === 'advance');
+            const grandTotal = isAdvance ? basePrice : (basePrice + codDeliveryFee + codTax);
+
             const orderData = {
                 package: selectedPackage.name,
-                total: `Rs. ${selectedPackage.price.toLocaleString()}`,
+                paymentMethod: selectedPaymentMethod,
+                basePrice: `Rs. ${basePrice.toLocaleString()}`,
+                deliveryFee: isAdvance ? 'FREE' : `Rs. ${codDeliveryFee}`,
+                tax: isAdvance ? 'WAIVED OFF (0%)' : `Rs. ${codTax.toLocaleString()} (4%)`,
+                total: `Rs. ${grandTotal.toLocaleString()}`,
                 customer: { name, phone, city, address },
                 date: new Date().toISOString()
             };
 
             // Securely capture lead in admin/leads.json
+            const paymentLabel = isAdvance ? 'ADVANCE (Free Delivery + 0% Tax)' : 'COD (+Rs 500 Deliv + 4% Tax)';
             fetch('/api/capture-lead.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name: name,
                     phone: phone,
-                    product_interest: `JZONES V630 4K Dashcam (Clearance Sale Rs. ${selectedPackage.price.toLocaleString()}) - ${selectedPackage.name} - City: ${city} - Address: ${address}`,
+                    product_interest: `JZONES V630 4K Dashcam [Payment: ${paymentLabel}] - Bill: Rs. ${grandTotal.toLocaleString()} - ${selectedPackage.name} - City: ${city} - Address: ${address}`,
                     source: 'jzones_v630_clearance_form'
                 })
             }).catch(err => console.warn('Lead capture error:', err));
@@ -216,14 +358,28 @@ document.addEventListener('DOMContentLoaded', () => {
             const city = document.getElementById('userCity').value || 'Pakistan';
             const address = document.getElementById('userAddress').value.trim() || 'Pending';
 
-            const message = `*NEW ORDER - JZONES V630 DASH CAM (CLEARANCE SALE)*
+            const basePrice = selectedPackage.price;
+            const codDeliveryFee = 500;
+            const codTax = Math.round(basePrice * 0.04);
+            const isAdvance = (selectedPaymentMethod === 'advance');
+            const totalSavings = codDeliveryFee + codTax;
+            const grandTotal = isAdvance ? basePrice : (basePrice + codDeliveryFee + codTax);
+
+            const message = `*NEW ORDER - JZONES V630 4K DASH CAM*
 *Distributor:* SM Enterprises Pakistan
 ----------------------------------
-*Offer:* Limited Clearance Sale (Flat Rs. 10,000 OFF)
+*Offer:* Limited Clearance Sale (1-Year Official Warranty)
 *Package:* ${selectedPackage.name}
-*Price:* Rs. ${selectedPackage.price.toLocaleString()} (Cash On Delivery)
+*Payment Method:* ${isAdvance ? 'Full Payment Advance (Bank/JazzCash/EasyPaisa)' : 'Cash on Delivery (COD)'}
+*Base Price:* Rs. ${basePrice.toLocaleString()}
+*Delivery Charges:* ${isAdvance ? 'FREE (Saved Rs. 500)' : 'Rs. 500'}
+*Govt Courier Tax (4%):* ${isAdvance ? '0% WAIVED OFF (Saved Rs. ' + codTax.toLocaleString() + ')' : 'Rs. ' + codTax.toLocaleString()}
+----------------------------------
+*TOTAL PAYABLE:* Rs. ${grandTotal.toLocaleString()}
+${isAdvance ? `⭐ *ADVANCE DEAL:* You saved Rs. ${totalSavings.toLocaleString()} in Delivery & Tax!` : '⚠️ *COD:* Delivery Rs. 500 + 4% Tax added.'}
+----------------------------------
 *Free Gift:* 64GB High-Endurance Card Included
-*Free Shipping:* All Pakistan Nationwide
+*Warranty:* 1 Year Official Replacement Warranty (SM Enterprises)
 
 *Customer Details:*
 • Name: ${name}
